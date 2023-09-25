@@ -1,0 +1,74 @@
+{
+    "25-09-2023": {
+        "screen_a": {
+            "text_1": "This small text is from text 1 parent field",
+            "children": {
+                "type_1": {
+                    "text_2": "This loooong Type [A] 1 text is from Text 2 child field",
+                    "time_1": "9:00", 
+                    "time_2": "10:00", 
+                    "rating": [1, 0, 0]
+                },
+                "type_2": {
+                    "text_2": "This loooong Type [A] 2 text is from Text 2 child field",
+                    "time_1": "10:00", 
+                    "time_2": "11:00", 
+                    "rating": [0, 1, 0]
+                }, 
+                "type_3": {
+                    "text_2": "This loooong Type [A] 3 text is from Text 2 child field",
+                    "time_1": "11:00", 
+                    "time_2": "12:30", 
+                    "rating": [0, 1, 0]
+                }
+            }
+            
+        },
+        "screen_b": {
+            "text_1": "This small text is from text 1 parent field",
+            "children": {
+                "type_1": {
+                    "text_2": "This loooong Type [B] 1 text is from Text 2 child field",
+                    "time_1": "9:00", 
+                    "time_2": "10:00", 
+                    "rating": [0, 1, 0]
+                },
+                "type_2": {
+                    "text_2": "This loooong Type [B] 2 text is from Text 2 child field",
+                    "time_1": "10:00", 
+                    "time_2": "11:00", 
+                    "rating": [1, 0, 0]
+                }, 
+                "type_3": {
+                    "text_2": "This loooong Type [B] 3 text is from Text 2 child field",
+                    "time_1": "11:00", 
+                    "time_2": "12:30", 
+                    "rating": [0, 0, 1]
+                }
+            }
+        },
+        "screen_c": {
+            "text_1": "This small text is from text 1 parent field",
+            "children": {
+                "type_1": {
+                    "text_2": "This loooong Type [C] 1 text is from Text 2 child field",
+                    "time_1": "9:00", 
+                    "time_2": "10:00", 
+                    "rating": [0, 1, 0]
+                },
+                "type_2": {
+                    "text_2": "This loooong Type [C] 2 text is from Text 2 child field",
+                    "time_1": "10:00", 
+                    "time_2": "11:00", 
+                    "rating": [1, 0, 0]
+                }, 
+                "type_3": {
+                    "text_2": "This loooong Type [C] 3 text is from Text 2 child field",
+                    "time_1": "11:00", 
+                    "time_2": "12:30", 
+                    "rating": [0, 0, 1]
+                }
+            }
+        }
+    }
+}
