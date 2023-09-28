@@ -7,6 +7,8 @@ class TabOne {
   late Screen screenB;
   late Screen screenC;
   TabOne(this.data, this.date) {
-    // TODO Inshaa Allah :: Add data to the late fields.
+    screenA = Screen(data, date, ScreenType.a);
+    screenB = Screen(data, date, ScreenType.b);
+    screenC = Screen(data, date, ScreenType.c);
   }
 }
