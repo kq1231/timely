@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/views/tab_one_input_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -11,12 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData.dark(
         useMaterial3: true,
       ),
       themeMode: ThemeMode.dark,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const DefaultTabController(
+          length: 2, child: MyHomePage(title: 'Timely')),
     );
   }
 }
@@ -31,40 +32,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        bottom: const TabBar(tabs: [
+          Tab(text: "Tab 1"),
+          Tab(text: "Tab 2"),
+        ]),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      body: const TabBarView(
+          children: [TabOneInputScreen(), Icon(Icons.account_box_outlined)]),
     );
   }
 }
