@@ -1,14 +1,14 @@
-import 'screens.dart';
+import 'type.dart';
 
 class TabOne {
   final Map data;
   String date;
-  late Screen screenA;
-  late Screen screenB;
-  late Screen screenC;
+  late Type typeA;
+  late Type typeB;
+  late Type typeC;
   TabOne(this.data, this.date) {
-    screenA = Screen(data, date, ScreenType.a);
-    screenB = Screen(data, date, ScreenType.b);
-    screenC = Screen(data, date, ScreenType.c);
+    typeA = Type(data, date, Types.a);
+    typeB = Type(data, date, Types.b);
+    typeC = Type(data, date, Types.c);
   }
 }
