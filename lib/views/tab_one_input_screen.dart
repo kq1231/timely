@@ -137,7 +137,7 @@ class TabOneInputScreen extends ConsumerWidget {
               ),
               const Expanded(
                 child: TextField(
-                  decoration: InputDecoration(label: Text("Text 2[A]")),
+                  decoration: InputDecoration(label: Text("Text 2[B]")),
                 ),
               ),
             ],
@@ -189,7 +189,7 @@ class TabOneInputScreen extends ConsumerWidget {
               ),
               const Expanded(
                 child: TextField(
-                  decoration: InputDecoration(label: Text("Text 2[A]")),
+                  decoration: InputDecoration(label: Text("Text 2[C]")),
                 ),
               ),
             ],
