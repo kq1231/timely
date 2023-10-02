@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/controllers/tab_one_input_controller.dart';
+import 'package:timely/controllers/time_provider.dart';
 import 'package:timely/layout_params.dart';
 
 class TabOneInputScreen extends ConsumerWidget {
@@ -10,6 +11,10 @@ class TabOneInputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(tabOneInputProvider.notifier)
+      ..setTime_1(ref.read(timeProvider)["time_1"])
+      ..setTime_2(ref.read(timeProvider)["time_2"]);
+
     return ListView(
       children: [
         Padding(
@@ -23,7 +28,7 @@ class TabOneInputScreen extends ConsumerWidget {
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
-                DateTime.now().toString().substring(11, 16),
+                ref.read(timeProvider)["time_1"],
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               )
@@ -53,7 +58,7 @@ class TabOneInputScreen extends ConsumerWidget {
                       onChanged: (value) {
                         ref
                             .read(tabOneInputProvider.notifier)
-                            .activateTypeARatingValue();
+                            .activateTypeARatingValue(0);
                         setState(() {});
                       },
                     ),
@@ -63,7 +68,7 @@ class TabOneInputScreen extends ConsumerWidget {
                       onChanged: (value) {
                         ref
                             .read(tabOneInputProvider.notifier)
-                            .activateTypeBRatingValue();
+                            .activateTypeARatingValue(1);
                         setState(() {});
                       },
                     ),
@@ -73,7 +78,7 @@ class TabOneInputScreen extends ConsumerWidget {
                       onChanged: (value) {
                         ref
                             .read(tabOneInputProvider.notifier)
-                            .activateTypeCRatingValue();
+                            .activateTypeARatingValue(2);
                         setState(() {});
                       },
                     ),
@@ -83,9 +88,14 @@ class TabOneInputScreen extends ConsumerWidget {
               const SizedBox(
                 width: 10,
               ),
-              const Expanded(
+              Expanded(
                 child: TextField(
-                  decoration: InputDecoration(label: Text("Text 2[A]")),
+                  decoration: const InputDecoration(label: Text("Text 2[A]")),
+                  onChanged: (value) {
+                    ref
+                        .read(tabOneInputProvider.notifier)
+                        .setTypeAText_2(value);
+                  },
                 ),
               ),
             ],
@@ -100,32 +110,32 @@ class TabOneInputScreen extends ConsumerWidget {
                 return Column(
                   children: [
                     Radio(
-                      value: ref.read(tabOneInputProvider)[0].ratingValue,
+                      value: ref.read(tabOneInputProvider)[1].ratingValue,
                       groupValue: 0,
                       onChanged: (value) {
                         ref
                             .read(tabOneInputProvider.notifier)
-                            .activateTypeARatingValue();
+                            .activateTypeBRatingValue(0);
                         setState(() {});
                       },
                     ),
                     Radio(
-                      value: ref.read(tabOneInputProvider)[0].ratingValue,
+                      value: ref.read(tabOneInputProvider)[1].ratingValue,
                       groupValue: 1,
                       onChanged: (value) {
                         ref
                             .read(tabOneInputProvider.notifier)
-                            .activateTypeBRatingValue();
+                            .activateTypeBRatingValue(1);
                         setState(() {});
                       },
                     ),
                     Radio(
-                      value: ref.read(tabOneInputProvider)[0].ratingValue,
+                      value: ref.read(tabOneInputProvider)[1].ratingValue,
                       groupValue: 2,
                       onChanged: (value) {
                         ref
                             .read(tabOneInputProvider.notifier)
-                            .activateTypeCRatingValue();
+                            .activateTypeBRatingValue(2);
                         setState(() {});
                       },
                     ),
@@ -135,9 +145,14 @@ class TabOneInputScreen extends ConsumerWidget {
               const SizedBox(
                 width: 10,
               ),
-              const Expanded(
+              Expanded(
                 child: TextField(
-                  decoration: InputDecoration(label: Text("Text 2[B]")),
+                  decoration: const InputDecoration(label: Text("Text 2[B]")),
+                  onChanged: (value) {
+                    ref
+                        .read(tabOneInputProvider.notifier)
+                        .setTypeBText_2(value);
+                  },
                 ),
               ),
             ],
@@ -152,32 +167,32 @@ class TabOneInputScreen extends ConsumerWidget {
                 return Column(
                   children: [
                     Radio(
-                      value: ref.read(tabOneInputProvider)[0].ratingValue,
+                      value: ref.read(tabOneInputProvider)[2].ratingValue,
                       groupValue: 0,
                       onChanged: (value) {
                         ref
                             .read(tabOneInputProvider.notifier)
-                            .activateTypeARatingValue();
+                            .activateTypeCRatingValue(0);
                         setState(() {});
                       },
                     ),
                     Radio(
-                      value: ref.read(tabOneInputProvider)[0].ratingValue,
+                      value: ref.read(tabOneInputProvider)[2].ratingValue,
                       groupValue: 1,
                       onChanged: (value) {
                         ref
                             .read(tabOneInputProvider.notifier)
-                            .activateTypeBRatingValue();
+                            .activateTypeCRatingValue(1);
                         setState(() {});
                       },
                     ),
                     Radio(
-                      value: ref.read(tabOneInputProvider)[0].ratingValue,
+                      value: ref.read(tabOneInputProvider)[2].ratingValue,
                       groupValue: 2,
                       onChanged: (value) {
                         ref
                             .read(tabOneInputProvider.notifier)
-                            .activateTypeCRatingValue();
+                            .activateTypeCRatingValue(2);
                         setState(() {});
                       },
                     ),
@@ -187,9 +202,14 @@ class TabOneInputScreen extends ConsumerWidget {
               const SizedBox(
                 width: 10,
               ),
-              const Expanded(
+              Expanded(
                 child: TextField(
-                  decoration: InputDecoration(label: Text("Text 2[C]")),
+                  decoration: const InputDecoration(label: Text("Text 2[C]")),
+                  onChanged: (value) {
+                    ref
+                        .read(tabOneInputProvider.notifier)
+                        .setTypeCText_2(value);
+                  },
                 ),
               ),
             ],
@@ -201,7 +221,7 @@ class TabOneInputScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                DateTime.now().toString().substring(11, 16),
+                ref.read(timeProvider)["time_2"],
                 style: timeStyle,
               ),
               const Spacer(
@@ -211,7 +231,13 @@ class TabOneInputScreen extends ConsumerWidget {
               const Spacer(
                 flex: 1,
               ),
-              ElevatedButton(onPressed: () {}, child: const Text("Submit")),
+              ElevatedButton(
+                  onPressed: () async {
+                    await ref
+                        .read(tabOneInputProvider.notifier)
+                        .syncToDB("25-09-2023");
+                  },
+                  child: const Text("Submit")),
             ],
           ),
         ),

@@ -1,5 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/models/subtype.dart';
+import 'db_files_provider.dart';
 
 class InputSubType extends SubType {
   int ratingValue = 0;
@@ -58,15 +61,39 @@ class TabOneInputNotifier extends Notifier<List<InputSubType>> {
     state[2].text_2 = text_2;
   }
 
-  void setTypeARating(List<int> rating) {
+  void setTypeARating() {
+    List rating = [];
+    for (int i in Iterable.generate(3)) {
+      if (state[0].ratingValue == i) {
+        rating.add(1);
+      } else {
+        rating.add(0);
+      }
+    }
     state[0].rating = rating;
   }
 
-  void setTypeBRating(List<int> rating) {
+  void setTypeBRating() {
+    List rating = [];
+    for (int i in Iterable.generate(3)) {
+      if (state[1].ratingValue == i) {
+        rating.add(1);
+      } else {
+        rating.add(0);
+      }
+    }
     state[1].rating = rating;
   }
 
-  void setTypeCRating(List<int> rating) {
+  void setTypeCRating() {
+    List rating = [];
+    for (int i in Iterable.generate(3)) {
+      if (state[2].ratingValue == i) {
+        rating.add(1);
+      } else {
+        rating.add(0);
+      }
+    }
     state[2].rating = rating;
   }
 
@@ -76,16 +103,44 @@ class TabOneInputNotifier extends Notifier<List<InputSubType>> {
     }
   }
 
-  void activateTypeARatingValue() {
-    state[0].ratingValue = 0;
+  void activateTypeARatingValue(int value) {
+    state[0].ratingValue = value;
   }
 
-  void activateTypeBRatingValue() {
-    state[0].ratingValue = 1;
+  void activateTypeBRatingValue(int value) {
+    state[1].ratingValue = value;
   }
 
-  void activateTypeCRatingValue() {
-    state[0].ratingValue = 2;
+  void activateTypeCRatingValue(int value) {
+    state[2].ratingValue = value;
+  }
+
+  Future<void> syncToDB(String date) async {
+    File tabOneFile = ref.read(dbFilesProvider)["tabOne"]!;
+    Map tabOneData = jsonDecode(await tabOneFile.readAsString()) as Map;
+
+    setTypeARating();
+    setTypeBRating();
+    setTypeCRating();
+
+    // First add all the text_1[s]
+    int i = 0;
+    for (String type in ["type_a", "type_b", "type_c"]) {
+      tabOneData[date][type]["text_1"] = state[i].text_1;
+
+      // Then, add all the children
+      tabOneData[date][type]["children"].add({
+        "text_2": state[i].text_2,
+        "time_1": state[i].time_1,
+        "time_2": state[i].time_2,
+        "rating": state[i].rating,
+      });
+
+      i++;
+    }
+
+    // Sync the changes to the file
+    await tabOneFile.writeAsString(jsonEncode(tabOneData));
   }
 }
 
