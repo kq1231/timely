@@ -1,26 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/models/subtype.dart';
+import 'package:timely/models/input_subtype.dart';
 import 'db_files_provider.dart';
-
-class InputSubType extends SubType {
-  int ratingValue = 0;
-
-  InputSubType({
-    required String text_1,
-    required String time_1,
-    required String time_2,
-    required String text_2,
-    required List rating,
-    required int ratingValue,
-  }) : super(
-            rating: rating,
-            text_1: text_1,
-            text_2: text_2,
-            time_1: time_1,
-            time_2: time_2);
-}
 
 class TabOneInputNotifier extends Notifier<List<InputSubType>> {
   @override
@@ -114,26 +96,36 @@ class TabOneInputNotifier extends Notifier<List<InputSubType>> {
   void activateTypeCRatingValue(int value) {
     state[2].ratingValue = value;
   }
+}
 
-  Future<void> syncToDB(String date) async {
+class TabOneSyncNotifier extends StateNotifier<AsyncValue<void>> {
+  final StateNotifierProviderRef ref;
+  TabOneSyncNotifier(this.ref) : super(const AsyncValue.data(null));
+
+  Future<void> syncToDB() async {
+    state = const AsyncValue.loading();
+
+    // Fake loading effect for awesomeness
+    await Future.delayed(const Duration(seconds: 1));
     File tabOneFile = ref.read(dbFilesProvider)["tabOne"]!;
     Map tabOneData = jsonDecode(await tabOneFile.readAsString()) as Map;
 
-    setTypeARating();
-    setTypeBRating();
-    setTypeCRating();
+    ref.read(tabOneInputSubTypesProvider.notifier).setTypeARating();
+    ref.read(tabOneInputSubTypesProvider.notifier).setTypeBRating();
+    ref.read(tabOneInputSubTypesProvider.notifier).setTypeCRating();
 
     // First add all the text_1[s]
     int i = 0;
     for (String type in ["type_a", "type_b", "type_c"]) {
-      tabOneData[date][type]["text_1"] = state[i].text_1;
+      tabOneData["25-09-2023"][type]["text_1"] =
+          ref.read(tabOneInputSubTypesProvider)[i].text_1;
 
       // Then, add all the children
-      tabOneData[date][type]["children"].add({
-        "text_2": state[i].text_2,
-        "time_1": state[i].time_1,
-        "time_2": state[i].time_2,
-        "rating": state[i].rating,
+      tabOneData["25-09-2023"][type]["children"].add({
+        "text_2": ref.read(tabOneInputSubTypesProvider)[i].text_2,
+        "time_1": ref.read(tabOneInputSubTypesProvider)[i].time_1,
+        "time_2": ref.read(tabOneInputSubTypesProvider)[i].time_2,
+        "rating": ref.read(tabOneInputSubTypesProvider)[i].rating,
       });
 
       i++;
@@ -141,10 +133,18 @@ class TabOneInputNotifier extends Notifier<List<InputSubType>> {
 
     // Sync the changes to the file
     await tabOneFile.writeAsString(jsonEncode(tabOneData));
+    state = const AsyncValue.data(null);
   }
 }
 
-final tabOneInputProvider =
+// Providers || Controllers
+
+final tabOneInputSubTypesProvider =
     NotifierProvider<TabOneInputNotifier, List<InputSubType>>(() {
   return TabOneInputNotifier();
+});
+
+final tabOneSyncInputProvider =
+    StateNotifierProvider<TabOneSyncNotifier, AsyncValue<void>>((ref) {
+  return TabOneSyncNotifier(ref);
 });
