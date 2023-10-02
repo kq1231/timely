@@ -14,16 +14,19 @@ class Type {
     text_1 = key["text_1"];
 
     type_1 = SubType(
+        text_1: key["type_1"]["text_1"],
         text_2: key["type_1"]["text_2"],
         time_1: key["type_1"]["time_1"],
         time_2: key["type_1"]["time_2"],
         rating: key["type_1"]["rating"]);
     type_2 = SubType(
+        text_1: key["type_2"]["text_1"],
         text_2: key["type_2"]["text_2"],
         time_1: key["type_2"]["time_1"],
         time_2: key["type_2"]["time_2"],
         rating: key["type_2"]["rating"]);
     type_3 = SubType(
+        text_1: key["type_3"]["text_1"],
         text_2: key["type_3"]["text_2"],
         time_1: key["type_3"]["time_1"],
         time_2: key["type_3"]["time_2"],
