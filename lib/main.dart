@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/views/tab_one_input_screen.dart';
+import 'package:timely/views/tab_one/tab_one_input_screen.dart';
+import 'package:timely/views/tab_one/tab_one_output_screen_c.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.dark,
       home: const DefaultTabController(
-          length: 2, child: MyHomePage(title: 'Timely')),
+          length: 3, child: MyHomePage(title: 'Timely')),
     );
   }
 }
@@ -39,12 +40,16 @@ class _MyHomePageState extends State<MyHomePage> {
         bottom: const TabBar(tabs: [
           Tab(text: "Tab 1"),
           Tab(text: "Tab 2"),
+          Tab(text: "Tab 3"),
         ]),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const TabBarView(
-          children: [TabOneInputScreen(), Icon(Icons.account_box_outlined)]),
+      body: const TabBarView(children: [
+        TabOneInputScreen(),
+        Icon(Icons.account_box_outlined),
+        TabOneOutputScreenC()
+      ]),
     );
   }
 }

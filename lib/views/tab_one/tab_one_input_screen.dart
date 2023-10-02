@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/controllers/tab_one_input_controllers.dart';
+import 'package:timely/controllers/tab_one/tab_one_input_controllers.dart';
 import 'package:timely/controllers/time_provider.dart';
 import 'package:timely/layout_params.dart';
 
@@ -40,6 +40,8 @@ class TabOneInputScreen extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextField(
+            controller: TextEditingController(
+                text: ref.read(tabOneInputSubTypesProvider)[0].text_1),
             decoration: const InputDecoration(labelText: "Text 1"),
             onChanged: (value) {
               ref.read(tabOneInputSubTypesProvider.notifier).setText_1(value);
@@ -75,7 +77,11 @@ class TabOneInputScreen extends ConsumerWidget {
               ),
               Expanded(
                 child: TextField(
-                  decoration: const InputDecoration(label: Text("Text 2[A]")),
+                  controller: TextEditingController(
+                      text: ref.read(tabOneInputSubTypesProvider)[0].text_2),
+                  decoration: const InputDecoration(
+                    label: Text("Text 2[A]"),
+                  ),
                   onChanged: (value) {
                     ref
                         .read(tabOneInputSubTypesProvider.notifier)
@@ -115,6 +121,8 @@ class TabOneInputScreen extends ConsumerWidget {
               ),
               Expanded(
                 child: TextField(
+                  controller: TextEditingController(
+                      text: ref.read(tabOneInputSubTypesProvider)[1].text_2),
                   decoration: const InputDecoration(label: Text("Text 2[B]")),
                   onChanged: (value) {
                     ref
@@ -155,6 +163,8 @@ class TabOneInputScreen extends ConsumerWidget {
               ),
               Expanded(
                 child: TextField(
+                  controller: TextEditingController(
+                      text: ref.read(tabOneInputSubTypesProvider)[2].text_2),
                   decoration: const InputDecoration(label: Text("Text 2[C]")),
                   onChanged: (value) {
                     ref
@@ -187,8 +197,8 @@ class TabOneInputScreen extends ConsumerWidget {
                     await ref.read(tabOneSyncInputProvider.notifier).syncToDB();
                   },
                   child: savingState is AsyncLoading<void>
-                      ? CircularProgressIndicator()
-                      : Text("Submit")),
+                      ? const CircularProgressIndicator()
+                      : const Text("Submit")),
             ],
           ),
         ),

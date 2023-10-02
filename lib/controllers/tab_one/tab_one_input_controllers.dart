@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/models/input_subtype.dart';
-import 'db_files_provider.dart';
+import '../db_files_provider.dart';
 
 class TabOneInputNotifier extends Notifier<List<InputSubType>> {
   @override
@@ -145,6 +145,7 @@ final tabOneInputSubTypesProvider =
 });
 
 final tabOneSyncInputProvider =
-    StateNotifierProvider<TabOneSyncNotifier, AsyncValue<void>>((ref) {
+    StateNotifierProvider.autoDispose<TabOneSyncNotifier, AsyncValue<void>>(
+        (ref) {
   return TabOneSyncNotifier(ref);
 });
