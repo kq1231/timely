@@ -1,6 +1,6 @@
 {
     "02-10-2023": {
-        "text_1": "Some top-level text",
+        "text_1": "asdg",
         "data": {
             "09:00": {
                 "type_a": {
@@ -54,9 +54,40 @@
                     "comment": "Some comment"
                 }
             }
+        },
+        "14:44": {
+            "type_a": {
+                "rating": [
+                    [
+                        1,
+                        0,
+                        0
+                    ]
+                ],
+                "comment": "asgd"
+            },
+            "type_b": {
+                "rating": [
+                    [
+                        0,
+                        1,
+                        0
+                    ]
+                ],
+                "comment": "ads"
+            },
+            "type_c": {
+                "rating": [
+                    [
+                        0,
+                        0,
+                        1
+                    ]
+                ],
+                "comment": "cads"
+            }
         }
     },
-
     "03-10-2023": {
         "text 1": "Some top-level text",
         "data": {

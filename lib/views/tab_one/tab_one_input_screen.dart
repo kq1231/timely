@@ -103,7 +103,7 @@ class TabOneInputScreen extends ConsumerWidget {
                       Radio(
                         value: ref
                             .read(tabOneInputController)
-                            .types[0]
+                            .types[1]
                             .rating
                             .indexOf(1),
                         groupValue: i,
@@ -147,7 +147,7 @@ class TabOneInputScreen extends ConsumerWidget {
                       Radio(
                         value: ref
                             .read(tabOneInputController)
-                            .types[0]
+                            .types[2]
                             .rating
                             .indexOf(1),
                         groupValue: i,
@@ -196,12 +196,13 @@ class TabOneInputScreen extends ConsumerWidget {
                 flex: 1,
               ),
               ElevatedButton(
-                  onPressed: () async {
-                    await ref
-                        .read(tabOneInputController.notifier)
-                        .syncChangesToDB();
-                  },
-                  child: const Text("Submit")),
+                onPressed: () async {
+                  await ref
+                      .read(tabOneInputController.notifier)
+                      .syncChangesToDB();
+                },
+                child: const Text("Submit"),
+              ),
             ],
           ),
         ),

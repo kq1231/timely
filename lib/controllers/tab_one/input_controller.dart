@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/controllers/db_files_provider.dart';
-import 'package:timely/controllers/tab_one/raw_data_provider.dart';
 import 'package:timely/models/interval.dart';
 import 'package:timely/models/type.dart';
 
@@ -78,11 +76,12 @@ class TabOneInputNotifier extends Notifier<Interval> {
   }
 
   Future<void> syncChangesToDB() async {
-    Map tabOneData = ref.read(tabOneRawDataProvider);
+    Map tabOneData =
+        jsonDecode(await ref.read(dbFilesProvider).tabOneFile.readAsString());
 
     // Mutations
     tabOneData["02-10-2023"]["text_1"] = ref.read(text_1Provider);
-    tabOneData[state.time_1] = {
+    tabOneData["02-10-2023"][state.time_1] = {
       "type_a": {
         "rating": [state.types[0].rating],
         "comment": state.types[0].comment,

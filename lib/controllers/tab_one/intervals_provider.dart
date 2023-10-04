@@ -1,5 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/controllers/tab_one/raw_data_provider.dart';
+import 'package:timely/controllers/db_files_provider.dart';
 import 'package:timely/models/interval.dart';
 import 'package:timely/models/type.dart';
 
@@ -9,8 +11,10 @@ class TabOneDataNotifier extends Notifier<List<Interval>> {
     return [];
   }
 
-  void fetch() {
-    Map tabOneData = ref.read(tabOneRawDataProvider);
+  Future<void> fetch() async {
+    File tabOneFile = ref.read(dbFilesProvider).tabOneFile;
+
+    Map tabOneData = jsonDecode(await tabOneFile.readAsString());
 
     // Get the intervals for the $date
     Map intervals = tabOneData["02-10-2023"]["data"];
