@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/controllers/tab_one/tab_one_input_controllers.dart';
+import 'package:timely/controllers/tab_one/input_controller.dart';
 import 'package:timely/controllers/time_provider.dart';
 import 'package:timely/layout_params.dart';
 
@@ -11,11 +11,9 @@ class TabOneInputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(tabOneInputSubTypesProvider.notifier)
-      ..setTime_1(ref.read(timeProvider)["time_1"])
-      ..setTime_2(ref.read(timeProvider)["time_2"]);
-
-    final savingState = ref.watch(tabOneSyncInputProvider);
+    ref
+        .read(tabOneInputController.notifier)
+        .setTime_1(ref.read(timeProvider)["time_1"]);
 
     return ListView(
       children: [
@@ -40,11 +38,10 @@ class TabOneInputScreen extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextField(
-            controller: TextEditingController(
-                text: ref.read(tabOneInputSubTypesProvider)[0].text_1),
+            controller: TextEditingController(text: ref.read(text_1Provider)),
             decoration: const InputDecoration(labelText: "Text 1"),
             onChanged: (value) {
-              ref.read(tabOneInputSubTypesProvider.notifier).setText_1(value);
+              ref.read(text_1Provider.notifier).state = value;
             },
           ),
         ),
@@ -59,13 +56,15 @@ class TabOneInputScreen extends ConsumerWidget {
                     for (int i in Iterable.generate(3))
                       Radio(
                         value: ref
-                            .read(tabOneInputSubTypesProvider)[0]
-                            .ratingValue,
+                            .read(tabOneInputController)
+                            .types[0]
+                            .rating
+                            .indexOf(1),
                         groupValue: i,
                         onChanged: (value) {
                           ref
-                              .read(tabOneInputSubTypesProvider.notifier)
-                              .activateTypeARatingValue(i);
+                              .read(tabOneInputController.notifier)
+                              .setTypeARating(i);
                           setState(() {});
                         },
                       ),
@@ -78,14 +77,14 @@ class TabOneInputScreen extends ConsumerWidget {
               Expanded(
                 child: TextField(
                   controller: TextEditingController(
-                      text: ref.read(tabOneInputSubTypesProvider)[0].text_2),
+                      text: ref.read(tabOneInputController).types[0].comment),
                   decoration: const InputDecoration(
                     label: Text("Text 2[A]"),
                   ),
                   onChanged: (value) {
                     ref
-                        .read(tabOneInputSubTypesProvider.notifier)
-                        .setTypeAText_2(value);
+                        .read(tabOneInputController.notifier)
+                        .setTypeAComment(value);
                   },
                 ),
               ),
@@ -103,13 +102,15 @@ class TabOneInputScreen extends ConsumerWidget {
                     for (int i in Iterable.generate(3))
                       Radio(
                         value: ref
-                            .read(tabOneInputSubTypesProvider)[1]
-                            .ratingValue,
+                            .read(tabOneInputController)
+                            .types[0]
+                            .rating
+                            .indexOf(1),
                         groupValue: i,
                         onChanged: (value) {
                           ref
-                              .read(tabOneInputSubTypesProvider.notifier)
-                              .activateTypeBRatingValue(i);
+                              .read(tabOneInputController.notifier)
+                              .setTypeBRating(i);
                           setState(() {});
                         },
                       ),
@@ -122,12 +123,12 @@ class TabOneInputScreen extends ConsumerWidget {
               Expanded(
                 child: TextField(
                   controller: TextEditingController(
-                      text: ref.read(tabOneInputSubTypesProvider)[1].text_2),
+                      text: ref.read(tabOneInputController).types[1].comment),
                   decoration: const InputDecoration(label: Text("Text 2[B]")),
                   onChanged: (value) {
                     ref
-                        .read(tabOneInputSubTypesProvider.notifier)
-                        .setTypeBText_2(value);
+                        .read(tabOneInputController.notifier)
+                        .setTypeBComment(value);
                   },
                 ),
               ),
@@ -145,13 +146,15 @@ class TabOneInputScreen extends ConsumerWidget {
                     for (int i in Iterable.generate(3))
                       Radio(
                         value: ref
-                            .read(tabOneInputSubTypesProvider)[2]
-                            .ratingValue,
+                            .read(tabOneInputController)
+                            .types[0]
+                            .rating
+                            .indexOf(1),
                         groupValue: i,
                         onChanged: (value) {
                           ref
-                              .read(tabOneInputSubTypesProvider.notifier)
-                              .activateTypeCRatingValue(i);
+                              .read(tabOneInputController.notifier)
+                              .setTypeCRating(i);
                           setState(() {});
                         },
                       ),
@@ -164,12 +167,12 @@ class TabOneInputScreen extends ConsumerWidget {
               Expanded(
                 child: TextField(
                   controller: TextEditingController(
-                      text: ref.read(tabOneInputSubTypesProvider)[2].text_2),
+                      text: ref.read(tabOneInputController).types[2].comment),
                   decoration: const InputDecoration(label: Text("Text 2[C]")),
                   onChanged: (value) {
                     ref
-                        .read(tabOneInputSubTypesProvider.notifier)
-                        .setTypeCText_2(value);
+                        .read(tabOneInputController.notifier)
+                        .setTypeCComment(value);
                   },
                 ),
               ),
@@ -194,11 +197,11 @@ class TabOneInputScreen extends ConsumerWidget {
               ),
               ElevatedButton(
                   onPressed: () async {
-                    await ref.read(tabOneSyncInputProvider.notifier).syncToDB();
+                    await ref
+                        .read(tabOneInputController.notifier)
+                        .syncChangesToDB();
                   },
-                  child: savingState is AsyncLoading<void>
-                      ? const CircularProgressIndicator()
-                      : const Text("Submit")),
+                  child: const Text("Submit")),
             ],
           ),
         ),
