@@ -89,7 +89,7 @@
         }
     },
     "03-10-2023": {
-        "text 1": "Some top-level text",
+        "text_1": "Some top-level text",
         "data": {
             "9:30": {
                 "type_a": {

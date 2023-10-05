@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/views/tab_one/tab_one_input_screen.dart';
+import 'package:timely/views/tab_one/tab_one_output_screen_c.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -44,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: const TabBarView(children: [
-        TabOneInputScreen(),
+        TabOneOutputScreenC(),
         Icon(Icons.account_box_outlined),
       ]),
     );
