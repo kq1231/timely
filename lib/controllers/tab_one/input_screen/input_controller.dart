@@ -9,6 +9,7 @@ class TabOneInputNotifier extends Notifier<Interval> {
   @override
   Interval build() {
     return Interval(
+      date: "",
       time_1: "",
       types: <Type>[
         Type(typeCategory: TypeCategory.a, rating: [1, 0, 0], comment: ""),

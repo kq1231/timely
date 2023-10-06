@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/controllers/tab_one/output_screen_c_provider.dart';
+import 'package:timely/controllers/tab_one/output_screens/output_screen_c_provider.dart';
 import 'package:timely/layout_params.dart';
 
 class TabOneOutputScreenC extends ConsumerWidget {
@@ -8,12 +8,7 @@ class TabOneOutputScreenC extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print("BUILD");
     AsyncValue text_1sFutureProvider = ref.watch(outputScreenCProvider);
-
-    Future.delayed(const Duration(seconds: 6), () {
-      return ref.invalidate(outputScreenCProvider);
-    });
 
     return text_1sFutureProvider.when(
         data: (tab_1s) {
@@ -37,6 +32,6 @@ class TabOneOutputScreenC extends ConsumerWidget {
           );
         },
         error: (_, __) => const Center(child: Text("Error")),
-        loading: () => const CircularProgressIndicator());
+        loading: () => const Center(child: CircularProgressIndicator()));
   }
 }

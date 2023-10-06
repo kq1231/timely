@@ -13,17 +13,17 @@
                 },
                 "type_b": {
                     "rating": [
-                        1,
                         0,
-                        0
+                        0,
+                        1
                     ],
                     "comment": "Some comment"
                 },
                 "type_c": {
                     "rating": [
-                        1,
                         0,
-                        0
+                        0,
+                        1
                     ],
                     "comment": "Some comment"
                 }

@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/controllers/db_files_provider.dart';
 
-final outputScreenCProvider = FutureProvider<Map<String, String>>((ref) async {
+final outputScreenCProvider =
+    FutureProvider.autoDispose<Map<String, String>>((ref) async {
   // Fake delay for awesomeness
-  await Future.delayed(const Duration(seconds: 3));
+  await Future.delayed(const Duration(milliseconds: 400));
 
   // First, read the file content
   Map tabOneData =

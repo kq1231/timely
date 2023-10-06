@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/controllers/tab_one/input_controller.dart';
+import 'package:timely/controllers/tab_one/input_screen/input_controller.dart';
 import 'package:timely/controllers/time_provider.dart';
 import 'package:timely/layout_params.dart';
 
