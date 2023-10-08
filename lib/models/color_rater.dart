@@ -1,7 +1,6 @@
-import 'package:timely/models/interval.dart';
-
-class ColorRater extends Interval {
+class ColorRater {
+  final String time_1;
   final num ratingResult;
-  ColorRater(date, time_1, this.ratingResult)
-      : super(date: date, time_1: time_1, types: []);
+  final List<String> text_2s;
+  ColorRater(this.time_1, this.ratingResult, this.text_2s);
 }

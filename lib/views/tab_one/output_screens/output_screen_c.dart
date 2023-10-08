@@ -17,12 +17,17 @@ class TabOneOutputScreenC extends ConsumerWidget {
               return Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(tab_1s.keys.toList()[index], style: timeStyle),
-                    Text(
-                      tab_1s.values.toList()[index],
-                      style: timeStyle,
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Flexible(
+                      child: Text(
+                        tab_1s.values.toList()[index],
+                        style: timeStyle,
+                        softWrap: true,
+                      ),
                     ),
                   ],
                 ),

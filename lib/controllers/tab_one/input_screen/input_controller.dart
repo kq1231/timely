@@ -76,23 +76,28 @@ class TabOneInputNotifier extends Notifier<Interval> {
     state.types[2].rating = rating;
   }
 
-  Future<void> syncChangesToDB() async {
+  Future<void> syncChangesToDB(String date) async {
     Map tabOneData =
         jsonDecode(await ref.read(dbFilesProvider).tabOneFile.readAsString());
 
+    // Data creation
+    if (!tabOneData.keys.contains(date)) {
+      tabOneData[date] = {"text_1": "", "data": {}};
+    }
+
     // Mutations
-    tabOneData["02-10-2023"]["text_1"] = ref.read(text_1Provider);
-    tabOneData["02-10-2023"][state.time_1] = {
+    tabOneData[date]["text_1"] = ref.read(text_1Provider);
+    tabOneData[date]["data"][state.time_1] = {
       "type_a": {
-        "rating": [state.types[0].rating],
+        "rating": state.types[0].rating,
         "comment": state.types[0].comment,
       },
       "type_b": {
-        "rating": [state.types[1].rating],
+        "rating": state.types[1].rating,
         "comment": state.types[1].comment,
       },
       "type_c": {
-        "rating": [state.types[2].rating],
+        "rating": state.types[2].rating,
         "comment": state.types[2].comment,
       }
     };

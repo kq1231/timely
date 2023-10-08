@@ -199,7 +199,8 @@ class TabOneInputScreen extends ConsumerWidget {
                 onPressed: () async {
                   await ref
                       .read(tabOneInputController.notifier)
-                      .syncChangesToDB();
+                      .syncChangesToDB(
+                          DateTime.now().toString().substring(0, 10));
                 },
                 child: const Text("Submit"),
               ),

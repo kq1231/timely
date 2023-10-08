@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/views/tab_one/input_screens/tab_one_input_screen.dart';
-import 'package:timely/views/tab_one/output_screens/tab_one_output_screen_a.dart';
+import 'package:timely/views/tab_one/output_screens/output_screen_a.dart';
+import 'package:timely/views/tab_one/output_screens/output_screen_b.dart';
 // import 'package:timely/views/tab_one/tab_one_input_screen.dart';
-import 'package:timely/views/tab_one/output_screens/tab_one_output_screen_c.dart';
+import 'package:timely/views/tab_one/output_screens/output_screen_c.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.dark,
       home: const DefaultTabController(
-          length: 3, child: MyHomePage(title: 'Timely')),
+          length: 4, child: MyHomePage(title: 'Timely')),
     );
   }
 }
@@ -42,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
         bottom: const TabBar(tabs: [
           Tab(text: "Tab 1 Input"),
           Tab(text: "Tab 1 Output A"),
+          Tab(text: "Tab 1 Output B"),
           Tab(text: "Tab 1 Output C"),
         ]),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -50,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: const TabBarView(children: [
         TabOneInputScreen(),
         TabOneOutputScreenA(),
+        TabOneOutputScreenB(),
         TabOneOutputScreenC(),
       ]),
     );

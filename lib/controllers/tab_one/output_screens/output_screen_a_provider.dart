@@ -1,8 +1,11 @@
 import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/controllers/db_files_provider.dart';
+import 'package:timely/models/color_rater.dart';
 
-final outputScreenAProvider = FutureProvider.autoDispose<Map>((ref) async {
+final outputScreenAProvider =
+    FutureProvider.autoDispose<Map<String, List<ColorRater>>>((ref) async {
   // Fake delay for awesomeness
   await Future.delayed(const Duration(milliseconds: 400));
 
@@ -12,28 +15,23 @@ final outputScreenAProvider = FutureProvider.autoDispose<Map>((ref) async {
           as Map;
 
   // Fetch all the ratings...
-  Map<String, Map<String, num>> ratingsData = {};
+  Map<String, List<ColorRater>> ratingsData = {};
 
   for (String date in tabOneData.keys) {
-    ratingsData[date] = {};
+    ratingsData[date] = [];
     for (String time_1 in tabOneData[date]["data"].keys) {
+      List<String> text_2s = [];
       num rating = 0;
-
       for (String typeName in tabOneData[date]["data"][time_1].keys) {
+        text_2s.add(tabOneData[date]["data"][time_1][typeName]["comment"]);
         rating +=
             tabOneData[date]["data"][time_1][typeName]["rating"].indexOf(1);
       }
 
-      ratingsData[date]![time_1] = rating;
+      print("$date $time_1 $rating");
+
+      ratingsData[date]!.add(ColorRater(time_1, rating, text_2s));
     }
   }
-
   return ratingsData;
-  // eg.]
-  // {
-  //    "2023-09-12": [
-  //          "9:00",
-  //          "12:00"
-  //                  ]
-  // }
 });
