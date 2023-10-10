@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/controllers/tab_one/input_screen/input_controller.dart';
 import 'package:timely/controllers/time_provider.dart';
-import 'package:timely/layout_params.dart';
 
 class TabOneInputScreen extends ConsumerWidget {
   const TabOneInputScreen({super.key});
@@ -11,10 +10,6 @@ class TabOneInputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref
-        .read(tabOneInputController.notifier)
-        .setTime_1(ref.read(timeProvider)["time_1"]);
-
     return ListView(
       children: [
         Padding(
@@ -27,11 +22,24 @@ class TabOneInputScreen extends ConsumerWidget {
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              Text(
-                ref.read(timeProvider)["time_1"],
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              )
+              ElevatedButton(
+                onPressed: () async {
+                  TimeOfDay? time_1 = await showTimePicker(
+                    context: context,
+                    initialTime: ref.read(tabOneInputController).time_1,
+                  );
+                  if (time_1 != null) {
+                    ref.read(tabOneInputController.notifier).setTime_1(time_1);
+                  }
+                },
+                child: const Row(
+                  children: [
+                    Text("Time 1"),
+                    SizedBox(width: 10),
+                    Icon(Icons.timer),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -184,9 +192,23 @@ class TabOneInputScreen extends ConsumerWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                ref.read(timeProvider)["time_2"],
-                style: timeStyle,
+              ElevatedButton(
+                onPressed: () async {
+                  TimeOfDay? time_2 = await showTimePicker(
+                    context: context,
+                    initialTime: ref.read(tabOneInputController).time_2,
+                  );
+                  if (time_2 != null) {
+                    ref.read(tabOneInputController.notifier).setTime_2(time_2);
+                  }
+                },
+                child: const Row(
+                  children: [
+                    Text("Time 2"),
+                    SizedBox(width: 10),
+                    Icon(Icons.timer),
+                  ],
+                ),
               ),
               const Spacer(
                 flex: 5,

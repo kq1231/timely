@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/controllers/db_files_provider.dart';
+import 'package:timely/controllers/time_provider.dart';
 import 'package:timely/models/interval.dart';
 import 'package:timely/models/type.dart';
 
@@ -10,7 +11,8 @@ class TabOneInputNotifier extends Notifier<Interval> {
   Interval build() {
     return Interval(
       date: "",
-      time_1: "",
+      time_1: ref.read(timeProvider),
+      time_2: ref.read(timeProvider),
       types: <Type>[
         Type(typeCategory: TypeCategory.a, rating: [1, 0, 0], comment: ""),
         Type(typeCategory: TypeCategory.b, rating: [1, 0, 0], comment: ""),
@@ -19,8 +21,13 @@ class TabOneInputNotifier extends Notifier<Interval> {
     );
   }
 
-  void setTime_1(String time_1) {
+  void setTime_2(var time_2) {
+    state.time_2 = time_2;
+  }
+
+  void setTime_1(var time_1) {
     state.time_1 = time_1;
+    print(state.time_1);
   }
 
   void setTypeAComment(String comment) {

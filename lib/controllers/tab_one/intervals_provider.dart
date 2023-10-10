@@ -17,6 +17,7 @@ final tabOneIntervalsProvider = FutureProvider<List<Interval>>((ref) async {
 
     // Create [Interval] objects
     for (String time_1 in intervals.keys) {
+      String time_2 = intervals[time_1]["time_2"];
       Map typeAData = intervals[time_1]["type_a"];
       Map typeBData = intervals[time_1]["type_b"];
       Map typeCData = intervals[time_1]["type_c"];
@@ -24,6 +25,7 @@ final tabOneIntervalsProvider = FutureProvider<List<Interval>>((ref) async {
         Interval(
           date: date,
           time_1: time_1,
+          time_2: time_2,
           types: [
             Type(
               typeCategory: TypeCategory.a,
