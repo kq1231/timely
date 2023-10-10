@@ -22,7 +22,7 @@ final outputScreenAProvider =
     for (String time_1 in tabOneData[date]["data"].keys) {
       List<String> text_2s = [];
       num rating = 0;
-      for (String typeName in tabOneData[date]["data"][time_1].keys) {
+      for (String typeName in ["type_a", "type_b", "type_c"]) {
         text_2s.add(tabOneData[date]["data"][time_1][typeName]["comment"]);
         rating +=
             tabOneData[date]["data"][time_1][typeName]["rating"].indexOf(1);

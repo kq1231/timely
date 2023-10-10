@@ -3,8 +3,8 @@ import 'package:timely/models/type.dart';
 
 class Interval {
   String date;
-  TimeOfDay time_1;
-  TimeOfDay time_2;
+  String time_1;
+  String time_2;
   List<Type> types;
 
   Interval({

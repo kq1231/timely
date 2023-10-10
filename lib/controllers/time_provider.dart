@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final timeProvider = Provider.autoDispose<TimeOfDay>((ref) {
-  var timeNow = TimeOfDay.now();
+final timeProvider = Provider.autoDispose<String>((ref) {
+  var timeNow = DateTime.now();
 
-  return timeNow;
+  return timeNow.toString().substring(10, 16);
 });

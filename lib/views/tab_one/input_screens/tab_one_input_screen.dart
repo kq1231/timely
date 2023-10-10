@@ -23,12 +23,17 @@ class TabOneInputScreen extends ConsumerWidget {
               ),
               ElevatedButton(
                 onPressed: () async {
+                  var time = ref.read(tabOneInputController).time_1;
                   TimeOfDay? time_1 = await showTimePicker(
                     context: context,
-                    initialTime: ref.read(tabOneInputController).time_1,
+                    initialTime: TimeOfDay(
+                        hour: int.parse(time.split(":")[0]),
+                        minute: int.parse(time.split(":")[1])),
                   );
                   if (time_1 != null) {
-                    ref.read(tabOneInputController.notifier).setTime_1(time_1);
+                    ref
+                        .read(tabOneInputController.notifier)
+                        .setTime_1("${time_1.hour}:${time_1.minute}");
                   }
                 },
                 child: const Row(
@@ -193,12 +198,17 @@ class TabOneInputScreen extends ConsumerWidget {
             children: [
               ElevatedButton(
                 onPressed: () async {
+                  var time = ref.read(tabOneInputController).time_2;
                   TimeOfDay? time_2 = await showTimePicker(
                     context: context,
-                    initialTime: ref.read(tabOneInputController).time_2,
+                    initialTime: TimeOfDay(
+                        hour: int.parse(time.split(":")[0]),
+                        minute: int.parse(time.split(":")[1])),
                   );
                   if (time_2 != null) {
-                    ref.read(tabOneInputController.notifier).setTime_2(time_2);
+                    ref
+                        .read(tabOneInputController.notifier)
+                        .setTime_2("${time_2.hour}:${time_2.minute}");
                   }
                 },
                 child: const Row(
