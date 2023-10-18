@@ -17,6 +17,8 @@ class TabOneOutputScreenA extends ConsumerWidget {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
             itemBuilder: (context, index) {
               String date = data.keys.toList()[index];
               return Column(

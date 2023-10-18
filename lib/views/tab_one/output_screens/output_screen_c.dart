@@ -13,6 +13,8 @@ class TabOneOutputScreenC extends ConsumerWidget {
     return text_1sFutureProvider.when(
         data: (tab_1s) {
           return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(10.0),

@@ -13,6 +13,8 @@ class TabOneOutputScreenB extends ConsumerWidget {
     return intervalsFutureProvider.when(
       data: (intervals) {
         return ListView(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
           children: [
             for (var interval in intervals)
               Padding(
@@ -25,15 +27,20 @@ class TabOneOutputScreenB extends ConsumerWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
-                        Text(
-                          "${interval.date}  ${interval.time_1}",
-                          style: timeStyle,
+                        SizedBox(
+                          width: 70,
+                          child: Text(
+                            "${interval.date}  ${interval.time_1}",
+                            style: h3TextStyle,
+                          ),
                         ),
                         const SizedBox(
                           width: 20,
                         ),
                         Flexible(
-                          child: Column(
+                          child: ListView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
                             children: [
                               for (var type in interval.types)
                                 Row(
@@ -47,9 +54,25 @@ class TabOneOutputScreenB extends ConsumerWidget {
                                       width: 10,
                                     ),
                                     Flexible(
-                                      child: Text(
-                                        type.comment,
-                                        style: timeStyle,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 7),
+                                        child: Container(
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Text(
+                                              type.comment,
+                                              style:
+                                                  const TextStyle(fontSize: 18),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],
