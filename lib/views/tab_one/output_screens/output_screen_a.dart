@@ -4,7 +4,6 @@ import 'package:timely/controllers/color_provider.dart';
 import 'package:timely/controllers/tab_one/output_screens/output_screen_a_provider.dart';
 import 'package:timely/layout_params.dart';
 import 'package:timely/models/color_rater.dart';
-import 'package:timely/views/tab_one/input_screens/tab_one_input_screen.dart';
 
 class TabOneOutputScreenA extends ConsumerWidget {
   const TabOneOutputScreenA({super.key});

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/controllers/tab_one/output_screens/output_screen_c_provider.dart';
 import 'package:timely/layout_params.dart';
-import 'package:timely/views/tab_one/input_screens/tab_one_input_screen.dart';
 
 class TabOneOutputScreenC extends ConsumerWidget {
   const TabOneOutputScreenC({super.key});
