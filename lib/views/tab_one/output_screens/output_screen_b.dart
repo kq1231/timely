@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/controllers/tab_one/intervals_provider.dart';
 import 'package:timely/layout_params.dart';
+import 'package:timely/views/tab_one/input_screens/tab_one_input_screen.dart';
 
 class TabOneOutputScreenB extends ConsumerWidget {
   const TabOneOutputScreenB({super.key});

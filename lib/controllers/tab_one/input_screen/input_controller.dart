@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/controllers/db_files_provider.dart';
+import 'package:timely/controllers/tab_one/intervals_provider.dart';
+import 'package:timely/controllers/tab_one/output_screens/output_screen_a_provider.dart';
+import 'package:timely/controllers/tab_one/output_screens/output_screen_c_provider.dart';
 import 'package:timely/controllers/time_provider.dart';
 import 'package:timely/models/interval.dart';
 import 'package:timely/models/type.dart';
@@ -82,9 +85,16 @@ class TabOneInputNotifier extends Notifier<Interval> {
     state.types[2].rating = rating;
   }
 
+  void refreshProviders() {
+    ref.invalidate(outputScreenAProvider);
+    ref.invalidate(outputScreenCProvider);
+    ref.invalidate(tabOneIntervalsProvider);
+  }
+
   Future<void> syncChangesToDB(String date) async {
-    Map tabOneData =
-        jsonDecode(await ref.read(dbFilesProvider).tabOneFile.readAsString());
+    File tabOneFile = (await ref.watch(dbFilesProvider.future)).tabOneFile;
+    // First, read the file content
+    Map tabOneData = jsonDecode(await tabOneFile.readAsString()) as Map;
 
     // Data creation
     if (!tabOneData.keys.contains(date)) {
@@ -110,7 +120,6 @@ class TabOneInputNotifier extends Notifier<Interval> {
     };
 
     // Push changes to file
-    File tabOneFile = ref.read(dbFilesProvider).tabOneFile;
     await tabOneFile.writeAsString(
       jsonEncode(tabOneData),
     );

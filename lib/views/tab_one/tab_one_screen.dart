@@ -14,7 +14,6 @@ class TabOneScreen extends StatefulWidget {
 class _TabOneScreenState extends State<TabOneScreen> {
   int currentlySelectedScreenIndex = 0;
   final List tabs = const [
-    TabOneInputScreen(),
     TabOneOutputScreenA(),
     TabOneOutputScreenB(),
     TabOneOutputScreenC()
@@ -22,45 +21,59 @@ class _TabOneScreenState extends State<TabOneScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: ListView(
-        children: [
-          SegmentedButton(
-            segments: const [
-              ButtonSegment(
-                value: 0,
-                label: Text(
-                  "Input",
-                  softWrap: false,
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        heroTag: null,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return Scaffold(
+                  body: const TabOneInputScreen(),
+                  appBar: AppBar(
+                    title: const Text("Tab One Input Screen"),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+        child: const Icon(Icons.add),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: ListView(
+          children: [
+            SegmentedButton(
+              segments: const [
+                ButtonSegment(
+                  value: 0,
+                  label: Text("A"),
                 ),
-              ),
-              ButtonSegment(
-                value: 1,
-                label: Text("A"),
-              ),
-              ButtonSegment(
-                value: 2,
-                label: Text("B"),
-              ),
-              ButtonSegment(
-                value: 3,
-                label: Text("C"),
-              ),
-            ],
-            selected: {
-              currentlySelectedScreenIndex,
-            },
-            onSelectionChanged: (p0) {
-              currentlySelectedScreenIndex = p0.first;
-              setState(() {});
-            },
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          tabs[currentlySelectedScreenIndex], // The currently selected tab.
-        ],
+                ButtonSegment(
+                  value: 1,
+                  label: Text("B"),
+                ),
+                ButtonSegment(
+                  value: 2,
+                  label: Text("C"),
+                ),
+              ],
+              selected: {
+                currentlySelectedScreenIndex,
+              },
+              onSelectionChanged: (p0) {
+                currentlySelectedScreenIndex = p0.first;
+                setState(() {});
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            tabs[currentlySelectedScreenIndex], // The currently selected tab.
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/controllers/tab_one/input_screen/input_controller.dart';
+import 'package:timely/controllers/tab_one/output_screens/output_screen_a_provider.dart';
 
 class TabOneInputScreen extends ConsumerWidget {
   const TabOneInputScreen({super.key});
@@ -11,7 +12,6 @@ class TabOneInputScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ListView(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -289,6 +289,8 @@ class TabOneInputScreen extends ConsumerWidget {
                       .read(tabOneInputController.notifier)
                       .syncChangesToDB(
                           DateTime.now().toString().substring(0, 10));
+                  Navigator.pop(context);
+                  ref.read(tabOneInputController.notifier).refreshProviders();
                 },
                 child: const Text("Submit"),
               ),

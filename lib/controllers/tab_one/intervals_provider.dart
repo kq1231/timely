@@ -5,9 +5,11 @@ import 'package:timely/controllers/db_files_provider.dart';
 import 'package:timely/models/interval.dart';
 import 'package:timely/models/type.dart';
 
-final tabOneIntervalsProvider = FutureProvider<List<Interval>>((ref) async {
+final tabOneIntervalsProvider =
+    FutureProvider.autoDispose<List<Interval>>((ref) async {
   List<Interval> accum = [];
-  File tabOneFile = ref.read(dbFilesProvider).tabOneFile;
+  // Get the TabOne json file
+  File tabOneFile = (await ref.watch(dbFilesProvider.future)).tabOneFile;
 
   Map tabOneData = jsonDecode(await tabOneFile.readAsString());
 

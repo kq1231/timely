@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/controllers/db_files_provider.dart';
@@ -9,10 +10,9 @@ final outputScreenAProvider =
   // Fake delay for awesomeness
   await Future.delayed(const Duration(milliseconds: 400));
 
+  File tabOneFile = (await ref.watch(dbFilesProvider.future)).tabOneFile;
   // First, read the file content
-  Map tabOneData =
-      jsonDecode(await ref.read(dbFilesProvider).tabOneFile.readAsString())
-          as Map;
+  Map tabOneData = jsonDecode(await tabOneFile.readAsString()) as Map;
 
   // Fetch all the ratings...
   Map<String, List<ColorRater>> ratingsData = {};
