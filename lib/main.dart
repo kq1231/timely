@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/layout_params.dart';
+import 'package:timely/views/launch_screen/launch_ui_screen.dart';
 import 'package:timely/views/tab_one/tab_one_screen.dart';
 
 void main() {
@@ -33,8 +34,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int currentTabIndex = 0;
-  final List tabs = [const TabOneScreen()];
-  final tabIcons = [tabOneIcon];
+  final List tabs = [const LaunchScreen(), const TabOneScreen()];
+  final tabIcons = [launchScreenIcon, tabOneIcon];
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +53,20 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.only(top: 10),
             child: Column(
               children: [
-                for (int i in Iterable.generate(1))
-                  SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: FloatingActionButton(
-                        onPressed: () => currentTabIndex = i,
-                        child: tabIcons[i]),
+                for (int i in Iterable.generate(tabs.length))
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: FloatingActionButton(
+                          heroTag: null,
+                          onPressed: () {
+                            currentTabIndex = i;
+                            setState(() {});
+                          },
+                          child: tabIcons[i]),
+                    ),
                   )
               ],
             ),

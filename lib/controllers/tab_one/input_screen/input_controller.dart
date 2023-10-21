@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/controllers/db_files_provider.dart';
+import 'package:timely/controllers/launch_screen/remaining_time_ticker.dart';
 import 'package:timely/controllers/tab_one/intervals_provider.dart';
 import 'package:timely/controllers/tab_one/output_screens/output_screen_a_provider.dart';
 import 'package:timely/controllers/tab_one/output_screens/output_screen_c_provider.dart';
@@ -89,6 +90,7 @@ class TabOneInputNotifier extends Notifier<Interval> {
     ref.invalidate(outputScreenAProvider);
     ref.invalidate(outputScreenCProvider);
     ref.invalidate(tabOneIntervalsProvider);
+    ref.invalidate(remainingTimeTickerProvider);
   }
 
   Future<void> syncChangesToDB(String date) async {
@@ -103,8 +105,8 @@ class TabOneInputNotifier extends Notifier<Interval> {
 
     // Mutations
     tabOneData[date]["text_1"] = ref.read(text_1Provider);
-    tabOneData[date]["data"][state.time_1] = {
-      "time_2": state.time_2,
+    tabOneData[date]["data"][state.time_1.replaceAll(" ", "")] = {
+      "time_2": state.time_2.replaceAll(" ", ""),
       "type_a": {
         "rating": state.types[0].rating,
         "comment": state.types[0].comment,
