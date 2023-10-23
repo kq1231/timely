@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/controllers/tab_one/input_screen/input_controller.dart';
+import 'package:timely/features/tab_one/controllers/input_screen/input_controller.dart';
 
 class TabOneInputScreen extends ConsumerWidget {
   const TabOneInputScreen({super.key});

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/controllers/color_provider.dart';
-import 'package:timely/controllers/tab_one/output_screens/output_screen_a_provider.dart';
+import 'package:timely/features/tab_one/controllers/color_provider.dart';
+import 'package:timely/features/tab_one/controllers/output_screens/output_screen_a_provider.dart';
 import 'package:timely/layout_params.dart';
-import 'package:timely/models/color_rater.dart';
+import 'package:timely/features/tab_one/models/color_rater.dart';
 
 class TabOneOutputScreenA extends ConsumerWidget {
   const TabOneOutputScreenA({super.key});

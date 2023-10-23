@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:timely/views/tab_one/input_screens/tab_one_input_screen.dart';
-import 'package:timely/views/tab_one/output_screens/output_screen_a.dart';
-import 'package:timely/views/tab_one/output_screens/output_screen_b.dart';
-import 'package:timely/views/tab_one/output_screens/output_screen_c.dart';
+import 'package:timely/features/tab_one/views/input_screens/tab_one_input_screen.dart';
+import 'package:timely/features/tab_one/views/output_screens/output_screen_a.dart';
+import 'package:timely/features/tab_one/views/output_screens/output_screen_b.dart';
+import 'package:timely/features/tab_one/views/output_screens/output_screen_c.dart';
 
 class TabOneScreen extends StatefulWidget {
   const TabOneScreen({super.key});

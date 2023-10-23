@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/controllers/db_files_provider.dart';
-import 'package:timely/controllers/launch_screen/remaining_time_ticker.dart';
-import 'package:timely/controllers/tab_one/intervals_provider.dart';
-import 'package:timely/controllers/tab_one/output_screens/output_screen_a_provider.dart';
-import 'package:timely/controllers/tab_one/output_screens/output_screen_c_provider.dart';
-import 'package:timely/controllers/time_provider.dart';
-import 'package:timely/models/interval.dart';
-import 'package:timely/models/type.dart';
+import 'package:timely/features/tab_one/controllers/db_files_provider.dart';
+import 'package:timely/features/launch_screen/controllers/remaining_time_ticker.dart';
+import 'package:timely/features/tab_one/controllers/intervals_provider.dart';
+import 'package:timely/features/tab_one/controllers/output_screens/output_screen_a_provider.dart';
+import 'package:timely/features/tab_one/controllers/output_screens/output_screen_c_provider.dart';
+import 'package:timely/features/tab_one/controllers/time_provider.dart';
+import 'package:timely/features/tab_one/models/interval.dart';
+import 'package:timely/features/tab_one/models/type.dart';
 
 class TabOneInputNotifier extends Notifier<Interval> {
   @override

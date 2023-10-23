@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/layout_params.dart';
-import 'package:timely/views/launch_screen/launch_ui_screen.dart';
-import 'package:timely/views/tab_one/tab_one_screen.dart';
+import 'package:timely/features/launch_screen/views/launch_screen.dart';
+import 'package:timely/features/tab_one/views/tab_one_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -34,8 +34,51 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int currentTabIndex = 0;
-  final List tabs = [const LaunchScreen(), const TabOneScreen()];
-  final tabIcons = [launchScreenIcon, tabOneIcon];
+  final List tabs = [
+    const LaunchScreen(),
+    const TabOneScreen(),
+    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Center(child: Text("Coming Soon Inshaa Allah...")),
+  ];
+  final tabIcons = [
+    launchScreenIcon,
+    tabOneIcon,
+    tabTwoIcon,
+    tabThreeIcon,
+    tabFourIcon,
+    tabFiveIcon,
+    tabSixIcon,
+    tabSevenIcon,
+    tabEightIcon,
+    tabNineIcon,
+    tabTenIcon,
+    tabElevenIcon,
+    tabTwelveIcon,
+  ];
+
+  final tabColors = [
+    launchScreenColor,
+    tabOneColor,
+    tabTwoColor,
+    tabThreeColor,
+    tabFourColor,
+    tabFiveColor,
+    tabSixColor,
+    tabSevenColor,
+    tabEightColor,
+    tabNineColor,
+    tabTenColor,
+    tabElevenColor,
+    tabTwelveColor,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -46,32 +89,28 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Row(
         children: [
-          const SizedBox(
-            width: 7,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
+          SizedBox(
+            width: 50,
             child: Column(
               children: [
                 for (int i in Iterable.generate(tabs.length))
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: FloatingActionButton(
-                          heroTag: null,
-                          onPressed: () {
-                            currentTabIndex = i;
-                            setState(() {});
-                          },
-                          child: tabIcons[i]),
-                    ),
+                  Expanded(
+                    child: FloatingActionButton(
+                        backgroundColor: tabColors[i],
+                        shape: const BeveledRectangleBorder(
+                          borderRadius: BorderRadius.zero,
+                          side: BorderSide(color: Colors.black38, width: 0.1),
+                        ),
+                        heroTag: null,
+                        onPressed: () {
+                          currentTabIndex = i;
+                          setState(() {});
+                        },
+                        child: tabIcons[i]),
                   )
               ],
             ),
           ),
-          const VerticalDivider(),
           Expanded(child: tabs[currentTabIndex]),
         ],
       ),

@@ -1,4 +1,4 @@
-import 'package:timely/models/type.dart';
+import 'package:timely/features/tab_one/models/type.dart';
 
 class Interval {
   String date;
