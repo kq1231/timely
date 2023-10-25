@@ -34,8 +34,7 @@ class TabOneOutputScreenB extends ConsumerWidget {
                         child: Text(
                           "${interval.date}  ${interval.time_1}",
                           style: h3TextStyle.copyWith(
-                              color: outputScreenBAlternatingTextColors[
-                                  index % 2]),
+                              color: outputScreenBCommentTextColors[index % 2]),
                         ),
                       ),
                       const SizedBox(
@@ -62,10 +61,10 @@ class TabOneOutputScreenB extends ConsumerWidget {
                                             .map((type) => type.comment)
                                             .join(", "),
                                         style: TextStyle(
-                                            fontSize: 18,
-                                            color:
-                                                outputScreenBCommentTextColors[
-                                                    index % 2]),
+                                          fontSize: 18,
+                                          color: outputScreenBCommentTextColors[
+                                              index % 2],
+                                        ),
                                       ),
                                     ),
                                   ),

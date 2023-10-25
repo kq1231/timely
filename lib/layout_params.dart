@@ -53,17 +53,15 @@ Color launchSectionThreeTextColor = Colors.white;
 
 // TabOneOutputScreenB Tile Colors
 List<Color> outputScreenBAlternatingTileColors = [
-  Color.fromARGB(255, 90, 143, 236),
+  const Color.fromARGB(255, 90, 143, 236),
   Colors.blueGrey
 ];
 
 // TabOneOutputScreenB Text Colors
-List<Color> outputScreenBAlternatingTextColors = [Colors.black, Colors.white70];
 List<Color> outputScreenBCommentTextColors = [Colors.black, Colors.white];
 
 // TabOneOutputScreenC Tile Colors
 List<Color> outputScreenCAlternatingTileColors = [Colors.grey, Colors.blueGrey];
 
 // TabOneOutputScreenC Text Colors
-List<Color> outputScreenCAlternatingTextColors = [Colors.black, Colors.white70];
 List<Color> outputScreenCCommentTextColors = [Colors.black, Colors.white];

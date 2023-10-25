@@ -30,8 +30,7 @@ class TabOneOutputScreenC extends ConsumerWidget {
                         Text(
                           text_1s.keys.toList()[index],
                           style: timeStyle.copyWith(
-                              color: outputScreenCAlternatingTextColors[
-                                  index % 2]),
+                              color: outputScreenCCommentTextColors[index % 2]),
                         ),
                         const SizedBox(
                           width: 20,
@@ -40,8 +39,7 @@ class TabOneOutputScreenC extends ConsumerWidget {
                           child: Text(
                             text_1s.values.toList()[index],
                             style: timeStyle.copyWith(
-                              color:
-                                  outputScreenCAlternatingTextColors[index % 2],
+                              color: outputScreenCCommentTextColors[index % 2],
                             ),
                             softWrap: true,
                           ),
