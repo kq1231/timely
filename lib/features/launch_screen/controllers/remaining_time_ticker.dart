@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,23 +10,37 @@ final remainingTimeTickerProvider =
   File tabOneFile = (await ref.watch(dbFilesProvider.future)).tabOneFile;
   Map tabOneData = jsonDecode(await tabOneFile.readAsString());
 
-  // First, get the time 2 of last interval of a particular date
-  // ignore: prefer_interpolation_to_compose_strings
-  String time_2String = "2023-10-21 " +
-      tabOneData["2023-10-21"]["data"].values.toList().last["time_2"];
-  DateTime time_2 = DateFormat("yyyy-MM-dd HH:mm").parse(time_2String);
-  print(time_2);
-  // Get the current time
+  // First, check if today's date exists in the database
+  String todayDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
+  if (!tabOneData.containsKey(todayDate)) {
+    yield "No Activity Created";
+    return;
+  }
+
+  Map intervals = tabOneData[todayDate]["data"];
   DateTime now = DateTime.now();
+  bool _isFound = false;
 
-  Duration difference = time_2.difference(now);
-
-  yield "${difference.inMinutes}:${difference.inSeconds % 60}";
-
-  while (true) {
-    await Future.delayed(const Duration(seconds: 1));
-    now = DateTime.now();
-    difference = time_2.difference(now);
-    yield "${difference.inMinutes}:${difference.inSeconds % 60}";
+  for (var time1 in intervals.keys) {
+    String time2String = intervals[time1]["time_2"];
+    DateTime time1DateTime = DateFormat("HH:mm").parse(time1);
+    DateTime time2 =
+        DateFormat("yyyy-MM-dd HH:mm").parse("$todayDate $time2String");
+    DateTime time1DateTimeFull = DateTime(
+        now.year, now.month, now.day, time1DateTime.hour, time1DateTime.minute);
+    print(time1DateTimeFull);
+    print(time2);
+    if (now.isAfter(time1DateTimeFull) && now.isBefore(time2)) {
+      _isFound = true;
+      while (true) {
+        await Future.delayed(const Duration(seconds: 1));
+        print("HELLO");
+        Duration difference = time2.difference(now);
+        yield "${difference.inHours}:${difference.inMinutes % 60}:${difference.inSeconds % 60}";
+      }
+    }
+  }
+  if (!_isFound) {
+    yield "No Current Activity";
   }
 });

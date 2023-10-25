@@ -39,11 +39,31 @@ Color tabElevenColor = Colors.deepPurpleAccent;
 Color tabTwelveColor = Colors.deepPurpleAccent;
 
 // LaunchScreen Section Colors
-Color launchSectionOneColor = Colors.green;
+Color launchSectionOneTimerColor = Colors.green;
+Color launchSectionOneAlertColor = Colors.green;
 Color launchSectionTwoColor = Colors.orange;
 Color launchSectionThreeColor = Colors.blueGrey;
+Color launchSectionFourColor = Colors.pinkAccent;
 
 // LaunchScreen Text Colors
-Color launchSectionOneTextColor = Colors.white;
+Color launchSectionOneTimerTextColor = Colors.white;
+Color launchSectionOneAlertTextColor = Colors.white;
 Color launchSectionTwoTextColor = Colors.black;
 Color launchSectionThreeTextColor = Colors.white;
+
+// TabOneOutputScreenB Tile Colors
+List<Color> outputScreenBAlternatingTileColors = [
+  Color.fromARGB(255, 90, 143, 236),
+  Colors.blueGrey
+];
+
+// TabOneOutputScreenB Text Colors
+List<Color> outputScreenBAlternatingTextColors = [Colors.black, Colors.white70];
+List<Color> outputScreenBCommentTextColors = [Colors.black, Colors.white];
+
+// TabOneOutputScreenC Tile Colors
+List<Color> outputScreenCAlternatingTileColors = [Colors.grey, Colors.blueGrey];
+
+// TabOneOutputScreenC Text Colors
+List<Color> outputScreenCAlternatingTextColors = [Colors.black, Colors.white70];
+List<Color> outputScreenCCommentTextColors = [Colors.black, Colors.white];

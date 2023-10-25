@@ -35,7 +35,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int currentTabIndex = 0;
   final List tabs = [
-    const LaunchScreen(),
     const TabOneScreen(),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
@@ -47,9 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const LaunchScreen(),
   ];
+
   final tabIcons = [
-    launchScreenIcon,
     tabOneIcon,
     tabTwoIcon,
     tabThreeIcon,
@@ -65,7 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   final tabColors = [
-    launchScreenColor,
     tabOneColor,
     tabTwoColor,
     tabThreeColor,
@@ -84,6 +84,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  currentTabIndex = tabs.length - 1;
+                });
+              },
+              icon: launchScreenIcon),
+        ],
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
@@ -93,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
             width: 50,
             child: Column(
               children: [
-                for (int i in Iterable.generate(tabs.length))
+                for (int i in Iterable.generate(tabs.length - 1))
                   Expanded(
                     child: FloatingActionButton(
                         backgroundColor: tabColors[i],
@@ -111,7 +120,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
+          const VerticalDivider(
+            width: 2,
+          ),
           Expanded(child: tabs[currentTabIndex]),
+          const VerticalDivider(
+            width: 2,
+          ),
         ],
       ),
     );

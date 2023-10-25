@@ -11,31 +11,48 @@ class TabOneOutputScreenC extends ConsumerWidget {
     AsyncValue text_1sFutureProvider = ref.watch(outputScreenCProvider);
 
     return text_1sFutureProvider.when(
-        data: (tab_1s) {
+        data: (text_1s) {
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    Text(tab_1s.keys.toList()[index], style: timeStyle),
-                    const SizedBox(
-                      width: 20,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white),
+                    color: outputScreenCAlternatingTileColors[index % 2],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          text_1s.keys.toList()[index],
+                          style: timeStyle.copyWith(
+                              color: outputScreenCAlternatingTextColors[
+                                  index % 2]),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Flexible(
+                          child: Text(
+                            text_1s.values.toList()[index],
+                            style: timeStyle.copyWith(
+                              color:
+                                  outputScreenCAlternatingTextColors[index % 2],
+                            ),
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
                     ),
-                    Flexible(
-                      child: Text(
-                        tab_1s.values.toList()[index],
-                        style: timeStyle,
-                        softWrap: true,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               );
             },
-            itemCount: tab_1s.keys.toList().length,
+            itemCount: text_1s.keys.toList().length,
           );
         },
         error: (_, __) => const Center(child: Text("Error")),
