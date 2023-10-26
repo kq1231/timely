@@ -16,36 +16,16 @@ class TabOneOutputScreenC extends ConsumerWidget {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white),
-                    color: outputScreenCAlternatingTileColors[index % 2],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          text_1s.keys.toList()[index],
-                          style: timeStyle.copyWith(
-                              color: outputScreenCCommentTextColors[index % 2]),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Flexible(
-                          child: Text(
-                            text_1s.values.toList()[index],
-                            style: timeStyle.copyWith(
-                              color: outputScreenCCommentTextColors[index % 2],
-                            ),
-                            softWrap: true,
-                          ),
-                        ),
-                      ],
-                    ),
+              return Container(
+                decoration: BoxDecoration(
+                  color: outputScreenCAlternatingTileColors[index % 2],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "${text_1s.keys.toList()[index]} ; ${text_1s.values.toList()[index]}",
+                    style: tabOneOutputScreenCCommentStyle.copyWith(
+                        color: outputScreenCCommentTextColors[index % 2]),
                   ),
                 ),
               );

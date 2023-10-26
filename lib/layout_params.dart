@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 
-// Typograpy
-TextStyle timeStyle =
+// Typograpy.general
+TextStyle timelyStyle =
     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
 
 TextStyle h3TextStyle = const TextStyle(
   fontSize: 15,
 );
+
+// Typography.TabOneOutputScreenA
+TextStyle tabOneOutputScreenADateStyle = const TextStyle(fontSize: 20);
+TextStyle tabOneOutputScreenATimeStyle = const TextStyle(fontSize: 14);
+
+// Typography.TabOneOutputScreenB
+TextStyle tabOneOutputScreenBCommentStyle = const TextStyle(fontSize: 12);
+
+// Typography.TabOneOutputScreenC
+TextStyle tabOneOutputScreenCCommentStyle = const TextStyle(fontSize: 12);
 
 // Tab Icons
 Icon launchScreenIcon = const Icon(Icons.home);
@@ -25,7 +35,7 @@ Icon tabTwelveIcon = const Icon(Icons.pentagon);
 
 // Tab Colors
 Color launchScreenColor = Colors.orange;
-Color tabOneColor = Colors.purple;
+Color tabOneColor = Colors.deepPurpleAccent;
 Color tabTwoColor = Colors.deepPurpleAccent;
 Color tabThreeColor = Colors.deepPurpleAccent;
 Color tabFourColor = Colors.deepPurpleAccent;
@@ -65,3 +75,8 @@ List<Color> outputScreenCAlternatingTileColors = [Colors.grey, Colors.blueGrey];
 
 // TabOneOutputScreenC Text Colors
 List<Color> outputScreenCCommentTextColors = [Colors.black, Colors.white];
+
+// TabOneOutputScreen Segmented Buttons Text
+String tabOneOutputScreenSegButtonText_1 = "A";
+String tabOneOutputScreenSegButtonText_2 = "B";
+String tabOneOutputScreenSegButtonText_3 = "C";

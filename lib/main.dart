@@ -8,6 +8,8 @@ void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 
+int currentTabIndex = 12;
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -33,7 +35,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int currentTabIndex = 0;
   final List tabs = [
     const TabOneScreen(),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
@@ -84,15 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  currentTabIndex = tabs.length - 1;
-                });
-              },
-              icon: launchScreenIcon),
-        ],
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
@@ -105,17 +97,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 for (int i in Iterable.generate(tabs.length - 1))
                   Expanded(
                     child: FloatingActionButton(
-                        backgroundColor: tabColors[i],
-                        shape: const BeveledRectangleBorder(
-                          borderRadius: BorderRadius.zero,
-                          side: BorderSide(color: Colors.black38, width: 0.1),
-                        ),
-                        heroTag: null,
-                        onPressed: () {
-                          currentTabIndex = i;
-                          setState(() {});
-                        },
-                        child: tabIcons[i]),
+                      backgroundColor: tabColors[i],
+                      shape: const BeveledRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                        side: BorderSide(color: Colors.black38, width: 0.1),
+                      ),
+                      heroTag: null,
+                      onPressed: () {
+                        currentTabIndex = i;
+                        setState(() {});
+                      },
+                      child: tabIcons[i],
+                    ),
                   )
               ],
             ),

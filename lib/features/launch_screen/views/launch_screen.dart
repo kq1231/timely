@@ -25,7 +25,7 @@ class LaunchScreen extends ConsumerWidget {
                       child: Center(
                         child: Text(
                           diff,
-                          style: timeStyle.copyWith(
+                          style: timelyStyle.copyWith(
                               fontSize: 15,
                               color: launchSectionOneTimerTextColor),
                         ),
@@ -41,8 +41,8 @@ class LaunchScreen extends ConsumerWidget {
                       color: launchSectionOneAlertColor,
                       child: Center(
                         child: Text(
-                          "Timer",
-                          style: timeStyle.copyWith(
+                          "Alert",
+                          style: timelyStyle.copyWith(
                               fontSize: 15,
                               color: launchSectionOneAlertTextColor),
                         ),
@@ -61,8 +61,8 @@ class LaunchScreen extends ConsumerWidget {
                   child: Center(
                     child: Text(
                       "First Tab's Text One",
-                      style:
-                          timeStyle.copyWith(color: launchSectionTwoTextColor),
+                      style: timelyStyle.copyWith(
+                          color: launchSectionTwoTextColor),
                     ),
                   ),
                 ),
@@ -77,7 +77,7 @@ class LaunchScreen extends ConsumerWidget {
                   child: Center(
                     child: Text(
                       "Third Tab's Data",
-                      style: timeStyle.copyWith(
+                      style: timelyStyle.copyWith(
                           color: launchSectionThreeTextColor),
                     ),
                   ),
@@ -93,7 +93,7 @@ class LaunchScreen extends ConsumerWidget {
                   child: Center(
                     child: Text(
                       "Fourth Tab's Data",
-                      style: timeStyle.copyWith(
+                      style: timelyStyle.copyWith(
                         color: launchSectionThreeTextColor,
                       ),
                     ),

@@ -25,7 +25,7 @@ class TabOneOutputScreenA extends ConsumerWidget {
                 children: [
                   Text(
                     date,
-                    style: timeStyle,
+                    style: tabOneOutputScreenADateStyle,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -49,7 +49,8 @@ class TabOneOutputScreenA extends ConsumerWidget {
                                           Center(
                                             child: Text(
                                               text_2,
-                                              style: timeStyle,
+                                              style:
+                                                  tabOneOutputScreenADateStyle,
                                             ),
                                           )
                                       ],
@@ -61,13 +62,17 @@ class TabOneOutputScreenA extends ConsumerWidget {
                             backgroundColor:
                                 colors[colorRating.ratingResult.toInt()],
                             child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Text(colorRating.time_1),
-                                )),
+                              decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  colorRating.time_1,
+                                  style: tabOneOutputScreenATimeStyle,
+                                ),
+                              ),
+                            ),
                           )
                       ],
                     ),
