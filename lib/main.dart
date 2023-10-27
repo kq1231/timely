@@ -3,12 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/layout_params.dart';
 import 'package:timely/features/launch_screen/views/launch_screen.dart';
 import 'package:timely/features/tab_one/views/tab_one_screen.dart';
+import 'package:timely/providers/tab_index_provider.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
-
-int currentTabIndex = 12;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,21 +19,14 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       themeMode: ThemeMode.dark,
-      home: const MyHomePage(title: 'Timely'),
+      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MyHomePage extends ConsumerWidget {
+  MyHomePage({super.key});
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   final List tabs = [
     const TabOneScreen(),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
@@ -82,11 +74,13 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    int currentTabIndex = ref.watch(tabIndexProvider);
+    var provider = ref.read(tabIndexProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text("Timely"),
       ),
       body: Row(
         children: [
@@ -104,8 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       heroTag: null,
                       onPressed: () {
-                        currentTabIndex = i;
-                        setState(() {});
+                        provider.setIndex(i);
                       },
                       child: tabIcons[i],
                     ),

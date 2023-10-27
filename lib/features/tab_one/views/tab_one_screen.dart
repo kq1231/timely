@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:timely/features/launch_screen/views/launch_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/features/tab_one/views/input_screens/tab_one_input_screen.dart';
 import 'package:timely/features/tab_one/views/output_screens/output_screen_a.dart';
 import 'package:timely/features/tab_one/views/output_screens/output_screen_b.dart';
 import 'package:timely/features/tab_one/views/output_screens/output_screen_c.dart';
 import 'package:timely/layout_params.dart';
+import 'package:timely/providers/tab_index_provider.dart';
 
-class TabOneScreen extends StatefulWidget {
+class TabOneScreen extends ConsumerStatefulWidget {
   const TabOneScreen({super.key});
 
   @override
-  State<TabOneScreen> createState() => _TabOneScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TabOneScreenState();
 }
 
-class _TabOneScreenState extends State<TabOneScreen> {
+class _TabOneScreenState extends ConsumerState<TabOneScreen> {
   int currentlySelectedScreenIndex = 0;
   final List tabs = const [
     TabOneOutputScreenA(),
@@ -30,19 +31,11 @@ class _TabOneScreenState extends State<TabOneScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return Scaffold(
-                          body: const LaunchScreen(),
-                          appBar: AppBar(),
-                        );
-                      },
-                    ));
-                  });
-                },
-                child: launchScreenIcon),
+              onPressed: () {
+                ref.read(tabIndexProvider.notifier).setIndex(12);
+              },
+              child: launchScreenIcon,
+            ),
             FloatingActionButton(
               heroTag: null,
               onPressed: () {
