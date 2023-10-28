@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/features/tab_five/views/input_screen.dart';
 import 'package:timely/layout_params.dart';
 import 'package:timely/features/launch_screen/views/launch_screen.dart';
 import 'package:timely/features/tab_one/views/tab_one_screen.dart';
@@ -32,7 +33,7 @@ class MyHomePage extends ConsumerWidget {
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
-    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const TabFiveInputScreen(),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),

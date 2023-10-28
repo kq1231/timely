@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
   Directory docDir = await getApplicationDocumentsDirectory();
   File tabOneFile = File('${docDir.path}/tab_one.json');
+  File tabFiveFile = File('${docDir.path}/tab_five.json');
 
   if (!await tabOneFile.exists()) {
     await tabOneFile.writeAsString('''
@@ -396,5 +397,9 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
 ''');
   }
 
-  return DBFiles(tabOneFile: tabOneFile);
+  if (!await tabFiveFile.exists()) {
+    await tabFiveFile.writeAsString("{}");
+  }
+
+  return DBFiles(tabOneFile: tabOneFile, tabFiveFile: tabFiveFile);
 });
