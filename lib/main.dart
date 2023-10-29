@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/features/tab_five/views/output_screen.dart';
+import 'package:timely/features/tab_one_re/views/tab_one_input_screen.dart';
 import 'package:timely/layout_params.dart';
 import 'package:timely/features/launch_screen/views/launch_screen.dart';
-import 'package:timely/features/tab_one/views/tab_one_screen.dart';
-import 'package:timely/general_providers/tab_index_provider.dart';
+import 'package:timely/public_providers.dart/tab_index_provider.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -29,7 +29,7 @@ class MyHomePage extends ConsumerWidget {
   MyHomePage({super.key});
 
   final List tabs = [
-    const TabOneScreen(),
+    const TabOneInputScreen(),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),

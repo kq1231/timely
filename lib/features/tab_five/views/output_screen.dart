@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/features/tab_five/controllers/output_controller.dart';
 import 'package:timely/features/tab_five/views/input_screen.dart';
-import 'package:timely/features/tab_one/controllers/color_provider.dart';
+import 'package:timely/public_providers.dart/color_provider.dart';
 import 'package:timely/layout_params.dart';
-import 'package:timely/general_providers/tab_index_provider.dart';
+import 'package:timely/public_providers.dart/tab_index_provider.dart';
 
 class TabFiveOutputScreen extends ConsumerWidget {
   const TabFiveOutputScreen({super.key});

@@ -1,11 +1,12 @@
 import 'dart:io';
-import 'package:timely/features/tab_one/models/db_files.dart';
+import 'package:timely/features/public_models/db_files.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 
 final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
   Directory docDir = await getApplicationDocumentsDirectory();
   File tabOneFile = File('${docDir.path}/tab_one.json');
+  File tabOneReFile = File('${docDir.path}/tab_one_re.json');
   File tabFiveFile = File('${docDir.path}/tab_five.json');
 
   if (!await tabOneFile.exists()) {
@@ -401,5 +402,12 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
     await tabFiveFile.writeAsString("{}");
   }
 
-  return DBFiles(tabOneFile: tabOneFile, tabFiveFile: tabFiveFile);
+  if (!await tabOneReFile.exists()) {
+    await tabOneReFile.writeAsString("{}");
+  }
+
+  return DBFiles(
+      tabOneFile: tabOneFile,
+      tabFiveFile: tabFiveFile,
+      tabOneReFile: tabOneReFile);
 });
