@@ -5,7 +5,7 @@ import 'package:timely/features/tab_one/views/output_screens/output_screen_a.dar
 import 'package:timely/features/tab_one/views/output_screens/output_screen_b.dart';
 import 'package:timely/features/tab_one/views/output_screens/output_screen_c.dart';
 import 'package:timely/layout_params.dart';
-import 'package:timely/providers/tab_index_provider.dart';
+import 'package:timely/general_providers/tab_index_provider.dart';
 
 class TabOneScreen extends ConsumerStatefulWidget {
   const TabOneScreen({super.key});

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/features/tab_five/controllers/input_controller.dart';
+import 'package:timely/features/tab_five/controllers/output_controller.dart';
 import 'package:timely/layout_params.dart';
 
 class TabFiveInputScreen extends ConsumerWidget {
@@ -123,10 +124,18 @@ class TabFiveInputScreen extends ConsumerWidget {
           children: [
             ElevatedButton(child: const Text("Cancel"), onPressed: () {}),
             ElevatedButton(
-                child: const Text("Submit"),
-                onPressed: () {
-                  ref.read(tabFiveInputProvider.notifier).syncToDB();
-                })
+              child: const Text("Submit"),
+              onPressed: () {
+                ref.read(tabFiveInputProvider.notifier).syncToDB();
+                ref.invalidate(tabFiveFutureProvider);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Submitted Successfully'),
+                    duration: Duration(seconds: 1),
+                  ),
+                );
+              },
+            )
           ],
         )
       ],

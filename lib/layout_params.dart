@@ -18,6 +18,10 @@ TextStyle tabOneOutputScreenBCommentStyle = const TextStyle(fontSize: 12);
 // Typography.TabOneOutputScreenC
 TextStyle tabOneOutputScreenCCommentStyle = const TextStyle(fontSize: 12);
 
+// Typography.TabFiveOutput
+TextStyle tabFiveOutputTileTextStyle =
+    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
+
 // Tab Icons
 Icon launchScreenIcon = const Icon(Icons.home);
 Icon tabOneIcon = const Icon(Icons.hexagon_outlined);
@@ -80,3 +84,6 @@ List<Color> outputScreenCCommentTextColors = [Colors.black, Colors.white];
 String tabOneOutputScreenSegButtonText_1 = "A";
 String tabOneOutputScreenSegButtonText_2 = "B";
 String tabOneOutputScreenSegButtonText_3 = "C";
+
+// TabFiveAlternatingTileColors
+List<Color> tabFiveAlternatingTileColors = [Colors.grey, Colors.blueGrey];
