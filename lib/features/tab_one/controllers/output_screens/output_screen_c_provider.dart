@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/public_providers.dart/db_files_provider.dart';
+import 'package:timely/public_providers/db_files_provider.dart';
 
 final outputScreenCProvider =
     FutureProvider.autoDispose<Map<String, String>>((ref) async {

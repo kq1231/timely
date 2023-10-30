@@ -83,7 +83,18 @@ class TabOneInputScreen extends ConsumerWidget {
                   controller.setNextUpdateTime(timeSelected);
                 }
               },
-              child: const Icon(Icons.timer),
+              child: Column(
+                children: [
+                  const Row(
+                    children: [
+                      Text("Select Time"),
+                      SizedBox(width: 5),
+                      Icon(Icons.timer),
+                    ],
+                  ),
+                  Text(state.nextUpdateTime.format(context))
+                ],
+              ),
             ),
           ],
         ),
@@ -105,12 +116,17 @@ class TabOneInputScreen extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            ElevatedButton(child: const Text("Cancel"), onPressed: () {}),
+            ElevatedButton(
+                child: const Text("Cancel"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }),
             ElevatedButton(
               child: const Text("Submit"),
               onPressed: () {
                 controller.syncToDB();
                 ref.invalidate(tabOneInputProvider);
+                Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Submitted Successfully'),

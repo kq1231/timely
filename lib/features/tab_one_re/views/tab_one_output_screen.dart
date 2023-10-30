@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/features/tab_one_re/controllers/output_controller.dart';
 import 'package:timely/features/tab_one_re/views/tab_one_input_screen.dart';
 import 'package:timely/layout_params.dart';
-import 'package:timely/public_providers.dart/tab_index_provider.dart';
+import 'package:timely/public_providers/tab_index_provider.dart';
 
 class TabOneOutputScreen extends ConsumerWidget {
   const TabOneOutputScreen({super.key});
@@ -26,7 +26,7 @@ class TabOneOutputScreen extends ConsumerWidget {
                           children: [
                             Text(data[index].date, style: timelyStyle),
                             Text(
-                                "${data[index].nextUpdateTime.hour}:${data[index].nextUpdateTime.minute}")
+                                "${data[index].nextUpdateTime.hourOfPeriod.toString()}:${data[index].nextUpdateTime.minute.toString()} ${data[index].nextUpdateTime.period == DayPeriod.am ? "AM" : "PM"}"),
                           ],
                         ),
                       ),

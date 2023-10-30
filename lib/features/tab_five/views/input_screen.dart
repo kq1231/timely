@@ -122,12 +122,17 @@ class TabFiveInputScreen extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            ElevatedButton(child: const Text("Cancel"), onPressed: () {}),
+            ElevatedButton(
+                child: const Text("Cancel"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }),
             ElevatedButton(
               child: const Text("Submit"),
               onPressed: () {
                 ref.read(tabFiveInputProvider.notifier).syncToDB();
                 ref.invalidate(tabFiveFutureProvider);
+                Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Submitted Successfully'),

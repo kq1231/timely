@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/features/tab_five/models/spw.dart';
-import 'package:timely/public_providers.dart/db_files_provider.dart';
+import 'package:timely/public_providers/db_files_provider.dart';
 
 // Repositories are used to communicate to the external world eg. DB, REST API.
 

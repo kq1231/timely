@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/features/tab_five/controllers/output_controller.dart';
 import 'package:timely/features/tab_five/views/input_screen.dart';
-import 'package:timely/public_providers.dart/color_provider.dart';
+import 'package:timely/public_providers/color_provider.dart';
 import 'package:timely/layout_params.dart';
-import 'package:timely/public_providers.dart/tab_index_provider.dart';
+import 'package:timely/public_providers/tab_index_provider.dart';
 
 class TabFiveOutputScreen extends ConsumerWidget {
   const TabFiveOutputScreen({super.key});
@@ -23,9 +23,8 @@ class TabFiveOutputScreen extends ConsumerWidget {
                       const Divider(
                         height: 10,
                       ),
-                      Container(
+                      SizedBox(
                         height: 50,
-                        color: tabFiveAlternatingTileColors[index % 2],
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -50,7 +49,12 @@ class TabFiveOutputScreen extends ConsumerWidget {
                                           style: tabFiveOutputTileTextStyle)),
                                 ),
                               );
-                            })
+                            }),
+                            SizedBox(
+                                width: 50,
+                                child: Center(
+                                    child:
+                                        Text(data[index].weight.toString()))),
                           ],
                         ),
                       ),

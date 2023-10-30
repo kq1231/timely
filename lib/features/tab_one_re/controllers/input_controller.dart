@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/features/tab_one_re/controllers/output_controller.dart';
 import 'package:timely/features/tab_one_re/models/fms_model.dart';
 import 'package:timely/features/tab_one_re/repositories/tab_one_repo.dart';
 
@@ -38,6 +39,7 @@ class TabOneInputNotifier extends Notifier<FMSModel> {
 
   Future<void> syncToDB() async {
     await ref.read(tabOneRepositoryProvider.notifier).writeFMSModel(state);
+    ref.invalidate(tabOneFutureProvider);
   }
 }
 

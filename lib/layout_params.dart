@@ -24,11 +24,11 @@ TextStyle tabFiveOutputTileTextStyle =
 
 // Tab Icons
 Icon launchScreenIcon = const Icon(Icons.home);
-Icon tabOneIcon = const Icon(Icons.hexagon_outlined);
+Icon tabOneIcon = const Icon(Icons.looks_one_outlined);
 Icon tabTwoIcon = const Icon(Icons.ac_unit);
 Icon tabThreeIcon = const Icon(Icons.pentagon);
 Icon tabFourIcon = const Icon(Icons.pentagon);
-Icon tabFiveIcon = const Icon(Icons.pentagon);
+Icon tabFiveIcon = const Icon(Icons.looks_5_outlined);
 Icon tabSixIcon = const Icon(Icons.pentagon);
 Icon tabSevenIcon = const Icon(Icons.pentagon);
 Icon tabEightIcon = const Icon(Icons.pentagon);

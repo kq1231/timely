@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/features/tab_one_re/models/fms_model.dart';
 import 'package:timely/features/tab_one_re/repositories/tab_one_repo_iml.dart';
-import 'package:timely/public_providers.dart/db_files_provider.dart';
+import 'package:timely/public_providers/db_files_provider.dart';
 
 class TabOneRepository extends Notifier<AsyncValue<void>>
     implements TabOneRepositorySkeleton {

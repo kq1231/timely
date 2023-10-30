@@ -4,7 +4,7 @@ import 'package:timely/features/tab_five/views/output_screen.dart';
 import 'package:timely/features/tab_one_re/views/tab_one_output_screen.dart';
 import 'package:timely/layout_params.dart';
 import 'package:timely/features/launch_screen/views/launch_screen.dart';
-import 'package:timely/public_providers.dart/tab_index_provider.dart';
+import 'package:timely/public_providers/tab_index_provider.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

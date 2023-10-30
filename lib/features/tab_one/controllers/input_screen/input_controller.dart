@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/public_providers.dart/db_files_provider.dart';
+import 'package:timely/public_providers/db_files_provider.dart';
 import 'package:timely/features/launch_screen/controllers/remaining_time_ticker.dart';
 import 'package:timely/features/tab_one/controllers/intervals_provider.dart';
 import 'package:timely/features/tab_one/controllers/output_screens/output_screen_a_provider.dart';
