@@ -20,9 +20,11 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
       var content = jsonContent[date];
       Map json = {
         date: [
-          content[0][0],
-          content[0][1],
-          content[0][2],
+          [
+            content[0][0],
+            content[0][1],
+            content[0][2],
+          ],
           content[1],
           content[2]
         ]

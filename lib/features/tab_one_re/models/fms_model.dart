@@ -20,7 +20,8 @@ class FMSModel {
     var date = json.keys.toList().first;
 
     var content = json.values.toList().first;
-    List scores = content.first as List<int>;
+    print(content);
+    List<int> scores = List.generate(3, (index) => content.first[index]);
     String time = content[1];
     String text_1 = content.last;
     List timeParts = time.split(":");
