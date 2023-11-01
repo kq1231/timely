@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/other_modules/tab_five/views/output_screen.dart';
-import 'package:timely/other_modules/tab_one/repositories/tab_one_repo.dart';
-import 'package:timely/other_modules/tab_one/views/tab_one_output_screen.dart';
-import 'package:timely/layout_params.dart';
-import 'package:timely/home_module/launch_screen/views/launch_screen.dart';
-import 'package:timely/reusable.dart';
+import 'package:timely/modules/tab_5/views/output_screen.dart';
+import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
+import 'package:timely/modules/tab_1/views/tab_one_output_screen.dart';
+import 'package:timely/app_themes.dart';
+import 'package:timely/modules/home/views/launch_screen.dart';
+import 'package:timely/reusables.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

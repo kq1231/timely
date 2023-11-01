@@ -1,4 +1,4 @@
-import 'package:timely/other_modules/tab_one/models/fms_model.dart';
+import 'package:timely/modules/tab_1/models/fms_model.dart';
 
 abstract class TabOneRepositorySkeleton {
   // Methods

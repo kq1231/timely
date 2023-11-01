@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/other_modules/tab_one/controllers/output_controller.dart';
-import 'package:timely/other_modules/tab_one/models/fms_model.dart';
-import 'package:timely/other_modules/tab_one/repositories/tab_one_repo.dart';
+import 'package:timely/modules/tab_1/controllers/output_controller.dart';
+import 'package:timely/modules/tab_1/models/fms_model.dart';
+import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
 
 class TabOneInputNotifier extends Notifier<FMSModel> {
   @override

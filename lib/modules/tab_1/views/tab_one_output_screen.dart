@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/other_modules/tab_one/controllers/output_controller.dart';
-import 'package:timely/other_modules/tab_one/views/tab_one_input_screen.dart';
-import 'package:timely/layout_params.dart';
-import 'package:timely/reusable.dart';
+import 'package:timely/modules/tab_1/controllers/output_controller.dart';
+import 'package:timely/modules/tab_1/views/tab_one_input_screen.dart';
+import 'package:timely/app_themes.dart';
+import 'package:timely/reusables.dart';
 
 class TabOneOutputScreen extends ConsumerWidget {
   const TabOneOutputScreen({super.key});

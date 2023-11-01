@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/other_modules/tab_five/controllers/output_controller.dart';
-import 'package:timely/other_modules/tab_five/views/input_screen.dart';
-import 'package:timely/reusable.dart';
-import 'package:timely/layout_params.dart';
+import 'package:timely/modules/tab_5/controllers/output_controller.dart';
+import 'package:timely/modules/tab_5/views/input_screen.dart';
+import 'package:timely/reusables.dart';
+import 'package:timely/app_themes.dart';
 
 class TabFiveOutputScreen extends ConsumerWidget {
   const TabFiveOutputScreen({super.key});

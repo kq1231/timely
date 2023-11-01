@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:timely/home_module/launch_screen/controllers/remaining_time_ticker.dart';
-import 'package:timely/other_modules/tab_one/models/fms_model.dart';
-import 'package:timely/other_modules/tab_one/repositories/tab_one_repo_iml.dart';
-import 'package:timely/reusable.dart';
+import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
+import 'package:timely/modules/tab_1/models/fms_model.dart';
+import 'package:timely/modules/tab_1/repositories/tab_one_repo_iml.dart';
+import 'package:timely/reusables.dart';
 
 class TabOneRepository extends Notifier<AsyncValue<void>>
     implements TabOneRepositorySkeleton {
