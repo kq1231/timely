@@ -81,6 +81,7 @@ class MyHomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     if (firstLaunch) {
       ref.read(tabOneRepositoryProvider.notifier).createDefaultEntry();
+      ref.read(tabOneRepositoryProvider.notifier).updateNextUpdateTime();
     }
     firstLaunch = false;
     int currentTabIndex = ref.watch(tabIndexProvider);

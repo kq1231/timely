@@ -85,7 +85,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
     final jsonContent = jsonDecode(await tabOneFile.readAsString());
     String dateToday = DateTime.now().toString().substring(0, 10);
 
-    FMSModel model = FMSModel.fromJson(jsonContent[dateToday]);
+    FMSModel model = FMSModel.fromJson({dateToday: jsonContent[dateToday]});
     Timer.periodic(const Duration(seconds: 5), (timer) async {
       DateTime currentTime = DateTime.now();
       DateTime nextUpdateTime = DateFormat("yyyy-MM-dd HH:mm").parse(
