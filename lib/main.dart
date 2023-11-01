@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/features/tab_five/views/output_screen.dart';
-import 'package:timely/features/tab_one_re/views/tab_one_output_screen.dart';
+import 'package:timely/modules/tab_five/views/output_screen.dart';
+import 'package:timely/modules/tab_one/views/tab_one_output_screen.dart';
 import 'package:timely/layout_params.dart';
-import 'package:timely/features/launch_screen/views/launch_screen.dart';
+import 'package:timely/modules/launch_screen/views/launch_screen.dart';
 import 'package:timely/public_providers/tab_index_provider.dart';
 
 void main() {

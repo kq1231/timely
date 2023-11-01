@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:timely/features/public_models/db_files.dart';
+import 'package:timely/public_models/db_files.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 
