@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:timely/modules/launch_screen/controllers/remaining_time_ticker.dart';
 import 'package:timely/modules/tab_one/models/fms_model.dart';
 import 'package:timely/modules/tab_one/repositories/tab_one_repo_iml.dart';
 import 'package:timely/reusable.dart';
@@ -84,17 +85,16 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
     final tabOneFile = (await ref.read(dbFilesProvider.future)).tabOneReFile;
     final jsonContent = jsonDecode(await tabOneFile.readAsString());
     String dateToday = DateTime.now().toString().substring(0, 10);
-
     FMSModel model = FMSModel.fromJson({dateToday: jsonContent[dateToday]});
     Timer.periodic(const Duration(seconds: 5), (timer) async {
       DateTime currentTime = DateTime.now();
       DateTime nextUpdateTime = DateFormat("yyyy-MM-dd HH:mm").parse(
           "$dateToday ${model.nextUpdateTime.hour}:${model.nextUpdateTime.minute}");
-
       if (currentTime.difference(nextUpdateTime).inMinutes == 0) {
         model.nextUpdateTime =
             TimeOfDay(hour: model.nextUpdateTime.hour + 1, minute: 0);
         await writeFMSModel(model);
+        ref.invalidate(remainingTimeTickerProvider);
       }
 
       if (currentTime.hour == 10) {
