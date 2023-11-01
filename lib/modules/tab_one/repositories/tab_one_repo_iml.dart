@@ -7,4 +7,8 @@ abstract class TabOneRepositorySkeleton {
   }
 
   Future<void> writeFMSModel(FMSModel model) async {}
+
+  Future<void> createDefaultEntry() async {}
+
+  Future<void> updateNextUpdateTime() async {}
 }

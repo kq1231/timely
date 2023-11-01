@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_five/views/output_screen.dart';
+import 'package:timely/modules/tab_one/repositories/tab_one_repo.dart';
 import 'package:timely/modules/tab_one/views/tab_one_output_screen.dart';
 import 'package:timely/layout_params.dart';
 import 'package:timely/modules/launch_screen/views/launch_screen.dart';
-import 'package:timely/public_providers/tab_index_provider.dart';
+import 'package:timely/reusable.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
+
+bool firstLaunch = true;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -76,12 +79,16 @@ class MyHomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if (firstLaunch) {
+      ref.read(tabOneRepositoryProvider.notifier).createDefaultEntry();
+    }
+    firstLaunch = false;
     int currentTabIndex = ref.watch(tabIndexProvider);
     var provider = ref.read(tabIndexProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Timely"),
+        title: const Text("Timely"),
       ),
       body: Row(
         children: [
