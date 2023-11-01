@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_five/controllers/output_controller.dart';
-import 'package:timely/modules/tab_five/views/input_screen.dart';
+import 'package:timely/other_modules/tab_five/controllers/output_controller.dart';
+import 'package:timely/other_modules/tab_five/views/input_screen.dart';
 import 'package:timely/reusable.dart';
 import 'package:timely/layout_params.dart';
 

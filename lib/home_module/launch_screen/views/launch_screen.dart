@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/launch_screen/controllers/remaining_time_ticker.dart';
+import 'package:timely/home_module/launch_screen/controllers/remaining_time_ticker.dart';
 import 'package:timely/layout_params.dart';
 
 class LaunchScreen extends ConsumerWidget {
