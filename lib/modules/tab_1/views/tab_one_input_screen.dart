@@ -10,12 +10,22 @@ class TabOneInputScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(tabOneInputProvider);
     final controller = ref.read(tabOneInputProvider.notifier);
+    List labels = ["Good", "Fair", "Poor"];
 
     return Column(
       children: [
-        Text(
-          state.date,
-          style: timelyStyle,
+        Container(
+          decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              state.date,
+              style: timelyStyle,
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 30,
         ),
         Row(children: [
           const SizedBox(width: 10),
@@ -24,12 +34,17 @@ class TabOneInputScreen extends ConsumerWidget {
             3,
             (index) {
               return Expanded(
-                child: Radio<int>(
-                  value: state.fScore,
-                  groupValue: index,
-                  onChanged: (value) {
-                    controller.setFScore(index);
-                  },
+                child: Column(
+                  children: [
+                    Radio<int>(
+                      value: state.fScore,
+                      groupValue: index,
+                      onChanged: (value) {
+                        controller.setFScore(index);
+                      },
+                    ),
+                    Text(labels[index])
+                  ],
                 ),
               );
             },
@@ -42,12 +57,17 @@ class TabOneInputScreen extends ConsumerWidget {
             3,
             (index) {
               return Expanded(
-                child: Radio<int>(
-                  value: state.mScore,
-                  groupValue: index,
-                  onChanged: (value) {
-                    controller.setMScore(index);
-                  },
+                child: Column(
+                  children: [
+                    Radio<int>(
+                      value: state.mScore,
+                      groupValue: index,
+                      onChanged: (value) {
+                        controller.setMScore(index);
+                      },
+                    ),
+                    Text(labels[index])
+                  ],
                 ),
               );
             },
@@ -60,19 +80,27 @@ class TabOneInputScreen extends ConsumerWidget {
             3,
             (index) {
               return Expanded(
-                child: Radio<int>(
-                  value: state.sScore,
-                  groupValue: index,
-                  onChanged: (value) {
-                    controller.setSScore(index);
-                  },
+                child: Column(
+                  children: [
+                    Radio<int>(
+                      value: state.sScore,
+                      groupValue: index,
+                      onChanged: (value) {
+                        controller.setSScore(index);
+                      },
+                    ),
+                    Text(labels[index])
+                  ],
                 ),
               );
             },
           ),
         ]),
+        const SizedBox(
+          height: 30,
+        ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text("Next Update Time", style: timelyStyle),
             ElevatedButton(
@@ -85,24 +113,22 @@ class TabOneInputScreen extends ConsumerWidget {
               },
               child: Column(
                 children: [
-                  const Row(
-                    children: [
-                      Text("Select Time"),
-                      SizedBox(width: 5),
-                      Icon(Icons.timer),
-                    ],
-                  ),
-                  Text(state.nextUpdateTime.format(context))
+                  Text(state.nextUpdateTime.format(context)),
                 ],
               ),
             ),
           ],
         ),
+        const SizedBox(
+          height: 30,
+        ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text("Text 1", style: timelyStyle),
             const SizedBox(width: 20),
-            Expanded(
+            SizedBox(
+              width: 250,
               child: TextField(
                 onChanged: (text_1) {
                   print(text_1);
@@ -112,7 +138,7 @@ class TabOneInputScreen extends ConsumerWidget {
             )
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 30),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

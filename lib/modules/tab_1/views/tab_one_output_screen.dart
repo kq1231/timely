@@ -25,8 +25,6 @@ class TabOneOutputScreen extends ConsumerWidget {
                         child: Column(
                           children: [
                             Text(data[index].date, style: timelyStyle),
-                            Text(
-                                "${data[index].nextUpdateTime.hourOfPeriod.toString()}:${data[index].nextUpdateTime.minute.toString()} ${data[index].nextUpdateTime.period == DayPeriod.am ? "AM" : "PM"}"),
                           ],
                         ),
                       ),
@@ -53,7 +51,10 @@ class TabOneOutputScreen extends ConsumerWidget {
                           );
                         }),
                       ),
-                      Flexible(child: Text(data[index].text_1)),
+                      Flexible(
+                        child: Text(
+                            "${data[index].nextUpdateTime.hourOfPeriod.toString()}:${data[index].nextUpdateTime.minute.toString()} ${data[index].nextUpdateTime.period == DayPeriod.am ? "AM" : "PM"}"),
+                      ),
                     ],
                   );
                 },

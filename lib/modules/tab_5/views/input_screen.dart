@@ -12,6 +12,7 @@ class TabFiveInputScreen extends ConsumerWidget {
     // final provider = ref.watch(tabFiveInputProvider.notifier);
     final tabFiveInput = ref.watch(tabFiveInputProvider);
     print("BUILD TRIGGERED");
+    List<String> labels = ["Good", "Fair", "Poor"];
 
     // List scores = [model.sScore, model.pScore, model.wScore];
     return Column(
@@ -27,12 +28,19 @@ class TabFiveInputScreen extends ConsumerWidget {
             3,
             (index) {
               return Expanded(
-                child: Radio<int>(
-                  value: tabFiveInput.sScore,
-                  groupValue: index,
-                  onChanged: (value) {
-                    ref.read(tabFiveInputProvider.notifier).setSScore(index);
-                  },
+                child: Column(
+                  children: [
+                    Radio<int>(
+                      value: tabFiveInput.sScore,
+                      groupValue: index,
+                      onChanged: (value) {
+                        ref
+                            .read(tabFiveInputProvider.notifier)
+                            .setSScore(index);
+                      },
+                    ),
+                    Text(labels[index]),
+                  ],
                 ),
               );
             },
@@ -54,12 +62,19 @@ class TabFiveInputScreen extends ConsumerWidget {
             3,
             (index) {
               return Expanded(
-                child: Radio<int>(
-                  value: tabFiveInput.pScore,
-                  groupValue: index,
-                  onChanged: (value) {
-                    ref.read(tabFiveInputProvider.notifier).setPScore(index);
-                  },
+                child: Column(
+                  children: [
+                    Radio<int>(
+                      value: tabFiveInput.pScore,
+                      groupValue: index,
+                      onChanged: (value) {
+                        ref
+                            .read(tabFiveInputProvider.notifier)
+                            .setPScore(index);
+                      },
+                    ),
+                    Text(labels[index]),
+                  ],
                 ),
               );
             },
@@ -76,12 +91,19 @@ class TabFiveInputScreen extends ConsumerWidget {
               3,
               (index) {
                 return Expanded(
-                  child: Radio<int>(
-                    value: tabFiveInput.wScore,
-                    groupValue: index,
-                    onChanged: (value) {
-                      ref.read(tabFiveInputProvider.notifier).setWScore(index);
-                    },
+                  child: Column(
+                    children: [
+                      Radio<int>(
+                        value: tabFiveInput.wScore,
+                        groupValue: index,
+                        onChanged: (value) {
+                          ref
+                              .read(tabFiveInputProvider.notifier)
+                              .setWScore(index);
+                        },
+                      ),
+                      Text(labels[index]),
+                    ],
                   ),
                 );
               },

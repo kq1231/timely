@@ -87,3 +87,5 @@ String tabOneOutputScreenSegButtonText_3 = "C";
 
 // TabFiveAlternatingTileColors
 List<Color> tabFiveAlternatingTileColors = [Colors.grey, Colors.blueGrey];
+
+class TabFiveInput {}

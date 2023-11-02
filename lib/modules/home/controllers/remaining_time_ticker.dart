@@ -12,17 +12,20 @@ final remainingTimeTickerProvider =
 
   // First, check if today's date exists in the database
   String todayDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
+  try {
+    var interval = tabOneData[todayDate];
 
-  var interval = tabOneData[todayDate];
+    String time2String = interval[1];
+    DateTime time2 = DateFormat("yyyy-MM-dd HH:mm")
+        .parse("$todayDate ${time2String.replaceAll(" ", "")}");
+    while (true) {
+      DateTime now = DateTime.now();
 
-  String time2String = interval[1];
-  DateTime time2 = DateFormat("yyyy-MM-dd HH:mm")
-      .parse("$todayDate ${time2String.replaceAll(" ", "")}");
-  while (true) {
-    DateTime now = DateTime.now();
-
-    await Future.delayed(const Duration(seconds: 1));
-    Duration difference = time2.difference(now);
-    yield "${difference.inHours}:${difference.inMinutes % 60}:${difference.inSeconds % 60}";
+      await Future.delayed(const Duration(seconds: 1));
+      Duration difference = time2.difference(now);
+      yield "${difference.inHours}:${difference.inMinutes % 60}:${difference.inSeconds % 60}";
+    }
+  } catch (e) {
+    print(e);
   }
 });

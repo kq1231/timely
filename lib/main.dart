@@ -11,8 +11,6 @@ void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-bool firstLaunch = true;
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -23,13 +21,27 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       themeMode: ThemeMode.dark,
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends ConsumerWidget {
-  MyHomePage({super.key});
+class MyHomePage extends ConsumerStatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends ConsumerState<MyHomePage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () async {
+      await ref.read(tabOneRepositoryProvider.notifier).createDefaultEntry();
+      await ref.read(tabOneRepositoryProvider.notifier).updateNextUpdateTime();
+    });
+  }
 
   final List tabs = [
     const TabOneOutputScreen(),
@@ -78,12 +90,7 @@ class MyHomePage extends ConsumerWidget {
   ];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (firstLaunch) {
-      ref.read(tabOneRepositoryProvider.notifier).createDefaultEntry();
-      ref.read(tabOneRepositoryProvider.notifier).updateNextUpdateTime();
-    }
-    firstLaunch = false;
+  Widget build(BuildContext context) {
     int currentTabIndex = ref.watch(tabIndexProvider);
     var provider = ref.read(tabIndexProvider.notifier);
     return Scaffold(
