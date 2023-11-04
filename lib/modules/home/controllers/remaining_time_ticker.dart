@@ -3,10 +3,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
 import 'package:timely/reusables.dart';
 
-final remainingTimeTickerProvider =
-    StreamProvider.autoDispose<String>((ref) async* {
+final remainingTimeTickerProvider = StreamProvider<String>((ref) async* {
+  await ref.read(tabOneRepositoryProvider.notifier).createDefaultEntry();
+  ref.read(tabOneRepositoryProvider.notifier).updateNextUpdateTime();
+
   File tabOneFile = (await ref.watch(dbFilesProvider.future)).tabOneReFile;
   Map tabOneData = jsonDecode(await tabOneFile.readAsString());
 

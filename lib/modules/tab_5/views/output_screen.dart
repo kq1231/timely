@@ -15,52 +15,80 @@ class TabFiveOutputScreen extends ConsumerWidget {
         data: (data) {
           return Stack(
             children: [
-              ListView.builder(
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      const Divider(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 50,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(data[index].date,
-                                  style: tabFiveOutputTileTextStyle),
-                            ),
-                            ...List.generate(3, (i) {
-                              List scores = [
-                                data[index].sScore,
-                                data[index].pScore,
-                                data[index].wScore
-                              ];
-                              List names = ["S", "P", "W"];
-                              return Expanded(
-                                child: Container(
-                                  color: ref.read(colorProvider)[scores[i]],
-                                  child: Center(
-                                      child: Text("${names[i]} - ${scores[i]}",
-                                          style: tabFiveOutputTileTextStyle)),
-                                ),
-                              );
-                            }),
-                            SizedBox(
-                                width: 50,
-                                child: Center(
-                                    child:
-                                        Text(data[index].weight.toString()))),
-                          ],
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 50,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 110,
+                          child: Center(child: Text("Date")),
                         ),
-                      ),
-                    ],
-                  );
-                },
-                itemCount: data.length,
+                        Expanded(child: Center(child: Text("S"))),
+                        Expanded(child: Center(child: Text("P"))),
+                        Expanded(child: Center(child: Text("W"))),
+                        SizedBox(
+                            width: 70, child: Center(child: Text("Weight"))),
+                      ],
+                    ),
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                            child: Container(
+                              color: index % 2 == 0
+                                  ? Colors.blueGrey[800]
+                                  : Colors.grey[800],
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  SizedBox(
+                                    width: 110,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: Text(data[index].date,
+                                          style: tabFiveOutputTileTextStyle),
+                                    ),
+                                  ),
+                                  ...List.generate(3, (i) {
+                                    List scores = [
+                                      data[index].sScore,
+                                      data[index].pScore,
+                                      data[index].wScore
+                                    ];
+                                    return Expanded(
+                                      child: Container(
+                                        color: ref
+                                            .read(colorProvider)[scores[i] * 3],
+                                        child: Center(
+                                            child: Text("${scores[i]}",
+                                                style:
+                                                    tabFiveOutputTileTextStyle)),
+                                      ),
+                                    );
+                                  }),
+                                  SizedBox(
+                                      width: 70,
+                                      child: Center(
+                                          child: Text(
+                                              "${data[index].weight.round()} KG"))),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                    itemCount: data.length,
+                  ),
+                ],
               ),
               Column(
                 children: [

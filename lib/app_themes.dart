@@ -88,4 +88,14 @@ String tabOneOutputScreenSegButtonText_3 = "C";
 // TabFiveAlternatingTileColors
 List<Color> tabFiveAlternatingTileColors = [Colors.grey, Colors.blueGrey];
 
-class TabFiveInput {}
+class TabOneLayout {
+  static List headers = ["Date", "F", "M", "S", "Time"];
+  static TextStyle headerFont =
+      const TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
+  static List alternateColors = [
+    Colors.blueGrey[800],
+    Colors.grey[800],
+  ];
+  static TextStyle tileFont =
+      const TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
+}

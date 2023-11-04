@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_5/views/output_screen.dart';
-import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
 import 'package:timely/modules/tab_1/views/tab_one_output_screen.dart';
 import 'package:timely/app_themes.dart';
 import 'package:timely/modules/home/views/launch_screen.dart';
@@ -37,10 +36,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () async {
-      await ref.read(tabOneRepositoryProvider.notifier).createDefaultEntry();
-      await ref.read(tabOneRepositoryProvider.notifier).updateNextUpdateTime();
-    });
   }
 
   final List tabs = [

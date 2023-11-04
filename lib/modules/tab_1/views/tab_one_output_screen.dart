@@ -15,50 +15,104 @@ class TabOneOutputScreen extends ConsumerWidget {
         data: (data) {
           return Stack(
             children: [
-              ListView.builder(
-                itemBuilder: (context, index) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        color: Colors.grey[800],
-                        child: Column(
-                          children: [
-                            Text(data[index].date, style: timelyStyle),
-                          ],
-                        ),
-                      ),
-                      ...List.generate(
-                        3,
-                        ((i) {
-                          List names = "F,M,S".split(",");
-                          List scores = [
-                            data[index].fScore,
-                            data[index].mScore,
-                            data[index].sScore
-                          ];
-                          return SizedBox(
-                            width: 50,
+              Column(
+                children: [
+                  SizedBox(
+                    height: 50,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                            width: 110,
+                            child: Center(
+                                child: Text(
+                              TabOneLayout.headers[0],
+                              style: TabOneLayout.headerFont,
+                            ))),
+                        Expanded(
+                            child: Center(
+                                child: Text(
+                          TabOneLayout.headers[1],
+                          style: TabOneLayout.headerFont,
+                        ))),
+                        Expanded(
+                            child: Center(
+                                child: Text(
+                          TabOneLayout.headers[2],
+                          style: TabOneLayout.headerFont,
+                        ))),
+                        Expanded(
+                            child: Center(
+                                child: Text(
+                          TabOneLayout.headers[3],
+                          style: TabOneLayout.headerFont,
+                        ))),
+                        SizedBox(
+                            width: 70,
+                            child: Center(
+                                child: Text(
+                              TabOneLayout.headers[4],
+                              style: TabOneLayout.headerFont,
+                            ))),
+                      ],
+                    ),
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
                             child: Container(
-                              color: Colors.orange[800],
-                              child: Column(
+                              color: index % 2 == 0
+                                  ? TabOneLayout.alternateColors[0]
+                                  : TabOneLayout.alternateColors[1],
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(scores[i].toString()),
-                                  Text(names[i]),
+                                  SizedBox(
+                                    width: 110,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: Text(data[index].date,
+                                          style: TabOneLayout.tileFont),
+                                    ),
+                                  ),
+                                  ...List.generate(3, (i) {
+                                    List scores = [
+                                      data[index].fScore,
+                                      data[index].mScore,
+                                      data[index].sScore
+                                    ];
+                                    return Expanded(
+                                      child: Container(
+                                        child: Center(
+                                            child: Text("${scores[i]}",
+                                                style: TabOneLayout.tileFont)),
+                                      ),
+                                    );
+                                  }),
+                                  SizedBox(
+                                      width: 70,
+                                      child: Center(
+                                          child: Text(
+                                        data[index]
+                                            .nextUpdateTime
+                                            .format(context),
+                                        style: TabOneLayout.tileFont,
+                                      ))),
                                 ],
                               ),
                             ),
-                          );
-                        }),
-                      ),
-                      Flexible(
-                        child: Text(
-                            "${data[index].nextUpdateTime.hourOfPeriod.toString()}:${data[index].nextUpdateTime.minute.toString()} ${data[index].nextUpdateTime.period == DayPeriod.am ? "AM" : "PM"}"),
-                      ),
-                    ],
-                  );
-                },
-                itemCount: data.length,
+                          ),
+                        ],
+                      );
+                    },
+                    itemCount: data.length,
+                  ),
+                ],
               ),
               Column(
                 children: [
@@ -80,9 +134,8 @@ class TabOneOutputScreen extends ConsumerWidget {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
                               return Scaffold(
-                                appBar: AppBar(),
-                                body: const TabOneInputScreen(),
-                              );
+                                  appBar: AppBar(),
+                                  body: const TabOneInputScreen());
                             }));
                           }),
                     ],
