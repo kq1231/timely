@@ -36,7 +36,7 @@ class TabFiveInputNotifier extends Notifier<SPWModel> {
   }
 
   Future<void> syncToDB() async {
-    ref.read(tabFiveRepositoryProvider.notifier).writeSPWModel(state);
+    await ref.read(tabFiveRepositoryProvider.notifier).writeSPWModel(state);
     ref.invalidate(tabFiveFutureProvider);
   }
 }
