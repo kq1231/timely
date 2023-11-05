@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
 import 'package:timely/modules/tab_5/views/output_screen.dart';
 import 'package:timely/modules/tab_1/views/tab_one_output_screen.dart';
 import 'package:timely/app_themes.dart';
@@ -86,46 +87,89 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    int currentTabIndex = ref.watch(tabIndexProvider);
-    var provider = ref.read(tabIndexProvider.notifier);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("Timely"),
-      ),
-      body: Row(
-        children: [
-          SizedBox(
-            width: 50,
-            child: Column(
-              children: [
-                for (int i in Iterable.generate(tabs.length - 1))
-                  Expanded(
-                    child: FloatingActionButton(
-                      backgroundColor: tabColors[i],
-                      shape: const BeveledRectangleBorder(
-                        borderRadius: BorderRadius.zero,
-                        side: BorderSide(color: Colors.black38, width: 0.1),
+    return FutureBuilder(
+        future: Future.wait([
+          ref.read(tabOneRepositoryProvider.notifier).createDefaultEntry(),
+          ref.read(tabOneRepositoryProvider.notifier).updateNextUpdateTime()
+        ]),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Consumer(
+              builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                return Scaffold(
+                  appBar: AppBar(
+                    backgroundColor:
+                        Theme.of(context).colorScheme.inversePrimary,
+                    title: const Text("Timely"),
+                  ),
+                  body: Row(
+                    children: [
+                      SizedBox(
+                        width: 50,
+                        child: Column(
+                          children: [
+                            for (int i in Iterable.generate(tabs.length - 1))
+                              Expanded(
+                                child: FloatingActionButton(
+                                  backgroundColor: tabColors[i],
+                                  shape: const BeveledRectangleBorder(
+                                    borderRadius: BorderRadius.zero,
+                                    side: BorderSide(
+                                        color: Colors.black38, width: 0.1),
+                                  ),
+                                  heroTag: null,
+                                  onPressed: () {
+                                    ref
+                                        .read(tabIndexProvider.notifier)
+                                        .setIndex(i);
+                                  },
+                                  child: tabIcons[i],
+                                ),
+                              )
+                          ],
+                        ),
                       ),
-                      heroTag: null,
-                      onPressed: () {
-                        provider.setIndex(i);
-                      },
-                      child: tabIcons[i],
+                      const VerticalDivider(
+                        width: 2,
+                      ),
+                      Expanded(child: tabs[ref.watch(tabIndexProvider)]),
+                      const VerticalDivider(
+                        width: 2,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          } else {
+            return Scaffold(
+              body: Column(
+                children: [
+                  const Spacer(
+                    flex: 2,
+                  ),
+                  Center(
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Initializing...",
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            child: const LinearProgressIndicator())
+                      ],
                     ),
-                  )
-              ],
-            ),
-          ),
-          const VerticalDivider(
-            width: 2,
-          ),
-          Expanded(child: tabs[currentTabIndex]),
-          const VerticalDivider(
-            width: 2,
-          ),
-        ],
-      ),
-    );
+                  ),
+                  const Spacer(
+                    flex: 3,
+                  ),
+                ],
+              ),
+            );
+          }
+        });
   }
 }
