@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/modules/tab_5/controllers/output_controller.dart';
 import 'package:timely/modules/tab_5/models/spw.dart';
 import 'package:timely/modules/tab_5/repositories/tab_five_repo.dart';
 
@@ -36,6 +37,7 @@ class TabFiveInputNotifier extends Notifier<SPWModel> {
 
   Future<void> syncToDB() async {
     ref.read(tabFiveRepositoryProvider.notifier).writeSPWModel(state);
+    ref.invalidate(tabFiveFutureProvider);
   }
 }
 
