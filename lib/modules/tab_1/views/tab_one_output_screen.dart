@@ -59,6 +59,9 @@ class TabOneOutputScreen extends ConsumerWidget {
                   ListView.builder(
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
+                      var time = TimeOfDay(
+                          hour: data[index].nextUpdateTime.hour + 1,
+                          minute: data[index].nextUpdateTime.minute);
                       return Column(
                         children: [
                           SizedBox(
@@ -98,9 +101,7 @@ class TabOneOutputScreen extends ConsumerWidget {
                                       width: 70,
                                       child: Center(
                                           child: Text(
-                                        data[index]
-                                            .nextUpdateTime
-                                            .format(context),
+                                        time.format(context),
                                         style: TabOneLayout.tileFont,
                                       ))),
                                 ],

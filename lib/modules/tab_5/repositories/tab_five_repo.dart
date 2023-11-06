@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_5/models/spw.dart';
 import 'package:timely/reusables.dart';
 
@@ -33,10 +34,15 @@ class TabFiveRepositoryNotifier extends Notifier<AsyncValue<void>> {
     final tabFiveFile = (await ref.read(dbFilesProvider.future)).tabFiveFile;
     final jsonContent = jsonDecode(await tabFiveFile.readAsString());
     final spwModels = <SPWModel>[];
-    for (final date in jsonContent.keys) {
+    for (final date in jsonContent.keys.toList().reversed) {
       final scores = jsonContent[date][0];
       final weight = jsonContent[date][1] as double;
-      spwModels.add(SPWModel(date, scores[0], scores[1], scores[2], weight));
+      spwModels.add(SPWModel(
+          DateFormat('dd-MMM-yy').format(DateTime.parse(date)),
+          scores[0],
+          scores[1],
+          scores[2],
+          weight));
     }
 
     return spwModels;

@@ -1,0 +1,5 @@
+- Make Date readable and sort in descending order 
+	- eg: 03-Nov
+- Time does not show AM | PM on linux 
+- TabOneInputScreen overflows 
+- Show time instead of date and add 1 hour as well - Tab_1

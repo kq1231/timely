@@ -20,10 +20,10 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
     final tabOneFile = (await ref.read(dbFilesProvider.future)).tabOneReFile;
     final jsonContent = jsonDecode(await tabOneFile.readAsString());
     final fmsModels = <FMSModel>[];
-    for (final date in jsonContent.keys) {
+    for (final date in jsonContent.keys.toList().reversed) {
       var content = jsonContent[date];
       Map json = {
-        date: [
+        DateFormat('dd-MMM-yy').format(DateTime.parse(date)): [
           [
             content[0][0],
             content[0][1],

@@ -78,7 +78,7 @@ class TabFiveOutputScreen extends ConsumerWidget {
                                       width: 70,
                                       child: Center(
                                           child: Text(
-                                              "${data[index].weight.round()} KG"))),
+                                              "${data[index].weight} kg"))),
                                 ],
                               ),
                             ),
