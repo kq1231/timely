@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_1/controllers/output_controller.dart';
 import 'package:timely/modules/tab_1/views/tab_one_input_screen.dart';
-import 'package:timely/app_themes.dart';
+import 'package:timely/app_theme.dart';
 import 'package:timely/reusables.dart';
 
 class TabOneOutputScreen extends ConsumerWidget {
@@ -25,33 +25,33 @@ class TabOneOutputScreen extends ConsumerWidget {
                             width: 110,
                             child: Center(
                                 child: Text(
-                              TabOneLayout.headers[0],
-                              style: TabOneLayout.headerFont,
+                              TabOneOutputLayout.headers[0],
+                              style: TabOneOutputLayout.headerFont,
                             ))),
                         Expanded(
                             child: Center(
                                 child: Text(
-                          TabOneLayout.headers[1],
-                          style: TabOneLayout.headerFont,
+                          TabOneOutputLayout.headers[1],
+                          style: TabOneOutputLayout.headerFont,
                         ))),
                         Expanded(
                             child: Center(
                                 child: Text(
-                          TabOneLayout.headers[2],
-                          style: TabOneLayout.headerFont,
+                          TabOneOutputLayout.headers[2],
+                          style: TabOneOutputLayout.headerFont,
                         ))),
                         Expanded(
                             child: Center(
                                 child: Text(
-                          TabOneLayout.headers[3],
-                          style: TabOneLayout.headerFont,
+                          TabOneOutputLayout.headers[3],
+                          style: TabOneOutputLayout.headerFont,
                         ))),
                         SizedBox(
                             width: 70,
                             child: Center(
                                 child: Text(
-                              TabOneLayout.headers[4],
-                              style: TabOneLayout.headerFont,
+                              TabOneOutputLayout.headers[4],
+                              style: TabOneOutputLayout.headerFont,
                             ))),
                       ],
                     ),
@@ -60,7 +60,7 @@ class TabOneOutputScreen extends ConsumerWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       var time = TimeOfDay(
-                          hour: data[index].nextUpdateTime.hour + 1,
+                          hour: (data[index].nextUpdateTime.hour % 12) + 1,
                           minute: data[index].nextUpdateTime.minute);
                       return Column(
                         children: [
@@ -68,8 +68,8 @@ class TabOneOutputScreen extends ConsumerWidget {
                             height: 50,
                             child: Container(
                               color: index % 2 == 0
-                                  ? TabOneLayout.alternateColors[0]
-                                  : TabOneLayout.alternateColors[1],
+                                  ? TabOneOutputLayout.alternateColors[0]
+                                  : TabOneOutputLayout.alternateColors[1],
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -80,7 +80,7 @@ class TabOneOutputScreen extends ConsumerWidget {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
                                       child: Text(data[index].date,
-                                          style: TabOneLayout.tileFont),
+                                          style: TabOneOutputLayout.tileFont),
                                     ),
                                   ),
                                   ...List.generate(3, (i) {
@@ -93,7 +93,8 @@ class TabOneOutputScreen extends ConsumerWidget {
                                       child: Container(
                                         child: Center(
                                             child: Text("${scores[i]}",
-                                                style: TabOneLayout.tileFont)),
+                                                style: TabOneOutputLayout
+                                                    .tileFont)),
                                       ),
                                     );
                                   }),
@@ -101,8 +102,8 @@ class TabOneOutputScreen extends ConsumerWidget {
                                       width: 70,
                                       child: Center(
                                           child: Text(
-                                        time.format(context),
-                                        style: TabOneLayout.tileFont,
+                                        "${time.hour}:${time.minute} ${time.hour > 12 ? 'PM' : 'AM'}",
+                                        style: TabOneOutputLayout.tileFont,
                                       ))),
                                 ],
                               ),
@@ -129,8 +130,7 @@ class TabOneOutputScreen extends ConsumerWidget {
                           }),
                       FloatingActionButton(
                           heroTag: null,
-                          child: Text(
-                              "${DateTime.now().day}-${DateTime.now().month}"),
+                          child: const Icon(Icons.add),
                           onPressed: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {

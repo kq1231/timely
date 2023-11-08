@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_5/controllers/output_controller.dart';
 import 'package:timely/modules/tab_5/views/input_screen.dart';
 import 'package:timely/reusables.dart';
-import 'package:timely/app_themes.dart';
+import 'package:timely/app_theme.dart';
 
 class TabFiveOutputScreen extends ConsumerWidget {
   const TabFiveOutputScreen({super.key});
@@ -104,8 +104,7 @@ class TabFiveOutputScreen extends ConsumerWidget {
                           }),
                       FloatingActionButton(
                           heroTag: null,
-                          child: Text(
-                              "${DateTime.now().day}-${DateTime.now().month}"),
+                          child: const Icon(Icons.add),
                           onPressed: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {

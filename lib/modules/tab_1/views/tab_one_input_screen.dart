@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_1/controllers/input_controller.dart';
-import 'package:timely/app_themes.dart';
+import 'package:timely/app_theme.dart';
 
 class TabOneInputScreen extends ConsumerWidget {
   const TabOneInputScreen({super.key});
@@ -10,7 +10,7 @@ class TabOneInputScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(tabOneInputProvider);
     final controller = ref.read(tabOneInputProvider.notifier);
-    List labels = ["Good", "Fair", "Poor"];
+    List labels = TabOneInputLayout.labels;
 
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
@@ -31,7 +31,10 @@ class TabOneInputScreen extends ConsumerWidget {
           ),
           Row(children: [
             const SizedBox(width: 10),
-            SizedBox(width: 100, child: Text('F Score', style: timelyStyle)),
+            SizedBox(
+                width: 100,
+                child:
+                    Text(TabOneInputLayout.scoreNames[0], style: timelyStyle)),
             ...List.generate(
               3,
               (index) {
@@ -54,7 +57,10 @@ class TabOneInputScreen extends ConsumerWidget {
           ]),
           Row(children: [
             const SizedBox(width: 10),
-            SizedBox(width: 100, child: Text('M Score', style: timelyStyle)),
+            SizedBox(
+                width: 100,
+                child:
+                    Text(TabOneInputLayout.scoreNames[1], style: timelyStyle)),
             ...List.generate(
               3,
               (index) {
@@ -77,7 +83,10 @@ class TabOneInputScreen extends ConsumerWidget {
           ]),
           Row(children: [
             const SizedBox(width: 10),
-            SizedBox(width: 100, child: Text('S Score', style: timelyStyle)),
+            SizedBox(
+                width: 100,
+                child:
+                    Text(TabOneInputLayout.scoreNames[2], style: timelyStyle)),
             ...List.generate(
               3,
               (index) {
@@ -127,13 +136,12 @@ class TabOneInputScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text("Text 1", style: timelyStyle),
+              Text(TabOneInputLayout.text_1Name, style: timelyStyle),
               const SizedBox(width: 20),
               SizedBox(
                 width: 250,
                 child: TextField(
                   onChanged: (text_1) {
-                    print(text_1);
                     controller.setText_1(text_1);
                   },
                 ),

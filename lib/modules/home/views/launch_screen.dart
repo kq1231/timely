@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
-import 'package:timely/app_themes.dart';
+import 'package:timely/app_theme.dart';
 
 class LaunchScreen extends ConsumerWidget {
   const LaunchScreen({super.key});

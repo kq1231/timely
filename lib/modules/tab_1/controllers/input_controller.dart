@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_1/controllers/output_controller.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
 import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
@@ -8,11 +9,11 @@ class TabOneInputNotifier extends Notifier<FMSModel> {
   @override
   FMSModel build() {
     return FMSModel(
-      date: DateTime.now().toString().substring(0, 10),
+      date: DateFormat("dd-MMM-yyyy").format(DateTime.now()),
       fScore: 0,
       mScore: 0,
       sScore: 0,
-      nextUpdateTime: TimeOfDay.now(),
+      nextUpdateTime: TimeOfDay(hour: TimeOfDay.now().hour + 1, minute: 0),
       text_1: "",
     );
   }

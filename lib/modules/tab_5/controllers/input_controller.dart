@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_5/controllers/output_controller.dart';
 import 'package:timely/modules/tab_5/models/spw.dart';
 import 'package:timely/modules/tab_5/repositories/tab_five_repo.dart';
@@ -7,7 +8,7 @@ class TabFiveInputNotifier extends Notifier<SPWModel> {
   @override
   build() {
     return SPWModel(
-      DateTime.now().toString().substring(0, 10),
+      DateFormat("dd-MMM-yyyy").format(DateTime.now()),
       0,
       0,
       0,

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_5/controllers/input_controller.dart';
 import 'package:timely/modules/tab_5/controllers/output_controller.dart';
 
-import 'package:timely/app_themes.dart';
+import 'package:timely/app_theme.dart';
 
 class TabFiveInputScreen extends ConsumerWidget {
   const TabFiveInputScreen({super.key});

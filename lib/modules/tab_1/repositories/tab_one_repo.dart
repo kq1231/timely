@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
-import 'package:timely/modules/tab_1/repositories/tab_one_repo_iml.dart';
+import 'package:timely/modules/tab_1/repositories/tab_one_repo_impl.dart';
 import 'package:timely/reusables.dart';
 
 class TabOneRepository extends Notifier<AsyncValue<void>>
@@ -23,7 +23,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
     for (final date in jsonContent.keys.toList().reversed) {
       var content = jsonContent[date];
       Map json = {
-        DateFormat('dd-MMM-yy').format(DateTime.parse(date)): [
+        DateFormat('dd-MMM').format(DateTime.parse(date)): [
           [
             content[0][0],
             content[0][1],

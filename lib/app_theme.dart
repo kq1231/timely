@@ -88,7 +88,7 @@ String tabOneOutputScreenSegButtonText_3 = "C";
 // TabFiveAlternatingTileColors
 List<Color> tabFiveAlternatingTileColors = [Colors.grey, Colors.blueGrey];
 
-class TabOneLayout {
+class TabOneOutputLayout {
   static List headers = ["Date", "F", "M", "S", "Time"];
   static TextStyle headerFont =
       const TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
@@ -98,4 +98,10 @@ class TabOneLayout {
   ];
   static TextStyle tileFont =
       const TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
+}
+
+class TabOneInputLayout {
+  static List labels = ["Good", "Fair", "Poor"];
+  static List scoreNames = ["F Score", "M Score", "S Score"];
+  static String text_1Name = "Comment";
 }
