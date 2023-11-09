@@ -9,13 +9,17 @@ class TabOneInputNotifier extends Notifier<FMSModel> {
   @override
   FMSModel build() {
     return FMSModel(
-      date: DateFormat("dd-MMM-yyyy").format(DateTime.now()),
+      date: DateTime.now().toString().substring(0, 10),
       fScore: 0,
       mScore: 0,
       sScore: 0,
       nextUpdateTime: TimeOfDay(hour: TimeOfDay.now().hour + 1, minute: 0),
       text_1: "",
     );
+  }
+
+  String getFormattedDate() {
+    return DateFormat("dd-MMM-yyyy").format(DateTime.now());
   }
 
   void setFScore(score) {

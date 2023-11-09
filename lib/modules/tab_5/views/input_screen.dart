@@ -10,7 +10,7 @@ class TabFiveInputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final provider = ref.watch(tabFiveInputProvider.notifier);
+    final provider = ref.watch(tabFiveInputProvider.notifier);
     final tabFiveInput = ref.watch(tabFiveInputProvider);
     print("BUILD TRIGGERED");
     List<String> labels = ["Good", "Fair", "Poor"];
@@ -19,7 +19,7 @@ class TabFiveInputScreen extends ConsumerWidget {
     return Column(
       children: [
         Text(
-          tabFiveInput.date,
+          provider.getFormattedDate(),
           style: timelyStyle,
         ),
         Row(children: [

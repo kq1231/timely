@@ -8,12 +8,16 @@ class TabFiveInputNotifier extends Notifier<SPWModel> {
   @override
   build() {
     return SPWModel(
-      DateFormat("dd-MMM-yyyy").format(DateTime.now()),
+      DateTime.now().toString().substring(0, 10),
       0,
       0,
       0,
       0,
     );
+  }
+
+  String getFormattedDate() {
+    return DateFormat("dd-MMM-yyyy").format(DateTime.now());
   }
 
   void setSScore(sScore) {

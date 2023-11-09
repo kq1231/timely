@@ -102,7 +102,7 @@ class TabOneOutputScreen extends ConsumerWidget {
                                       width: 70,
                                       child: Center(
                                           child: Text(
-                                        "${time.hour}:${time.minute} ${time.hour > 12 ? 'PM' : 'AM'}",
+                                        "${time.hour}:${time.minute} ${data[index].nextUpdateTime.hour > 12 ? 'PM' : 'AM'}",
                                         style: TabOneOutputLayout.tileFont,
                                       ))),
                                 ],

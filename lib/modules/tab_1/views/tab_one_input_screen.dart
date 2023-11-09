@@ -21,7 +21,7 @@ class TabOneInputScreen extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                state.date,
+                controller.getFormattedDate(),
                 style: timelyStyle,
               ),
             ),

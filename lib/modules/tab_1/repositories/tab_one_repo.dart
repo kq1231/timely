@@ -22,6 +22,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
     final fmsModels = <FMSModel>[];
     for (final date in jsonContent.keys.toList().reversed) {
       var content = jsonContent[date];
+
       Map json = {
         DateFormat('dd-MMM').format(DateTime.parse(date)): [
           [
@@ -42,7 +43,6 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
   @override
   Future<void> writeFMSModel(FMSModel model) async {
     final tabOneFile = (await ref.read(dbFilesProvider.future)).tabOneReFile;
-
     final jsonContent = jsonDecode(await tabOneFile.readAsString());
     jsonContent[model.date] = [];
     jsonContent[model.date].add(
