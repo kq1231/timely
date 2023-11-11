@@ -82,7 +82,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
 
   @override
   Future<void> updateNextUpdateTime() async {
-    await Future.delayed(const Duration(seconds: 4));
+    await createDefaultEntry();
     final tabOneFile = (await ref.read(dbFilesProvider.future)).tabOneReFile;
     final jsonContent = jsonDecode(await tabOneFile.readAsString());
     String dateToday = DateTime.now().toString().substring(0, 10);

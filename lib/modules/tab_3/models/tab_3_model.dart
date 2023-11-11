@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class Tab3Model {
   String? date;
   TimeOfDay? time;
-  late String text_1;
-  late int priority;
+  String text_1 = "";
+  int priority = 0;
 
   Tab3Model({
     required String text_1,
@@ -14,17 +14,25 @@ class Tab3Model {
   });
 
   Tab3Model.fromJson(this.date, Map json) {
-    List timeParts = json["Time"].split(":");
-    TimeOfDay time = TimeOfDay(
-      hour: int.parse(timeParts.first),
-      minute: int.parse(timeParts.last),
-    );
-    String text_1 = json["Activity"];
-    int priority = json["Priority"];
+    if (json["Time"] != null) {
+      List timeParts = json["Time"].split(":");
+      TimeOfDay time = TimeOfDay(
+        hour: int.parse(timeParts.first),
+        minute: int.parse(timeParts.last),
+      );
+      String text_1 = json["Activity"];
+      int priority = json["Priority"];
 
-    this.time = time;
-    this.text_1 = text_1;
-    this.priority = priority;
+      this.time = time;
+      this.text_1 = text_1;
+      this.priority = priority;
+    } else {
+      String text_1 = json["Activity"];
+      int priority = json["Priority"];
+
+      this.text_1 = text_1;
+      this.priority = priority;
+    }
   }
 
   Map toJson() {
@@ -35,5 +43,13 @@ class Tab3Model {
         "Priority": priority,
       }
     };
+  }
+
+  copyWith({date, text_1, priority, time}) {
+    return Tab3Model(
+        date: date ?? this.date,
+        text_1: text_1 ?? this.text_1,
+        time: time ?? this.time,
+        priority: priority ?? this.priority);
   }
 }

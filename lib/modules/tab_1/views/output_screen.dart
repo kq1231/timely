@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_1/controllers/output_controller.dart';
-import 'package:timely/modules/tab_1/views/tab_one_input_screen.dart';
+import 'package:timely/modules/tab_1/views/input_screen.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/reusables.dart';
 
-class TabOneOutputScreen extends ConsumerWidget {
-  const TabOneOutputScreen({super.key});
+class Tab1OutputScreen extends ConsumerWidget {
+  const Tab1OutputScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

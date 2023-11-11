@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/splash/splash.dart';
 import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
-import 'package:timely/modules/tab_5/views/output_screen.dart';
-import 'package:timely/modules/tab_1/views/tab_one_output_screen.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/modules/home/views/launch_screen.dart';
 import 'package:timely/reusables.dart';
+import 'exports/screens.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -41,11 +38,11 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   }
 
   final List tabs = [
-    const TabOneOutputScreen(),
+    const Tab1OutputScreen(),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
-    const Center(child: Text("Coming Soon Inshaa Allah...")),
-    const Center(child: Text("Coming Soon Inshaa Allah...")),
-    const TabFiveOutputScreen(),
+    const Tab3OutputScreen(),
+    const Tab4OutputScreen(),
+    const Tab5OutputScreen(),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
@@ -90,7 +87,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: Future.wait([
-          ref.read(tabOneRepositoryProvider.notifier).createDefaultEntry(),
           ref.read(tabOneRepositoryProvider.notifier).updateNextUpdateTime()
         ]),
         builder: (context, snapshot) {

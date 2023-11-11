@@ -5,8 +5,8 @@ import 'package:timely/modules/tab_5/views/input_screen.dart';
 import 'package:timely/reusables.dart';
 import 'package:timely/app_theme.dart';
 
-class TabFiveOutputScreen extends ConsumerWidget {
-  const TabFiveOutputScreen({super.key});
+class Tab5OutputScreen extends ConsumerWidget {
+  const Tab5OutputScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

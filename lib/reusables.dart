@@ -58,7 +58,7 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
   }
 
   if (!await tab4File.exists()) {
-    await tab2File.writeAsString("{}");
+    await tab4File.writeAsString("[]");
   }
 
   return DBFiles(
