@@ -96,8 +96,7 @@ class TabOneOutputLayout {
     Colors.blueGrey[800],
     Colors.grey[800],
   ];
-  static TextStyle tileFont =
-      const TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
+  static TextStyle tileFont = const TextStyle(fontSize: 12);
 }
 
 class TabOneInputLayout {

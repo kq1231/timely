@@ -1,8 +1,3 @@
-- Remove year from date from Tab1Output
-- Convert time to 12-hour with AM and PM
-- Improve date of Tab1Input like output
-	- eg. 08-Nov-2023
-- Round off to the nearest hour
-- Use a "plus" icon for the Tab[1, 5]Input FAB
-- Splash screen 
-- Parametrize all texts 
+- Date Column ka width chota karden 
+- Organise folder struc 
+- Parametrize the dimensions, texts, colours. 

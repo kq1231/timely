@@ -8,11 +8,16 @@ class DBFiles {
   final File tabOneFile;
   final File tabOneReFile;
   final File tabFiveFile;
+  final File tabThreeFile;
+  final File tabFourFile;
 
-  DBFiles(
-      {required this.tabOneFile,
-      required this.tabFiveFile,
-      required this.tabOneReFile});
+  DBFiles({
+    required this.tabOneFile,
+    required this.tabFiveFile,
+    required this.tabOneReFile,
+    required this.tabThreeFile,
+    required this.tabFourFile,
+  });
 }
 
 // Providers
@@ -30,26 +35,39 @@ final colorProvider = Provider<List<Color>>((ref) {
 
 final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
   Directory docDir = await getApplicationDocumentsDirectory();
-  File tabOneFile = File('${docDir.path}/tab_one.json');
-  File tabOneReFile = File('${docDir.path}/tab_one_re.json');
-  File tabFiveFile = File('${docDir.path}/tab_five.json');
+  File tab1File = File('${docDir.path}/tab_1.json');
+  File tab2File = File('${docDir.path}/tab_1_re.json');
+  File tab5File = File('${docDir.path}/tab_5.json');
+  File tab3File = File('${docDir.path}/tab_3.json');
+  File tab4File = File('${docDir.path}/tab_4.json');
 
-  if (!await tabOneFile.exists()) {
-    await tabOneFile.writeAsString("      {}");
+  if (!await tab1File.exists()) {
+    await tab1File.writeAsString("      {}");
   }
 
-  if (!await tabFiveFile.exists()) {
-    await tabFiveFile.writeAsString("{}");
+  if (!await tab5File.exists()) {
+    await tab5File.writeAsString("{}");
   }
 
-  if (!await tabOneReFile.exists()) {
-    await tabOneReFile.writeAsString("{}");
+  if (!await tab2File.exists()) {
+    await tab2File.writeAsString("{}");
+  }
+
+  if (!await tab3File.exists()) {
+    await tab3File.writeAsString("{}");
+  }
+
+  if (!await tab4File.exists()) {
+    await tab2File.writeAsString("{}");
   }
 
   return DBFiles(
-      tabOneFile: tabOneFile,
-      tabFiveFile: tabFiveFile,
-      tabOneReFile: tabOneReFile);
+    tabOneFile: tab1File,
+    tabFiveFile: tab5File,
+    tabOneReFile: tab2File,
+    tabThreeFile: tab3File,
+    tabFourFile: tab4File,
+  );
 });
 
 class TabIndex extends StateNotifier<int> {

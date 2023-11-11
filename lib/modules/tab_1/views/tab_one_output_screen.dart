@@ -22,7 +22,7 @@ class TabOneOutputScreen extends ConsumerWidget {
                     child: Row(
                       children: [
                         SizedBox(
-                            width: 110,
+                            width: 70,
                             child: Center(
                                 child: Text(
                               TabOneOutputLayout.headers[0],
@@ -75,7 +75,7 @@ class TabOneOutputScreen extends ConsumerWidget {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   SizedBox(
-                                    width: 110,
+                                    width: 70,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
