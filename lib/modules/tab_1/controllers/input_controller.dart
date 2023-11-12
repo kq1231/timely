@@ -5,7 +5,7 @@ import 'package:timely/modules/tab_1/controllers/output_controller.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
 import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
 
-class TabOneInputNotifier extends Notifier<FMSModel> {
+class TabOneInputNotifier extends AutoDisposeNotifier<FMSModel> {
   @override
   FMSModel build() {
     return FMSModel(
@@ -49,4 +49,5 @@ class TabOneInputNotifier extends Notifier<FMSModel> {
 }
 
 final tabOneInputProvider =
-    NotifierProvider<TabOneInputNotifier, FMSModel>(TabOneInputNotifier.new);
+    AutoDisposeNotifierProvider<TabOneInputNotifier, FMSModel>(
+        TabOneInputNotifier.new);

@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_3/controllers/output_controller.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_3/repositories/tab_3_repo.dart';
+import 'package:timely/modules/tab_4/controllers/output_controller.dart';
 
-class Tab3InputNotifier extends Notifier<Tab3Model> {
+class Tab3InputNotifier extends AutoDisposeNotifier<Tab3Model> {
   @override
   Tab3Model build() {
     return Tab3Model(text_1: "", priority: 0);
@@ -23,15 +24,17 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
   }
 
   void setPriority(int priority) {
-    state.priority = priority;
-    state = state;
+    print("BLA BLA ${state.copyWith(priority: priority).priority}");
+    state = state.copyWith(priority: priority);
   }
 
   Future<void> syncToDB() async {
     await ref.read(tab3RepositoryProvider.notifier).writeTab3Model(state);
     ref.invalidate(tab3OutputProvider);
+    ref.invalidate(tab4OutputProvider);
   }
 }
 
 final tab3InputProvider =
-    NotifierProvider<Tab3InputNotifier, Tab3Model>(Tab3InputNotifier.new);
+    AutoDisposeNotifierProvider<Tab3InputNotifier, Tab3Model>(
+        Tab3InputNotifier.new);

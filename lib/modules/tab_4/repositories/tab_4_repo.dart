@@ -34,7 +34,7 @@ class Tab4RepositoryNotifier extends Notifier<AsyncValue<void>> {
     for (Map indCon in content) {
       models.add(Tab3Model.fromJson(null, indCon));
     }
-
+    print(models);
     return models;
   }
 }

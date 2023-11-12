@@ -7,10 +7,10 @@ class Tab3Model {
   int priority = 0;
 
   Tab3Model({
-    required String text_1,
-    required int priority,
-    date,
-    time,
+    required this.text_1,
+    required this.priority,
+    this.date,
+    this.time,
   });
 
   Tab3Model.fromJson(this.date, Map json) {
@@ -45,7 +45,8 @@ class Tab3Model {
     };
   }
 
-  copyWith({date, text_1, priority, time}) {
+  Tab3Model copyWith(
+      {String? date, String? text_1, int? priority, TimeOfDay? time}) {
     return Tab3Model(
         date: date ?? this.date,
         text_1: text_1 ?? this.text_1,

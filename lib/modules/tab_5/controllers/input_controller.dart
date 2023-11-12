@@ -4,7 +4,7 @@ import 'package:timely/modules/tab_5/controllers/output_controller.dart';
 import 'package:timely/modules/tab_5/models/spw.dart';
 import 'package:timely/modules/tab_5/repositories/tab_five_repo.dart';
 
-class TabFiveInputNotifier extends Notifier<SPWModel> {
+class TabFiveInputNotifier extends AutoDisposeNotifier<SPWModel> {
   @override
   build() {
     return SPWModel(
@@ -47,6 +47,6 @@ class TabFiveInputNotifier extends Notifier<SPWModel> {
 }
 
 final tabFiveInputProvider =
-    NotifierProvider<TabFiveInputNotifier, SPWModel>(() {
+    AutoDisposeNotifierProvider<TabFiveInputNotifier, SPWModel>(() {
   return TabFiveInputNotifier();
 });

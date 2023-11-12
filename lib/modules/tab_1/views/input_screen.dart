@@ -136,16 +136,32 @@ class TabOneInputScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(TabOneInputLayout.text_1Name, style: timelyStyle),
-              const SizedBox(width: 20),
-              SizedBox(
-                width: 250,
-                child: TextField(
-                  onChanged: (text_1) {
-                    controller.setText_1(text_1);
+              ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text("Enter your comment"),
+                            content: SizedBox(
+                              width: 250,
+                              child: TextField(
+                                onChanged: (text_1) {
+                                  controller.setText_1(text_1);
+                                },
+                              ),
+                            ),
+                            actions: <Widget>[
+                              ElevatedButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text("Okay"),
+                              ),
+                            ],
+                          );
+                        });
                   },
-                ),
-              )
+                  child:
+                      Text(TabOneInputLayout.text_1Name, style: timelyStyle)),
             ],
           ),
           const SizedBox(height: 30),
