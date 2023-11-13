@@ -101,19 +101,30 @@ class Tab3InputScreen extends ConsumerWidget {
                 height: 30,
               ),
 
-              // Submit Buttons
-              ElevatedButton(
-                child: const Text("Submit"),
-                onPressed: () {
-                  controller.syncToDB();
-                  Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Submitted Successfully'),
-                      duration: Duration(seconds: 1),
-                    ),
-                  );
-                },
+              // Submit Button and Cancel Button
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    child: const Text("Cancel"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ElevatedButton(
+                    child: const Text("Submit"),
+                    onPressed: () {
+                      controller.syncToDB();
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Submitted Successfully'),
+                          duration: Duration(seconds: 1),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               )
             ],
           ),

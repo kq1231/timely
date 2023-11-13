@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/modules/home/controllers/tab1_text1_provider.dart';
+import 'package:timely/modules/home/controllers/tabs_data_provider.dart';
 
 class LaunchScreen extends ConsumerWidget {
   const LaunchScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var tab1Text = ref.watch(tab1Text1Provider);
-    return tab1Text.when(
-        data: (text_1) {
+    var tabsData = ref.watch(tabsDataProvider);
+    return tabsData.when(
+        data: (data) {
           return Column(
             children: [
               const Divider(
@@ -75,7 +75,7 @@ class LaunchScreen extends ConsumerWidget {
                   color: launchSectionTwoColor,
                   child: Center(
                     child: Text(
-                      text_1,
+                      data[0],
                       style: timelyStyle.copyWith(
                           color: launchSectionTwoTextColor),
                     ),
@@ -91,7 +91,7 @@ class LaunchScreen extends ConsumerWidget {
                   color: launchSectionThreeColor,
                   child: Center(
                     child: Text(
-                      "Third Tab's Data",
+                      data[1],
                       style: timelyStyle.copyWith(
                           color: launchSectionThreeTextColor),
                     ),
@@ -103,13 +103,15 @@ class LaunchScreen extends ConsumerWidget {
               ),
               Expanded(
                 flex: 1,
-                child: Container(
-                  color: launchSectionFourColor,
-                  child: Center(
-                    child: Text(
-                      "Fourth Tab's Data",
-                      style: timelyStyle.copyWith(
-                        color: launchSectionThreeTextColor,
+                child: SingleChildScrollView(
+                  child: Container(
+                    color: launchSectionFourColor,
+                    child: Center(
+                      child: Text(
+                        data[2].join("\n"),
+                        style: timelyStyle.copyWith(
+                          color: launchSectionThreeTextColor,
+                        ),
                       ),
                     ),
                   ),

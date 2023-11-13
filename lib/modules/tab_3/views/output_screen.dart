@@ -63,6 +63,12 @@ class Tab3OutputScreen extends ConsumerWidget {
                   children: [
                     FloatingActionButton(
                       heroTag: null,
+                      child: const Icon(Icons.home),
+                      onPressed: () =>
+                          ref.read(tabIndexProvider.notifier).setIndex(12),
+                    ),
+                    FloatingActionButton(
+                      heroTag: null,
                       child: Text(DateTime.now().toString().substring(5, 10)),
                       onPressed: () => Navigator.push(
                         context,
@@ -72,12 +78,6 @@ class Tab3OutputScreen extends ConsumerWidget {
                           },
                         ),
                       ),
-                    ),
-                    FloatingActionButton(
-                      heroTag: null,
-                      child: const Icon(Icons.home),
-                      onPressed: () =>
-                          ref.read(tabIndexProvider.notifier).setIndex(12),
                     ),
                   ],
                 ),

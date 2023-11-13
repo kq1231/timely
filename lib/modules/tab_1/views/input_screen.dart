@@ -13,7 +13,6 @@ class TabOneInputScreen extends ConsumerWidget {
     List labels = TabOneInputLayout.labels;
 
     return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
       child: Column(
         children: [
           Container(
