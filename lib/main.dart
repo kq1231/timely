@@ -87,7 +87,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: Future.wait([
-          ref.read(tabOneRepositoryProvider.notifier).updateNextUpdateTime()
+          ref.read(tabOneRepositoryProvider.notifier).updateNextUpdateTime(), 
+          // ref.read(dbFilesProvider.future),
+          // ToAsk Inshaa Allah: Will this initialise and maintain the [File]s? 
         ]),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {

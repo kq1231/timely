@@ -103,10 +103,10 @@ class LaunchScreen extends ConsumerWidget {
               ),
               Expanded(
                 flex: 1,
-                child: SingleChildScrollView(
-                  child: Container(
-                    color: launchSectionFourColor,
-                    child: Center(
+                child: Container(
+                  color: launchSectionFourColor,
+                  child: Center(
+                    child: SingleChildScrollView(
                       child: Text(
                         data[2].join("\n"),
                         style: timelyStyle.copyWith(
