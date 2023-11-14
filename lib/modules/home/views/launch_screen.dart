@@ -106,13 +106,41 @@ class LaunchScreen extends ConsumerWidget {
                 child: Container(
                   color: launchSectionFourColor,
                   child: Center(
-                    child: SingleChildScrollView(
-                      child: Text(
-                        data[2].join("\n"),
-                        style: timelyStyle.copyWith(
-                          color: launchSectionThreeTextColor,
-                        ),
-                      ),
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            SizedBox(
+                              height: 40,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 30,
+                                    child: Center(
+                                      child: Text(
+                                        "${index + 1}",
+                                        style: timelyStyle.copyWith(),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      data[2][index],
+                                      style: timelyStyle.copyWith(
+                                        color: launchSectionThreeTextColor,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            index != data[2].length - 1
+                                ? const Divider(color: Colors.black)
+                                : Container(),
+                          ],
+                        );
+                      },
+                      itemCount: data[2].length,
                     ),
                   ),
                 ),

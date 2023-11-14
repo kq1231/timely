@@ -18,39 +18,45 @@ class Tab3OutputScreen extends ConsumerWidget {
             ListView(
               children: [
                 ...List.generate(data.keys.toList().length, (index) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Text(DateFormat("dd-MMM")
-                            .format(DateTime.parse(data.keys.toList()[index]))),
-                        ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, i) {
-                            Tab3Model model =
-                                data[data.keys.toList()[index]]![i];
-                            // Row of time and text_1
-                            return Container(
-                              height: 50,
-                              color: [
-                                Colors.purple,
-                                Colors.green,
-                                Colors.pink
-                              ][model.priority],
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(model.time!.format(context)),
-                                  Text(model.text_1),
-                                ],
-                              ),
-                            );
-                          },
-                          itemCount: data[data.keys.toList()[index]]!.length,
-                          shrinkWrap: true,
-                        )
-                      ],
-                    ),
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, i) {
+                      Tab3Model model = data[data.keys.toList()[index]]![i];
+                      // Row of time and text_1
+                      return Column(
+                        children: [
+                          Divider(),
+                          Container(
+                            height: 50,
+                            color: [
+                              Colors.purple,
+                              Colors.green,
+                              Colors.pink
+                            ][model.priority],
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 80,
+                                  child: Center(
+                                    child: Text(DateFormat("dd-MMM").format(
+                                        DateTime.parse(
+                                            data.keys.toList()[index]))),
+                                  ),
+                                ),
+                                SizedBox(
+                                    width: 80,
+                                    child: Center(
+                                        child:
+                                            Text(model.time!.format(context)))),
+                                Expanded(child: Text(model.text_1)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                    itemCount: data[data.keys.toList()[index]]!.length,
+                    shrinkWrap: true,
                   );
                 })
               ],
@@ -69,7 +75,8 @@ class Tab3OutputScreen extends ConsumerWidget {
                     ),
                     FloatingActionButton(
                       heroTag: null,
-                      child: Text(DateTime.now().toString().substring(5, 10)),
+                      child: const Icon(Icons
+                          .add), // Text(DateTime.now().toString().substring(5, 10)),
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(

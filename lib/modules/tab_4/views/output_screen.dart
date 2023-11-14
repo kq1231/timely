@@ -17,8 +17,30 @@ class Tab4OutputScreen extends ConsumerWidget {
             ListView.builder(
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return Center(
-                  child: Text(data[index].text_1),
+                return Column(
+                  children: [
+                    const Divider(),
+                    SizedBox(
+                      height: 40,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 70,
+                            child: Center(
+                              child: Text([
+                                "High",
+                                "Medium",
+                                "Low"
+                              ][data[index].priority]),
+                            ),
+                          ),
+                          Expanded(
+                              child: Center(child: Text(data[index].text_1))),
+                        ],
+                      ),
+                    ),
+                    const Divider(),
+                  ],
                 );
               },
               itemCount: data.length,
@@ -37,7 +59,8 @@ class Tab4OutputScreen extends ConsumerWidget {
                     ),
                     FloatingActionButton(
                       heroTag: null,
-                      child: Text(DateTime.now().toString().substring(5, 10)),
+                      child: const Icon(Icons
+                          .add), // Text(DateTime.now().toString().substring(5, 10)),
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(

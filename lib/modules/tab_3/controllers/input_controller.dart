@@ -16,11 +16,11 @@ class Tab3InputNotifier extends AutoDisposeNotifier<Tab3Model> {
   }
 
   setDate(String date) {
-    state.date = date;
+    state = state.copyWith(date: date);
   }
 
   setTime(TimeOfDay time) {
-    state.time = time;
+    state = state.copyWith(time: time);
   }
 
   void setPriority(int priority) {

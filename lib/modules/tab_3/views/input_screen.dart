@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_3/controllers/input_controller.dart';
 
 class Tab3InputScreen extends ConsumerWidget {
@@ -64,7 +65,10 @@ class Tab3InputScreen extends ConsumerWidget {
                             .setDate(dateSelected.toString().substring(0, 10));
                       }
                     },
-                    child: const Text("Select Date"),
+                    child: model.date != null
+                        ? Text(DateFormat("dd-MMM")
+                            .format(DateTime.parse(model.date!)))
+                        : const Text("Select Date"),
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -75,7 +79,9 @@ class Tab3InputScreen extends ConsumerWidget {
                         controller.setTime(timeSelected);
                       }
                     },
-                    child: const Text("Time"),
+                    child: model.time != null
+                        ? Text(model.time!.format(context))
+                        : const Text("Time"),
                   )
                 ],
               ),
