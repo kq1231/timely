@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:timely/app_theme.dart';
 import 'package:timely/modules/tab_3/controllers/input_controller.dart';
 
 class Tab3InputScreen extends ConsumerWidget {
@@ -11,7 +12,7 @@ class Tab3InputScreen extends ConsumerWidget {
     final model = ref.watch(tab3InputProvider);
     final controller = ref.watch(tab3InputProvider.notifier);
 
-    List labels = ["High", "Medium", "Low"];
+    List labels = Tab3InputLayout.labels;
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -32,7 +33,6 @@ class Tab3InputScreen extends ConsumerWidget {
                             groupValue: index,
                             onChanged: (val) {
                               controller.setPriority(index);
-                              print(model.priority);
                             }),
                         const SizedBox(height: 10),
                         Text(labels[index]),
@@ -68,7 +68,7 @@ class Tab3InputScreen extends ConsumerWidget {
                     child: model.date != null
                         ? Text(DateFormat("dd-MMM")
                             .format(DateTime.parse(model.date!)))
-                        : const Text("Select Date"),
+                        : Text(Tab3InputLayout.dateButtonText),
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -81,7 +81,7 @@ class Tab3InputScreen extends ConsumerWidget {
                     },
                     child: model.time != null
                         ? Text(model.time!.format(context))
-                        : const Text("Time"),
+                        : Text(Tab3InputLayout.timeButtonText),
                   )
                 ],
               ),
@@ -112,20 +112,21 @@ class Tab3InputScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
-                    child: const Text("Cancel"),
+                    child: Text(Tab3InputLayout.cancelButtonText),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                   ),
                   ElevatedButton(
-                    child: const Text("Submit"),
+                    child: Text(Tab3InputLayout.submitButtonText),
                     onPressed: () {
                       controller.syncToDB();
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Submitted Successfully'),
-                          duration: Duration(seconds: 1),
+                        SnackBar(
+                          content:
+                              Text(Tab3InputLayout.submissionStatusMessage),
+                          duration: const Duration(seconds: 1),
                         ),
                       );
                     },

@@ -25,33 +25,33 @@ class Tab1OutputScreen extends ConsumerWidget {
                             width: 70,
                             child: Center(
                                 child: Text(
-                              TabOneOutputLayout.headers[0],
-                              style: TabOneOutputLayout.headerFont,
+                              Tab1OutputLayout.headers[0],
+                              style: Tab1OutputLayout.headerFont,
                             ))),
                         Expanded(
                             child: Center(
                                 child: Text(
-                          TabOneOutputLayout.headers[1],
-                          style: TabOneOutputLayout.headerFont,
+                          Tab1OutputLayout.headers[1],
+                          style: Tab1OutputLayout.headerFont,
                         ))),
                         Expanded(
                             child: Center(
                                 child: Text(
-                          TabOneOutputLayout.headers[2],
-                          style: TabOneOutputLayout.headerFont,
+                          Tab1OutputLayout.headers[2],
+                          style: Tab1OutputLayout.headerFont,
                         ))),
                         Expanded(
                             child: Center(
                                 child: Text(
-                          TabOneOutputLayout.headers[3],
-                          style: TabOneOutputLayout.headerFont,
+                          Tab1OutputLayout.headers[3],
+                          style: Tab1OutputLayout.headerFont,
                         ))),
                         SizedBox(
                             width: 70,
                             child: Center(
                                 child: Text(
-                              TabOneOutputLayout.headers[4],
-                              style: TabOneOutputLayout.headerFont,
+                              Tab1OutputLayout.headers[4],
+                              style: Tab1OutputLayout.headerFont,
                             ))),
                       ],
                     ),
@@ -68,8 +68,8 @@ class Tab1OutputScreen extends ConsumerWidget {
                             height: 50,
                             child: Container(
                               color: index % 2 == 0
-                                  ? TabOneOutputLayout.alternateColors[0]
-                                  : TabOneOutputLayout.alternateColors[1],
+                                  ? Tab1OutputLayout.alternateColors[0]
+                                  : Tab1OutputLayout.alternateColors[1],
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -80,7 +80,7 @@ class Tab1OutputScreen extends ConsumerWidget {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
                                       child: Text(data[index].date,
-                                          style: TabOneOutputLayout.tileFont),
+                                          style: Tab1OutputLayout.tileFont),
                                     ),
                                   ),
                                   ...List.generate(3, (i) {
@@ -93,8 +93,8 @@ class Tab1OutputScreen extends ConsumerWidget {
                                       child: Container(
                                         child: Center(
                                             child: Text("${scores[i]}",
-                                                style: TabOneOutputLayout
-                                                    .tileFont)),
+                                                style:
+                                                    Tab1OutputLayout.tileFont)),
                                       ),
                                     );
                                   }),
@@ -103,7 +103,7 @@ class Tab1OutputScreen extends ConsumerWidget {
                                       child: Center(
                                           child: Text(
                                         "${time.hour}:${time.minute} ${data[index].nextUpdateTime.hour > 12 ? 'PM' : 'AM'}",
-                                        style: TabOneOutputLayout.tileFont,
+                                        style: Tab1OutputLayout.tileFont,
                                       ))),
                                 ],
                               ),

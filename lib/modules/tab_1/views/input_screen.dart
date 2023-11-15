@@ -10,7 +10,7 @@ class TabOneInputScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(tabOneInputProvider);
     final controller = ref.read(tabOneInputProvider.notifier);
-    List labels = TabOneInputLayout.labels;
+    List labels = Tab1InputLayout.labels;
 
     return SingleChildScrollView(
       child: Column(
@@ -32,8 +32,7 @@ class TabOneInputScreen extends ConsumerWidget {
             const SizedBox(width: 10),
             SizedBox(
                 width: 100,
-                child:
-                    Text(TabOneInputLayout.scoreNames[0], style: timelyStyle)),
+                child: Text(Tab1InputLayout.scoreNames[0], style: timelyStyle)),
             ...List.generate(
               3,
               (index) {
@@ -58,8 +57,7 @@ class TabOneInputScreen extends ConsumerWidget {
             const SizedBox(width: 10),
             SizedBox(
                 width: 100,
-                child:
-                    Text(TabOneInputLayout.scoreNames[1], style: timelyStyle)),
+                child: Text(Tab1InputLayout.scoreNames[1], style: timelyStyle)),
             ...List.generate(
               3,
               (index) {
@@ -84,8 +82,7 @@ class TabOneInputScreen extends ConsumerWidget {
             const SizedBox(width: 10),
             SizedBox(
                 width: 100,
-                child:
-                    Text(TabOneInputLayout.scoreNames[2], style: timelyStyle)),
+                child: Text(Tab1InputLayout.scoreNames[2], style: timelyStyle)),
             ...List.generate(
               3,
               (index) {

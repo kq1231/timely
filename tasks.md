@@ -36,3 +36,7 @@
 - Home page. Tab 4 summary looks good, but its not correct in Tab 4 output page. Tab 4 output page should be the same as Home screen summary of Tab 4 
 - Home page. Tab 3 summary should look the same as Tab 3 output page, currently it only shows text, it should also show date and time like in Tab 3 output screen.
 - Complete parametrization 
+
+---
+
+- Make launch screen cleaner by eliminating repetition and adding strictness.

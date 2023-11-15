@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:timely/app_theme.dart';
 import 'package:timely/modules/tab_3/controllers/output_controller.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_3/views/input_screen.dart';
@@ -25,14 +26,10 @@ class Tab3OutputScreen extends ConsumerWidget {
                       // Row of time and text_1
                       return Column(
                         children: [
-                          Divider(),
+                          const Divider(),
                           Container(
                             height: 50,
-                            color: [
-                              Colors.purple,
-                              Colors.green,
-                              Colors.pink
-                            ][model.priority],
+                            color: Tab3OutputLayout.rowColors[model.priority],
                             child: Row(
                               children: [
                                 SizedBox(

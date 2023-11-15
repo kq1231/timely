@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/app_theme.dart';
 import 'package:timely/modules/tab_3/views/input_screen.dart';
 import 'package:timely/modules/tab_4/controllers/output_controller.dart';
 import 'package:timely/reusables.dart';
@@ -25,11 +26,7 @@ class Tab4OutputScreen extends ConsumerWidget {
                     SizedBox(
                       height: 40,
                       child: Container(
-                        color: [
-                          Colors.purple,
-                          Colors.green,
-                          Colors.pink
-                        ][data[index].priority],
+                        color: Tab3OutputLayout.rowColors[data[index].priority],
                         child: Row(
                           children: [
                             SizedBox(
