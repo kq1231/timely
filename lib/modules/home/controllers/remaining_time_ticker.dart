@@ -5,8 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/reusables.dart';
 
-final remainingTimeTickerProvider =
-    StreamProvider.autoDispose<String>((ref) async* {
+final remainingTimeTickerProvider = StreamProvider<String>((ref) async* {
   File tabOneFile = (await ref.watch(dbFilesProvider.future)).tabOneReFile;
   Map tabOneData = jsonDecode(await tabOneFile.readAsString());
 

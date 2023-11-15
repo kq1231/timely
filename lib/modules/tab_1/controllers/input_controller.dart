@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/modules/tab_1/controllers/output_controller.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
 import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
@@ -45,6 +46,7 @@ class TabOneInputNotifier extends AutoDisposeNotifier<FMSModel> {
   Future<void> syncToDB() async {
     await ref.read(tabOneRepositoryProvider.notifier).writeFMSModel(state);
     ref.invalidate(tabOneFutureProvider);
+    ref.invalidate(remainingTimeTickerProvider);
   }
 }
 

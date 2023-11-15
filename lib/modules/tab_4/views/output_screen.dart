@@ -19,27 +19,34 @@ class Tab4OutputScreen extends ConsumerWidget {
               itemBuilder: (context, index) {
                 return Column(
                   children: [
-                    const Divider(),
+                    const Divider(
+                      height: 2,
+                    ),
                     SizedBox(
                       height: 40,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 70,
-                            child: Center(
-                              child: Text([
-                                "High",
-                                "Medium",
-                                "Low"
-                              ][data[index].priority]),
+                      child: Container(
+                        color: [
+                          Colors.purple,
+                          Colors.green,
+                          Colors.pink
+                        ][data[index].priority],
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 70,
+                              child: Center(
+                                child: Text(
+                                  (index + 1).toString(),
+                                ),
+                              ),
                             ),
-                          ),
-                          Expanded(
-                              child: Center(child: Text(data[index].text_1))),
-                        ],
+                            Expanded(
+                              child: Text(data[index].text_1),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    const Divider(),
                   ],
                 );
               },

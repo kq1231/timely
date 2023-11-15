@@ -30,3 +30,9 @@
 - Date and time should be visible before and after selection, both in tab 3 and tab 4 -D
 - Sort the entry to show CURRENT date at the top and the FUTURE date below it. Do not show PAST dates. -D
 - The date and number in Tab 3 and Tab 4 output should be in a separate SizedBox / Container to make them clearly visible with proper alignment. -D
+
+---
+
+- Home page. Tab 4 summary looks good, but its not correct in Tab 4 output page. Tab 4 output page should be the same as Home screen summary of Tab 4 
+- Home page. Tab 3 summary should look the same as Tab 3 output page, currently it only shows text, it should also show date and time like in Tab 3 output screen.
+- Complete parametrization 

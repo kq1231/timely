@@ -75,7 +75,7 @@ class LaunchScreen extends ConsumerWidget {
                   color: launchSectionTwoColor,
                   child: Center(
                     child: Text(
-                      data[0],
+                      data["tab_1Text"],
                       style: timelyStyle.copyWith(
                           color: launchSectionTwoTextColor),
                     ),
@@ -89,18 +89,56 @@ class LaunchScreen extends ConsumerWidget {
                 flex: 3,
                 child: Container(
                   color: launchSectionThreeColor,
-                  child: Center(
-                    child: Text(
-                      data[1],
-                      style: timelyStyle.copyWith(
-                          color: launchSectionThreeTextColor),
-                    ),
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      List dates = data["tab_3"].keys.toList();
+                      List models = data["tab_3"].values.toList();
+
+                      return Column(
+                        children: [
+                          const Divider(
+                            height: 1,
+                          ),
+                          SizedBox(
+                              height: 50,
+                              child: Center(child: Text(dates[index]))),
+                          const Divider(
+                            height: 1,
+                          ),
+                          ...List.generate(models[index].length, (i) {
+                            return Container(
+                              height: 40,
+                              color: [
+                                Colors.purple,
+                                Colors.green,
+                                Colors.pink
+                              ][models[index][i].priority],
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 70,
+                                    child: Center(
+                                      child: Text(models[index][i]
+                                          .time
+                                          .format(context)),
+                                    ),
+                                  ),
+                                  Expanded(child: Text(models[index][i].text_1))
+                                ],
+                              ),
+                            );
+                          }),
+                        ],
+                      );
+                    },
+                    itemCount: data["tab_3"].keys.toList().length,
                   ),
                 ),
               ),
               const Divider(
                 height: 2,
               ),
+              // Output4
               Expanded(
                 flex: 1,
                 child: Container(
@@ -112,35 +150,45 @@ class LaunchScreen extends ConsumerWidget {
                           children: [
                             SizedBox(
                               height: 40,
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 30,
-                                    child: Center(
+                              child: Container(
+                                color: [
+                                  Colors.purple,
+                                  Colors.green,
+                                  Colors.pink
+                                ][data["tab_4"][index][0]],
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 30,
+                                      child: Center(
+                                        child: Text(
+                                          "${index + 1}",
+                                          style: timelyStyle.copyWith(),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
                                       child: Text(
-                                        "${index + 1}",
-                                        style: timelyStyle.copyWith(),
+                                        data["tab_4"][index][1],
+                                        style: timelyStyle.copyWith(
+                                          color: launchSectionThreeTextColor,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      data[2][index],
-                                      style: timelyStyle.copyWith(
-                                        color: launchSectionThreeTextColor,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                            index != data[2].length - 1
-                                ? const Divider(color: Colors.black)
+                            index != data["tab_4"].length - 1
+                                ? Divider(
+                                    color: Colors.grey[900],
+                                    height: 1,
+                                  )
                                 : Container(),
                           ],
                         );
                       },
-                      itemCount: data[2].length,
+                      itemCount: data["tab_4"].length,
                     ),
                   ),
                 ),
