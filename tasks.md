@@ -47,4 +47,6 @@
 
 --- 
 
+- Check keyboard types 
+
 Isolate the updateNextUpdateTime function in a separate FutureProvider. When disposed, cancel the timer. 

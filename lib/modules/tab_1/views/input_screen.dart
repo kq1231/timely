@@ -132,9 +132,13 @@ class TabOneInputScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Expanded(child: TextField(onChanged: (text_1) {
-                controller.setText_1(text_1);
-              }))
+              Expanded(
+                  child: TextField(
+                onChanged: (text_1) {
+                  controller.setText_1(text_1);
+                },
+                textCapitalization: TextCapitalization.sentences,
+              ))
             ],
           ),
           const SizedBox(height: 30),
