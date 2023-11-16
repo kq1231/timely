@@ -17,19 +17,35 @@ class Tab5OutputScreen extends ConsumerWidget {
             children: [
               Column(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     height: 50,
                     child: Row(
                       children: [
                         SizedBox(
-                          width: 70,
-                          child: Center(child: Text("Date")),
+                          width: Tab5OutputLayout.spacings[0],
+                          child: Center(
+                            child: Text(Tab5OutputLayout.headers[0]),
+                          ),
                         ),
-                        Expanded(child: Center(child: Text("S"))),
-                        Expanded(child: Center(child: Text("P"))),
-                        Expanded(child: Center(child: Text("W"))),
+                        Expanded(
+                          child: Center(
+                            child: Text(Tab5OutputLayout.headers[1]),
+                          ),
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(Tab5OutputLayout.headers[2]),
+                          ),
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(Tab5OutputLayout.headers[3]),
+                          ),
+                        ),
                         SizedBox(
-                            width: 70, child: Center(child: Text("Weight"))),
+                            width: Tab5OutputLayout.spacings[1],
+                            child: Center(
+                                child: Text(Tab5OutputLayout.headers[4]))),
                       ],
                     ),
                   ),
@@ -42,8 +58,8 @@ class Tab5OutputScreen extends ConsumerWidget {
                             height: 50,
                             child: Container(
                               color: index % 2 == 0
-                                  ? Colors.blueGrey[800]
-                                  : Colors.grey[800],
+                                  ? Tab5OutputLayout.alternatingColors[0]
+                                  : Tab5OutputLayout.alternatingColors[1],
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -53,8 +69,11 @@ class Tab5OutputScreen extends ConsumerWidget {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
-                                      child: Text(data[index].date,
-                                          style: tabFiveOutputTileTextStyle),
+                                      child: Text(
+                                        data[index].date,
+                                        style: Tab5OutputLayout
+                                            .tabFiveOutputTileTextStyle,
+                                      ),
                                     ),
                                   ),
                                   ...List.generate(3, (i) {
@@ -68,9 +87,12 @@ class Tab5OutputScreen extends ConsumerWidget {
                                         color: ref
                                             .read(colorProvider)[scores[i] * 3],
                                         child: Center(
-                                            child: Text("${scores[i]}",
-                                                style:
-                                                    tabFiveOutputTileTextStyle)),
+                                          child: Text(
+                                            "${scores[i]}",
+                                            style: Tab5OutputLayout
+                                                .tabFiveOutputTileTextStyle,
+                                          ),
+                                        ),
                                       ),
                                     );
                                   }),
@@ -115,8 +137,8 @@ class Tab5OutputScreen extends ConsumerWidget {
                           }),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: Tab5OutputLayout.spacings[2],
                   ),
                 ],
               )

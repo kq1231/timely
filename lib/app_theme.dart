@@ -18,10 +18,6 @@ TextStyle tabOneOutputScreenBCommentStyle = const TextStyle(fontSize: 12);
 // Typography.TabOneOutputScreenC
 TextStyle tabOneOutputScreenCCommentStyle = const TextStyle(fontSize: 12);
 
-// Typography.TabFiveOutput
-TextStyle tabFiveOutputTileTextStyle =
-    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
-
 // Tab Icons
 Icon launchScreenIcon = const Icon(Icons.home);
 Icon tabOneIcon = const Icon(Icons.looks_one_outlined);
@@ -84,9 +80,6 @@ List<Color> outputScreenCCommentTextColors = [Colors.black, Colors.white];
 String tabOneOutputScreenSegButtonText_1 = "A";
 String tabOneOutputScreenSegButtonText_2 = "B";
 String tabOneOutputScreenSegButtonText_3 = "C";
-
-// TabFiveAlternatingTileColors
-List<Color> tabFiveAlternatingTileColors = [Colors.grey, Colors.blueGrey];
 
 class Tab1OutputLayout {
   static List headers = ["Date", "F", "M", "S", "Time"];
@@ -162,4 +155,17 @@ class Tab5InputLayout {
   static TextStyle cancelButtonStyle = const TextStyle();
   static TextStyle submitButtonStyle = const TextStyle();
   static TextStyle submissionStatusMessageStyle = const TextStyle();
+}
+
+class Tab5OutputLayout {
+  static List spacings = [70.0, 70.0, 20.0];
+  static List headers = ["Date", "S", "P", "W", "Weight"];
+  static List alternatingColors = [
+    Colors.blueGrey[800],
+    Colors.grey[800],
+  ];
+
+  // Typography
+  static TextStyle tabFiveOutputTileTextStyle =
+      const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
 }
