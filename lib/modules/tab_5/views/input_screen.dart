@@ -13,7 +13,7 @@ class TabFiveInputScreen extends ConsumerWidget {
     final provider = ref.watch(tabFiveInputProvider.notifier);
     final tabFiveInput = ref.watch(tabFiveInputProvider);
     print("BUILD TRIGGERED");
-    List<String> labels = ["Good", "Fair", "Poor"];
+    List<String> labels = Tab5InputLayout.labels;
 
     // List scores = [model.sScore, model.pScore, model.wScore];
     return SingleChildScrollView(
@@ -22,11 +22,16 @@ class TabFiveInputScreen extends ConsumerWidget {
         children: [
           Text(
             provider.getFormattedDate(),
-            style: timelyStyle,
+            style: Tab5InputLayout.dateStyle,
           ),
           Row(children: [
             const SizedBox(width: 10),
-            SizedBox(width: 100, child: Text('S Score', style: timelyStyle)),
+            SizedBox(
+                width: 100,
+                child: Text(
+                  Tab5InputLayout.scoreNames[0],
+                  style: Tab5InputLayout.scoreNamesStyle,
+                )),
             ...List.generate(
               3,
               (index) {
@@ -57,8 +62,8 @@ class TabFiveInputScreen extends ConsumerWidget {
             SizedBox(
               width: 100,
               child: Text(
-                'P Score',
-                style: timelyStyle,
+                Tab5InputLayout.scoreNames[1],
+                style: Tab5InputLayout.scoreNamesStyle,
               ),
             ),
             ...List.generate(
@@ -89,7 +94,13 @@ class TabFiveInputScreen extends ConsumerWidget {
           Row(
             children: [
               const SizedBox(width: 10),
-              SizedBox(width: 100, child: Text('W Score', style: timelyStyle)),
+              SizedBox(
+                width: 100,
+                child: Text(
+                  Tab5InputLayout.scoreNames[2],
+                  style: Tab5InputLayout.scoreNamesStyle,
+                ),
+              ),
               ...List.generate(
                 3,
                 (index) {
@@ -105,7 +116,10 @@ class TabFiveInputScreen extends ConsumerWidget {
                                 .setWScore(index);
                           },
                         ),
-                        Text(labels[index]),
+                        Text(
+                          labels[index],
+                          style: Tab5InputLayout.labelStyle,
+                        ),
                       ],
                     ),
                   );
@@ -124,8 +138,8 @@ class TabFiveInputScreen extends ConsumerWidget {
               SizedBox(
                 width: 100,
                 child: Text(
-                  "Weight",
-                  style: timelyStyle,
+                  Tab5InputLayout.weightFieldName,
+                  style: Tab5InputLayout.weightFieldStyle,
                 ),
               ),
               Expanded(
@@ -149,20 +163,29 @@ class TabFiveInputScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
-                  child: const Text("Cancel"),
+                  child: Text(
+                    Tab5InputLayout.cancelButtonText,
+                    style: Tab5InputLayout.cancelButtonStyle,
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   }),
               ElevatedButton(
-                child: const Text("Submit"),
+                child: Text(
+                  Tab5InputLayout.submitButtonText,
+                  style: Tab5InputLayout.submitButtonStyle,
+                ),
                 onPressed: () {
                   ref.read(tabFiveInputProvider.notifier).syncToDB();
                   ref.invalidate(tabFiveFutureProvider);
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Submitted Successfully'),
-                      duration: Duration(seconds: 1),
+                    SnackBar(
+                      content: Text(
+                        Tab5InputLayout.submissionStatusMessage,
+                        style: Tab5InputLayout.submissionStatusMessageStyle,
+                      ),
+                      duration: const Duration(seconds: 1),
                     ),
                   );
                 },

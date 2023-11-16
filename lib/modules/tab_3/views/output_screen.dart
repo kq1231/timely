@@ -35,17 +35,28 @@ class Tab3OutputScreen extends ConsumerWidget {
                                 SizedBox(
                                   width: 80,
                                   child: Center(
-                                    child: Text(DateFormat("dd-MMM").format(
-                                        DateTime.parse(
-                                            data.keys.toList()[index]))),
+                                    child: Text(
+                                      DateFormat("dd-MMM").format(
+                                          DateTime.parse(
+                                              data.keys.toList()[index])),
+                                      style: Tab3OutputLayout.dateStyle,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
-                                    width: 80,
-                                    child: Center(
-                                        child:
-                                            Text(model.time!.format(context)))),
-                                Expanded(child: Text(model.text_1)),
+                                  width: 80,
+                                  child: Center(
+                                    child: Text(
+                                      model.time!.format(context),
+                                      style: Tab3OutputLayout.timeStyle,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                    child: Text(
+                                  model.text_1,
+                                  style: Tab3OutputLayout.text_1Style,
+                                )),
                               ],
                             ),
                           ),

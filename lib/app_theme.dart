@@ -112,8 +112,54 @@ class Tab3InputLayout {
   static String cancelButtonText = "Cancel";
   static String submitButtonText = "Submit";
   static String submissionStatusMessage = "Submitted Successfully";
+
+  // Typography
+  static TextStyle cancelButtonStyle = const TextStyle();
+  static TextStyle submitButtonStyle = const TextStyle();
+  static TextStyle submissionStatusMessageStyle = const TextStyle();
+  static TextStyle timeButtonStyle = const TextStyle();
+  static TextStyle dateButtonStyle = const TextStyle();
+  static TextStyle labelsStyle = const TextStyle();
 }
 
 class Tab3OutputLayout {
   static List<Color> rowColors = [Colors.purple, Colors.green, Colors.pink];
+
+  // Typography
+  static TextStyle dateStyle = const TextStyle();
+  static TextStyle timeStyle = const TextStyle();
+  static TextStyle text_1Style = const TextStyle();
+}
+
+class Tab4OutputLayout {
+  // Typography
+  static TextStyle numberStyle = const TextStyle();
+  static TextStyle text_1Style = const TextStyle();
+}
+
+class Tab5InputLayout {
+  static List<String> labels = ["Good", "Fair", "Poor"];
+  static List scoreNames = ["S Score", "P Score", "W Score"];
+  static String weightFieldName = "Weight";
+  static String cancelButtonText = "Cancel";
+  static String submitButtonText = "Submit";
+  static String submissionStatusMessage = "Submitted Successfully";
+
+  // Typography
+  static TextStyle dateStyle = const TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle scoreNamesStyle = const TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle labelStyle = const TextStyle();
+  static TextStyle weightFieldStyle = const TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle cancelButtonStyle = const TextStyle();
+  static TextStyle submitButtonStyle = const TextStyle();
+  static TextStyle submissionStatusMessageStyle = const TextStyle();
 }

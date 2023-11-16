@@ -34,11 +34,15 @@ class Tab4OutputScreen extends ConsumerWidget {
                               child: Center(
                                 child: Text(
                                   (index + 1).toString(),
+                                  style: Tab4OutputLayout.numberStyle,
                                 ),
                               ),
                             ),
                             Expanded(
-                              child: Text(data[index].text_1),
+                              child: Text(
+                                data[index].text_1,
+                                style: Tab4OutputLayout.text_1Style,
+                              ),
                             ),
                           ],
                         ),

@@ -35,7 +35,10 @@ class Tab3InputScreen extends ConsumerWidget {
                               controller.setPriority(index);
                             }),
                         const SizedBox(height: 10),
-                        Text(labels[index]),
+                        Text(
+                          labels[index],
+                          style: Tab3InputLayout.labelsStyle,
+                        ),
                       ],
                     );
                   })
@@ -68,7 +71,10 @@ class Tab3InputScreen extends ConsumerWidget {
                     child: model.date != null
                         ? Text(DateFormat("dd-MMM")
                             .format(DateTime.parse(model.date!)))
-                        : Text(Tab3InputLayout.dateButtonText),
+                        : Text(
+                            Tab3InputLayout.dateButtonText,
+                            style: Tab3InputLayout.dateButtonStyle,
+                          ),
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -81,7 +87,10 @@ class Tab3InputScreen extends ConsumerWidget {
                     },
                     child: model.time != null
                         ? Text(model.time!.format(context))
-                        : Text(Tab3InputLayout.timeButtonText),
+                        : Text(
+                            Tab3InputLayout.timeButtonText,
+                            style: Tab3InputLayout.timeButtonStyle,
+                          ),
                   )
                 ],
               ),
@@ -112,20 +121,28 @@ class Tab3InputScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
-                    child: Text(Tab3InputLayout.cancelButtonText),
+                    child: Text(
+                      Tab3InputLayout.cancelButtonText,
+                      style: Tab3InputLayout.cancelButtonStyle,
+                    ),
                     onPressed: () {
                       Navigator.pop(context);
                     },
                   ),
                   ElevatedButton(
-                    child: Text(Tab3InputLayout.submitButtonText),
+                    child: Text(
+                      Tab3InputLayout.submitButtonText,
+                      style: Tab3InputLayout.submitButtonStyle,
+                    ),
                     onPressed: () {
                       controller.syncToDB();
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content:
-                              Text(Tab3InputLayout.submissionStatusMessage),
+                          content: Text(
+                            Tab3InputLayout.submissionStatusMessage,
+                            style: Tab3InputLayout.submissionStatusMessageStyle,
+                          ),
                           duration: const Duration(seconds: 1),
                         ),
                       );
