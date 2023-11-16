@@ -40,3 +40,7 @@
 ---
 
 - Make launch screen cleaner by eliminating repetition and adding strictness.
+- Separate tab2, tab3, and tab4 views in the launch screen for better SoC.
+- Home screen summary of tab 3 should only show data pertaining to today's date. If not exists, then show nothing. Do not show today's date as it would be understood. -D
+- Font of summary of tab3 and tab4 should be identical. -D
+- Keyboard type should be relevant to the TextField. For eg., for a text field that only accepts numbers, the keyboard should only have numbers. -D

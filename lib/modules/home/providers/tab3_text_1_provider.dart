@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/reusables.dart';
 
 final tab3Text1Provider =
-    FutureProvider.autoDispose<Map<String, List<Tab3Model>>>((ref) async {
+    FutureProvider.autoDispose<List<Tab3Model>>((ref) async {
   // Get the file
   File file = (await ref.read(dbFilesProvider.future)).tabThreeFile;
 
@@ -22,5 +23,11 @@ final tab3Text1Provider =
     }
   }
 
-  return models;
+  String dateToday = DateFormat("yyyy-MM-dd").format(DateTime.now());
+
+  if (models.keys.contains(dateToday)) {
+    return models[dateToday]!;
+  } else {
+    return [];
+  }
 });

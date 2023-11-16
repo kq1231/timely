@@ -130,6 +130,7 @@ class TabFiveInputScreen extends ConsumerWidget {
               ),
               Expanded(
                 child: TextField(
+                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                   ),

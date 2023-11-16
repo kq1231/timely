@@ -91,39 +91,39 @@ class LaunchScreen extends ConsumerWidget {
                   color: launchSectionThreeColor,
                   child: ListView.builder(
                     itemBuilder: (context, index) {
-                      List dates = data["tab_3"].keys.toList();
-                      List models = data["tab_3"].values.toList();
+                      List models = data["tab_3"];
 
                       return Column(
                         children: [
                           const Divider(
                             height: 1,
                           ),
-                          SizedBox(
-                              height: 50,
-                              child: Center(child: Text(dates[index]))),
                           const Divider(
                             height: 1,
                           ),
-                          ...List.generate(models[index].length, (i) {
+                          ...List.generate(models.length, (i) {
                             return Container(
-                              height: 40,
                               color: [
                                 Colors.purple,
                                 Colors.green,
                                 Colors.pink
-                              ][models[index][i].priority],
+                              ][models[i].priority],
                               child: Row(
                                 children: [
                                   SizedBox(
                                     width: 70,
                                     child: Center(
-                                      child: Text(models[index][i]
-                                          .time
-                                          .format(context)),
+                                      child: Text(
+                                          models[i].time.format(context),
+                                          style: timelyStyle),
                                     ),
                                   ),
-                                  Expanded(child: Text(models[index][i].text_1))
+                                  Expanded(
+                                    child: Text(
+                                      models[i].text_1,
+                                      style: timelyStyle,
+                                    ),
+                                  )
                                 ],
                               ),
                             );
@@ -131,7 +131,7 @@ class LaunchScreen extends ConsumerWidget {
                         ],
                       );
                     },
-                    itemCount: data["tab_3"].keys.toList().length,
+                    itemCount: data["tab_3"].length,
                   ),
                 ),
               ),
