@@ -33,7 +33,7 @@ class LaunchScreen extends ConsumerWidget {
                                 data: (diff) {
                                   return Text(
                                     diff,
-                                    style: timelyStyle.copyWith(
+                                    style: h3TextStyle.copyWith(
                                         fontSize: 15,
                                         color: launchSectionOneTimerTextColor),
                                   );
@@ -57,7 +57,7 @@ class LaunchScreen extends ConsumerWidget {
                       child: Center(
                         child: Text(
                           "Alert",
-                          style: timelyStyle.copyWith(
+                          style: h3TextStyle.copyWith(
                               fontSize: 15,
                               color: launchSectionOneAlertTextColor),
                         ),
@@ -76,7 +76,7 @@ class LaunchScreen extends ConsumerWidget {
                   child: Center(
                     child: Text(
                       data["tab_1Text"],
-                      style: timelyStyle.copyWith(
+                      style: h3TextStyle.copyWith(
                           color: launchSectionTwoTextColor),
                     ),
                   ),
@@ -115,13 +115,13 @@ class LaunchScreen extends ConsumerWidget {
                                     child: Center(
                                       child: Text(
                                           models[i].time.format(context),
-                                          style: timelyStyle),
+                                          style: h3TextStyle),
                                     ),
                                   ),
                                   Expanded(
                                     child: Text(
                                       models[i].text_1,
-                                      style: timelyStyle,
+                                      style: h3TextStyle,
                                     ),
                                   )
                                 ],
@@ -163,14 +163,14 @@ class LaunchScreen extends ConsumerWidget {
                                       child: Center(
                                         child: Text(
                                           "${index + 1}",
-                                          style: timelyStyle.copyWith(),
+                                          style: h3TextStyle.copyWith(),
                                         ),
                                       ),
                                     ),
                                     Expanded(
                                       child: Text(
                                         data["tab_4"][index][1],
-                                        style: timelyStyle.copyWith(
+                                        style: h3TextStyle.copyWith(
                                           color: launchSectionThreeTextColor,
                                         ),
                                       ),
