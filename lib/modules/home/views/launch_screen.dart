@@ -33,9 +33,7 @@ class LaunchScreen extends ConsumerWidget {
                                 data: (diff) {
                                   return Text(
                                     diff,
-                                    style: h3TextStyle.copyWith(
-                                        fontSize: 15,
-                                        color: launchSectionOneTimerTextColor),
+                                    style: LaunchScreenLayout.timeStyle,
                                   );
                                 },
                                 error: (_, __) => const Text("ERROR"),
@@ -57,9 +55,7 @@ class LaunchScreen extends ConsumerWidget {
                       child: Center(
                         child: Text(
                           "Alert",
-                          style: h3TextStyle.copyWith(
-                              fontSize: 15,
-                              color: launchSectionOneAlertTextColor),
+                          style: LaunchScreenLayout.alertStyle,
                         ),
                       ),
                     ),
@@ -76,8 +72,7 @@ class LaunchScreen extends ConsumerWidget {
                   child: Center(
                     child: Text(
                       data["tab_1Text"],
-                      style: h3TextStyle.copyWith(
-                          color: launchSectionTwoTextColor),
+                      style: LaunchScreenLayout.tab1TextStyle,
                     ),
                   ),
                 ),
@@ -103,11 +98,8 @@ class LaunchScreen extends ConsumerWidget {
                           ),
                           ...List.generate(models.length, (i) {
                             return Container(
-                              color: [
-                                Colors.purple,
-                                Colors.green,
-                                Colors.pink
-                              ][models[i].priority],
+                              color:
+                                  LaunchScreenLayout.colors[models[i].priority],
                               child: Row(
                                 children: [
                                   SizedBox(
@@ -115,13 +107,14 @@ class LaunchScreen extends ConsumerWidget {
                                     child: Center(
                                       child: Text(
                                           models[i].time.format(context),
-                                          style: h3TextStyle),
+                                          style:
+                                              LaunchScreenLayout.tab3TextStyle),
                                     ),
                                   ),
                                   Expanded(
                                     child: Text(
                                       models[i].text_1,
-                                      style: h3TextStyle,
+                                      style: LaunchScreenLayout.tab3TextStyle,
                                     ),
                                   )
                                 ],
@@ -151,11 +144,8 @@ class LaunchScreen extends ConsumerWidget {
                             SizedBox(
                               height: 40,
                               child: Container(
-                                color: [
-                                  Colors.purple,
-                                  Colors.green,
-                                  Colors.pink
-                                ][data["tab_4"][index][0]],
+                                color: LaunchScreenLayout
+                                    .colors[data["tab_4"][index][0]],
                                 child: Row(
                                   children: [
                                     SizedBox(
@@ -163,16 +153,15 @@ class LaunchScreen extends ConsumerWidget {
                                       child: Center(
                                         child: Text(
                                           "${index + 1}",
-                                          style: h3TextStyle.copyWith(),
+                                          style:
+                                              LaunchScreenLayout.tab4TextStyle,
                                         ),
                                       ),
                                     ),
                                     Expanded(
                                       child: Text(
                                         data["tab_4"][index][1],
-                                        style: h3TextStyle.copyWith(
-                                          color: launchSectionThreeTextColor,
-                                        ),
+                                        style: LaunchScreenLayout.tab4TextStyle,
                                       ),
                                     ),
                                   ],

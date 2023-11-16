@@ -169,3 +169,17 @@ class Tab5OutputLayout {
   static TextStyle tabFiveOutputTileTextStyle =
       const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
 }
+
+class LaunchScreenLayout {
+  static List colors = [Colors.purple, Colors.green, Colors.pink];
+
+  // Typography
+  static TextStyle timeStyle =
+      TextStyle(fontSize: 15, color: launchSectionOneTimerTextColor);
+  static TextStyle alertStyle =
+      TextStyle(fontSize: 15, color: launchSectionOneAlertTextColor);
+  static TextStyle tab1TextStyle = TextStyle(color: launchSectionTwoTextColor);
+  static TextStyle tab3TextStyle = const TextStyle(fontSize: 15);
+  static TextStyle tab4TextStyle =
+      TextStyle(fontSize: 15, color: launchSectionThreeTextColor);
+}
