@@ -106,6 +106,7 @@ class Tab3InputScreen extends ConsumerWidget {
                 child: SizedBox(
                   height: 50,
                   child: TextField(
+                    textCapitalization: TextCapitalization.sentences,
                     onChanged: (value) => controller.setActivity(value),
                   ),
                 ),
