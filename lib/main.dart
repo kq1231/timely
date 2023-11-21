@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
 import 'package:timely/app_theme.dart';
+import 'package:timely/modules/tab_2/views/input_screen/input_screen.dart';
 import 'package:timely/reusables.dart';
 import 'exports/screens.dart';
 
@@ -39,7 +40,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
   final List tabs = [
     const Tab1OutputScreen(),
-    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Tab2InputScreen(),
     const Tab3OutputScreen(),
     const Tab4OutputScreen(),
     const Tab5OutputScreen(),
@@ -87,9 +88,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: Future.wait([
-          ref.read(tabOneRepositoryProvider.notifier).updateNextUpdateTime(), 
+          ref.read(tabOneRepositoryProvider.notifier).updateNextUpdateTime(),
           // ref.read(dbFilesProvider.future),
-          // ToAsk Inshaa Allah: Will this initialise and maintain the [File]s? 
+          // ToAsk Inshaa Allah: Will this initialise and maintain the [File]s?
         ]),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {

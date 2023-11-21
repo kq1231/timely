@@ -183,3 +183,34 @@ class LaunchScreenLayout {
   static TextStyle tab4TextStyle =
       TextStyle(fontSize: 15, color: launchSectionThreeTextColor);
 }
+
+class Tab2InputLayout {
+  // Constants
+  static String text1ButtonText = "Text 1";
+  static List<DropdownMenuItem> repeatDropdownButtonItems = [
+    const DropdownMenuItem(
+      value: "Daily",
+      child: Text("Daily"),
+    ),
+    const DropdownMenuItem(
+      value: "Weekly",
+      child: Text("Weekly"),
+    ),
+    const DropdownMenuItem(
+      value: "Yearly",
+      child: Text("Yearly"),
+    ),
+    const DropdownMenuItem(
+      value: "Monthly",
+      child: Text("Monthly"),
+    ),
+  ];
+  static List<DropdownMenuItem> endRepeatDropdownButtonItems = [
+    const DropdownMenuItem(
+      value: "Never",
+      child: Text("Never"),
+    ),
+  ];
+  static String repeatText = "Repeat";
+  static String endRepeatText = "End Repeat";
+}

@@ -10,6 +10,7 @@ class DBFiles {
   final File tabFiveFile;
   final File tabThreeFile;
   final File tabFourFile;
+  final File tabTwoFile;
 
   DBFiles({
     required this.tabOneFile,
@@ -17,6 +18,7 @@ class DBFiles {
     required this.tabOneReFile,
     required this.tabThreeFile,
     required this.tabFourFile,
+    required this.tabTwoFile,
   });
 }
 
@@ -37,6 +39,7 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
   Directory docDir = await getApplicationDocumentsDirectory();
   File tab1File = File('${docDir.path}/tab_1.json');
   File tab2File = File('${docDir.path}/tab_1_re.json');
+  File tabTwoFile = File('${docDir.path}/tab_2.json');
   File tab5File = File('${docDir.path}/tab_5.json');
   File tab3File = File('${docDir.path}/tab_3.json');
   File tab4File = File('${docDir.path}/tab_4.json');
@@ -53,6 +56,10 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
     await tab2File.writeAsString("{}");
   }
 
+  if (!await tabTwoFile.exists()) {
+    await tabTwoFile.writeAsString("[]");
+  }
+
   if (!await tab3File.exists()) {
     await tab3File.writeAsString("{}");
   }
@@ -67,6 +74,7 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
     tabOneReFile: tab2File,
     tabThreeFile: tab3File,
     tabFourFile: tab4File,
+    tabTwoFile: tabTwoFile,
   );
 });
 
