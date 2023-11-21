@@ -7,6 +7,7 @@ class Tab2InputNotifier extends AutoDisposeNotifier<Tab2Model> {
   @override
   Tab2Model build() {
     return Tab2Model(
+      startDate: DateTime.now(),
       name: "",
       startTime: TimeOfDay.now(),
       endTime: TimeOfDay.now(),
@@ -19,6 +20,10 @@ class Tab2InputNotifier extends AutoDisposeNotifier<Tab2Model> {
   // Setters
   void setName(name) {
     state = state.copywith(name: name);
+  }
+
+  void setStartDate(date) {
+    state = state.copywith(startDate: date);
   }
 
   void setStartTime(startTime) {

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/modules/tab_2/controllers/input_controller.dart';
-import 'package:timely/modules/tab_2/views/input_screen/selectors/monthly.dart';
+import 'repeats_page.dart';
 
 class Tab2InputScreen extends ConsumerStatefulWidget {
   const Tab2InputScreen({super.key});
@@ -54,81 +54,31 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
         const Divider(),
         Column(
           children: [
-            // Repeat button
-            Row(
-              children: [
-                const SizedBox(
-                  width: 20,
-                ),
-                Center(
-                  child: DropdownButton(
-                    items: Tab2InputLayout.repeatDropdownButtonItems,
-                    onChanged: (value) {
-                      setState(() {
-                        controller.setFrequency(value);
-                      });
-                    },
-                    value: provider.frequency,
-                  ),
-                ),
-                Expanded(
-                  child: Container(),
-                ),
-                Center(
-                  child: Text(
-                    Tab2InputLayout.repeatText,
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-              ],
-            ),
             const SizedBox(
-              height: 5,
+              height: 10,
             ),
-            // End repeat button
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const SizedBox(
-                  width: 20,
-                ),
-                Center(
-                  child: OutlinedButton(
+                const Text("Start Date"),
+                OutlinedButton(
                     onPressed: () async {
-                      DateTime? selectedDate = await showDatePicker(
+                      DateTime? dateSelected = await showDatePicker(
                           context: context,
                           initialDate: DateTime.now(),
                           firstDate: DateTime(0),
                           lastDate: DateTime(DateTime.now().year + 50));
-
-                      if (selectedDate != null) {
-                        controller.setEndDate(selectedDate);
+                      if (dateSelected != null) {
+                        controller.setStartDate(dateSelected);
                       }
                     },
-                    child: Text(provider.endDate != null
-                        ? DateFormat(DateFormat.ABBR_MONTH_DAY)
-                            .format(provider.endDate!)
-                        : "Never"),
-                  ),
-                ),
-                Expanded(
-                  child: Container(),
-                ),
-                Center(
-                  child: Text(
-                    Tab2InputLayout.endRepeatText,
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
+                    child: Text(DateFormat(DateFormat.ABBR_MONTH_DAY)
+                        .format(provider.startDate))),
               ],
             ),
             const SizedBox(
               height: 10,
-            ),
-            MonthlySelector(),
+            )
           ],
         ),
         const Divider(),
@@ -194,6 +144,30 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                     "End Time",
                   ),
                 ),
+                const SizedBox(
+                  width: 20,
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                const SizedBox(
+                  width: 13,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return RepeatsPage();
+                          });
+                    },
+                    child: Text(provider.frequency)),
+                Expanded(child: Container()),
+                const Text("Repeats"),
                 const SizedBox(
                   width: 20,
                 ),
