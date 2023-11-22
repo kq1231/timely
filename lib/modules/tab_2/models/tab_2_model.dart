@@ -9,7 +9,8 @@ class Tab2Model {
   Basis basis = Basis.day;
   DateTime startDate = DateTime.now();
   DateTime? endDate;
-  List repetitions = [];
+  Map repetitions = {};
+  int every = 1;
 
   Tab2Model({
     required this.name,
@@ -18,6 +19,7 @@ class Tab2Model {
     required this.frequency,
     required this.basis,
     this.endDate,
+    required this.every,
     required this.startDate,
     required this.repetitions,
   });
@@ -39,14 +41,23 @@ class Tab2Model {
   }
 
   Map toJson() {
+    // Convert last to -1
+    if (basis == Basis.day &&
+        ![Frequency.weekly, Frequency.daily].contains(frequency)) {
+      if (repetitions["DoW"].first == 5) {
+        repetitions["DoW"][0] = -1;
+      }
+    }
+
     return {
       "Name": name,
+      "Start Date": startDate.toString().substring(0, 10),
       "Start": [startTime.hour, startTime.minute].join(":"),
       "End": [endTime.hour, endTime.minute].join(":"),
       "Frequency": frequency,
-      "Start Date": startDate.toString().substring(0, 10),
       "Basis": basis == Basis.date ? "Date" : "Day",
       "Repeat": repetitions,
+      "Every": every,
       "Ends":
           endDate == null ? "Never" : DateFormat("dd-MM-yyyy").format(endDate!)
     };
@@ -57,20 +68,23 @@ class Tab2Model {
     TimeOfDay? startTime,
     TimeOfDay? endTime,
     String? frequency,
-    List? repetitions,
+    Map? repetitions,
+    int? every,
     Basis? basis,
     DateTime? endDate,
     DateTime? startDate,
   }) {
     return Tab2Model(
-        name: name ?? this.name,
-        startDate: startDate ?? this.startDate,
-        startTime: startTime ?? this.startTime,
-        endTime: endTime ?? this.endTime,
-        frequency: frequency ?? this.frequency,
-        basis: basis ?? this.basis,
-        endDate: endDate ?? this.endDate,
-        repetitions: repetitions ?? this.repetitions);
+      name: name ?? this.name,
+      startDate: startDate ?? this.startDate,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      frequency: frequency ?? this.frequency,
+      basis: basis ?? this.basis,
+      endDate: endDate ?? this.endDate,
+      repetitions: repetitions ?? this.repetitions,
+      every: every ?? this.every,
+    );
   }
 }
 

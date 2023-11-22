@@ -13,7 +13,10 @@ class Tab2InputNotifier extends AutoDisposeNotifier<Tab2Model> {
       endTime: TimeOfDay.now(),
       frequency: Frequency.monthly,
       basis: Basis.day,
-      repetitions: [0, 0],
+      repetitions: {
+        "DoW": [0, 0]
+      },
+      every: 1,
     );
   }
 
@@ -42,8 +45,12 @@ class Tab2InputNotifier extends AutoDisposeNotifier<Tab2Model> {
     state = state.copywith(basis: basis);
   }
 
-  void setRepetitions(repetitions) {
+  void setRepetitions(Map repetitions) {
     state = state.copywith(repetitions: repetitions);
+  }
+
+  void setEvery(int every) {
+    state = state.copywith(every: every);
   }
 
   void setEndDate(endDate) {

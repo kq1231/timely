@@ -155,14 +155,14 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
             Row(
               children: [
                 const SizedBox(
-                  width: 13,
+                  width: 20,
                 ),
-                ElevatedButton(
+                FilledButton.tonal(
                     onPressed: () {
                       showModalBottomSheet(
                           context: context,
                           builder: (context) {
-                            return RepeatsPage();
+                            return const RepeatsPage();
                           });
                     },
                     child: Text(provider.frequency)),

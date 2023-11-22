@@ -31,7 +31,7 @@ class MonthlySelector extends ConsumerWidget {
             value: provider.basis == Basis.date ? true : false,
             onChanged: (val) {
               controller.setBasis(val == true ? Basis.date : null);
-              controller.setRepetitions([]);
+              controller.setRepetitions({"Dates": []});
               print(provider.repetitions);
             }),
         CheckboxListTile(
@@ -39,7 +39,9 @@ class MonthlySelector extends ConsumerWidget {
             value: provider.basis == Basis.day ? true : false,
             onChanged: (val) {
               controller.setBasis(val == true ? Basis.day : null);
-              controller.setRepetitions([0, 0]);
+              controller.setRepetitions({
+                "DoW": [0, 0]
+              });
               print(provider.repetitions);
             }),
         provider.basis == Basis.date
@@ -59,13 +61,14 @@ class MonthlySelector extends ConsumerWidget {
                         return InkWell(
                           onTap: () {
                             setState(() {
-                              if (!provider.repetitions.contains(index + 1)) {
-                                controller.setRepetitions(
-                                    [...provider.repetitions, index + 1]);
+                              if (!provider.repetitions["Dates"]
+                                  .contains(index + 1)) {
+                                provider.repetitions["Dates"].add(index + 1);
+                                controller.setRepetitions(provider.repetitions);
                               } else {
-                                controller.setRepetitions(provider.repetitions
-                                  ..removeWhere(
-                                      (element) => element == index + 1));
+                                provider.repetitions["Dates"].removeWhere(
+                                    (element) => element == index + 1);
+                                controller.setRepetitions(provider.repetitions);
                               }
                             });
                           },
@@ -73,7 +76,8 @@ class MonthlySelector extends ConsumerWidget {
                             duration: const Duration(milliseconds: 200),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.black),
-                              color: provider.repetitions.contains(index + 1)
+                              color: provider.repetitions["Dates"]
+                                      .contains(index + 1)
                                   ? Colors.blue
                                   : Colors.blueGrey,
                             ),
@@ -82,7 +86,8 @@ class MonthlySelector extends ConsumerWidget {
                               (index + 1).toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: provider.repetitions.contains(index + 1)
+                                color: provider.repetitions["Dates"]
+                                        .contains(index + 1)
                                     ? Colors.black
                                     : Colors.white,
                               ),
@@ -99,25 +104,26 @@ class MonthlySelector extends ConsumerWidget {
                   Slider(
                       max: 5,
                       divisions: 5,
-                      label: sliderNames[0][provider.repetitions[0]],
-                      value: provider.repetitions[0].toDouble(),
+                      label:
+                          sliderNames.first[provider.repetitions["DoW"].first],
+                      value: provider.repetitions["DoW"].first.toDouble(),
                       onChanged: (val) {
-                        controller.setRepetitions(
-                            [val.toInt(), provider.repetitions[1]]);
+                        provider.repetitions["DoW"].first = val.toInt();
+                        controller.setRepetitions(provider.repetitions);
                       }),
                   Slider(
                       max: 6,
                       divisions: 6,
-                      label: sliderNames[1][provider.repetitions[1]],
-                      value: provider.repetitions[1].toDouble(),
+                      label: sliderNames.last[provider.repetitions["DoW"].last],
+                      value: provider.repetitions["DoW"].last.toDouble(),
                       onChanged: (val) {
-                        controller.setRepetitions(
-                            [provider.repetitions[0], val.toInt()]);
+                        provider.repetitions["DoW"].last = val.toInt();
+                        controller.setRepetitions(provider.repetitions);
                       }),
                   Text(
-                    sliderNames[0][provider.repetitions[0]] +
+                    sliderNames.first[provider.repetitions["DoW"].first] +
                         " " +
-                        sliderNames[1][provider.repetitions[1]],
+                        sliderNames.last[provider.repetitions["DoW"].last],
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   )
                 ],

@@ -46,21 +46,14 @@ class YearlySelector extends ConsumerWidget {
                       onTap: () {
                         setState(() {
                           // Add and remove the dates
-                          if (!provider.repetitions[0].contains(index)) {
-                            controller.setRepetitions(
-                              [
-                                [...provider.repetitions[0], index],
-                                provider.repetitions[1]
-                              ],
-                            );
+                          if (!provider.repetitions["Months"]
+                              .contains(index + 1)) {
+                            provider.repetitions["Months"].add(index + 1);
+                            controller.setRepetitions(provider.repetitions);
                           } else {
-                            controller.setRepetitions([
-                              [
-                                ...provider.repetitions[0]
-                                  ..removeWhere((element) => element == index)
-                              ],
-                              provider.repetitions[1]
-                            ]);
+                            provider.repetitions["Months"]
+                                .removeWhere((element) => element == index + 1);
+                            controller.setRepetitions(provider.repetitions);
                           }
                         });
                       },
@@ -68,16 +61,18 @@ class YearlySelector extends ConsumerWidget {
                         duration: const Duration(milliseconds: 200),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black),
-                          color: provider.repetitions[0].contains(index)
-                              ? Colors.blue
-                              : Colors.blueGrey,
+                          color:
+                              provider.repetitions["Months"].contains(index + 1)
+                                  ? Colors.blue
+                                  : Colors.blueGrey,
                         ),
                         alignment: Alignment.center,
                         child: Text(
                           months[index].toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: provider.repetitions[0].contains(index)
+                            color: provider.repetitions["Months"]
+                                    .contains(index + 1)
                                 ? Colors.black
                                 : Colors.white,
                           ),
@@ -101,12 +96,14 @@ class YearlySelector extends ConsumerWidget {
                   onChanged: (val) {
                     controller.setBasis(val == true ? Basis.day : Basis.date);
                     if (val) {
-                      controller.setRepetitions([
-                        provider.repetitions[0],
-                        [0, 0]
-                      ]);
+                      controller.setRepetitions({
+                        "Months": provider.repetitions["Months"],
+                        "DoW": [0, 0],
+                      });
                     } else {
-                      controller.setRepetitions([provider.repetitions[0], []]);
+                      controller.setRepetitions({
+                        "Months": provider.repetitions["Months"],
+                      });
                     }
                   })
             ],
@@ -117,29 +114,27 @@ class YearlySelector extends ConsumerWidget {
                     Slider(
                         max: 5,
                         divisions: 5,
-                        label: sliderNames[0][provider.repetitions[1][0]],
-                        value: provider.repetitions[1][0].toDouble(),
+                        label: sliderNames
+                            .first[provider.repetitions["DoW"].first],
+                        value: provider.repetitions["DoW"].first.toDouble(),
                         onChanged: (val) {
-                          controller.setRepetitions([
-                            provider.repetitions[0],
-                            [val.toInt(), provider.repetitions[1][1]]
-                          ]);
+                          provider.repetitions["DoW"].first = val.toInt();
+                          controller.setRepetitions(provider.repetitions);
                         }),
                     Slider(
                         max: 6,
                         divisions: 6,
-                        label: sliderNames[1][provider.repetitions[1][1]],
-                        value: provider.repetitions[1][1].toDouble(),
+                        label:
+                            sliderNames.last[provider.repetitions["DoW"].last],
+                        value: provider.repetitions["DoW"].last.toDouble(),
                         onChanged: (val) {
-                          controller.setRepetitions([
-                            provider.repetitions[0],
-                            [provider.repetitions[1][0], val.toInt()],
-                          ]);
+                          provider.repetitions["DoW"].last = val.toInt();
+                          controller.setRepetitions(provider.repetitions);
                         }),
                     Text(
-                      sliderNames[0][provider.repetitions[1][0]] +
+                      sliderNames.first[provider.repetitions["DoW"].first] +
                           " " +
-                          sliderNames[1][provider.repetitions[1][1]],
+                          sliderNames.last[provider.repetitions["DoW"].last],
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     )
                   ],

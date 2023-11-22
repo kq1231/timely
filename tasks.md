@@ -10,7 +10,6 @@
 - Overflowing Tab3 Input 
 - Auto dispose
 
-
 ---
 
 - Keyboard issue 
@@ -48,3 +47,13 @@
 --- 
 
 - Isolate the updateNextUpdateTime function in a separate FutureProvider. When disposed, cancel the timer. 
+
+---
+
+- Add "Every" to the app. -D
+- Make code cleaner. -D
+- Make code DRY.
+- Last should be -1. Last can be 4 or 5. -D
+- Add options: Weekly and Daily.
+
+** Inshaa Allah **

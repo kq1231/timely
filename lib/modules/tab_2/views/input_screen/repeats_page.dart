@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/modules/tab_2/controllers/input_controller.dart';
-import 'package:timely/modules/tab_2/models/tab_2_model.dart';
 import 'package:timely/modules/tab_2/views/input_screen/selectors/monthly.dart';
+import 'package:timely/modules/tab_2/views/input_screen/selectors/weekly.dart';
 import 'package:timely/modules/tab_2/views/input_screen/selectors/yearly.dart';
 
 class RepeatsPage extends ConsumerWidget {
@@ -14,6 +14,7 @@ class RepeatsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(tab2InputProvider);
     final controller = ref.read(tab2InputProvider.notifier);
+
     return ListView(
       children: [
         const SizedBox(
@@ -28,13 +29,24 @@ class RepeatsPage extends ConsumerWidget {
               child: DropdownButton(
                 items: Tab2InputLayout.repeatDropdownButtonItems,
                 onChanged: (value) {
-                  controller.setFrequency(value);
-                  if (value == "Yearly") {
-                    controller.setRepetitions([
-                      [],
-                      [0, 0]
-                    ]);
+                  // Set the default values based on selection
+                  switch (value) {
+                    case "Monthly":
+                      controller.setRepetitions({
+                        "DoW": [0, 0]
+                      });
+                      break;
+                    case "Yearly":
+                      controller.setRepetitions({
+                        "Months": [],
+                        "DoW": [0, 0]
+                      });
+                    case "Weekly":
+                      controller.setRepetitions({"Weekdays": []});
+                    case "Daily":
+                      controller.setRepetitions({});
                   }
+                  controller.setFrequency(value);
                 },
                 value: provider.frequency,
               ),
@@ -54,6 +66,37 @@ class RepeatsPage extends ConsumerWidget {
         ),
         const SizedBox(
           height: 5,
+        ),
+        Row(
+          children: [
+            const SizedBox(
+              width: 20,
+            ),
+            SizedBox(
+              width: 30,
+              child: TextFormField(
+                initialValue: provider.every.toString(),
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  try {
+                    controller.setEvery(int.parse(value));
+                  } catch (e) {
+                    debugPrint(e.toString());
+                  }
+                },
+              ),
+            ),
+            Expanded(
+              child: Container(),
+            ),
+            const Text("Every"),
+            const SizedBox(
+              width: 20,
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 20,
         ),
         // End repeat button
         Row(
@@ -96,9 +139,17 @@ class RepeatsPage extends ConsumerWidget {
         const SizedBox(
           height: 10,
         ),
-        provider.frequency == Frequency.monthly
-            ? const MonthlySelector()
-            : const YearlySelector(),
+        [
+          Container(),
+          const MonthlySelector(),
+          const WeeklySelector(),
+          const YearlySelector(),
+        ][[
+          "Daily",
+          "Monthly",
+          "Weekly",
+          "Yearly",
+        ].indexOf(provider.frequency)],
         const SizedBox(
           height: 20,
         ),
