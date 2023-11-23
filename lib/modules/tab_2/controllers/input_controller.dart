@@ -10,9 +10,7 @@ class Tab2InputNotifier extends AutoDisposeNotifier<Tab2Model> {
       startDate: DateTime.now(),
       name: "",
       startTime: TimeOfDay.now(),
-      endTime: TimeOfDay.now(),
-      frequency: Frequency.monthly,
-      basis: Basis.day,
+      endTime: const Duration(),
       repetitions: {
         "DoW": [0, 0]
       },

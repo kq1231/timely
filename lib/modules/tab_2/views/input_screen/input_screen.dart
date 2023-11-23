@@ -1,7 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:timely/app_theme.dart';
 import 'package:timely/modules/tab_2/controllers/input_controller.dart';
 import 'repeats_page.dart';
 
@@ -22,32 +22,23 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
       children: [
         SizedBox(
           height: 60,
-          child: Center(
-            child: FilledButton(
-              child: Text(
-                Tab2InputLayout.text1ButtonText,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text("Text 1"),
-                      content: TextField(
-                        onChanged: (val) {
-                          controller.setName(val);
-                        },
-                      ),
-                      actions: [
-                        IconButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            icon: const Icon(Icons.done))
-                      ],
-                    );
-                  },
-                );
-              },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                const Text(
+                  "Text 1",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: TextField(
+                      onChanged: (name) => controller.setName(name),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -60,7 +51,6 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Text("Start Date"),
                 OutlinedButton(
                     onPressed: () async {
                       DateTime? dateSelected = await showDatePicker(
@@ -74,6 +64,7 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                     },
                     child: Text(DateFormat(DateFormat.ABBR_MONTH_DAY)
                         .format(provider.startDate))),
+                const Text("Date"),
               ],
             ),
             const SizedBox(
@@ -107,7 +98,7 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                 ),
                 const Center(
                   child: Text(
-                    "Start Time",
+                    "Time",
                   ),
                 ),
                 const SizedBox(
@@ -125,23 +116,15 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                   width: 20,
                 ),
                 Center(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      TimeOfDay? timeSelected = await showTimePicker(
-                          context: context, initialTime: TimeOfDay.now());
-                      timeSelected != null
-                          ? controller.setEndTime(timeSelected)
-                          : null;
-                    },
-                    child: Text(provider.endTime.format(context)),
-                  ),
-                ),
+                    child: Row(
+                  children: [],
+                )),
                 Expanded(
                   child: Container(),
                 ),
                 const Center(
                   child: Text(
-                    "End Time",
+                    "Duration",
                   ),
                 ),
                 const SizedBox(
@@ -157,7 +140,7 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                 const SizedBox(
                   width: 20,
                 ),
-                FilledButton.tonal(
+                FilledButton(
                     onPressed: () {
                       showModalBottomSheet(
                           context: context,
@@ -165,7 +148,10 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                             return const RepeatsPage();
                           });
                     },
-                    child: Text(provider.frequency)),
+                    child: Text(
+                      provider.frequency ?? "Never",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    )),
                 Expanded(child: Container()),
                 const Text("Repeats"),
                 const SizedBox(

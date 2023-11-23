@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_2/controllers/input_controller.dart';
@@ -111,32 +112,44 @@ class YearlySelector extends ConsumerWidget {
           provider.basis == Basis.day
               ? Column(
                   children: [
-                    Slider(
-                        max: 5,
-                        divisions: 5,
-                        label: sliderNames
-                            .first[provider.repetitions["DoW"].first],
-                        value: provider.repetitions["DoW"].first.toDouble(),
-                        onChanged: (val) {
-                          provider.repetitions["DoW"].first = val.toInt();
-                          controller.setRepetitions(provider.repetitions);
-                        }),
-                    Slider(
-                        max: 6,
-                        divisions: 6,
-                        label:
-                            sliderNames.last[provider.repetitions["DoW"].last],
-                        value: provider.repetitions["DoW"].last.toDouble(),
-                        onChanged: (val) {
-                          provider.repetitions["DoW"].last = val.toInt();
-                          controller.setRepetitions(provider.repetitions);
-                        }),
-                    Text(
-                      sliderNames.first[provider.repetitions["DoW"].first] +
-                          " " +
-                          sliderNames.last[provider.repetitions["DoW"].last],
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    )
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CupertinoPicker(
+                      magnification: 1.2,
+                      squeeze: 4,
+                      scrollController: FixedExtentScrollController(
+                        initialItem: provider.repetitions["DoW"][0],
+                      ),
+                      itemExtent: 50,
+                      onSelectedItemChanged: (item) {
+                        provider.repetitions["DoW"].first = item.toInt();
+                        controller.setRepetitions(provider.repetitions);
+                      },
+                      children: List<Widget>.generate(
+                          sliderNames.first.length,
+                          (index) =>
+                              Center(child: Text(sliderNames.first[index]))),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CupertinoPicker(
+                      magnification: 1.2,
+                      squeeze: 4,
+                      scrollController: FixedExtentScrollController(
+                        initialItem: provider.repetitions["DoW"][1],
+                      ),
+                      itemExtent: 50,
+                      onSelectedItemChanged: (item) {
+                        provider.repetitions["DoW"].last = item.toInt();
+                        controller.setRepetitions(provider.repetitions);
+                      },
+                      children: List<Widget>.generate(
+                          sliderNames.last.length,
+                          (index) =>
+                              Center(child: Text(sliderNames.last[index]))),
+                    ),
                   ],
                 )
               : Container(),

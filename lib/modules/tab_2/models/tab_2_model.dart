@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 class Tab2Model {
   String name = "";
   TimeOfDay startTime = const TimeOfDay(hour: 0, minute: 0);
-  TimeOfDay endTime = const TimeOfDay(hour: 0, minute: 0);
-  String frequency = Frequency.daily;
-  Basis basis = Basis.day;
+  Duration endTime = const Duration();
+  String? frequency = Frequency.daily;
+  Basis? basis = Basis.day;
   DateTime startDate = DateTime.now();
   DateTime? endDate;
   Map repetitions = {};
@@ -16,8 +16,8 @@ class Tab2Model {
     required this.name,
     required this.startTime,
     required this.endTime,
-    required this.frequency,
-    required this.basis,
+    this.frequency,
+    this.basis,
     this.endDate,
     required this.every,
     required this.startDate,
@@ -34,7 +34,7 @@ class Tab2Model {
 
     startTime = TimeOfDay(hour: times[0][0], minute: times[0][1]);
     startDate = json["Start Date"];
-    endTime = TimeOfDay(hour: times[1][0], minute: times[1][1]);
+    endTime = Duration(hours: times[1][0], minutes: times[1][1]);
     frequency = json["Frequency"];
     repetitions = json["Repeats"];
     endDate = DateTime.parse(json["Ends"]);
@@ -53,10 +53,14 @@ class Tab2Model {
       "Name": name,
       "Start Date": startDate.toString().substring(0, 10),
       "Start": [startTime.hour, startTime.minute].join(":"),
-      "End": [endTime.hour, endTime.minute].join(":"),
+      "End": [endTime.inHours, endTime.inMinutes % 60].join(":"),
       "Frequency": frequency,
-      "Basis": basis == Basis.date ? "Date" : "Day",
-      "Repeat": repetitions,
+      "Basis": basis != null
+          ? basis == Basis.date
+              ? "Date"
+              : "Day"
+          : null,
+      "Repeat": frequency != null ? repetitions : null,
       "Every": every,
       "Ends":
           endDate == null ? "Never" : DateFormat("dd-MM-yyyy").format(endDate!)
@@ -66,7 +70,7 @@ class Tab2Model {
   Tab2Model copywith({
     String? name,
     TimeOfDay? startTime,
-    TimeOfDay? endTime,
+    Duration? endTime,
     String? frequency,
     Map? repetitions,
     int? every,

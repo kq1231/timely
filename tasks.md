@@ -52,8 +52,17 @@
 
 - Add "Every" to the app. -D
 - Make code cleaner. -D
-- Make code DRY.
 - Last should be -1. Last can be 4 or 5. -D
+- Make code DRY.
 - Add options: Weekly and Daily.
 
 ** Inshaa Allah **
+
+---
+
+- Text 1 should be a text field and should not be showing in a separate dialog. -D
+- Repeat not necessary. Can be nullable. Repeats "Never". -D
+- Change "Start Date" to "Date", "Start Time" to "Time". -D
+- Design consistency. -D
+- Change end time to Duration. Two separate buttons. 
+- Change sliders to boxes. -D
