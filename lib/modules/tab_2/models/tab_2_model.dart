@@ -53,7 +53,14 @@ class Tab2Model {
       "Name": name,
       "Start Date": startDate.toString().substring(0, 10),
       "Start": [startTime.hour, startTime.minute].join(":"),
-      "End": [endTime.inHours, endTime.inMinutes % 60].join(":"),
+      "End": [
+        ((startTime.hour +
+                    endTime.inHours +
+                    (startTime.minute + (endTime.inMinutes % 60)) / 60) %
+                24)
+            .truncate(),
+        (startTime.minute + endTime.inMinutes % 60) % 60
+      ].join(":"),
       "Frequency": frequency,
       "Basis": basis != null
           ? basis == Basis.date

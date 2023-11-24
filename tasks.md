@@ -66,3 +66,7 @@
 - Design consistency. -D
 - Change end time to Duration. Two separate buttons. 
 - Change sliders to boxes. -D
+
+--- 
+
+- Improve alignment 

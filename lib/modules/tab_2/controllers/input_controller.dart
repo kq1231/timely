@@ -33,6 +33,7 @@ class Tab2InputNotifier extends AutoDisposeNotifier<Tab2Model> {
 
   void setEndTime(endTime) {
     state = state.copywith(endTime: endTime);
+    print(state.endTime);
   }
 
   void setFrequency(frequency) {
