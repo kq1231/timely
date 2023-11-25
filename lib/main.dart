@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/modules/tab_2/views/input_screen/input_screen.dart';
 import 'package:timely/reusables.dart';
 import 'exports/screens.dart';
 
