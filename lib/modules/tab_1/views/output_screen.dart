@@ -15,7 +15,7 @@ class Tab1OutputScreen extends ConsumerWidget {
         data: (data) {
           return Stack(
             children: [
-              Column(
+              ListView(
                 children: [
                   SizedBox(
                     height: 50,
@@ -56,95 +56,94 @@ class Tab1OutputScreen extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      var time = TimeOfDay(
-                          hour: (data[index].nextUpdateTime.hour % 12) + 1,
-                          minute: data[index].nextUpdateTime.minute);
-                      return Column(
-                        children: [
-                          SizedBox(
-                            height: 50,
-                            child: Container(
-                              color: index % 2 == 0
-                                  ? Tab1OutputLayout.alternateColors[0]
-                                  : Tab1OutputLayout.alternateColors[1],
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  SizedBox(
-                                    width: 70,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: Text(data[index].date,
-                                          style: Tab1OutputLayout.tileFont),
-                                    ),
+                  ...List.generate(data.length, (index) {
+                    var time = TimeOfDay(
+                        hour: (data[index].nextUpdateTime.hour % 12) + 1,
+                        minute: data[index].nextUpdateTime.minute);
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: 50,
+                          child: Container(
+                            color: index % 2 == 0
+                                ? Tab1OutputLayout.alternateColors[0]
+                                : Tab1OutputLayout.alternateColors[1],
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SizedBox(
+                                  width: 70,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Text(data[index].date,
+                                        style: Tab1OutputLayout.tileFont),
                                   ),
-                                  ...List.generate(3, (i) {
-                                    List scores = [
-                                      data[index].fScore,
-                                      data[index].mScore,
-                                      data[index].sScore
-                                    ];
-                                    return Expanded(
-                                      child: Container(
-                                        child: Center(
-                                            child: Text("${scores[i]}",
-                                                style:
-                                                    Tab1OutputLayout.tileFont)),
-                                      ),
-                                    );
-                                  }),
-                                  SizedBox(
-                                      width: 70,
-                                      child: Center(
-                                          child: Text(
-                                        "${time.hour < 12 ? '0' : ''}${time.hour}:${time.minute < 10 ? '0' : ''}${time.minute} ${data[index].nextUpdateTime.hour > 12 ? 'PM' : 'AM'}",
-                                        style: Tab1OutputLayout.tileFont,
-                                      ))),
-                                ],
-                              ),
+                                ),
+                                ...List.generate(3, (i) {
+                                  List scores = [
+                                    data[index].fScore,
+                                    data[index].mScore,
+                                    data[index].sScore
+                                  ];
+                                  return Expanded(
+                                    child: Center(
+                                        child: Text("${scores[i]}",
+                                            style: Tab1OutputLayout.tileFont)),
+                                  );
+                                }),
+                                SizedBox(
+                                    width: 70,
+                                    child: Center(
+                                        child: Text(
+                                      "${time.hour < 10 ? '0' : ''}${time.hour}:${time.minute < 10 ? '0' : ''}${time.minute} ${data[index].nextUpdateTime.hour > 12 ? 'PM' : 'AM'}",
+                                      style: Tab1OutputLayout.tileFont,
+                                    ))),
+                              ],
                             ),
                           ),
-                        ],
-                      );
-                    },
-                    itemCount: data.length,
-                  ),
+                        ),
+                      ],
+                    );
+                  })
                 ],
               ),
-              Column(
-                children: [
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      FloatingActionButton(
-                          heroTag: null,
-                          child: const Icon(Icons.home),
-                          onPressed: () {
-                            ref.read(tabIndexProvider.notifier).setIndex(12);
-                          }),
-                      FloatingActionButton(
-                          heroTag: null,
-                          child: const Icon(Icons.add),
-                          onPressed: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return Scaffold(
-                                  appBar: AppBar(),
-                                  body: const TabOneInputScreen());
-                            }));
-                          }),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
+              Positioned(
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        FloatingActionButton(
+                            heroTag: null,
+                            child: const Icon(Icons.home),
+                            onPressed: () {
+                              ref.read(tabIndexProvider.notifier).setIndex(12);
+                            }),
+                        FloatingActionButton(
+                            heroTag: null,
+                            child: const Icon(Icons.add),
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return Scaffold(
+                                        appBar: AppBar(),
+                                        body: const TabOneInputScreen());
+                                  },
+                                ),
+                              );
+                            }),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
               )
             ],
           );

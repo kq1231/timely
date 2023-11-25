@@ -110,7 +110,7 @@ class RepeatsPage extends ConsumerWidget {
                   DateTime? selectedDate = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
-                      firstDate: DateTime(0),
+                      firstDate: DateTime.now(),
                       lastDate: DateTime(DateTime.now().year + 50));
 
                   if (selectedDate != null) {

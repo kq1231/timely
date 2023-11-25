@@ -69,4 +69,9 @@
 
 --- 
 
-- Improve alignment 
+- Improve spacings -D
+- Yearly ka DoW slider should be in the same row -D
+- Text1 -> Activity -D
+- Output Tab 2
+- Add never in dropdown -P
+- [Every, Ends] should be nullable -P

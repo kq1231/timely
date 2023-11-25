@@ -100,24 +100,27 @@ class LaunchScreen extends ConsumerWidget {
                             return Container(
                               color:
                                   LaunchScreenLayout.colors[models[i].priority],
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 70,
-                                    child: Center(
+                              child: SizedBox(
+                                height: 40,
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 70,
+                                      child: Center(
+                                        child: Text(
+                                            models[i].time.format(context),
+                                            style: LaunchScreenLayout
+                                                .tab3TextStyle),
+                                      ),
+                                    ),
+                                    Expanded(
                                       child: Text(
-                                          models[i].time.format(context),
-                                          style:
-                                              LaunchScreenLayout.tab3TextStyle),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      models[i].text_1,
-                                      style: LaunchScreenLayout.tab3TextStyle,
-                                    ),
-                                  )
-                                ],
+                                        models[i].text_1,
+                                        style: LaunchScreenLayout.tab3TextStyle,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             );
                           }),

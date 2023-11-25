@@ -27,7 +27,7 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
             child: Row(
               children: [
                 const Text(
-                  "Text 1",
+                  "Activity",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
@@ -53,7 +53,7 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
         Column(
           children: [
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             Row(
               children: [
@@ -84,13 +84,16 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             )
           ],
         ),
         const Divider(),
         Column(
           children: [
+            const SizedBox(
+              height: 20,
+            ),
             // Repeat button
             Row(
               children: [
@@ -126,7 +129,7 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             // End repeat button
             Row(
@@ -202,7 +205,7 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             Row(
               children: [
@@ -231,6 +234,9 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                   width: 20,
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 20,
             ),
             const Divider(),
             const SizedBox(
