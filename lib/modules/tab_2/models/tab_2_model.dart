@@ -33,11 +33,12 @@ class Tab2Model {
     ];
 
     startTime = TimeOfDay(hour: times[0][0], minute: times[0][1]);
-    startDate = json["Start Date"];
+    startDate = DateTime.parse(json["Start Date"]);
     endTime = Duration(hours: times[1][0], minutes: times[1][1]);
     frequency = json["Frequency"];
-    repetitions = json["Repeats"];
-    endDate = DateTime.parse(json["Ends"]);
+    repetitions = json["Repeat"] ?? {};
+    endDate =
+        json["Ends"] != "Never" ? DateTime.parse(json["Ends"]) : DateTime(0);
   }
 
   Map toJson() {
@@ -53,14 +54,7 @@ class Tab2Model {
       "Name": name,
       "Start Date": startDate.toString().substring(0, 10),
       "Start": [startTime.hour, startTime.minute].join(":"),
-      "End": [
-        ((startTime.hour +
-                    endTime.inHours +
-                    (startTime.minute + (endTime.inMinutes % 60)) / 60) %
-                24)
-            .truncate(),
-        (startTime.minute + endTime.inMinutes % 60) % 60
-      ].join(":"),
+      "End": calculateEndTime(endTime).join(":"),
       "Frequency": frequency,
       "Basis": basis != null
           ? basis == Basis.date
@@ -70,8 +64,19 @@ class Tab2Model {
       "Repeat": frequency != null ? repetitions : null,
       "Every": every,
       "Ends":
-          endDate == null ? "Never" : DateFormat("dd-MM-yyyy").format(endDate!)
+          endDate == null ? "Never" : DateFormat("yyyy-MM-dd").format(endDate!)
     };
+  }
+
+  List calculateEndTime(Duration duration) {
+    return [
+      ((startTime.hour +
+                  duration.inHours +
+                  (startTime.minute + (duration.inMinutes % 60)) / 60) %
+              24)
+          .truncate(),
+      (startTime.minute + duration.inMinutes % 60) % 60
+    ];
   }
 
   Tab2Model copywith({

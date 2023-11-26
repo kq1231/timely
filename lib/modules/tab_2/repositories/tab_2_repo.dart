@@ -12,7 +12,7 @@ class Tab2RepositoryNotifier extends Notifier<AsyncData<void>> {
 
   Future<List<Tab2Model>> fetchTab2Models() async {
     final tab3File = (await ref.read(dbFilesProvider.future)).tabTwoFile;
-    List<Map> jsonContent = jsonDecode(await tab3File.readAsString());
+    List jsonContent = jsonDecode(await tab3File.readAsString());
     List<Tab2Model> models = [];
     for (Map obj in jsonContent) {
       models.add(Tab2Model.fromJson(obj));

@@ -39,7 +39,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
   final List tabs = [
     const Tab1OutputScreen(),
-    const Tab2InputScreen(),
+    const Tab2OutputScreen(),
     const Tab3OutputScreen(),
     const Tab4OutputScreen(),
     const Tab5OutputScreen(),
