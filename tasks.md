@@ -75,3 +75,7 @@
 - Output Tab 2
 - Add never in dropdown -P
 - [Every, Ends] should be nullable -P
+
+--- 
+
+- Test on emulator + actual device 

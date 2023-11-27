@@ -247,12 +247,15 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
               children: [
                 ElevatedButton(
                   child: const Text("Cancel"),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 ElevatedButton(
                   child: const Text("Submit"),
                   onPressed: () {
                     controller.syncToDB();
+                    Navigator.pop(context);
                   },
                 )
               ],

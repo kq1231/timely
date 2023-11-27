@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/modules/tab_2/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2/models/tab_2_model.dart';
 import 'package:timely/modules/tab_2/repositories/tab_2_repo.dart';
 
@@ -59,6 +60,7 @@ class Tab2InputNotifier extends AutoDisposeNotifier<Tab2Model> {
   // Methods
   Future<void> syncToDB() async {
     await ref.read(tab2RepositoryProvider.notifier).writeTab2Model(state);
+    ref.invalidate(tab2OutputProvider);
   }
 }
 
