@@ -14,7 +14,7 @@ class TabFiveRepositoryNotifier extends Notifier<AsyncValue<void>> {
   }
 
   Future<void> writeSPWModel(SPWModel state) async {
-    final tabFiveFile = (await ref.read(dbFilesProvider.future)).tabFiveFile;
+    final tabFiveFile = (await ref.read(dbFilesProvider.future)).tab5File;
     final jsonContent = jsonDecode(await tabFiveFile.readAsString());
     jsonContent[state.date] = [];
     jsonContent[state.date].add(
@@ -31,7 +31,7 @@ class TabFiveRepositoryNotifier extends Notifier<AsyncValue<void>> {
   }
 
   Future<List<SPWModel>> fetchSPWModels() async {
-    final tabFiveFile = (await ref.read(dbFilesProvider.future)).tabFiveFile;
+    final tabFiveFile = (await ref.read(dbFilesProvider.future)).tab5File;
     final jsonContent = jsonDecode(await tabFiveFile.readAsString());
     final spwModels = <SPWModel>[];
     for (final date in jsonContent.keys.toList().reversed) {

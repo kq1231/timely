@@ -83,3 +83,7 @@
 - Tab2 is for repeat activities only 
 - Date will be calculate at 12 night 
 - "tab_2_current_activities.json"
+
+---
+
+- Text field should be mandatory 

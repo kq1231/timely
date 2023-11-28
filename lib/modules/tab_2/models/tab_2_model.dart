@@ -37,8 +37,12 @@ class Tab2Model {
     endTime = Duration(hours: times[1][0], minutes: times[1][1]);
     frequency = json["Frequency"];
     repetitions = json["Repeat"] ?? {};
-    endDate =
-        json["Ends"] != "Never" ? DateTime.parse(json["Ends"]) : DateTime(0);
+    basis = json["Basis"] != null
+        ? json["Basis"] == "Day"
+            ? Basis.day
+            : Basis.date
+        : null;
+    endDate = json["Ends"] != "Never" ? DateTime.parse(json["Ends"]) : null;
   }
 
   Map toJson() {

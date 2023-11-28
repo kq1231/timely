@@ -33,7 +33,6 @@ class MonthlySelector extends ConsumerWidget {
             onChanged: (val) {
               controller.setBasis(val == true ? Basis.date : null);
               controller.setRepetitions({"Dates": []});
-              print(provider.repetitions);
             }),
         CheckboxListTile(
             title: const Text("On the..."),
@@ -43,7 +42,6 @@ class MonthlySelector extends ConsumerWidget {
               controller.setRepetitions({
                 "DoW": [0, 0]
               });
-              print(provider.repetitions);
             }),
         provider.basis == Basis.date
             ? StatefulBuilder(

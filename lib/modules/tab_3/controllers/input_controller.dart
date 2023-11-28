@@ -24,7 +24,6 @@ class Tab3InputNotifier extends AutoDisposeNotifier<Tab3Model> {
   }
 
   void setPriority(int priority) {
-    print("BLA BLA ${state.copyWith(priority: priority).priority}");
     state = state.copyWith(priority: priority);
   }
 

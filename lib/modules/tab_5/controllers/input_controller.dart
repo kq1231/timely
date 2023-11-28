@@ -36,7 +36,7 @@ class TabFiveInputNotifier extends AutoDisposeNotifier<SPWModel> {
     try {
       state = state.copyWith(weight: double.parse(weight));
     } catch (e) {
-      print(e);
+      // Skip.w
     }
   }
 

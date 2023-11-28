@@ -8,7 +8,7 @@ import 'package:timely/reusables.dart';
 final tab3Text1Provider =
     FutureProvider.autoDispose<List<Tab3Model>>((ref) async {
   // Get the file
-  File file = (await ref.read(dbFilesProvider.future)).tabThreeFile;
+  File file = (await ref.read(dbFilesProvider.future)).tab3File;
 
   // Extract the json
   Map content = jsonDecode(await file.readAsString());

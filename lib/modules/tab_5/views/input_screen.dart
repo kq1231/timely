@@ -12,7 +12,6 @@ class TabFiveInputScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(tabFiveInputProvider.notifier);
     final tabFiveInput = ref.watch(tabFiveInputProvider);
-    print("BUILD TRIGGERED");
     List<String> labels = Tab5InputLayout.labels;
 
     // List scores = [model.sScore, model.pScore, model.wScore];

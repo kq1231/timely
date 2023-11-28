@@ -15,7 +15,7 @@ class Tab3Notifier extends Notifier<AsyncValue<void>>
 
   @override
   Future<Map<String, List<Tab3Model>>> fetchTab3Models() async {
-    final tab3File = (await ref.read(dbFilesProvider.future)).tabThreeFile;
+    final tab3File = (await ref.read(dbFilesProvider.future)).tab3File;
     final jsonContent = jsonDecode(await tab3File.readAsString());
     final dates = jsonContent.keys.toList();
     Map<String, List<Tab3Model>> tab3Models = {};
@@ -31,7 +31,7 @@ class Tab3Notifier extends Notifier<AsyncValue<void>>
 
   @override
   Future<void> writeTab3Model(Tab3Model model) async {
-    final tab3File = (await ref.read(dbFilesProvider.future)).tabThreeFile;
+    final tab3File = (await ref.read(dbFilesProvider.future)).tab3File;
     final jsonContent = jsonDecode(await tab3File.readAsString());
     if (model.date != null) {
       if (!jsonContent.keys.contains(model.date)) {

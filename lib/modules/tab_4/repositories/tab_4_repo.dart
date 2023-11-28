@@ -12,7 +12,7 @@ class Tab4RepositoryNotifier extends Notifier<AsyncValue<void>> {
 
   // Methods
   Future<void> writeTab4Model(Tab3Model model) async {
-    final file = (await ref.read(dbFilesProvider.future)).tabFourFile;
+    final file = (await ref.read(dbFilesProvider.future)).tab4File;
     List content = jsonDecode(await file.readAsString());
 
     content = [
@@ -27,14 +27,13 @@ class Tab4RepositoryNotifier extends Notifier<AsyncValue<void>> {
   }
 
   Future<List<Tab3Model>> fetchTab4Models() async {
-    final file = (await ref.read(dbFilesProvider.future)).tabFourFile;
+    final file = (await ref.read(dbFilesProvider.future)).tab4File;
     List content = jsonDecode(await file.readAsString());
     List<Tab3Model> models = <Tab3Model>[];
 
     for (Map indCon in content) {
       models.add(Tab3Model.fromJson(null, indCon));
     }
-    print(models);
     return models;
   }
 }

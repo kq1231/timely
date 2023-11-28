@@ -17,7 +17,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
 
   @override
   Future<List<FMSModel>> fetchFMSModels() async {
-    final tabOneFile = (await ref.read(dbFilesProvider.future)).tabOneReFile;
+    final tabOneFile = (await ref.read(dbFilesProvider.future)).tab1ReFile;
     final jsonContent = jsonDecode(await tabOneFile.readAsString());
     final fmsModels = <FMSModel>[];
     for (final date in jsonContent.keys.toList().reversed) {
@@ -42,7 +42,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
 
   @override
   Future<void> writeFMSModel(FMSModel model) async {
-    final tabOneFile = (await ref.read(dbFilesProvider.future)).tabOneReFile;
+    final tabOneFile = (await ref.read(dbFilesProvider.future)).tab1ReFile;
     final jsonContent = jsonDecode(await tabOneFile.readAsString());
     jsonContent[model.date] = [];
     jsonContent[model.date].add(
@@ -61,7 +61,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
 
   @override
   Future<void> createDefaultEntry() async {
-    final tabOneFile = (await ref.read(dbFilesProvider.future)).tabOneReFile;
+    final tabOneFile = (await ref.read(dbFilesProvider.future)).tab1ReFile;
     final jsonContent = jsonDecode(await tabOneFile.readAsString());
     String dateToday = DateTime.now().toString().substring(0, 10);
     DateTime currentTime = DateTime.now();
@@ -83,13 +83,12 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
   @override
   Future<void> updateNextUpdateTime() async {
     await createDefaultEntry();
-    final tabOneFile = (await ref.read(dbFilesProvider.future)).tabOneReFile;
+    final tabOneFile = (await ref.read(dbFilesProvider.future)).tab1ReFile;
     final jsonContent = jsonDecode(await tabOneFile.readAsString());
     String dateToday = DateTime.now().toString().substring(0, 10);
     FMSModel model = FMSModel.fromJson({dateToday: jsonContent[dateToday]});
     Timer.periodic(const Duration(seconds: 5), (timer) async {
       DateTime currentTime = DateTime.now();
-      print(currentTime);
       DateTime nextUpdateTime = DateFormat("yyyy-MM-dd HH:mm").parse(
           "$dateToday ${model.nextUpdateTime.hour}:${model.nextUpdateTime.minute}");
       if (nextUpdateTime.difference(currentTime).inMinutes <= 0) {
