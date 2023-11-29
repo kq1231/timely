@@ -208,6 +208,10 @@ class Tab2InputLayout {
       value: "Monthly",
       child: Text("Monthly"),
     ),
+    const DropdownMenuItem(
+      value: "Never",
+      child: Text("Never"),
+    ),
   ];
   static List<DropdownMenuItem> endRepeatDropdownButtonItems = [
     const DropdownMenuItem(

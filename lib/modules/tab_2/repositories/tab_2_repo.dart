@@ -7,9 +7,7 @@ import 'package:timely/reusables.dart';
 
 class Tab2RepostioryNotifier extends AsyncNotifier<void> {
   @override
-  FutureOr<void> build() async {
-    await generateActivitiesForToday();
-  }
+  FutureOr<void> build() async {}
 
   Future<List<Tab2Model>> fetchAllTab2Models() async {
     final tab2File = (await ref.read(dbFilesProvider.future)).tab2File;

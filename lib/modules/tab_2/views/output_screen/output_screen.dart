@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2/models/tab_2_model.dart';
 import 'package:timely/modules/tab_2/views/input_screen/input_screen.dart';
@@ -16,69 +17,101 @@ class Tab2OutputScreen extends ConsumerWidget {
           List<Tab2Model> models = data;
           return Stack(
             children: [
-              ListView.builder(
-                itemBuilder: (context, i) {
-                  Tab2Model model = models[i];
-                  return SizedBox(
+              ListView(
+                children: [
+                  const SizedBox(
                     height: 40,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.orangeAccent,
-                        border: Border.symmetric(
-                          horizontal:
-                              BorderSide(width: 0.7, color: Colors.black),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 130,
+                          child: Center(
+                            child: Text("Activities"),
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 100,
-                            child: Center(
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0,
-                                  ),
-                                  child: Text(
-                                    model.name,
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        VerticalDivider(
+                          width: 2,
+                        ),
+                        Expanded(child: Center(child: Text("Start"))),
+                        VerticalDivider(
+                          width: 2,
+                        ),
+                        Expanded(child: Center(child: Text("End")))
+                      ],
+                    ),
+                  ),
+                  ...List.generate(data.length, (i) {
+                    Tab2Model model = models[i];
+                    List<int> endTime = model.calculateEndTime(model.endTime);
+
+                    return SizedBox(
+                      height: 40,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.orangeAccent,
+                          border: Border.symmetric(
+                            horizontal:
+                                BorderSide(width: 0.7, color: Colors.black),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 130,
+                              child: Center(
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0,
+                                    ),
+                                    child: Text(
+                                      model.name,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Text(
-                                model.startTime.format(context),
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  DateFormat("h:mm a").format(
+                                    DateTime(0, 0, 0, model.startTime.hour,
+                                        model.startTime.minute),
+                                  ),
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Text(
-                                model.calculateEndTime(model.endTime).join(":"),
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  DateFormat("h:mm a").format(
+                                    DateTime(0, 0, 0, endTime[0], endTime[1]),
+                                  ),
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-                itemCount: data.length,
+                    );
+                  })
+                ],
               ),
               Column(
                 children: [

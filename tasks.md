@@ -86,4 +86,23 @@
 
 ---
 
-- Text field should be mandatory 
+- Make code DRY 
+- Make providers auto-disposable except repositories
+**Inshaa Allah**
+
+---
+
+- Send the number of hours spent 
+- Text field should be mandatory -D
+- Time calculation is wrong -D
+- Increase spacing for Activity name -D
+- Header -D
+- Selected tab should be highlighted :: blink -D
+- Time should contain AM and PM, should be in 12 hour format -D
+- Tab 2 should match with picture -D
+- Expand the text field and add a text hint -D
+- Duration buttons should be below "Duration", expanded. -D
+- Summary of repetitions should be displayed 
+- Calculate the "every" + Yearly.basis.date
+- Tab 2 entries should be editable
+**Inshaa Allah**

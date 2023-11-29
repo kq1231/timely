@@ -3,6 +3,8 @@ import 'package:timely/modules/tab_2/models/tab_2_model.dart';
 import 'package:timely/modules/tab_2/repositories/tab_2_repo.dart';
 
 final tab2OutputProvider = FutureProvider<List<Tab2Model>>((ref) async {
+  await ref.read(tab2RepositoryProvider.notifier).generateActivitiesForToday();
+
   // Fetch the models from the db
   List<Tab2Model> models =
       await ref.read(tab2RepositoryProvider.notifier).fetchTab2ModelsForToday();

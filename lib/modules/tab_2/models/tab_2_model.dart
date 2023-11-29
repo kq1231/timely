@@ -34,7 +34,9 @@ class Tab2Model {
 
     startTime = TimeOfDay(hour: times[0][0], minute: times[0][1]);
     startDate = DateTime.parse(json["Start Date"]);
-    endTime = Duration(hours: times[1][0], minutes: times[1][1]);
+    endTime = Duration(
+        hours: (times[1][0] - times[0][0]) % 24,
+        minutes: (times[1][1] - times[0][1]) % 60);
     frequency = json["Frequency"];
     repetitions = json["Repeat"] ?? {};
     basis = json["Basis"] != null
@@ -72,7 +74,7 @@ class Tab2Model {
     };
   }
 
-  List calculateEndTime(Duration duration) {
+  List<int> calculateEndTime(Duration duration) {
     return [
       ((startTime.hour +
                   duration.inHours +

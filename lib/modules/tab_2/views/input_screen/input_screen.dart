@@ -23,30 +23,21 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
           height: 60,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: [
-                const Text(
-                  "Activity",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                const SizedBox(
-                  width: 30,
-                ),
-                Expanded(
-                  child: TextField(
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10)))),
-                    onChanged: (name) => controller.setName(name),
+            child: TextField(
+              decoration: const InputDecoration(
+                hintText: "Activity",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
                   ),
                 ),
-              ],
+              ),
+              onChanged: (name) => controller.setName(name),
             ),
           ),
         ),
         const SizedBox(
-          height: 50,
+          height: 30,
         ),
         const Divider(),
         Column(
@@ -98,86 +89,77 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
             const SizedBox(
               height: 50,
             ),
-            // End repeat button
+            const Divider(),
+            // End repeat
+            const SizedBox(
+              height: 10,
+            ),
+            const Center(
+              child: Text(
+                "Duration",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
             Row(
               children: [
-                const SizedBox(
-                  width: 20,
-                ),
-                const Center(
-                  child: Text(
-                    "Duration",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                Expanded(
+                  child: SizedBox(
+                    height: 150,
+                    child: CupertinoPicker(
+                      itemExtent: 70,
+                      magnification: 1.2,
+                      scrollController: FixedExtentScrollController(
+                        initialItem: provider.endTime.inHours,
+                      ),
+                      onSelectedItemChanged: (val) {
+                        controller.setEndTime(
+                          Duration(
+                            hours: val,
+                            minutes: provider.endTime.inMinutes % 60,
+                          ),
+                        );
+                      },
+                      children: List<Widget>.generate(
+                        25,
+                        (index) => Center(
+                          child: Text(
+                            (index).toString(),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
-                  child: Container(),
-                ),
-                Center(
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        height: 100,
-                        child: CupertinoPicker(
-                          itemExtent: 40,
-                          magnification: 1.2,
-                          scrollController: FixedExtentScrollController(
-                            initialItem: provider.endTime.inHours,
+                  child: SizedBox(
+                    height: 150,
+                    child: CupertinoPicker(
+                      itemExtent: 70,
+                      magnification: 1.2,
+                      scrollController: FixedExtentScrollController(
+                        initialItem: provider.endTime.inMinutes % 60,
+                      ),
+                      onSelectedItemChanged: (val) {
+                        controller.setEndTime(
+                          Duration(
+                            hours: provider.endTime.inHours,
+                            minutes: val,
                           ),
-                          onSelectedItemChanged: (val) {
-                            controller.setEndTime(
-                              Duration(
-                                hours: val,
-                                minutes: provider.endTime.inMinutes % 60,
-                              ),
-                            );
-                          },
-                          children: List<Widget>.generate(
-                            25,
-                            (index) => Center(
-                              child: Text(
-                                (index).toString(),
-                              ),
-                            ),
+                        );
+                      },
+                      children: List<Widget>.generate(
+                        61,
+                        (index) => Center(
+                          child: Text(
+                            (index).toString(),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 100,
-                        height: 100,
-                        child: CupertinoPicker(
-                          itemExtent: 40,
-                          magnification: 1.2,
-                          scrollController: FixedExtentScrollController(
-                            initialItem: provider.endTime.inMinutes % 60,
-                          ),
-                          onSelectedItemChanged: (val) {
-                            controller.setEndTime(
-                              Duration(
-                                hours: provider.endTime.inHours,
-                                minutes: val,
-                              ),
-                            );
-                          },
-                          children: List<Widget>.generate(
-                            61,
-                            (index) => Center(
-                              child: Text(
-                                (index).toString(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 20,
                 ),
               ],
             ),
@@ -245,8 +227,15 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                   child: ElevatedButton(
                     child: const Text("Submit"),
                     onPressed: () {
-                      controller.syncToDB();
-                      Navigator.pop(context);
+                      if (provider.name.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content:
+                                    Text("Do not leave activity text blank!")));
+                      } else {
+                        controller.syncToDB();
+                        Navigator.pop(context);
+                      }
                     },
                   ),
                 )

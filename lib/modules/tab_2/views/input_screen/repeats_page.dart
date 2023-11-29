@@ -144,11 +144,13 @@ class RepeatsPage extends ConsumerWidget {
           const MonthlySelector(),
           const WeeklySelector(),
           const YearlySelector(),
+          Container()
         ][[
           "Daily",
           "Monthly",
           "Weekly",
           "Yearly",
+          "Never",
         ].indexOf(provider.frequency ?? "Monthly")],
         const SizedBox(
           height: 20,
