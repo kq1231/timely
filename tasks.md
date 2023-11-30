@@ -102,12 +102,16 @@
 - Tab 2 should match with picture -D
 - Expand the text field and add a text hint -D
 - Duration buttons should be below "Duration", expanded. -D
-- Summary of repetitions should be displayed 
-- Calculate the entries based on "every", Yearly.basis.date and end date
-- Tab 2 entries should be editable
 **Inshaa Allah**
 
 ---
 
-- Left aligned
-- Remove styling. Let it be default. -> Tab 2 Output
+- Tab 2 entries should be editable
+    - Create two functions: 
+        - getCurrentActivities
+        - writeEditedModel
+- Summary of repetitions should be displayed 
+- Calculate the entries based on "every", Yearly.basis.date and end date
+- Left aligned -D
+- Smaller font size. [-> Tab 2 Output] -D
+**Inshaa Allah**

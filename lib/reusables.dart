@@ -39,7 +39,7 @@ final colorProvider = Provider<List<Color>>((ref) {
 final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
   Directory docDir = await getApplicationDocumentsDirectory();
   File tab1File = File('${docDir.path}/tab_1.json');
-  File tab2File = File('${docDir.path}/tab_1_re.json');
+  File tab1re = File('${docDir.path}/tab_1_re.json');
   File tabTwoFile = File('${docDir.path}/tab_2.json');
   File tab5File = File('${docDir.path}/tab_5.json');
   File tab3File = File('${docDir.path}/tab_3.json');
@@ -48,37 +48,48 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
       File('${docDir.path}/tab_2_current_activities.json');
 
   if (!await tab1File.exists()) {
-    await tab1File.writeAsString("{}");
+    await tab1File.writeAsString(
+      "{}",
+    );
   }
-
-  if (!await tab5File.exists()) {
-    await tab5File.writeAsString("{}");
-  }
-
-  if (!await tab2File.exists()) {
-    await tab2File.writeAsString("{}");
+  if (!await tab1re.exists()) {
+    await tab1re.writeAsString(
+      "{}",
+    );
   }
 
   if (!await tabTwoFile.exists()) {
-    await tabTwoFile.writeAsString("[]");
-  }
-
-  if (!await tab3File.exists()) {
-    await tab3File.writeAsString("{}");
-  }
-
-  if (!await tab4File.exists()) {
-    await tab4File.writeAsString("[]");
+    await tabTwoFile.writeAsString(
+      "[]",
+    );
   }
 
   if (!await tab2CurrentActivitiesFile.exists()) {
-    await tab2CurrentActivitiesFile.writeAsString("[]");
+    await tab2CurrentActivitiesFile.writeAsString(
+      "[]",
+    );
+  }
+
+  if (!await tab3File.exists()) {
+    await tab3File.writeAsString(
+      "{}",
+    );
+  }
+  if (!await tab4File.exists()) {
+    await tab4File.writeAsString(
+      "[]",
+    );
+  }
+  if (!await tab5File.exists()) {
+    await tab5File.writeAsString(
+      "{}",
+    );
   }
 
   return DBFiles(
     tab1File: tab1File,
     tab5File: tab5File,
-    tab1ReFile: tab2File,
+    tab1ReFile: tab1re,
     tab3File: tab3File,
     tab4File: tab4File,
     tab2File: tabTwoFile,

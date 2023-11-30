@@ -46,7 +46,7 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
     await tab2File.writeAsString(jsonEncode(jsonContent));
   }
 
-  Future<void> generateActivitiesForToday() async {
+  Future<List> getActivitiesForToday() async {
     // Functions for DRYness
     List<int> getOccurences(
         Tab2Model model, int ordinalPosition, int dayOfWeek) {
@@ -92,10 +92,6 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
       }
       return currentModels;
     }
-
-    // Grab the file
-    final tab2CurrentActivitiesFile =
-        (await ref.read(dbFilesProvider.future)).tab2CurrentActivitiesFile;
 
     // Get the models
     List models = await fetchAllTab2Models();
@@ -154,9 +150,36 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
           break;
       }
     }
+    return currentModels;
+  }
+
+  Future<void> generateActivitiesForToday() async {
+    // Grab the file
+    final tab2CurrentActivitiesFile =
+        (await ref.read(dbFilesProvider.future)).tab2CurrentActivitiesFile;
 
     // Save to the file
-    await tab2CurrentActivitiesFile.writeAsString(jsonEncode(currentModels));
+    await tab2CurrentActivitiesFile
+        .writeAsString(jsonEncode(await getActivitiesForToday()));
+  }
+
+  Future<void> writeEditedModel(Tab2Model model) async {
+    // Grab the file & content
+    final tab2File = (await ref.read(dbFilesProvider.future)).tab2File;
+    List jsonContent = jsonDecode(await tab2File.readAsString());
+
+    // Loop through the models checking the ids
+    // When match is found, edit the values
+
+    for (int i in List.generate(jsonContent.length, (index) => index)) {
+      if (jsonContent[i]["ID"] == model.uuid) {
+        jsonContent[i] = model.toJson();
+        break;
+      }
+    }
+
+    // Sync with the database
+    await tab2File.writeAsString(jsonEncode(jsonContent));
   }
 }
 

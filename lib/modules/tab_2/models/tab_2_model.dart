@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class Tab2Model {
+  String? uuid;
   String name = "";
   TimeOfDay startTime = const TimeOfDay(hour: 0, minute: 0);
   Duration endTime = const Duration();
@@ -13,6 +15,7 @@ class Tab2Model {
   int every = 1;
 
   Tab2Model({
+    this.uuid,
     required this.name,
     required this.startTime,
     required this.endTime,
@@ -26,7 +29,7 @@ class Tab2Model {
 
   Tab2Model.fromJson(Map json) {
     name = json["Name"];
-
+    uuid = json["ID"];
     List times = [
       json["Start"].split(":").map((val) => int.parse(val)).toList(),
       json["End"].split(":").map((val) => int.parse(val)).toList()
@@ -57,6 +60,7 @@ class Tab2Model {
     }
 
     return {
+      "ID": uuid ?? const Uuid().v4(),
       "Name": name,
       "Start Date": startDate.toString().substring(0, 10),
       "Start": [startTime.hour, startTime.minute].join(":"),
@@ -87,6 +91,7 @@ class Tab2Model {
 
   Tab2Model copywith({
     String? name,
+    String? uuid,
     TimeOfDay? startTime,
     Duration? endTime,
     String? frequency,
@@ -97,6 +102,7 @@ class Tab2Model {
     DateTime? startDate,
   }) {
     return Tab2Model(
+      uuid: uuid ?? this.uuid,
       name: name ?? this.name,
       startDate: startDate ?? this.startDate,
       startTime: startTime ?? this.startTime,

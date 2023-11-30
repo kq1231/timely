@@ -23,7 +23,8 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
           height: 60,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextField(
+            child: TextFormField(
+              initialValue: provider.name,
               decoration: const InputDecoration(
                 hintText: "Activity",
                 border: OutlineInputBorder(
@@ -233,7 +234,11 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                                 content:
                                     Text("Do not leave activity text blank!")));
                       } else {
-                        controller.syncToDB();
+                        if (provider.uuid == null) {
+                          controller.syncToDB();
+                        } else {
+                          controller.syncEditedModel();
+                        }
                         Navigator.pop(context);
                       }
                     },

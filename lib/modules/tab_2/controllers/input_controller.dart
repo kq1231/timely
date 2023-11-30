@@ -4,7 +4,7 @@ import 'package:timely/modules/tab_2/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2/models/tab_2_model.dart';
 import 'package:timely/modules/tab_2/repositories/tab_2_repo.dart';
 
-class Tab2InputNotifier extends AutoDisposeNotifier<Tab2Model> {
+class Tab2InputNotifier extends Notifier<Tab2Model> {
   @override
   Tab2Model build() {
     return Tab2Model(
@@ -56,13 +56,21 @@ class Tab2InputNotifier extends AutoDisposeNotifier<Tab2Model> {
     state = state.copywith(endDate: endDate);
   }
 
+  void setModel(Tab2Model model) {
+    state = model;
+  }
+
   // Methods
   Future<void> syncToDB() async {
     await ref.read(tab2RepositoryProvider.notifier).writeTab2Model(state);
     ref.invalidate(tab2OutputProvider);
   }
+
+  Future<void> syncEditedModel() async {
+    await ref.read(tab2RepositoryProvider.notifier).writeEditedModel(state);
+    ref.invalidate(tab2OutputProvider);
+  }
 }
 
 final tab2InputProvider =
-    AutoDisposeNotifierProvider<Tab2InputNotifier, Tab2Model>(
-        Tab2InputNotifier.new);
+    NotifierProvider<Tab2InputNotifier, Tab2Model>(Tab2InputNotifier.new);
