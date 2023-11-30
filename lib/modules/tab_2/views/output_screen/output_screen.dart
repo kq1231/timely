@@ -13,6 +13,7 @@ class Tab2OutputScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(tab2OutputProvider);
+
     return provider.when(
         data: (data) {
           List<Tab2Model> models = data;
@@ -44,45 +45,66 @@ class Tab2OutputScreen extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  ...List.generate(data.length, (i) {
-                    Tab2Model model = models[i];
-                    List<int> endTime = model.calculateEndTime(model.endTime);
+                  ...List.generate(
+                    data.length,
+                    (i) {
+                      Tab2Model model = models[i];
+                      List<int> endTime = model.calculateEndTime(model.endTime);
 
-                    return InkWell(
-                      onTap: () {
-                        ref.read(tab2InputProvider.notifier).setModel(model);
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) {
-                            return Scaffold(
-                              body: const Tab2InputScreen(),
-                              appBar: AppBar(),
-                            );
-                          },
-                        ));
-                        print(ref.read(tab2InputProvider).name);
-                      },
-                      child: SizedBox(
-                        height: 40,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.orangeAccent,
-                            border: Border.symmetric(
-                              horizontal:
-                                  BorderSide(width: 0.7, color: Colors.black),
+                      return InkWell(
+                        onTap: () {
+                          ref.read(tab2InputProvider.notifier).setModel(model);
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return Scaffold(
+                                  body: const Tab2InputScreen(),
+                                  appBar: AppBar(),
+                                );
+                              },
                             ),
-                          ),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 130,
-                                child: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0,
+                          );
+                        },
+                        child: SizedBox(
+                          height: 40,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.orangeAccent,
+                              border: Border.symmetric(
+                                horizontal:
+                                    BorderSide(width: 0.7, color: Colors.black),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 130,
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0,
+                                      ),
+                                      child: Text(
+                                        model.name,
+                                        style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12),
+                                      ),
                                     ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: Center(
                                     child: Text(
-                                      model.name,
+                                      DateFormat("h:mm a").format(
+                                        DateTime(0, 0, 0, model.startTime.hour,
+                                            model.startTime.minute),
+                                      ),
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
@@ -90,43 +112,27 @@ class Tab2OutputScreen extends ConsumerWidget {
                                     ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Expanded(
-                                child: Center(
-                                  child: Text(
-                                    DateFormat("h:mm a").format(
-                                      DateTime(0, 0, 0, model.startTime.hour,
-                                          model.startTime.minute),
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      DateFormat("h:mm a").format(
+                                        DateTime(
+                                            0, 0, 0, endTime[0], endTime[1]),
+                                      ),
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
                                     ),
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Center(
-                                  child: Text(
-                                    DateFormat("h:mm a").format(
-                                      DateTime(0, 0, 0, endTime[0], endTime[1]),
-                                    ),
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  ),
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  })
+                      );
+                    },
+                  ),
                 ],
               ),
               Column(

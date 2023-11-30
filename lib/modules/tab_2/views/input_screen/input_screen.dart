@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_2/controllers/input_controller.dart';
+import 'package:timely/modules/tab_2/models/tab_2_model.dart';
 import 'repeats_page.dart';
 
 class Tab2InputScreen extends ConsumerStatefulWidget {
@@ -16,6 +17,51 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
   Widget build(BuildContext context) {
     final provider = ref.watch(tab2InputProvider);
     final controller = ref.read(tab2InputProvider.notifier);
+
+    List sliderNames = [
+      ["First", "Second", "Third", "Fourth", "Fifth", "Last"],
+      [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ]
+    ];
+
+    List monthNames =
+        "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec".split(",");
+
+    String repetitionSummary = "";
+    switch (provider.frequency) {
+      case "Monthly":
+        if (provider.basis == Basis.date) {
+          repetitionSummary =
+              "Repeats on ${provider.repetitions['Dates'].join(', ')} every ${provider.every} months";
+        } else {
+          repetitionSummary =
+              "Repeats on the ${sliderNames[0][provider.repetitions["DoW"][0]].toLowerCase()} ${sliderNames[1][provider.repetitions["DoW"][1]]} every ${provider.every} months";
+        }
+        break;
+      case "Yearly":
+        if (provider.basis == Basis.date || provider.basis == null) {
+          repetitionSummary =
+              "Repeats in ${provider.repetitions["Months"].map((val) => monthNames[val - 1]).toList().join(", ")} every ${provider.every} years";
+        } else {
+          repetitionSummary =
+              "Repeats on the ${sliderNames[0][provider.repetitions["DoW"][0]].toLowerCase()} ${sliderNames[1][provider.repetitions["DoW"][1]]} of ${provider.repetitions["Months"].map((val) => monthNames[val - 1]).toList().join(", ")} every ${provider.every} years";
+        }
+        break;
+      case "Weekly":
+        repetitionSummary =
+            "Repeats on ${provider.repetitions["Weekdays"].map((val) => sliderNames[1][val]).toList().join(", ")} every ${provider.every} weeks";
+      case "Daily":
+        repetitionSummary = "Repeats daily";
+      default:
+        repetitionSummary = "Never repeats";
+    }
 
     return ListView(
       children: [
@@ -202,13 +248,19 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                 ),
               ],
             ),
+
             const SizedBox(
-              height: 50,
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(repetitionSummary),
             ),
             const Divider(),
             const SizedBox(
               height: 50,
             ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -247,8 +299,8 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
               ],
             ),
             const SizedBox(
-              height: 30,
-            )
+              height: 20,
+            ),
           ],
         ),
       ],
