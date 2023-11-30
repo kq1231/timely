@@ -106,11 +106,11 @@
 
 ---
 
-- Tab 2 entries should be editable
+- Tab 2 entries should be editable -D
     - Create two functions: 
         - getCurrentActivities
         - writeEditedModel
-- Summary of repetitions should be displayed 
+- Summary of repetitions should be displayed -D
 - Calculate the entries based on "every", Yearly.basis.date and end date
 - Left aligned -D
 - Smaller font size. [-> Tab 2 Output] -D
