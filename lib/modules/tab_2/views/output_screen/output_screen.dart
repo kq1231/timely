@@ -50,7 +50,7 @@ class Tab2OutputScreen extends ConsumerWidget {
                     (i) {
                       Tab2Model model = models[i];
                       List<int> endTime = model.calculateEndTime(model.endTime);
-
+                      print(endTime);
                       return InkWell(
                         onTap: () {
                           ref.read(tab2InputProvider.notifier).setModel(model);
