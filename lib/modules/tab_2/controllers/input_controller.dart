@@ -8,6 +8,7 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
   @override
   Tab2Model build() {
     return Tab2Model(
+      basis: Basis.day,
       startDate: DateTime.now(),
       name: "",
       startTime: TimeOfDay.now(),
@@ -38,6 +39,10 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
 
   void setFrequency(frequency) {
     state = state.copywith(frequency: frequency);
+  }
+
+  void resetBasis() {
+    state.basis = null;
   }
 
   void setBasis(basis) {

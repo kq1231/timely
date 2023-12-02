@@ -98,50 +98,52 @@ class MonthlySelector extends ConsumerWidget {
                   );
                 },
               )
-            : Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 150,
-                      child: CupertinoPicker(
-                        squeeze: 1.45,
-                        scrollController: FixedExtentScrollController(
-                          initialItem: provider.repetitions["DoW"][0],
+            : provider.basis == Basis.day
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 150,
+                          child: CupertinoPicker(
+                            squeeze: 1.45,
+                            scrollController: FixedExtentScrollController(
+                              initialItem: provider.repetitions["DoW"][0],
+                            ),
+                            itemExtent: 60,
+                            onSelectedItemChanged: (item) {
+                              provider.repetitions["DoW"].first = item.toInt();
+                              controller.setRepetitions(provider.repetitions);
+                            },
+                            children: List<Widget>.generate(
+                                sliderNames.first.length,
+                                (index) => Center(
+                                    child: Text(sliderNames.first[index]))),
+                          ),
                         ),
-                        itemExtent: 60,
-                        onSelectedItemChanged: (item) {
-                          provider.repetitions["DoW"].first = item.toInt();
-                          controller.setRepetitions(provider.repetitions);
-                        },
-                        children: List<Widget>.generate(
-                            sliderNames.first.length,
-                            (index) =>
-                                Center(child: Text(sliderNames.first[index]))),
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      height: 150,
-                      child: CupertinoPicker(
-                        squeeze: 1.45,
-                        scrollController: FixedExtentScrollController(
-                          initialItem: provider.repetitions["DoW"][1],
+                      Expanded(
+                        child: SizedBox(
+                          height: 150,
+                          child: CupertinoPicker(
+                            squeeze: 1.45,
+                            scrollController: FixedExtentScrollController(
+                              initialItem: provider.repetitions["DoW"][1],
+                            ),
+                            itemExtent: 60,
+                            onSelectedItemChanged: (item) {
+                              provider.repetitions["DoW"].last = item.toInt();
+                              controller.setRepetitions(provider.repetitions);
+                            },
+                            children: List<Widget>.generate(
+                                sliderNames.last.length,
+                                (index) => Center(
+                                    child: Text(sliderNames.last[index]))),
+                          ),
                         ),
-                        itemExtent: 60,
-                        onSelectedItemChanged: (item) {
-                          provider.repetitions["DoW"].last = item.toInt();
-                          controller.setRepetitions(provider.repetitions);
-                        },
-                        children: List<Widget>.generate(
-                            sliderNames.last.length,
-                            (index) =>
-                                Center(child: Text(sliderNames.last[index]))),
                       ),
-                    ),
-                  ),
-                ],
-              ),
+                    ],
+                  )
+                : Container(),
       ],
     );
   }

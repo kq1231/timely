@@ -127,6 +127,7 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
             break;
 
           case "Monthly":
+            // Formula: (M2 - M1) + (Y2 - Y1) * 12 + 1
             int monthNumber = (dateToday.month - model.startDate.month) +
                 (dateToday.year - model.startDate.year) * 12 +
                 1;

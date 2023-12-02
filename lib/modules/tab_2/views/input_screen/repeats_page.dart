@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/modules/tab_2/controllers/input_controller.dart';
+import 'package:timely/modules/tab_2/models/tab_2_model.dart';
 import 'package:timely/modules/tab_2/views/input_screen/selectors/monthly.dart';
 import 'package:timely/modules/tab_2/views/input_screen/selectors/weekly.dart';
 import 'package:timely/modules/tab_2/views/input_screen/selectors/yearly.dart';
@@ -29,6 +30,8 @@ class RepeatsPage extends ConsumerWidget {
               child: DropdownButton(
                 items: Tab2InputLayout.repeatDropdownButtonItems,
                 onChanged: (value) {
+                  controller.setBasis(Basis.day); // Set default basis to "Day".
+
                   // Set the default values based on selection
                   switch (value) {
                     case "Monthly":
@@ -42,6 +45,7 @@ class RepeatsPage extends ConsumerWidget {
                         "DoW": [0, 0]
                       });
                     case "Weekly":
+                      controller.resetBasis();
                       controller.setRepetitions({"Weekdays": []});
                     case "Daily":
                       controller.setRepetitions({});
@@ -151,7 +155,7 @@ class RepeatsPage extends ConsumerWidget {
           "Weekly",
           "Yearly",
           "Never",
-        ].indexOf(provider.frequency ?? "Monthly")],
+        ].indexOf(provider.frequency ?? "Never")],
         const SizedBox(
           height: 20,
         ),
