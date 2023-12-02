@@ -115,12 +115,11 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
             break;
 
           case "Weekly":
+            int weekNumber =
+                ((dateToday.day - (dateToday.day % 7)) / 7 + 1).toInt();
             List weekdays = model.repetitions["Weekdays"];
-            if (weekdays.contains(dateToday.weekday - 1)) {
-              if ((dateToday.difference(model.startDate).inDays / 7)
-                          .truncate() %
-                      model.every ==
-                  0) {
+            if (weekNumber % model.every == 0) {
+              if (weekdays.contains(dateToday.weekday - 1)) {
                 currentModels.add(model.toJson());
               }
             }
