@@ -115,6 +115,7 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
             break;
 
           case "Weekly":
+            // Formula: (D2 - (D1 % 7)) / 7 + 1
             int weekNumber =
                 ((dateToday.day - (dateToday.day % 7)) / 7 + 1).toInt();
             List weekdays = model.repetitions["Weekdays"];
@@ -150,6 +151,7 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
             }
 
           case "Yearly":
+            // Formula: (Y2 - Y1) + 1
             int yearNumber = dateToday.year - model.startDate.year + 1;
             if (yearNumber % model.every == 0) {
               if (model.basis == Basis.day) {
