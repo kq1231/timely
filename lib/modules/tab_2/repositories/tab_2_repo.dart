@@ -101,53 +101,80 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
 
     // Compare the dates in different cases
     for (Tab2Model model in models) {
-      switch (model.frequency) {
-        case "Daily":
-          currentModels.add(model.toJson());
-          break;
+      // Today's date and time
+      DateTime dateToday = DateTime.now();
 
-        case "Weekly":
-          List weekdays = model.repetitions["Weekdays"];
-          if (weekdays.contains(DateTime.now().weekday - 1)) {
-            currentModels.add(model.toJson());
-          }
-          break;
-
-        case "Monthly":
-          if (model.basis == Basis.day) {
-            int ordinalPosition = model.repetitions["DoW"][0];
-            int dayOfWeek = model.repetitions["DoW"][1];
-            List<int> occurences =
-                getOccurences(model, ordinalPosition, dayOfWeek);
-
-            // Check with ordinal position and today's date
-            currentModels = checkWithOrdinalPosition(
-                occurences, ordinalPosition, model, currentModels);
-
-            // Check for Basis.date
-          } else if (model.basis == Basis.date) {
-            if (model.repetitions["Dates"].contains(DateTime.now().day)) {
+      if (model.endDate == null ||
+          !(model.endDate ?? dateToday).isBefore(dateToday)) {
+        switch (model.frequency) {
+          case "Daily":
+            if (dateToday.difference(model.startDate).inDays % model.every ==
+                0) {
               currentModels.add(model.toJson());
             }
-          }
+            break;
 
-        case "Yearly":
-          if (model.basis == Basis.day) {
-            // Check if the current month exists inside $Months
-            if (model.repetitions["Months"].contains(DateTime.now().month)) {
-              int ordinalPosition = model.repetitions["DoW"][0];
-              int dayOfWeek = model.repetitions["DoW"][1];
-
-              List<int> occurences =
-                  getOccurences(model, ordinalPosition, dayOfWeek);
-
-              // Check with ordinal position and today's date
-              currentModels = checkWithOrdinalPosition(
-                  occurences, ordinalPosition, model, currentModels);
+          case "Weekly":
+            List weekdays = model.repetitions["Weekdays"];
+            if (weekdays.contains(dateToday.weekday - 1)) {
+              if ((dateToday.difference(model.startDate).inDays / 7)
+                          .truncate() %
+                      model.every ==
+                  0) {
+                currentModels.add(model.toJson());
+              }
             }
-          }
-        default:
-          break;
+            break;
+
+          case "Monthly":
+            int monthNumber = (dateToday.month - model.startDate.month) +
+                (dateToday.year - model.startDate.year) * 12 +
+                1;
+            if (monthNumber % model.every == 0) {
+              if (model.basis == Basis.day) {
+                int ordinalPosition = model.repetitions["DoW"][0];
+                int dayOfWeek = model.repetitions["DoW"][1];
+                List<int> occurences =
+                    getOccurences(model, ordinalPosition, dayOfWeek);
+
+                // Check with ordinal position and today's date
+                currentModels = checkWithOrdinalPosition(
+                    occurences, ordinalPosition, model, currentModels);
+
+                // Check for Basis.date
+              } else if (model.basis == Basis.date) {
+                if (model.repetitions["Dates"].contains(dateToday.day)) {
+                  currentModels.add(model.toJson());
+                }
+              }
+            }
+
+          case "Yearly":
+            int yearNumber = dateToday.year - model.startDate.year + 1;
+            if (yearNumber % model.every == 0) {
+              if (model.basis == Basis.day) {
+                // Check if the current month exists inside $Months
+                if (model.repetitions["Months"].contains(dateToday.month)) {
+                  int ordinalPosition = model.repetitions["DoW"][0];
+                  int dayOfWeek = model.repetitions["DoW"][1];
+
+                  List<int> occurences =
+                      getOccurences(model, ordinalPosition, dayOfWeek);
+
+                  // Check with ordinal position and today's date
+                  currentModels = checkWithOrdinalPosition(
+                      occurences, ordinalPosition, model, currentModels);
+                }
+              } else if (model.basis == Basis.date) {
+                if (model.repetitions["Months"].contains(dateToday.month)) {
+                  currentModels.add(model.toJson());
+                }
+              }
+            }
+
+          default:
+            break;
+        }
       }
     }
     return currentModels;

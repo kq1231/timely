@@ -45,6 +45,7 @@ class Tab2Model {
                 .difference(DateTime(0, 0, 0, times[0][0], times[0][1]))
                 .inMinutes %
             60);
+    every = json["Every"];
     frequency = json["Frequency"];
     repetitions = json["Repeat"] ?? {};
     basis = json["Basis"] != null
