@@ -117,7 +117,7 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                     child: ElevatedButton(
                       onPressed: () async {
                         TimeOfDay? timeSelected = await showTimePicker(
-                            context: context, initialTime: TimeOfDay.now());
+                            context: context, initialTime: provider.startTime);
                         timeSelected != null
                             ? controller.setStartTime(timeSelected)
                             : null;

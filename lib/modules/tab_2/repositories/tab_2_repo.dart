@@ -116,7 +116,7 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
 
           case "Weekly":
             // Formula:
-            // ceil((D2 - D1 + Weekday index of the first day of D1's month) / 7)
+            // ceil((D2 - D1 + Weekday index of the first day of month D1 + 1) / 7) - 1
             int firstDayIndex = model.startDate.copyWith(day: 1).weekday - 1;
             int weekNumber = ((dateToday.difference(model.startDate).inDays +
                             1 +
@@ -134,10 +134,9 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
             break;
 
           case "Monthly":
-            // Formula: (M2 - M1) + (Y2 - Y1) * 12 + 1
+            // Formula: (M2 - M1) + (Y2 - Y1) * 12
             int monthNumber = (dateToday.month - model.startDate.month) +
-                (dateToday.year - model.startDate.year) * 12 +
-                1;
+                (dateToday.year - model.startDate.year) * 12;
             if (monthNumber % model.every == 0) {
               if (model.basis == Basis.day) {
                 int ordinalPosition = model.repetitions["DoW"][0];
@@ -158,8 +157,8 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
             }
 
           case "Yearly":
-            // Formula: (Y2 - Y1) + 1
-            int yearNumber = dateToday.year - model.startDate.year + 1;
+            // Formula: (Y2 - Y1)
+            int yearNumber = dateToday.year - model.startDate.year;
             if (yearNumber % model.every == 0) {
               if (model.basis == Basis.day) {
                 // Check if the current month exists inside $Months
