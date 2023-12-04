@@ -115,3 +115,8 @@
 - Left aligned -D
 - Smaller font size. [-> Tab 2 Output] -D
 **Inshaa Allah**
+
+--- 
+
+- Delete entries in tab 2
+- Complete CRUD in all the tabs

@@ -216,6 +216,23 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
     // Sync with the database
     await tab2File.writeAsString(jsonEncode(jsonContent));
   }
+
+  Future<void> deleteModel(Tab2Model model) async {
+    // Get the list of model maps
+    final tab2File = (await ref.read(dbFilesProvider.future)).tab2File;
+    List jsonContent = jsonDecode(await tab2File.readAsString());
+
+    // Remove the model whose id matches @model.uuid
+    for (int i in List.generate(jsonContent.length, (index) => index)) {
+      if (jsonContent[i]["ID"] == model.uuid) {
+        jsonContent.removeAt(i);
+        break;
+      }
+    }
+
+    // Persist the data
+    await tab2File.writeAsString(jsonEncode(jsonContent));
+  }
 }
 
 final tab2RepositoryProvider =

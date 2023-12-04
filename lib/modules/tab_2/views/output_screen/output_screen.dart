@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_2/controllers/input_controller.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2/models/tab_2_model.dart';
+import 'package:timely/modules/tab_2/repositories/tab_2_repo.dart';
 import 'package:timely/modules/tab_2/views/input_screen/input_screen.dart';
 import 'package:timely/reusables.dart';
 
@@ -50,42 +51,74 @@ class Tab2OutputScreen extends ConsumerWidget {
                     (i) {
                       Tab2Model model = models[i];
                       List<int> endTime = model.calculateEndTime(model.endTime);
-                      return InkWell(
-                        onTap: () {
-                          ref.read(tab2InputProvider.notifier).setModel(model);
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return Scaffold(
-                                  body: const Tab2InputScreen(),
-                                  appBar: AppBar(),
-                                );
-                              },
-                            ),
-                          );
+                      return Dismissible(
+                        onDismissed: (direction) {
+                          ref
+                              .read(tab2RepositoryProvider.notifier)
+                              .deleteModel(model);
                         },
-                        child: SizedBox(
-                          height: 40,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.orangeAccent,
-                              border: Border.symmetric(
-                                horizontal:
-                                    BorderSide(width: 0.7, color: Colors.black),
+                        key: Key(model
+                            .uuid!), // ! is used when you are sure that the nullable field will never be null
+                        child: InkWell(
+                          onTap: () {
+                            ref
+                                .read(tab2InputProvider.notifier)
+                                .setModel(model);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Scaffold(
+                                    body: const Tab2InputScreen(),
+                                    appBar: AppBar(),
+                                  );
+                                },
                               ),
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 130,
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0,
+                            );
+                          },
+                          child: SizedBox(
+                            height: 60,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.orangeAccent,
+                                border: Border.symmetric(
+                                  horizontal: BorderSide(
+                                      width: 0.7, color: Colors.black),
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 130,
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0,
+                                        ),
+                                        child: Text(
+                                          model.name,
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                        ),
                                       ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Expanded(
+                                    child: Center(
                                       child: Text(
-                                        model.name,
+                                        DateFormat("h:mm a").format(
+                                          DateTime(
+                                              0,
+                                              0,
+                                              0,
+                                              model.startTime.hour,
+                                              model.startTime.minute),
+                                        ),
                                         style: const TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
@@ -93,39 +126,22 @@ class Tab2OutputScreen extends ConsumerWidget {
                                       ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      DateFormat("h:mm a").format(
-                                        DateTime(0, 0, 0, model.startTime.hour,
-                                            model.startTime.minute),
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        DateFormat("h:mm a").format(
+                                          DateTime(
+                                              0, 0, 0, endTime[0], endTime[1]),
+                                        ),
+                                        style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12),
                                       ),
-                                      style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      DateFormat("h:mm a").format(
-                                        DateTime(
-                                            0, 0, 0, endTime[0], endTime[1]),
-                                      ),
-                                      style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
