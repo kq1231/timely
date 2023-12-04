@@ -5,6 +5,7 @@ import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_3/repositories/tab_3_repo_impl.dart';
 import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
 import 'package:timely/reusables.dart';
+import 'package:uuid/uuid.dart';
 
 class Tab3Notifier extends Notifier<AsyncValue<void>>
     implements Tab3RepositorySkeleton {
@@ -43,6 +44,7 @@ class Tab3Notifier extends Notifier<AsyncValue<void>>
           ...jsonContent[model.date], // -> Existing data
           // New data:
           {
+            "ID": const Uuid().v4(),
             "Activity": model.text_1,
             "Time": "${model.time!.hour}: ${model.time!.minute}",
             "Priority": model.priority
@@ -56,6 +58,28 @@ class Tab3Notifier extends Notifier<AsyncValue<void>>
     }
 
     await tab3File.writeAsString(jsonEncode(jsonContent));
+  }
+
+  @override
+  Future<void> deleteModel(Tab3Model model) async {
+    // Fetch the data
+    final tab3File = (await ref.read(dbFilesProvider.future)).tab3File;
+    Map jsonContent = jsonDecode(await tab3File.readAsString());
+
+    // Loop through the dates
+    // Delete the model from the data if model.uuid == $model.uuid
+    for (String date in jsonContent.keys) {
+      jsonContent[date].removeWhere((modelMap) => modelMap["ID"] == model.uuid);
+    }
+
+    // Persist the data
+    await tab3File.writeAsString(jsonEncode(jsonContent));
+  }
+
+  @override
+  Future<void> editModel(Tab3Model model) async {
+    await deleteModel(model);
+    await writeTab3Model(model);
   }
 }
 

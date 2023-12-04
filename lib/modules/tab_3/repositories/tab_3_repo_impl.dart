@@ -7,4 +7,8 @@ abstract class Tab3RepositorySkeleton {
   }
 
   Future<void> writeTab3Model(Tab3Model model) async {}
+
+  Future<void> deleteModel(Tab3Model model) async {}
+
+  Future<void> editModel(Tab3Model model) async {}
 }

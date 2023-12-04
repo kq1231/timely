@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Tab3Model {
+  String? uuid;
   String? date;
   TimeOfDay? time;
   String text_1 = "";
@@ -9,11 +10,13 @@ class Tab3Model {
   Tab3Model({
     required this.text_1,
     required this.priority,
+    this.uuid,
     this.date,
     this.time,
   });
 
   Tab3Model.fromJson(this.date, Map json) {
+    uuid = json["ID"];
     if (json["Time"] != null) {
       List timeParts = json["Time"].split(":");
       TimeOfDay time = TimeOfDay(
@@ -35,19 +38,14 @@ class Tab3Model {
     }
   }
 
-  Map toJson() {
-    return {
-      date: {
-        "Activity": text_1,
-        "Time": time,
-        "Priority": priority,
-      }
-    };
-  }
-
   Tab3Model copyWith(
-      {String? date, String? text_1, int? priority, TimeOfDay? time}) {
+      {String? date,
+      String? uuid,
+      String? text_1,
+      int? priority,
+      TimeOfDay? time}) {
     return Tab3Model(
+        uuid: uuid ?? this.uuid,
         date: date ?? this.date,
         text_1: text_1 ?? this.text_1,
         time: time ?? this.time,
