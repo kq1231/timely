@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_1/controllers/output_controller.dart';
+import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
 import 'package:timely/modules/tab_1/views/input_screen.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/reusables.dart';
@@ -60,50 +62,66 @@ class Tab1OutputScreen extends ConsumerWidget {
                     var time = TimeOfDay(
                         hour: (data[index].nextUpdateTime.hour % 12) + 1,
                         minute: data[index].nextUpdateTime.minute);
-                    return Column(
-                      children: [
-                        SizedBox(
-                          height: 50,
-                          child: Container(
-                            color: index % 2 == 0
-                                ? Tab1OutputLayout.alternateColors[0]
-                                : Tab1OutputLayout.alternateColors[1],
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                SizedBox(
-                                  width: 70,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Text(data[index].date,
-                                        style: Tab1OutputLayout.tileFont),
-                                  ),
-                                ),
-                                ...List.generate(3, (i) {
-                                  List scores = [
-                                    data[index].fScore,
-                                    data[index].mScore,
-                                    data[index].sScore
-                                  ];
-                                  return Expanded(
-                                    child: Center(
-                                        child: Text("${scores[i]}",
-                                            style: Tab1OutputLayout.tileFont)),
-                                  );
-                                }),
-                                SizedBox(
+                    return Dismissible(
+                      key: Key(data[index].date),
+                      onDismissed: (direction) async {
+                        data.removeAt(index);
+                        ref
+                            .read(tab1RepositoryProvider.notifier)
+                            .deleteModel(data[index]);
+                      },
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 60,
+                            child: Container(
+                              color: index % 2 == 0
+                                  ? Tab1OutputLayout.alternateColors[0]
+                                  : Tab1OutputLayout.alternateColors[1],
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  SizedBox(
                                     width: 70,
-                                    child: Center(
-                                        child: Text(
-                                      "${time.hour < 10 ? '0' : ''}${time.hour}:${time.minute < 10 ? '0' : ''}${time.minute} ${data[index].nextUpdateTime.hour > 12 ? 'PM' : 'AM'}",
-                                      style: Tab1OutputLayout.tileFont,
-                                    ))),
-                              ],
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: Text(
+                                          DateFormat('dd-MMM').format(
+                                              DateTime.parse(data[index].date)),
+                                          style: Tab1OutputLayout.tileFont),
+                                    ),
+                                  ),
+                                  ...List.generate(3, (i) {
+                                    List scores = [
+                                      data[index].fScore,
+                                      data[index].mScore,
+                                      data[index].sScore
+                                    ];
+                                    return Expanded(
+                                      child: Center(
+                                          child: Text("${scores[i]}",
+                                              style:
+                                                  Tab1OutputLayout.tileFont)),
+                                    );
+                                  }),
+                                  SizedBox(
+                                      width: 70,
+                                      child: Center(
+                                          child: Text(
+                                        "${time.hour < 10 ? '0' : ''}${time.hour}:${time.minute < 10 ? '0' : ''}${time.minute} ${data[index].nextUpdateTime.hour > 12 ? 'PM' : 'AM'}",
+                                        style: Tab1OutputLayout.tileFont,
+                                      ))),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          const Divider(
+                            height: 2,
+                          )
+                        ],
+                      ),
                     );
                   })
                 ],

@@ -24,7 +24,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
       var content = jsonContent[date];
 
       Map json = {
-        DateFormat('dd-MMM').format(DateTime.parse(date)): [
+        date: [
           [
             content[0][0],
             content[0][1],
@@ -103,7 +103,26 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
       }
     });
   }
+
+  @override
+  Future<void> deleteModel(FMSModel model) async {
+    // Fetch the models
+    final tabOneFile = (await ref.read(dbFilesProvider.future)).tab1ReFile;
+    Map jsonContent = jsonDecode(await tabOneFile.readAsString());
+
+    // Loop through the map's items
+    // Delete if $model.date matches the date of the map item
+    for (String date in jsonContent.keys) {
+      if (date == model.date) {
+        jsonContent.removeWhere((key, value) => key == date);
+        break;
+      }
+    }
+
+    // Persist the data
+    tabOneFile.writeAsString(jsonEncode(jsonContent));
+  }
 }
 
-final tabOneRepositoryProvider =
+final tab1RepositoryProvider =
     NotifierProvider<TabOneRepository, AsyncValue<void>>(TabOneRepository.new);

@@ -11,4 +11,6 @@ abstract class TabOneRepositorySkeleton {
   Future<void> createDefaultEntry() async {}
 
   Future<void> updateNextUpdateTime() async {}
+
+  Future<void> deleteModel(FMSModel model) async {}
 }

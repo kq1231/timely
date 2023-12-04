@@ -44,7 +44,7 @@ class TabOneInputNotifier extends AutoDisposeNotifier<FMSModel> {
   }
 
   Future<void> syncToDB() async {
-    await ref.read(tabOneRepositoryProvider.notifier).writeFMSModel(state);
+    await ref.read(tab1RepositoryProvider.notifier).writeFMSModel(state);
     ref.invalidate(tabOneFutureProvider);
     ref.invalidate(remainingTimeTickerProvider);
   }

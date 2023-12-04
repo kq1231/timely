@@ -88,7 +88,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: Future.wait([
-          ref.read(tabOneRepositoryProvider.notifier).updateNextUpdateTime(),
+          ref.read(tab1RepositoryProvider.notifier).updateNextUpdateTime(),
           // ref.read(dbFilesProvider.future),
           // ToAsk Inshaa Allah: Will this initialise and maintain the [File]s?
         ]),
