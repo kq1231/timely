@@ -20,84 +20,110 @@ class Tab2OutputScreen extends ConsumerWidget {
           List<Tab2Model> models = data;
           return Stack(
             children: [
-              ListView(
-                children: [
-                  const SizedBox(
-                    height: 40,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 130,
-                          child: Center(
-                            child: Text("Activities"),
+              StatefulBuilder(builder: ((context, setState) {
+                return ListView(
+                  children: [
+                    const SizedBox(
+                      height: 40,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 130,
+                            child: Center(
+                              child: Text("Activities"),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        VerticalDivider(
-                          width: 2,
-                        ),
-                        Expanded(child: Center(child: Text("Start"))),
-                        VerticalDivider(
-                          width: 2,
-                        ),
-                        Expanded(child: Center(child: Text("End")))
-                      ],
+                          SizedBox(
+                            width: 20,
+                          ),
+                          VerticalDivider(
+                            width: 2,
+                          ),
+                          Expanded(child: Center(child: Text("Start"))),
+                          VerticalDivider(
+                            width: 2,
+                          ),
+                          Expanded(child: Center(child: Text("End")))
+                        ],
+                      ),
                     ),
-                  ),
-                  ...List.generate(
-                    data.length,
-                    (i) {
-                      Tab2Model model = models[i];
-                      List<int> endTime = model.calculateEndTime(model.endTime);
-                      return Dismissible(
-                        background: Container(color: Colors.red),
-                        onDismissed: (direction) {
-                          ref
-                              .read(tab2RepositoryProvider.notifier)
-                              .deleteModel(model);
-                        },
-                        key: Key(model
-                            .uuid!), // ! is used when you are sure that the nullable field will never be null
-                        child: InkWell(
-                          onTap: () {
+                    ...List.generate(
+                      data.length,
+                      (i) {
+                        Tab2Model model = models[i];
+                        List<int> endTime =
+                            model.calculateEndTime(model.endTime);
+                        return Dismissible(
+                          background: Container(color: Colors.red),
+                          onDismissed: (direction) {
                             ref
-                                .read(tab2InputProvider.notifier)
-                                .setModel(model);
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Scaffold(
-                                    body: const Tab2InputScreen(),
-                                    appBar: AppBar(),
-                                  );
-                                },
-                              ),
-                            );
+                                .read(tab2RepositoryProvider.notifier)
+                                .deleteModel(model);
+                            data.removeAt(i);
+                            setState(() {});
                           },
-                          child: SizedBox(
-                            height: 60,
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.orangeAccent,
-                                border: Border.symmetric(
-                                  horizontal: BorderSide(
-                                      width: 0.7, color: Colors.black),
+                          key: Key(model
+                              .uuid!), // ! is used when you are sure that the nullable field will never be null
+                          child: InkWell(
+                            onTap: () {
+                              ref
+                                  .read(tab2InputProvider.notifier)
+                                  .setModel(model);
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return Scaffold(
+                                      body: const Tab2InputScreen(),
+                                      appBar: AppBar(),
+                                    );
+                                  },
                                 ),
-                              ),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 130,
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0,
+                              );
+                            },
+                            child: SizedBox(
+                              height: 60,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.orangeAccent,
+                                  border: Border.symmetric(
+                                    horizontal: BorderSide(
+                                        width: 0.7, color: Colors.black),
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 130,
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0,
+                                          ),
+                                          child: Text(
+                                            model.name,
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12),
+                                          ),
                                         ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Expanded(
+                                      child: Center(
                                         child: Text(
-                                          model.name,
+                                          DateFormat("h:mm a").format(
+                                            DateTime(
+                                                0,
+                                                0,
+                                                0,
+                                                model.startTime.hour,
+                                                model.startTime.minute),
+                                          ),
                                           style: const TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold,
@@ -105,52 +131,31 @@ class Tab2OutputScreen extends ConsumerWidget {
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        DateFormat("h:mm a").format(
-                                          DateTime(
-                                              0,
-                                              0,
-                                              0,
-                                              model.startTime.hour,
-                                              model.startTime.minute),
+                                    Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          DateFormat("h:mm a").format(
+                                            DateTime(0, 0, 0, endTime[0],
+                                                endTime[1]),
+                                          ),
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
                                         ),
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12),
                                       ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        DateFormat("h:mm a").format(
-                                          DateTime(
-                                              0, 0, 0, endTime[0], endTime[1]),
-                                        ),
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+                        );
+                      },
+                    ),
+                  ],
+                );
+              })),
               Column(
                 children: [
                   Expanded(child: Container()),
