@@ -162,6 +162,7 @@ class Tab5OutputScreen extends ConsumerWidget {
                           heroTag: null,
                           child: const Icon(Icons.add),
                           onPressed: () {
+                            ref.invalidate(tab5InputProvider);
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
                               return Scaffold(
