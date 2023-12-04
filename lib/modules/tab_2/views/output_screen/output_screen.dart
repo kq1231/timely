@@ -52,6 +52,7 @@ class Tab2OutputScreen extends ConsumerWidget {
                       Tab2Model model = models[i];
                       List<int> endTime = model.calculateEndTime(model.endTime);
                       return Dismissible(
+                        background: Container(color: Colors.red),
                         onDismissed: (direction) {
                           ref
                               .read(tab2RepositoryProvider.notifier)
