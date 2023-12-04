@@ -102,6 +102,6 @@ class Tab3OutputScreen extends ConsumerWidget {
           ]);
         },
         error: (_, __) => const Text("ERROR"),
-        loading: () => const CircularProgressIndicator());
+        loading: () => const Center(child: CircularProgressIndicator()));
   }
 }
