@@ -5,13 +5,13 @@ import 'package:timely/modules/tab_5/controllers/output_controller.dart';
 
 import 'package:timely/app_theme.dart';
 
-class TabFiveInputScreen extends ConsumerWidget {
-  const TabFiveInputScreen({super.key});
+class Tab5InputScreen extends ConsumerWidget {
+  const Tab5InputScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(tabFiveInputProvider.notifier);
-    final tabFiveInput = ref.watch(tabFiveInputProvider);
+    final controller = ref.watch(tab5InputProvider.notifier);
+    final provider = ref.watch(tab5InputProvider);
     List<String> labels = Tab5InputLayout.labels;
 
     // List scores = [model.sScore, model.pScore, model.wScore];
@@ -20,7 +20,7 @@ class TabFiveInputScreen extends ConsumerWidget {
       child: Column(
         children: [
           Text(
-            provider.getFormattedDate(),
+            controller.getFormattedDate(),
             style: Tab5InputLayout.dateStyle,
           ),
           Row(children: [
@@ -38,12 +38,10 @@ class TabFiveInputScreen extends ConsumerWidget {
                   child: Column(
                     children: [
                       Radio<int>(
-                        value: tabFiveInput.sScore,
+                        value: provider.sScore,
                         groupValue: index,
                         onChanged: (value) {
-                          ref
-                              .read(tabFiveInputProvider.notifier)
-                              .setSScore(index);
+                          ref.read(tab5InputProvider.notifier).setSScore(index);
                         },
                       ),
                       Text(labels[index]),
@@ -72,12 +70,10 @@ class TabFiveInputScreen extends ConsumerWidget {
                   child: Column(
                     children: [
                       Radio<int>(
-                        value: tabFiveInput.pScore,
+                        value: provider.pScore,
                         groupValue: index,
                         onChanged: (value) {
-                          ref
-                              .read(tabFiveInputProvider.notifier)
-                              .setPScore(index);
+                          ref.read(tab5InputProvider.notifier).setPScore(index);
                         },
                       ),
                       Text(labels[index]),
@@ -107,11 +103,11 @@ class TabFiveInputScreen extends ConsumerWidget {
                     child: Column(
                       children: [
                         Radio<int>(
-                          value: tabFiveInput.wScore,
+                          value: provider.wScore,
                           groupValue: index,
                           onChanged: (value) {
                             ref
-                                .read(tabFiveInputProvider.notifier)
+                                .read(tab5InputProvider.notifier)
                                 .setWScore(index);
                           },
                         ),
@@ -142,13 +138,14 @@ class TabFiveInputScreen extends ConsumerWidget {
                 ),
               ),
               Expanded(
-                child: TextField(
+                child: TextFormField(
+                  initialValue: provider.weight.toString(),
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                   ),
                   onChanged: (weight) {
-                    ref.read(tabFiveInputProvider.notifier).setWeight(weight);
+                    ref.read(tab5InputProvider.notifier).setWeight(weight);
                   },
                 ),
               ),
@@ -175,8 +172,8 @@ class TabFiveInputScreen extends ConsumerWidget {
                   style: Tab5InputLayout.submitButtonStyle,
                 ),
                 onPressed: () {
-                  ref.read(tabFiveInputProvider.notifier).syncToDB();
-                  ref.invalidate(tabFiveFutureProvider);
+                  ref.read(tab5InputProvider.notifier).syncToDB();
+                  ref.invalidate(tab5FutureProvider);
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

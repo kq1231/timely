@@ -2,9 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_5/controllers/output_controller.dart';
 import 'package:timely/modules/tab_5/models/spw.dart';
-import 'package:timely/modules/tab_5/repositories/tab_five_repo.dart';
+import 'package:timely/modules/tab_5/repositories/tab_5_repo.dart';
 
-class TabFiveInputNotifier extends AutoDisposeNotifier<SPWModel> {
+class Tab5InputNotifier extends Notifier<SPWModel> {
   @override
   build() {
     return SPWModel(
@@ -41,12 +41,15 @@ class TabFiveInputNotifier extends AutoDisposeNotifier<SPWModel> {
   }
 
   Future<void> syncToDB() async {
-    await ref.read(tabFiveRepositoryProvider.notifier).writeSPWModel(state);
-    ref.invalidate(tabFiveFutureProvider);
+    await ref.read(tab5RepositoryProvider.notifier).writeSPWModel(state);
+    ref.invalidate(tab5FutureProvider);
+  }
+
+  void setModel(SPWModel model) {
+    state = model;
   }
 }
 
-final tabFiveInputProvider =
-    AutoDisposeNotifierProvider<TabFiveInputNotifier, SPWModel>(() {
-  return TabFiveInputNotifier();
+final tab5InputProvider = NotifierProvider<Tab5InputNotifier, SPWModel>(() {
+  return Tab5InputNotifier();
 });

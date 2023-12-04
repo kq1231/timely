@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:timely/modules/tab_5/controllers/input_controller.dart';
 import 'package:timely/modules/tab_5/controllers/output_controller.dart';
+import 'package:timely/modules/tab_5/repositories/tab_5_repo.dart';
 import 'package:timely/modules/tab_5/views/input_screen.dart';
 import 'package:timely/reusables.dart';
 import 'package:timely/app_theme.dart';
@@ -10,7 +13,7 @@ class Tab5OutputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(tabFiveFutureProvider);
+    final provider = ref.watch(tab5FutureProvider);
     return provider.when(
         data: (data) {
           return Stack(
@@ -49,66 +52,97 @@ class Tab5OutputScreen extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          SizedBox(
-                            height: 50,
-                            child: Container(
-                              color: index % 2 == 0
-                                  ? Tab5OutputLayout.alternatingColors[0]
-                                  : Tab5OutputLayout.alternatingColors[1],
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  SizedBox(
-                                    width: 70,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: Text(
-                                        data[index].date,
-                                        style: Tab5OutputLayout
-                                            .tabFiveOutputTileTextStyle,
-                                      ),
-                                    ),
-                                  ),
-                                  ...List.generate(3, (i) {
-                                    List scores = [
-                                      data[index].sScore,
-                                      data[index].pScore,
-                                      data[index].wScore
-                                    ];
-                                    return Expanded(
-                                      child: Container(
-                                        color: ref
-                                            .read(colorProvider)[scores[i] * 3],
-                                        child: Center(
-                                          child: Text(
-                                            "${scores[i]}",
-                                            style: Tab5OutputLayout
-                                                .tabFiveOutputTileTextStyle,
+                  StatefulBuilder(
+                    builder: (context, setState) => ListView.builder(
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Dismissible(
+                          key: Key(data[index].date),
+                          background: Container(color: Colors.red),
+                          onDismissed: (direction) {
+                            ref
+                                .read(tab5RepositoryProvider.notifier)
+                                .deleteModel(data[index]);
+                            data.removeAt(index);
+                            setState(() {});
+                          },
+                          child: InkWell(
+                            onTap: () {
+                              ref
+                                  .read(tab5InputProvider.notifier)
+                                  .setModel(data[index]);
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return Scaffold(
+                                    appBar: AppBar(),
+                                    body: const Tab5InputScreen(),
+                                  );
+                                },
+                              ));
+                            },
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                  child: Container(
+                                    color: index % 2 == 0
+                                        ? Tab5OutputLayout.alternatingColors[0]
+                                        : Tab5OutputLayout.alternatingColors[1],
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        SizedBox(
+                                          width: 70,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10),
+                                            child: Text(
+                                              DateFormat('dd-MMM').format(
+                                                DateTime.parse(
+                                                    data[index].date),
+                                              ),
+                                              style: Tab5OutputLayout
+                                                  .tabFiveOutputTileTextStyle,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  }),
-                                  SizedBox(
-                                      width: 70,
-                                      child: Center(
-                                          child: Text(
-                                              "${data[index].weight} kg"))),
-                                ],
-                              ),
+                                        ...List.generate(3, (i) {
+                                          List scores = [
+                                            data[index].sScore,
+                                            data[index].pScore,
+                                            data[index].wScore
+                                          ];
+                                          return Expanded(
+                                            child: Container(
+                                              color: ref.read(
+                                                  colorProvider)[scores[i] * 3],
+                                              child: Center(
+                                                child: Text(
+                                                  "${scores[i]}",
+                                                  style: Tab5OutputLayout
+                                                      .tabFiveOutputTileTextStyle,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }),
+                                        SizedBox(
+                                            width: 70,
+                                            child: Center(
+                                                child: Text(
+                                                    "${data[index].weight} kg"))),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      );
-                    },
-                    itemCount: data.length,
+                        );
+                      },
+                      itemCount: data.length,
+                    ),
                   ),
                 ],
               ),
@@ -132,7 +166,7 @@ class Tab5OutputScreen extends ConsumerWidget {
                                 .push(MaterialPageRoute(builder: (context) {
                               return Scaffold(
                                   appBar: AppBar(),
-                                  body: const TabFiveInputScreen());
+                                  body: const Tab5InputScreen());
                             }));
                           }),
                     ],
