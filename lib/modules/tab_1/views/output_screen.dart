@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:timely/modules/tab_1/controllers/input_controller.dart';
 import 'package:timely/modules/tab_1/controllers/output_controller.dart';
 import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
 import 'package:timely/modules/tab_1/views/input_screen.dart';
@@ -12,7 +13,7 @@ class Tab1OutputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(tabOneFutureProvider);
+    final provider = ref.watch(tab1FutureProvider);
     return provider.when(
         data: (data) {
           return Stack(
@@ -63,6 +64,7 @@ class Tab1OutputScreen extends ConsumerWidget {
                         hour: (data[index].nextUpdateTime.hour % 12) + 1,
                         minute: data[index].nextUpdateTime.minute);
                     return Dismissible(
+                      background: Container(color: Colors.red),
                       key: Key(data[index].date),
                       onDismissed: (direction) async {
                         data.removeAt(index);
@@ -78,42 +80,60 @@ class Tab1OutputScreen extends ConsumerWidget {
                               color: index % 2 == 0
                                   ? Tab1OutputLayout.alternateColors[0]
                                   : Tab1OutputLayout.alternateColors[1],
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  SizedBox(
-                                    width: 70,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: Text(
-                                          DateFormat('dd-MMM').format(
-                                              DateTime.parse(data[index].date)),
-                                          style: Tab1OutputLayout.tileFont),
+                              child: InkWell(
+                                onTap: () {
+                                  ref
+                                      .read(tab1InputProvider.notifier)
+                                      .setModel(data[index]);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return Scaffold(
+                                            appBar: AppBar(),
+                                            body: const Tab1InputScreen());
+                                      },
                                     ),
-                                  ),
-                                  ...List.generate(3, (i) {
-                                    List scores = [
-                                      data[index].fScore,
-                                      data[index].mScore,
-                                      data[index].sScore
-                                    ];
-                                    return Expanded(
-                                      child: Center(
-                                          child: Text("${scores[i]}",
-                                              style:
-                                                  Tab1OutputLayout.tileFont)),
-                                    );
-                                  }),
-                                  SizedBox(
+                                  );
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    SizedBox(
                                       width: 70,
-                                      child: Center(
-                                          child: Text(
-                                        "${time.hour < 10 ? '0' : ''}${time.hour}:${time.minute < 10 ? '0' : ''}${time.minute} ${data[index].nextUpdateTime.hour > 12 ? 'PM' : 'AM'}",
-                                        style: Tab1OutputLayout.tileFont,
-                                      ))),
-                                ],
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Text(
+                                            DateFormat('dd-MMM').format(
+                                                DateTime.parse(
+                                                    data[index].date)),
+                                            style: Tab1OutputLayout.tileFont),
+                                      ),
+                                    ),
+                                    ...List.generate(3, (i) {
+                                      List scores = [
+                                        data[index].fScore,
+                                        data[index].mScore,
+                                        data[index].sScore
+                                      ];
+                                      return Expanded(
+                                        child: Center(
+                                            child: Text("${scores[i]}",
+                                                style:
+                                                    Tab1OutputLayout.tileFont)),
+                                      );
+                                    }),
+                                    SizedBox(
+                                        width: 70,
+                                        child: Center(
+                                            child: Text(
+                                          "${time.hour < 10 ? '0' : ''}${time.hour}:${time.minute < 10 ? '0' : ''}${time.minute} ${data[index].nextUpdateTime.hour > 12 ? 'PM' : 'AM'}",
+                                          style: Tab1OutputLayout.tileFont,
+                                        ))),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -150,7 +170,7 @@ class Tab1OutputScreen extends ConsumerWidget {
                                   builder: (context) {
                                     return Scaffold(
                                         appBar: AppBar(),
-                                        body: const TabOneInputScreen());
+                                        body: const Tab1InputScreen());
                                   },
                                 ),
                               );

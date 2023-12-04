@@ -17,8 +17,8 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
 
   @override
   Future<List<FMSModel>> fetchFMSModels() async {
-    final tabOneFile = (await ref.read(dbFilesProvider.future)).tab1ReFile;
-    final jsonContent = jsonDecode(await tabOneFile.readAsString());
+    final tab1File = (await ref.read(dbFilesProvider.future)).tab1ReFile;
+    final jsonContent = jsonDecode(await tab1File.readAsString());
     final fmsModels = <FMSModel>[];
     for (final date in jsonContent.keys.toList().reversed) {
       var content = jsonContent[date];
@@ -42,8 +42,8 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
 
   @override
   Future<void> writeFMSModel(FMSModel model) async {
-    final tabOneFile = (await ref.read(dbFilesProvider.future)).tab1ReFile;
-    final jsonContent = jsonDecode(await tabOneFile.readAsString());
+    final tab1File = (await ref.read(dbFilesProvider.future)).tab1ReFile;
+    final jsonContent = jsonDecode(await tab1File.readAsString());
     jsonContent[model.date] = [];
     jsonContent[model.date].add(
       [
@@ -56,13 +56,13 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
       "${model.nextUpdateTime.hour}: ${model.nextUpdateTime.minute}",
     );
     jsonContent[model.date].add(model.text_1);
-    await tabOneFile.writeAsString(jsonEncode(jsonContent));
+    await tab1File.writeAsString(jsonEncode(jsonContent));
   }
 
   @override
   Future<void> createDefaultEntry() async {
-    final tabOneFile = (await ref.read(dbFilesProvider.future)).tab1ReFile;
-    final jsonContent = jsonDecode(await tabOneFile.readAsString());
+    final tab1File = (await ref.read(dbFilesProvider.future)).tab1ReFile;
+    final jsonContent = jsonDecode(await tab1File.readAsString());
     String dateToday = DateTime.now().toString().substring(0, 10);
     DateTime currentTime = DateTime.now();
     TimeOfDay nextUpdateTime = const TimeOfDay(hour: 6, minute: 0);
@@ -83,8 +83,8 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
   @override
   Future<void> updateNextUpdateTime() async {
     await createDefaultEntry();
-    final tabOneFile = (await ref.read(dbFilesProvider.future)).tab1ReFile;
-    final jsonContent = jsonDecode(await tabOneFile.readAsString());
+    final tab1File = (await ref.read(dbFilesProvider.future)).tab1ReFile;
+    final jsonContent = jsonDecode(await tab1File.readAsString());
     String dateToday = DateTime.now().toString().substring(0, 10);
     FMSModel model = FMSModel.fromJson({dateToday: jsonContent[dateToday]});
     Timer.periodic(const Duration(seconds: 5), (timer) async {
@@ -107,8 +107,8 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
   @override
   Future<void> deleteModel(FMSModel model) async {
     // Fetch the models
-    final tabOneFile = (await ref.read(dbFilesProvider.future)).tab1ReFile;
-    Map jsonContent = jsonDecode(await tabOneFile.readAsString());
+    final tab1File = (await ref.read(dbFilesProvider.future)).tab1ReFile;
+    Map jsonContent = jsonDecode(await tab1File.readAsString());
 
     // Loop through the map's items
     // Delete if $model.date matches the date of the map item
@@ -120,7 +120,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
     }
 
     // Persist the data
-    tabOneFile.writeAsString(jsonEncode(jsonContent));
+    tab1File.writeAsString(jsonEncode(jsonContent));
   }
 }
 

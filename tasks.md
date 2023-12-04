@@ -118,5 +118,6 @@
 
 --- 
 
-- Delete entries in tab 2
+- Delete entries in tab 2 -D
 - Complete CRUD in all the tabs
+**Inshaa Allah**

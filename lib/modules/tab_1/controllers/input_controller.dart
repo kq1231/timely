@@ -6,7 +6,7 @@ import 'package:timely/modules/tab_1/controllers/output_controller.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
 import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
 
-class TabOneInputNotifier extends AutoDisposeNotifier<FMSModel> {
+class Tab1InputNotifier extends Notifier<FMSModel> {
   @override
   FMSModel build() {
     return FMSModel(
@@ -20,7 +20,7 @@ class TabOneInputNotifier extends AutoDisposeNotifier<FMSModel> {
   }
 
   String getFormattedDate() {
-    return DateFormat("dd-MMM-yyyy").format(DateTime.now());
+    return DateFormat("dd-MMM-yyyy").format(DateTime.parse(state.date));
   }
 
   void setFScore(score) {
@@ -45,11 +45,14 @@ class TabOneInputNotifier extends AutoDisposeNotifier<FMSModel> {
 
   Future<void> syncToDB() async {
     await ref.read(tab1RepositoryProvider.notifier).writeFMSModel(state);
-    ref.invalidate(tabOneFutureProvider);
+    ref.invalidate(tab1FutureProvider);
     ref.invalidate(remainingTimeTickerProvider);
+  }
+
+  void setModel(FMSModel model) {
+    state = model;
   }
 }
 
-final tabOneInputProvider =
-    AutoDisposeNotifierProvider<TabOneInputNotifier, FMSModel>(
-        TabOneInputNotifier.new);
+final tab1InputProvider =
+    NotifierProvider<Tab1InputNotifier, FMSModel>(Tab1InputNotifier.new);

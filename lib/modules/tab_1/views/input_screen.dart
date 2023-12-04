@@ -3,13 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_1/controllers/input_controller.dart';
 import 'package:timely/app_theme.dart';
 
-class TabOneInputScreen extends ConsumerWidget {
-  const TabOneInputScreen({super.key});
+class Tab1InputScreen extends ConsumerWidget {
+  const Tab1InputScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(tabOneInputProvider);
-    final controller = ref.read(tabOneInputProvider.notifier);
+    final state = ref.watch(tab1InputProvider);
+    final controller = ref.read(tab1InputProvider.notifier);
     List labels = Tab1InputLayout.labels;
 
     return SingleChildScrollView(
@@ -133,7 +133,8 @@ class TabOneInputScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Expanded(
-                child: TextField(
+                child: TextFormField(
+                  initialValue: state.text_1,
                   onChanged: (text_1) {
                     controller.setText_1(text_1);
                   },
@@ -155,7 +156,7 @@ class TabOneInputScreen extends ConsumerWidget {
                 child: const Text("Submit"),
                 onPressed: () {
                   controller.syncToDB();
-                  ref.invalidate(tabOneInputProvider);
+                  ref.invalidate(tab1InputProvider);
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
