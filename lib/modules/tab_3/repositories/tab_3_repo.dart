@@ -20,11 +20,10 @@ class Tab3Notifier extends Notifier<AsyncValue<void>>
     final jsonContent = jsonDecode(await tab3File.readAsString());
     final dates = jsonContent.keys.toList();
     Map<String, List<Tab3Model>> tab3Models = {};
-    String dateToday = DateTime.now().toString().substring(0, 10);
     for (String date in dates) {
       tab3Models[date] = [];
       for (Map content in jsonContent[date]) {
-        tab3Models[date]!.add(Tab3Model.fromJson(dateToday, content));
+        tab3Models[date]!.add(Tab3Model.fromJson(date, content));
       }
     }
     return tab3Models;

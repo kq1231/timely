@@ -9,7 +9,7 @@ class Tab3InputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final model = ref.watch(tab3InputProvider);
+    final provider = ref.watch(tab3InputProvider);
     final controller = ref.watch(tab3InputProvider.notifier);
 
     List labels = Tab3InputLayout.labels;
@@ -27,7 +27,7 @@ class Tab3InputScreen extends ConsumerWidget {
                   return Column(
                     children: [
                       Radio(
-                          value: model.priority,
+                          value: provider.priority,
                           groupValue: index,
                           onChanged: (val) {
                             controller.setPriority(index);
@@ -56,9 +56,9 @@ class Tab3InputScreen extends ConsumerWidget {
                   onPressed: () async {
                     var dateSelected = await showDatePicker(
                         context: context,
-                        initialDate: model.date == null
+                        initialDate: provider.date == null
                             ? DateTime.now()
-                            : DateTime.parse(model.date!),
+                            : DateTime.parse(provider.date!),
                         firstDate: DateTime(2017, 1, 1),
                         lastDate: DateTime(DateTime.now().year + 2, 1, 1));
                     if (dateSelected != null) {
@@ -66,9 +66,9 @@ class Tab3InputScreen extends ConsumerWidget {
                           .setDate(dateSelected.toString().substring(0, 10));
                     }
                   },
-                  child: model.date != null
+                  child: provider.date != null
                       ? Text(DateFormat("dd-MMM")
-                          .format(DateTime.parse(model.date!)))
+                          .format(DateTime.parse(provider.date!)))
                       : Text(
                           Tab3InputLayout.dateButtonText,
                           style: Tab3InputLayout.dateButtonStyle,
@@ -78,13 +78,13 @@ class Tab3InputScreen extends ConsumerWidget {
                   onPressed: () async {
                     var timeSelected = await showTimePicker(
                         context: context,
-                        initialTime: model.time ?? TimeOfDay.now());
+                        initialTime: provider.time ?? TimeOfDay.now());
                     if (timeSelected != null) {
                       controller.setTime(timeSelected);
                     }
                   },
-                  child: model.time != null
-                      ? Text(model.time!.format(context))
+                  child: provider.time != null
+                      ? Text(provider.time!.format(context))
                       : Text(
                           Tab3InputLayout.timeButtonText,
                           style: Tab3InputLayout.timeButtonStyle,
@@ -104,7 +104,7 @@ class Tab3InputScreen extends ConsumerWidget {
               child: SizedBox(
                 height: 50,
                 child: TextFormField(
-                  initialValue: model.text_1,
+                  initialValue: provider.text_1,
                   textCapitalization: TextCapitalization.sentences,
                   onChanged: (value) => controller.setActivity(value),
                 ),
