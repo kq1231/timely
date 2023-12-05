@@ -68,7 +68,13 @@ class Tab3Notifier extends Notifier<AsyncValue<void>>
     // Loop through the dates
     // Delete the model from the data if model.uuid == $model.uuid
     for (String date in jsonContent.keys) {
-      jsonContent[date].removeWhere((modelMap) => modelMap["ID"] == model.uuid);
+      jsonContent[date].removeWhere((modelMap) {
+        modelMap["ID"] == model.uuid;
+        // Remove the date entirely if it is empty
+        if (jsonContent[date] == []) {
+          jsonContent.remove(date);
+        }
+      });
     }
 
     // Persist the data
