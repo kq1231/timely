@@ -22,7 +22,9 @@ final remainingTimeTickerProvider = StreamProvider<String>((ref) async* {
 
       await Future.delayed(const Duration(seconds: 1));
       Duration difference = time2.difference(now);
-      yield "${difference.inHours}:${difference.inMinutes % 60}:${difference.inSeconds % 60}";
+      yield !(difference.inHours < 0)
+          ? "${difference.inHours}:${difference.inMinutes % 60}:${difference.inSeconds % 60}"
+          : "Timer";
     }
   } catch (e) {
     // Skip.
