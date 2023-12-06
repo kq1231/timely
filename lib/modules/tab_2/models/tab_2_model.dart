@@ -6,7 +6,7 @@ class Tab2Model {
   String? uuid;
   String name = "";
   TimeOfDay startTime = const TimeOfDay(hour: 0, minute: 0);
-  Duration endTime = const Duration();
+  Duration dur = const Duration();
   String? frequency = Frequency.daily;
   Basis? basis = Basis.day;
   DateTime startDate = DateTime.now();
@@ -18,7 +18,7 @@ class Tab2Model {
     this.uuid,
     required this.name,
     required this.startTime,
-    required this.endTime,
+    required this.dur,
     this.frequency,
     this.basis,
     this.endDate,
@@ -32,19 +32,12 @@ class Tab2Model {
     uuid = json["ID"];
     List times = [
       json["Start"].split(":").map((val) => int.parse(val)).toList(),
-      json["End"].split(":").map((val) => int.parse(val)).toList()
+      json["Duration"].split(":").map((val) => int.parse(val)).toList()
     ];
 
     startTime = TimeOfDay(hour: times[0][0], minute: times[0][1]);
     startDate = DateTime.parse(json["Start Date"]);
-    endTime = Duration(
-        hours: DateTime(0, 0, 0, times[1][0], times[1][1])
-            .difference(DateTime(0, 0, 0, times[0][0], times[0][1]))
-            .inHours,
-        minutes: DateTime(0, 0, 0, times[1][0], times[1][1])
-                .difference(DateTime(0, 0, 0, times[0][0], times[0][1]))
-                .inMinutes %
-            60);
+    dur = Duration(hours: times[1][0], minutes: times[1][1]);
     every = json["Every"];
     frequency = json["Frequency"];
     repetitions = json["Repeat"] ?? {};
@@ -70,7 +63,7 @@ class Tab2Model {
       "Name": name,
       "Start Date": startDate.toString().substring(0, 10),
       "Start": [startTime.hour, startTime.minute].join(":"),
-      "End": calculateEndTime(endTime).join(":"),
+      "Duration": [dur.inHours, dur.inMinutes % 60].join(":"),
       "Frequency": frequency,
       "Basis": basis != null
           ? basis == Basis.date
@@ -85,14 +78,11 @@ class Tab2Model {
   }
 
   List<int> calculateEndTime(Duration duration) {
-    return [
-      ((startTime.hour +
-                  duration.inHours +
-                  (startTime.minute + (duration.inMinutes % 60)) / 60) %
-              24)
-          .truncate(),
-      (startTime.minute + duration.inMinutes % 60) % 60
-    ];
+    DateTime finalTime = DateTime(startDate.year, startDate.month,
+            startDate.day, startTime.hour, startTime.minute)
+        .add(dur);
+
+    return [finalTime.hour, finalTime.minute];
   }
 
   Tab2Model copywith({
@@ -112,7 +102,7 @@ class Tab2Model {
       name: name ?? this.name,
       startDate: startDate ?? this.startDate,
       startTime: startTime ?? this.startTime,
-      endTime: endTime ?? this.endTime,
+      dur: endTime ?? this.dur,
       frequency: frequency ?? this.frequency,
       basis: basis ?? this.basis,
       endDate: endDate ?? this.endDate,

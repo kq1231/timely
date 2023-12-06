@@ -159,13 +159,13 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                       itemExtent: 70,
                       magnification: 1.2,
                       scrollController: FixedExtentScrollController(
-                        initialItem: provider.endTime.inHours,
+                        initialItem: provider.dur.inHours,
                       ),
                       onSelectedItemChanged: (val) {
                         controller.setEndTime(
                           Duration(
                             hours: val,
-                            minutes: provider.endTime.inMinutes % 60,
+                            minutes: provider.dur.inMinutes % 60,
                           ),
                         );
                       },
@@ -187,12 +187,12 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                       itemExtent: 70,
                       magnification: 1.2,
                       scrollController: FixedExtentScrollController(
-                        initialItem: provider.endTime.inMinutes % 60,
+                        initialItem: provider.dur.inMinutes % 60,
                       ),
                       onSelectedItemChanged: (val) {
                         controller.setEndTime(
                           Duration(
-                            hours: provider.endTime.inHours,
+                            hours: provider.dur.inHours,
                             minutes: val,
                           ),
                         );

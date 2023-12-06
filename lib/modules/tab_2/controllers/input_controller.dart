@@ -12,7 +12,7 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
       startDate: DateTime.now(),
       name: "",
       startTime: TimeOfDay.now(),
-      endTime: const Duration(hours: 0, minutes: 30),
+      dur: const Duration(hours: 0, minutes: 30),
       repetitions: {
         "DoW": [0, 0]
       },

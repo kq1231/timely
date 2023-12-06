@@ -51,8 +51,7 @@ class Tab2OutputScreen extends ConsumerWidget {
                       data.length,
                       (i) {
                         Tab2Model model = models[i];
-                        List<int> endTime =
-                            model.calculateEndTime(model.endTime);
+                        List<int> endTime = model.calculateEndTime(model.dur);
                         return Dismissible(
                           background: Container(color: Colors.red),
                           // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
