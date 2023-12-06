@@ -69,13 +69,12 @@ class Tab3Notifier extends Notifier<AsyncValue<void>>
     // Delete the model from the data if model.uuid == $model.uuid
     for (String date in jsonContent.keys) {
       jsonContent[date].removeWhere((modelMap) {
-        modelMap["ID"] == model.uuid;
-        // Remove the date entirely if it is empty
-        if (jsonContent[date] == []) {
-          jsonContent.remove(date);
-        }
+        return modelMap["ID"] == model.uuid;
       });
     }
+
+    // Remove the date entirely if it is empty
+    jsonContent.removeWhere((key, value) => value.length == 0);
 
     // Persist the data
     await tab3File.writeAsString(jsonEncode(jsonContent));
