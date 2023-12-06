@@ -65,14 +65,44 @@ class Tab1OutputScreen extends ConsumerWidget {
                           hour: (data[index].nextUpdateTime.hour % 12) + 1,
                           minute: data[index].nextUpdateTime.minute);
                       return Dismissible(
+                        // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
+                        confirmDismiss: (direction) async {
+                          if (direction == DismissDirection.startToEnd) {
+                            return await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text("Delete"),
+                                      content: const Text(
+                                          'Are you sure you want to delete?'),
+                                      actions: [
+                                        IconButton.filledTonal(
+                                            icon: const Icon(Icons.done),
+                                            onPressed: () =>
+                                                Navigator.pop(context, true)),
+                                        IconButton.filled(
+                                            icon: const Icon(Icons.dangerous),
+                                            onPressed: () =>
+                                                Navigator.pop(context, false)),
+                                      ],
+                                    );
+                                  },
+                                ) ??
+                                false;
+                          } else {
+                            return false;
+                          }
+                        },
                         background: Container(color: Colors.red),
                         key: Key(data[index].date),
                         onDismissed: (direction) async {
-                          ref
-                              .read(tab1RepositoryProvider.notifier)
-                              .deleteModel(data[index]);
-                          data.removeAt(index);
-                          setState(() {});
+                          if (direction == DismissDirection.startToEnd) {
+                            ref
+                                .read(tab1RepositoryProvider.notifier)
+                                .deleteModel(data[index]);
+                            data.removeAt(index);
+                            setState(() {});
+                          }
                         },
                         child: Column(
                           children: [
