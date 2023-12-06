@@ -29,13 +29,44 @@ class Tab3OutputScreen extends ConsumerWidget {
                           Tab3Model model = data[data.keys.toList()[index]]![i];
                           // Row of time and text_1
                           return Dismissible(
+                            // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
+                            confirmDismiss: (direction) async {
+                              if (direction == DismissDirection.startToEnd) {
+                                return await showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: const Text("Delete"),
+                                          content: const Text(
+                                              'Are you sure you want to delete?'),
+                                          actions: [
+                                            IconButton.filledTonal(
+                                                icon: const Icon(Icons.done),
+                                                onPressed: () => Navigator.pop(
+                                                    context, true)),
+                                            IconButton.filled(
+                                                icon:
+                                                    const Icon(Icons.dangerous),
+                                                onPressed: () => Navigator.pop(
+                                                    context, false)),
+                                          ],
+                                        );
+                                      },
+                                    ) ??
+                                    false;
+                              } else {
+                                return false;
+                              }
+                            },
                             background: Container(color: Colors.red),
                             onDismissed: (direction) {
-                              ref
-                                  .read(tab3RepositoryProvider.notifier)
-                                  .deleteModel(model);
-                              data[data.keys.toList()[index]]!.removeAt(i);
-                              setState(() {});
+                              if (direction == DismissDirection.startToEnd) {
+                                ref
+                                    .read(tab3RepositoryProvider.notifier)
+                                    .deleteModel(model);
+                                data[data.keys.toList()[index]]!.removeAt(i);
+                                setState(() {});
+                              }
                             },
                             key: Key(model.uuid!),
                             child: InkWell(

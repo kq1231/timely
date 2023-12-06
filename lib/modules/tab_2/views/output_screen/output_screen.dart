@@ -55,12 +55,42 @@ class Tab2OutputScreen extends ConsumerWidget {
                             model.calculateEndTime(model.endTime);
                         return Dismissible(
                           background: Container(color: Colors.red),
+                          // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
+                          confirmDismiss: (direction) async {
+                            if (direction == DismissDirection.startToEnd) {
+                              return await showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: const Text("Delete"),
+                                        content: const Text(
+                                            'Are you sure you want to delete?'),
+                                        actions: [
+                                          IconButton.filledTonal(
+                                              icon: const Icon(Icons.done),
+                                              onPressed: () =>
+                                                  Navigator.pop(context, true)),
+                                          IconButton.filled(
+                                              icon: const Icon(Icons.dangerous),
+                                              onPressed: () => Navigator.pop(
+                                                  context, false)),
+                                        ],
+                                      );
+                                    },
+                                  ) ??
+                                  false;
+                            } else {
+                              return false;
+                            }
+                          },
                           onDismissed: (direction) {
-                            ref
-                                .read(tab2RepositoryProvider.notifier)
-                                .deleteModel(model);
-                            data.removeAt(i);
-                            setState(() {});
+                            if (direction == DismissDirection.startToEnd) {
+                              ref
+                                  .read(tab2RepositoryProvider.notifier)
+                                  .deleteModel(model);
+                              data.removeAt(i);
+                              setState(() {});
+                            }
                           },
                           key: Key(model
                               .uuid!), // ! is used when you are sure that the nullable field will never be null

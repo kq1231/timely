@@ -121,3 +121,8 @@
 - Delete entries in tab 2 -D
 - Complete CRUD in all the tabs
 **Inshaa Allah**
+
+---
+
+- Left -> Right swipe 
+- Confirmation dialog before deletion
