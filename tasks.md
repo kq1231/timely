@@ -142,3 +142,4 @@
 - Repeats never ko delete karke daily ko default karna hai -D
 - Keyboard resizing issue -D
 - Tab 3, 4 and 5 suffer from the text overflow issue. -D
+- Home screen issues

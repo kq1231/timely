@@ -96,34 +96,32 @@ class LaunchScreen extends ConsumerWidget {
                           const Divider(
                             height: 1,
                           ),
-                          ...List.generate(models.length, (i) {
-                            return Container(
-                              color:
-                                  LaunchScreenLayout.colors[models[i].priority],
-                              child: SizedBox(
-                                height: 40,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 70,
-                                      child: Center(
-                                        child: Text(
-                                            models[i].time.format(context),
-                                            style: LaunchScreenLayout
-                                                .tab3TextStyle),
-                                      ),
-                                    ),
-                                    Expanded(
+                          Container(
+                            color: LaunchScreenLayout
+                                .colors[models[index].priority],
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(minHeight: 50),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 70,
+                                    child: Center(
                                       child: Text(
-                                        models[i].text_1,
-                                        style: LaunchScreenLayout.tab3TextStyle,
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                          models[index].time.format(context),
+                                          style:
+                                              LaunchScreenLayout.tab3TextStyle),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      models[index].text_1,
+                                      style: LaunchScreenLayout.tab3TextStyle,
+                                    ),
+                                  )
+                                ],
                               ),
-                            );
-                          }),
+                            ),
+                          ),
                         ],
                       );
                     },
@@ -144,8 +142,8 @@ class LaunchScreen extends ConsumerWidget {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
-                            SizedBox(
-                              height: 40,
+                            ConstrainedBox(
+                              constraints: const BoxConstraints(minHeight: 50),
                               child: Container(
                                 color: LaunchScreenLayout
                                     .colors[data["tab_4"][index][0]],

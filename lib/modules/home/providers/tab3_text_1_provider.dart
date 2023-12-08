@@ -15,13 +15,14 @@ final tab3Text1Provider =
 
   Map<String, List<Tab3Model>> models = {};
 
-  // Get today's text_1
   for (String date in content.keys) {
     models[date] = [];
     for (Map modelData in content[date]) {
       models[date]!.add(Tab3Model.fromJson(date, modelData));
     }
   }
+
+  print(models);
 
   String dateToday = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
