@@ -16,7 +16,6 @@ class Tab5InputScreen extends ConsumerWidget {
 
     // List scores = [model.sScore, model.pScore, model.wScore];
     return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
       child: Column(
         children: [
           Text(
@@ -140,7 +139,8 @@ class Tab5InputScreen extends ConsumerWidget {
               Expanded(
                 child: TextFormField(
                   initialValue: provider.weight.toString(),
-                  keyboardType: TextInputType.number,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                   ),

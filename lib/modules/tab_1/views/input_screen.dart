@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_1/controllers/input_controller.dart';
@@ -8,96 +9,135 @@ class Tab1InputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(tab1InputProvider);
+    final provider = ref.watch(tab1InputProvider);
     final controller = ref.read(tab1InputProvider.notifier);
     List labels = Tab1InputLayout.labels;
 
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
-            decoration: BoxDecoration(border: Border.all(color: Colors.white)),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+          SizedBox(
+            width: 170,
+            height: 50,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7.0),
+                  ))),
+              onPressed: () async {
+                var dateSelected = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.parse(provider.date),
+                    firstDate: DateTime(0),
+                    lastDate: DateTime(
+                      DateTime.now().year + 50,
+                    ));
+                if (dateSelected != null) {
+                  controller.setDate(dateSelected);
+                }
+              },
               child: Text(
                 controller.getFormattedDate(),
-                style: timelyStyle,
               ),
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 10,
+          ),
+          const Divider(
+            height: 40,
           ),
           Row(children: [
-            const SizedBox(width: 10),
-            SizedBox(
-                width: 100,
-                child: Text(Tab1InputLayout.scoreNames[0], style: timelyStyle)),
+            const SizedBox(width: 30),
+            Text(
+              Tab1InputLayout.scoreNames[0],
+            ),
+            const SizedBox(
+              width: 70,
+            ),
             ...List.generate(
-              3,
+              1,
               (index) {
                 return Expanded(
-                  child: Column(
-                    children: [
-                      Radio<int>(
-                        value: state.fScore,
-                        groupValue: index,
-                        onChanged: (value) {
-                          controller.setFScore(index);
-                        },
-                      ),
-                      Text(labels[index])
-                    ],
+                  child: SizedBox(
+                    height: 180,
+                    child: CupertinoPicker(
+                      itemExtent: 80,
+                      scrollController: FixedExtentScrollController(
+                          initialItem: provider.fScore),
+                      onSelectedItemChanged: (index) {
+                        controller.setFScore(index);
+                      },
+                      children:
+                          labels.map((e) => Center(child: Text(e))).toList(),
+                    ),
                   ),
                 );
               },
             ),
           ]),
+          const Divider(
+            height: 40,
+          ),
           Row(children: [
-            const SizedBox(width: 10),
-            SizedBox(
-                width: 100,
-                child: Text(Tab1InputLayout.scoreNames[1], style: timelyStyle)),
+            const SizedBox(width: 30),
+            Text(
+              Tab1InputLayout.scoreNames[1],
+            ),
+            const SizedBox(
+              width: 70,
+            ),
             ...List.generate(
-              3,
+              1,
               (index) {
                 return Expanded(
-                  child: Column(
-                    children: [
-                      Radio<int>(
-                        value: state.mScore,
-                        groupValue: index,
-                        onChanged: (value) {
-                          controller.setMScore(index);
-                        },
-                      ),
-                      Text(labels[index])
-                    ],
+                  child: SizedBox(
+                    height: 180,
+                    child: CupertinoPicker(
+                      itemExtent: 80,
+                      scrollController: FixedExtentScrollController(
+                          initialItem: provider.mScore),
+                      onSelectedItemChanged: (index) {
+                        controller.setMScore(index);
+                      },
+                      children:
+                          labels.map((e) => Center(child: Text(e))).toList(),
+                    ),
                   ),
                 );
               },
             ),
           ]),
+          const Divider(
+            height: 40,
+          ),
           Row(children: [
-            const SizedBox(width: 10),
-            SizedBox(
-                width: 100,
-                child: Text(Tab1InputLayout.scoreNames[2], style: timelyStyle)),
+            const SizedBox(width: 30),
+            Text(
+              Tab1InputLayout.scoreNames[2],
+            ),
+            const SizedBox(
+              width: 70,
+            ),
             ...List.generate(
-              3,
+              1,
               (index) {
                 return Expanded(
-                  child: Column(
-                    children: [
-                      Radio<int>(
-                        value: state.sScore,
-                        groupValue: index,
-                        onChanged: (value) {
-                          controller.setSScore(index);
-                        },
-                      ),
-                      Text(labels[index])
-                    ],
+                  child: SizedBox(
+                    height: 180,
+                    child: CupertinoPicker(
+                      itemExtent: 80,
+                      scrollController: FixedExtentScrollController(
+                          initialItem: provider.sScore),
+                      onSelectedItemChanged: (index) {
+                        controller.setSScore(index);
+                      },
+                      children:
+                          labels.map((e) => Center(child: Text(e))).toList(),
+                    ),
                   ),
                 );
               },
@@ -106,21 +146,26 @@ class Tab1InputScreen extends ConsumerWidget {
           const SizedBox(
             height: 30,
           ),
+          const Divider(
+            height: 40,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text("Next Update Time", style: timelyStyle),
+              const Text(
+                "Next Update Time",
+              ),
               ElevatedButton(
                 onPressed: () async {
                   TimeOfDay? timeSelected = await showTimePicker(
-                      context: context, initialTime: state.nextUpdateTime);
+                      context: context, initialTime: provider.nextUpdateTime);
                   if (timeSelected != null) {
                     controller.setNextUpdateTime(timeSelected);
                   }
                 },
                 child: Column(
                   children: [
-                    Text(state.nextUpdateTime.format(context)),
+                    Text(provider.nextUpdateTime.format(context)),
                   ],
                 ),
               ),
@@ -133,12 +178,19 @@ class Tab1InputScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Expanded(
-                child: TextFormField(
-                  initialValue: state.text_1,
-                  onChanged: (text_1) {
-                    controller.setText_1(text_1);
-                  },
-                  textCapitalization: TextCapitalization.sentences,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: "Today's priority",
+                    ),
+                    initialValue: provider.text_1,
+                    onChanged: (text_1) {
+                      controller.setText_1(text_1);
+                    },
+                    textCapitalization: TextCapitalization.sentences,
+                  ),
                 ),
               )
             ],
@@ -168,6 +220,9 @@ class Tab1InputScreen extends ConsumerWidget {
               )
             ],
           ),
+          const SizedBox(
+            height: 50,
+          )
         ],
       ),
     );

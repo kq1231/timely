@@ -126,3 +126,19 @@
 
 - Left -> Right swipe 
 - Confirmation dialog before deletion
+
+---
+
+- Keyboard does not disappear after text has been entered -D
+- First letter is capital -D
+- Text is scrollable. Make it wrappable. -D
+- Make tab 1 date editable -D
+- Shrink the time cells of tab 2 output. -D
+- Improve tab 1 UI 
+    - Bold fonts should be replaced; default styling.  -D
+    - Replace the radio buttons with cupertino sliders -D
+    - Textbox is not user friendly. Add hint text "Today's priority" and border. Should not be full width. -D
+- Tab 5 decimal input not coming -D
+- Repeats never ko delete karke daily ko default karna hai 
+- Keyboard resizing issue
+- Tab 3, 4 and 5 suffer from the text overflow issue.

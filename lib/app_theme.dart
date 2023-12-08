@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Typograpy.general
-TextStyle timelyStyle =
-    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+TextStyle timelyStyle = const TextStyle(fontSize: 20);
 
 TextStyle h3TextStyle = const TextStyle(
   fontSize: 15,
@@ -207,10 +206,6 @@ class Tab2InputLayout {
     const DropdownMenuItem(
       value: "Monthly",
       child: Text("Monthly"),
-    ),
-    const DropdownMenuItem(
-      value: "Never",
-      child: Text("Never"),
     ),
   ];
   static List<DropdownMenuItem> endRepeatDropdownButtonItems = [

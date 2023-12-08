@@ -27,8 +27,8 @@ class Tab2OutputScreen extends ConsumerWidget {
                       height: 40,
                       child: Row(
                         children: [
-                          SizedBox(
-                            width: 130,
+                          Expanded(
+                            flex: 3,
                             child: Center(
                               child: Text("Activities"),
                             ),
@@ -109,8 +109,8 @@ class Tab2OutputScreen extends ConsumerWidget {
                                 ),
                               );
                             },
-                            child: SizedBox(
-                              height: 60,
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(minHeight: 60),
                               child: Container(
                                 decoration: const BoxDecoration(
                                   color: Colors.orangeAccent,
@@ -121,26 +121,20 @@ class Tab2OutputScreen extends ConsumerWidget {
                                 ),
                                 child: Row(
                                   children: [
-                                    SizedBox(
-                                      width: 130,
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0,
-                                          ),
-                                          child: Text(
-                                            model.name,
-                                            style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12),
-                                          ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0,
+                                        ),
+                                        child: Text(
+                                          model.name,
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
                                     ),
                                     Expanded(
                                       child: Center(

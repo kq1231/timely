@@ -10,6 +10,7 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
     return Tab2Model(
       basis: Basis.day,
       startDate: DateTime.now(),
+      frequency: "Daily",
       name: "",
       startTime: TimeOfDay.now(),
       dur: const Duration(hours: 0, minutes: 30),

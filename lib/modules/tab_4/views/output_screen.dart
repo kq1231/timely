@@ -84,8 +84,8 @@ class Tab4OutputScreen extends ConsumerWidget {
                             const Divider(
                               height: 2,
                             ),
-                            SizedBox(
-                              height: 40,
+                            ConstrainedBox(
+                              constraints: const BoxConstraints(minHeight: 50),
                               child: Container(
                                 color: Tab3OutputLayout
                                     .rowColors[data[index].priority],

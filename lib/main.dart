@@ -15,12 +15,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark(
-        useMaterial3: true,
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: MaterialApp(
+        theme: ThemeData.dark(
+          useMaterial3: true,
+        ),
+        themeMode: ThemeMode.dark,
+        home: const MyHomePage(),
       ),
-      themeMode: ThemeMode.dark,
-      home: const MyHomePage(),
     );
   }
 }
@@ -109,7 +117,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                     actions: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: IconButton.filledTonal(
+                        child: IconButton.outlined(
                             onPressed: () {}, icon: const Icon(Icons.settings)),
                       )
                     ],

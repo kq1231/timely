@@ -62,7 +62,7 @@ class Tab1OutputScreen extends ConsumerWidget {
                     ),
                     ...List.generate(data.length, (index) {
                       var time = TimeOfDay(
-                          hour: (data[index].nextUpdateTime.hour % 12) + 1,
+                          hour: (data[index].nextUpdateTime.hour % 12),
                           minute: data[index].nextUpdateTime.minute);
                       return Dismissible(
                         // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter

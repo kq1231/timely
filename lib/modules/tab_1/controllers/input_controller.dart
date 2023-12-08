@@ -52,6 +52,10 @@ class Tab1InputNotifier extends Notifier<FMSModel> {
   void setModel(FMSModel model) {
     state = model;
   }
+
+  void setDate(DateTime date) {
+    state = state.copyWith(date: date.toString().substring(0, 10));
+  }
 }
 
 final tab1InputProvider =

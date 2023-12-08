@@ -91,38 +91,43 @@ class Tab3OutputScreen extends ConsumerWidget {
                                   const Divider(
                                     height: 2,
                                   ),
-                                  Container(
-                                    height: 50,
-                                    color: Tab3OutputLayout
-                                        .rowColors[model.priority],
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 80,
-                                          child: Center(
-                                            child: Text(
-                                              DateFormat("dd-MMM").format(
-                                                  DateTime.parse(data.keys
-                                                      .toList()[index])),
-                                              style: Tab3OutputLayout.dateStyle,
+                                  ConstrainedBox(
+                                    constraints:
+                                        const BoxConstraints(minHeight: 50),
+                                    child: Container(
+                                      color: Tab3OutputLayout
+                                          .rowColors[model.priority],
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 80,
+                                            child: Center(
+                                              child: Text(
+                                                DateFormat("dd-MMM").format(
+                                                    DateTime.parse(data.keys
+                                                        .toList()[index])),
+                                                style:
+                                                    Tab3OutputLayout.dateStyle,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 80,
-                                          child: Center(
-                                            child: Text(
-                                              model.time!.format(context),
-                                              style: Tab3OutputLayout.timeStyle,
+                                          SizedBox(
+                                            width: 80,
+                                            child: Center(
+                                              child: Text(
+                                                model.time!.format(context),
+                                                style:
+                                                    Tab3OutputLayout.timeStyle,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Expanded(
-                                            child: Text(
-                                          model.text_1,
-                                          style: Tab3OutputLayout.text_1Style,
-                                        )),
-                                      ],
+                                          Expanded(
+                                              child: Text(
+                                            model.text_1,
+                                            style: Tab3OutputLayout.text_1Style,
+                                          )),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],

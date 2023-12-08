@@ -16,7 +16,6 @@ class Tab3InputScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             // Row of Radio buttons
@@ -100,14 +99,15 @@ class Tab3InputScreen extends ConsumerWidget {
 
             // Activity Comment/text_1
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: 50,
-                child: TextFormField(
-                  initialValue: provider.text_1,
-                  textCapitalization: TextCapitalization.sentences,
-                  onChanged: (value) => controller.setActivity(value),
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Priority",
                 ),
+                initialValue: provider.text_1,
+                textCapitalization: TextCapitalization.sentences,
+                onChanged: (value) => controller.setActivity(value),
               ),
             ),
 

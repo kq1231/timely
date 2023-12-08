@@ -59,8 +59,6 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
             "Repeats on ${provider.repetitions["Weekdays"].map((val) => sliderNames[1][val]).toList().join(", ")} every ${provider.every} weeks";
       case "Daily":
         repetitionSummary = "Repeats daily";
-      default:
-        repetitionSummary = "Never repeats";
     }
 
     return ListView(
@@ -70,7 +68,9 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: TextFormField(
+              textCapitalization: TextCapitalization.sentences,
               initialValue: provider.name,
+              autofocus: false,
               decoration: const InputDecoration(
                 hintText: "Activity",
                 border: OutlineInputBorder(
