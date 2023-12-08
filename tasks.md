@@ -139,6 +139,6 @@
     - Replace the radio buttons with cupertino sliders -D
     - Textbox is not user friendly. Add hint text "Today's priority" and border. Should not be full width. -D
 - Tab 5 decimal input not coming -D
-- Repeats never ko delete karke daily ko default karna hai 
-- Keyboard resizing issue
-- Tab 3, 4 and 5 suffer from the text overflow issue.
+- Repeats never ko delete karke daily ko default karna hai -D
+- Keyboard resizing issue -D
+- Tab 3, 4 and 5 suffer from the text overflow issue. -D
