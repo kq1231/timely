@@ -56,7 +56,7 @@ class Tab2OutputScreen extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    const Divider(
+                    const SizedBox(
                       height: 20,
                     ),
                     ...List.generate(
