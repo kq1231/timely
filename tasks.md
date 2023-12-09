@@ -152,9 +152,10 @@
 - Tab 2 input screen buttons are so large. Shrink them. -D
 - Tab 2 input screen redesign. -D
 - Tab 3
-    - Activity name should come after 
-    - Date should be floating on top 
-    - Time after the activity 
+    - Redesign -D
+    - Activity name should come after -D
+    - Date should be floating on top -D
+    - Time after the activity -D
 - Tab 5 
     - Input redesign 
     - Date choti hai 

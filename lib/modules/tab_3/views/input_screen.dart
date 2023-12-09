@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -20,89 +21,119 @@ class Tab3InputScreen extends ConsumerWidget {
           children: [
             // Row of Radio buttons
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ...List.generate(3, (index) {
-                  return Column(
+                Expanded(
+                  child: Column(
                     children: [
-                      Radio(
-                          value: provider.priority,
-                          groupValue: index,
-                          onChanged: (val) {
-                            controller.setPriority(index);
-                          }),
-                      const SizedBox(height: 10),
-                      Text(
-                        labels[index],
-                        style: Tab3InputLayout.labelsStyle,
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.indigo,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text("Priority"),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                        child: VerticalDivider(),
+                      ),
+                      SizedBox(
+                        height: 120,
+                        child: CupertinoPicker(
+                            itemExtent: 60,
+                            scrollController: FixedExtentScrollController(
+                                initialItem: provider.priority),
+                            onSelectedItemChanged: (index) {
+                              controller.setPriority(index);
+                            },
+                            children: labels
+                                .map((label) => Center(child: Text(label)))
+                                .toList()),
                       ),
                     ],
-                  );
-                })
-              ],
-            ),
-
-            // Space
-            const SizedBox(
-              height: 30,
-            ),
-
-            // Row for selecting date and time
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: () async {
-                    var dateSelected = await showDatePicker(
-                        context: context,
-                        initialDate: provider.date == null
-                            ? DateTime.now()
-                            : DateTime.parse(provider.date!),
-                        firstDate: DateTime(2017, 1, 1),
-                        lastDate: DateTime(DateTime.now().year + 2, 1, 1));
-                    if (dateSelected != null) {
-                      controller
-                          .setDate(dateSelected.toString().substring(0, 10));
-                    }
-                  },
-                  child: provider.date != null
-                      ? Text(DateFormat("dd-MMM")
-                          .format(DateTime.parse(provider.date!)))
-                      : Text(
-                          Tab3InputLayout.dateButtonText,
-                          style: Tab3InputLayout.dateButtonStyle,
-                        ),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    var timeSelected = await showTimePicker(
-                        context: context,
-                        initialTime: provider.time ?? TimeOfDay.now());
-                    if (timeSelected != null) {
-                      controller.setTime(timeSelected);
-                    }
-                  },
-                  child: provider.time != null
-                      ? Text(provider.time!.format(context))
-                      : Text(
-                          Tab3InputLayout.timeButtonText,
-                          style: Tab3InputLayout.timeButtonStyle,
+                Expanded(
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue[800],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
-                )
+                        onPressed: () async {
+                          var dateSelected = await showDatePicker(
+                              context: context,
+                              initialDate: provider.date == null
+                                  ? DateTime.now()
+                                  : DateTime.parse(provider.date!),
+                              firstDate: DateTime(2017, 1, 1),
+                              lastDate:
+                                  DateTime(DateTime.now().year + 2, 1, 1));
+                          if (dateSelected != null) {
+                            controller.setDate(
+                                dateSelected.toString().substring(0, 10));
+                          }
+                        },
+                        child: provider.date != null
+                            ? Text(DateFormat("dd-MMM")
+                                .format(DateTime.parse(provider.date!)))
+                            : Text(
+                                Tab3InputLayout.dateButtonText,
+                                style: Tab3InputLayout.dateButtonStyle,
+                              ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue[800],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        onPressed: () async {
+                          var timeSelected = await showTimePicker(
+                              context: context,
+                              initialTime: provider.time ?? TimeOfDay.now());
+                          if (timeSelected != null) {
+                            controller.setTime(timeSelected);
+                          }
+                        },
+                        child: provider.time != null
+                            ? Text(provider.time!.format(context))
+                            : Text(
+                                Tab3InputLayout.timeButtonText,
+                                style: Tab3InputLayout.timeButtonStyle,
+                              ),
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
 
-            // Space
-            const SizedBox(
-              height: 30,
+            const Divider(
+              height: 40,
             ),
 
             // Activity Comment/text_1
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   hintText: "Priority",
                 ),
                 initialValue: provider.text_1,
@@ -121,6 +152,12 @@ class Tab3InputScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red[800],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                   child: Text(
                     Tab3InputLayout.cancelButtonText,
                     style: Tab3InputLayout.cancelButtonStyle,
@@ -130,6 +167,12 @@ class Tab3InputScreen extends ConsumerWidget {
                   },
                 ),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.indigo[500],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                   child: Text(
                     Tab3InputLayout.submitButtonText,
                     style: Tab3InputLayout.submitButtonStyle,

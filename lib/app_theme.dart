@@ -99,7 +99,7 @@ class Tab1InputLayout {
 
 class Tab3InputLayout {
   static List labels = ["High", "Medium", "Low"];
-  static String dateButtonText = "Select Date";
+  static String dateButtonText = "Date";
   static String timeButtonText = "Time";
   static String cancelButtonText = "Cancel";
   static String submitButtonText = "Submit";

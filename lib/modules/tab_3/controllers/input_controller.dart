@@ -9,7 +9,7 @@ import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
 class Tab3InputNotifier extends Notifier<Tab3Model> {
   @override
   Tab3Model build() {
-    return Tab3Model(text_1: "", priority: 0);
+    return Tab3Model(text_1: "", priority: 1);
   }
 
   setActivity(String activity) {

@@ -28,111 +28,129 @@ class Tab3OutputScreen extends ConsumerWidget {
                         itemBuilder: (context, i) {
                           Tab3Model model = data[data.keys.toList()[index]]![i];
                           // Row of time and text_1
-                          return Dismissible(
-                            // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
-                            confirmDismiss: (direction) async {
-                              if (direction == DismissDirection.startToEnd) {
-                                return await showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text("Delete"),
-                                          content: const Text(
-                                              'Are you sure you want to delete?'),
-                                          actions: [
-                                            IconButton.filledTonal(
-                                                icon: const Icon(Icons.done),
-                                                onPressed: () => Navigator.pop(
-                                                    context, true)),
-                                            IconButton.filled(
-                                                icon:
-                                                    const Icon(Icons.dangerous),
-                                                onPressed: () => Navigator.pop(
-                                                    context, false)),
-                                          ],
-                                        );
-                                      },
-                                    ) ??
-                                    false;
-                              } else {
-                                return false;
-                              }
-                            },
-                            background: Container(color: Colors.red),
-                            onDismissed: (direction) {
-                              if (direction == DismissDirection.startToEnd) {
-                                ref
-                                    .read(tab3RepositoryProvider.notifier)
-                                    .deleteModel(model);
-                                data[data.keys.toList()[index]]!.removeAt(i);
-                                setState(() {});
-                              }
-                            },
-                            key: Key(model.uuid!),
-                            child: InkWell(
-                              onTap: () {
-                                ref
-                                    .read(tab3InputProvider.notifier)
-                                    .setModel(model);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return Scaffold(
-                                        appBar: AppBar(),
-                                        body: const Tab3InputScreen(),
-                                      );
-                                    },
+                          return Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.indigo,
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                );
-                              },
-                              child: Column(
-                                children: [
-                                  const Divider(
-                                    height: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(model.date!),
                                   ),
-                                  ConstrainedBox(
-                                    constraints:
-                                        const BoxConstraints(minHeight: 50),
-                                    child: Container(
-                                      color: Tab3OutputLayout
-                                          .rowColors[model.priority],
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 80,
-                                            child: Center(
-                                              child: Text(
-                                                DateFormat("dd-MMM").format(
-                                                    DateTime.parse(data.keys
-                                                        .toList()[index])),
-                                                style:
-                                                    Tab3OutputLayout.dateStyle,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 80,
-                                            child: Center(
-                                              child: Text(
-                                                model.time!.format(context),
-                                                style:
-                                                    Tab3OutputLayout.timeStyle,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                              child: Text(
-                                            model.text_1,
-                                            style: Tab3OutputLayout.text_1Style,
-                                          )),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
+                              Dismissible(
+                                // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
+                                confirmDismiss: (direction) async {
+                                  if (direction ==
+                                      DismissDirection.startToEnd) {
+                                    return await showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text("Delete"),
+                                              content: const Text(
+                                                  'Are you sure you want to delete?'),
+                                              actions: [
+                                                IconButton.filledTonal(
+                                                    icon:
+                                                        const Icon(Icons.done),
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            context, true)),
+                                                IconButton.filled(
+                                                    icon: const Icon(
+                                                        Icons.dangerous),
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            context, false)),
+                                              ],
+                                            );
+                                          },
+                                        ) ??
+                                        false;
+                                  } else {
+                                    return false;
+                                  }
+                                },
+                                background: Container(color: Colors.red),
+                                onDismissed: (direction) {
+                                  if (direction ==
+                                      DismissDirection.startToEnd) {
+                                    ref
+                                        .read(tab3RepositoryProvider.notifier)
+                                        .deleteModel(model);
+                                    data[data.keys.toList()[index]]!
+                                        .removeAt(i);
+                                    setState(() {});
+                                  }
+                                },
+                                key: Key(model.uuid!),
+                                child: InkWell(
+                                  onTap: () {
+                                    ref
+                                        .read(tab3InputProvider.notifier)
+                                        .setModel(model);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return Scaffold(
+                                            appBar: AppBar(),
+                                            body: const Tab3InputScreen(),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  child: Column(
+                                    children: [
+                                      const Divider(
+                                        height: 2,
+                                      ),
+                                      ConstrainedBox(
+                                        constraints:
+                                            const BoxConstraints(minHeight: 50),
+                                        child: Container(
+                                          color: Tab3OutputLayout
+                                              .rowColors[model.priority],
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    model.text_1,
+                                                    style: Tab3OutputLayout
+                                                        .text_1Style,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 80,
+                                                child: Center(
+                                                  child: Text(
+                                                    model.time!.format(context),
+                                                    style: Tab3OutputLayout
+                                                        .timeStyle,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           );
                         },
                         itemCount: data[data.keys.toList()[index]]!.length,

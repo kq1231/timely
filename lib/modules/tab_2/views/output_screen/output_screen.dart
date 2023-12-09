@@ -57,7 +57,7 @@ class Tab2OutputScreen extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 1,
                     ),
                     ...List.generate(
                       data.length,
@@ -109,10 +109,9 @@ class Tab2OutputScreen extends ConsumerWidget {
                             constraints: const BoxConstraints(minHeight: 60),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 1, horizontal: 2),
+                                  vertical: 1, horizontal: 1),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
                                   color: Colors.indigo[700],
                                 ),
                                 child: InkWell(
