@@ -21,7 +21,7 @@ class Tab1InputScreen extends ConsumerWidget {
             height: 50,
             child: ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
+                  backgroundColor: MaterialStateProperty.all(Colors.blue[600]),
                   foregroundColor: MaterialStateProperty.all(Colors.white),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
@@ -44,28 +44,30 @@ class Tab1InputScreen extends ConsumerWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
           const Divider(
             height: 40,
           ),
           Row(children: [
-            const SizedBox(width: 30),
-            Text(
-              Tab1InputLayout.scoreNames[0],
-            ),
-            const SizedBox(
-              width: 70,
-            ),
-            ...List.generate(
-              1,
-              (index) {
-                return Expanded(
-                  child: SizedBox(
-                    height: 180,
+            Expanded(
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.blue[900],
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(Tab1InputLayout.scoreNames[0]),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                    child: VerticalDivider(),
+                  ),
+                  SizedBox(
+                    height: 120,
                     child: CupertinoPicker(
-                      itemExtent: 80,
+                      itemExtent: 50,
                       scrollController: FixedExtentScrollController(
                           initialItem: provider.fScore),
                       onSelectedItemChanged: (index) {
@@ -75,29 +77,66 @@ class Tab1InputScreen extends ConsumerWidget {
                           labels.map((e) => Center(child: Text(e))).toList(),
                     ),
                   ),
-                );
-              },
+                ],
+              ),
             ),
-          ]),
-          const Divider(
-            height: 40,
-          ),
-          Row(children: [
-            const SizedBox(width: 30),
-            Text(
-              Tab1InputLayout.scoreNames[1],
+            Expanded(
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.blue[900],
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(Tab1InputLayout.scoreNames[1]),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                    child: VerticalDivider(),
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 120,
+                        child: CupertinoPicker(
+                          itemExtent: 50,
+                          scrollController: FixedExtentScrollController(
+                              initialItem: provider.mScore),
+                          onSelectedItemChanged: (index) {
+                            controller.setMScore(index);
+                          },
+                          children: labels
+                              .map((e) => Center(child: Text(e)))
+                              .toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(
-              width: 70,
-            ),
-            ...List.generate(
-              1,
-              (index) {
-                return Expanded(
-                  child: SizedBox(
-                    height: 180,
+            Expanded(
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.blue[900],
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(Tab1InputLayout.scoreNames[2]),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                    child: VerticalDivider(),
+                  ),
+                  SizedBox(
+                    height: 120,
                     child: CupertinoPicker(
-                      itemExtent: 80,
+                      itemExtent: 50,
                       scrollController: FixedExtentScrollController(
                           initialItem: provider.mScore),
                       onSelectedItemChanged: (index) {
@@ -107,45 +146,10 @@ class Tab1InputScreen extends ConsumerWidget {
                           labels.map((e) => Center(child: Text(e))).toList(),
                     ),
                   ),
-                );
-              },
-            ),
+                ],
+              ),
+            )
           ]),
-          const Divider(
-            height: 40,
-          ),
-          Row(children: [
-            const SizedBox(width: 30),
-            Text(
-              Tab1InputLayout.scoreNames[2],
-            ),
-            const SizedBox(
-              width: 70,
-            ),
-            ...List.generate(
-              1,
-              (index) {
-                return Expanded(
-                  child: SizedBox(
-                    height: 180,
-                    child: CupertinoPicker(
-                      itemExtent: 80,
-                      scrollController: FixedExtentScrollController(
-                          initialItem: provider.sScore),
-                      onSelectedItemChanged: (index) {
-                        controller.setSScore(index);
-                      },
-                      children:
-                          labels.map((e) => Center(child: Text(e))).toList(),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ]),
-          const SizedBox(
-            height: 30,
-          ),
           const Divider(
             height: 40,
           ),
@@ -156,6 +160,10 @@ class Tab1InputScreen extends ConsumerWidget {
                 "Next Update Time",
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.indigo[900],
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)))),
                 onPressed: () async {
                   TimeOfDay? timeSelected = await showTimePicker(
                       context: context, initialTime: provider.nextUpdateTime);
@@ -165,7 +173,10 @@ class Tab1InputScreen extends ConsumerWidget {
                 },
                 child: Column(
                   children: [
-                    Text(provider.nextUpdateTime.format(context)),
+                    Text(
+                      provider.nextUpdateTime.format(context),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
               ),
@@ -179,10 +190,16 @@ class Tab1InputScreen extends ConsumerWidget {
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      filled: true,
                       hintText: "Today's priority",
                     ),
                     initialValue: provider.text_1,
@@ -200,11 +217,23 @@ class Tab1InputScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red[800],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                   child: const Text("Cancel"),
                   onPressed: () {
                     Navigator.of(context).pop();
                   }),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.indigo[500],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
                 child: const Text("Submit"),
                 onPressed: () {
                   controller.syncToDB();
@@ -221,7 +250,7 @@ class Tab1InputScreen extends ConsumerWidget {
             ],
           ),
           const SizedBox(
-            height: 50,
+            height: 30,
           )
         ],
       ),

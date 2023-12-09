@@ -143,3 +143,19 @@
 - Keyboard resizing issue -D
 - Tab 3, 4 and 5 suffer from the text overflow issue. -D
 - Home screen issues
+
+---
+
+- Tab 1 input screen UI redesign -D
+- Tab 1 input FAB does not refresh provider -D
+- Keyboard focus problem 
+- Tab 2 input screen buttons are so large. Shrink them. 
+- Tab 2 input screen redesign. 
+- Tab 3
+    - Activity name should come after 
+    - Date should be floating on top 
+    - Time after the activity 
+- Tab 5 
+    - Input redesign 
+    - Date choti hai 
+    - Text default styling 

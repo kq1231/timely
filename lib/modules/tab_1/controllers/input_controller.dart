@@ -11,9 +11,9 @@ class Tab1InputNotifier extends Notifier<FMSModel> {
   FMSModel build() {
     return FMSModel(
       date: DateTime.now().toString().substring(0, 10),
-      fScore: 0,
-      mScore: 0,
-      sScore: 0,
+      fScore: 1,
+      mScore: 1,
+      sScore: 1,
       nextUpdateTime: TimeOfDay(hour: TimeOfDay.now().hour + 1, minute: 0),
       text_1: "",
     );
