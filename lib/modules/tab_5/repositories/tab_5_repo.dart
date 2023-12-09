@@ -50,7 +50,6 @@ class Tab5RepositoryNotifier extends Notifier<AsyncValue<void>> {
     Map jsonContent = jsonDecode(await tab5File.readAsString());
 
     jsonContent.removeWhere((key, value) {
-      print(key + model.date);
       return key == model.date;
     });
 

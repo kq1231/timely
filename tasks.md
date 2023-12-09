@@ -149,8 +149,8 @@
 - Tab 1 input screen UI redesign -D
 - Tab 1 input FAB does not refresh provider -D
 - Keyboard focus problem 
-- Tab 2 input screen buttons are so large. Shrink them. 
-- Tab 2 input screen redesign. 
+- Tab 2 input screen buttons are so large. Shrink them. -D
+- Tab 2 input screen redesign. -D
 - Tab 3
     - Activity name should come after 
     - Date should be floating on top 

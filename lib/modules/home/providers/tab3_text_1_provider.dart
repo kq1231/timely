@@ -22,8 +22,6 @@ final tab3Text1Provider =
     }
   }
 
-  print(models);
-
   String dateToday = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
   if (models.keys.contains(dateToday)) {

@@ -23,29 +23,41 @@ class Tab2OutputScreen extends ConsumerWidget {
               StatefulBuilder(builder: ((context, setState) {
                 return ListView(
                   children: [
-                    const SizedBox(
-                      height: 40,
+                    SizedBox(
+                      height: 50,
                       child: Row(
                         children: [
                           Expanded(
                             flex: 3,
-                            child: Center(
-                              child: Text("Activities"),
+                            child: Container(
+                                color: Colors.indigo[300],
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Center(child: Text("Activities")),
+                                )),
+                          ),
+                          Expanded(
+                            child: Container(
+                              color: Colors.indigo[400],
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Center(child: Text("Start")),
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          VerticalDivider(
-                            width: 2,
-                          ),
-                          Expanded(child: Center(child: Text("Start"))),
-                          VerticalDivider(
-                            width: 2,
-                          ),
-                          Expanded(child: Center(child: Text("End")))
+                          Expanded(
+                            child: Container(
+                                color: Colors.indigo[500],
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Center(child: Text("End")),
+                                )),
+                          )
                         ],
                       ),
+                    ),
+                    const Divider(
+                      height: 20,
                     ),
                     ...List.generate(
                       data.length,
@@ -93,82 +105,77 @@ class Tab2OutputScreen extends ConsumerWidget {
                           },
                           key: Key(model
                               .uuid!), // ! is used when you are sure that the nullable field will never be null
-                          child: InkWell(
-                            onTap: () {
-                              ref
-                                  .read(tab2InputProvider.notifier)
-                                  .setModel(model);
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return Scaffold(
-                                      body: const Tab2InputScreen(),
-                                      appBar: AppBar(),
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(minHeight: 60),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 1, horizontal: 2),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: Colors.indigo[700],
+                                ),
+                                child: InkWell(
+                                  onTap: () {
+                                    ref
+                                        .read(tab2InputProvider.notifier)
+                                        .setModel(model);
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return Scaffold(
+                                            body: const Tab2InputScreen(),
+                                            appBar: AppBar(),
+                                          );
+                                        },
+                                      ),
                                     );
                                   },
-                                ),
-                              );
-                            },
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(minHeight: 60),
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  color: Colors.orangeAccent,
-                                  border: Border.symmetric(
-                                    horizontal: BorderSide(
-                                        width: 0.7, color: Colors.black),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0,
+                                          ),
+                                          child: Text(
+                                            model.name,
+                                            style:
+                                                const TextStyle(fontSize: 12),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            DateFormat("h:mm a").format(
+                                              DateTime(
+                                                  0,
+                                                  0,
+                                                  0,
+                                                  model.startTime.hour,
+                                                  model.startTime.minute),
+                                            ),
+                                            style:
+                                                const TextStyle(fontSize: 12),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            DateFormat("h:mm a").format(
+                                              DateTime(0, 0, 0, endTime[0],
+                                                  endTime[1]),
+                                            ),
+                                            style:
+                                                const TextStyle(fontSize: 12),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 3,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0,
-                                        ),
-                                        child: Text(
-                                          model.name,
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          DateFormat("h:mm a").format(
-                                            DateTime(
-                                                0,
-                                                0,
-                                                0,
-                                                model.startTime.hour,
-                                                model.startTime.minute),
-                                          ),
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          DateFormat("h:mm a").format(
-                                            DateTime(0, 0, 0, endTime[0],
-                                                endTime[1]),
-                                          ),
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
                                 ),
                               ),
                             ),

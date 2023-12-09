@@ -77,86 +77,89 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),
+                  borderSide: BorderSide.none,
                 ),
+                filled: true,
               ),
               onChanged: (name) => controller.setName(name),
             ),
           ),
         ),
-        const SizedBox(
-          height: 30,
-        ),
-        const Divider(),
+        const Divider(height: 30),
         Column(
           children: [
-            const SizedBox(
-              height: 50,
-            ),
             // Repeat button
             Row(
               children: [
                 const SizedBox(
-                  width: 20,
+                  width: 40,
                 ),
                 const Center(
                   child: Text(
                     "Time",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
                   ),
                 ),
                 Expanded(
                   child: Container(),
                 ),
                 Center(
-                  child: SizedBox(
-                    width: 200,
-                    height: 60,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        TimeOfDay? timeSelected = await showTimePicker(
-                            context: context, initialTime: provider.startTime);
-                        timeSelected != null
-                            ? controller.setStartTime(timeSelected)
-                            : null;
-                      },
-                      child: Text(
-                        provider.startTime.toString().substring(10, 15),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.indigo[900],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
+                    ),
+                    onPressed: () async {
+                      TimeOfDay? timeSelected = await showTimePicker(
+                          context: context, initialTime: provider.startTime);
+                      timeSelected != null
+                          ? controller.setStartTime(timeSelected)
+                          : null;
+                    },
+                    child: Text(
+                      provider.startTime.toString().substring(10, 15),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
                 const SizedBox(
-                  width: 20,
+                  width: 40,
                 ),
               ],
             ),
-            const SizedBox(
-              height: 50,
-            ),
-            const Divider(),
+            const Divider(height: 30),
             // End repeat
             const SizedBox(
               height: 10,
             ),
-            const Center(
-              child: Text(
-                "Duration",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+            Center(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.blue[700],
+                    borderRadius: BorderRadius.circular(8)),
+                child: const Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text(
+                    "Duration",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 20,
+              child: VerticalDivider(),
             ),
             Row(
               children: [
                 Expanded(
                   child: SizedBox(
-                    height: 150,
+                    height: 120,
                     child: CupertinoPicker(
-                      itemExtent: 70,
+                      itemExtent: 50,
                       magnification: 1.2,
                       scrollController: FixedExtentScrollController(
                         initialItem: provider.dur.inHours,
@@ -182,9 +185,9 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                 ),
                 Expanded(
                   child: SizedBox(
-                    height: 150,
+                    height: 120,
                     child: CupertinoPicker(
-                      itemExtent: 70,
+                      itemExtent: 50,
                       magnification: 1.2,
                       scrollController: FixedExtentScrollController(
                         initialItem: provider.dur.inMinutes % 60,
@@ -210,41 +213,41 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 50,
+            const Divider(
+              height: 30,
             ),
             Row(
               children: [
                 const SizedBox(
-                  width: 20,
+                  width: 40,
                 ),
                 const Text(
                   "Repeats",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(),
                 ),
                 Expanded(child: Container()),
-                SizedBox(
-                  width: 200,
-                  height: 60,
-                  child: FilledButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (context) {
-                              return const RepeatsPage();
-                            });
-                      },
-                      child: Text(
-                        provider.frequency ?? "Never",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 13),
-                      )),
-                ),
+                FilledButton(
+                    style: FilledButton.styleFrom(
+                        backgroundColor: Colors.blue[900],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        )),
+                    onPressed: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return const RepeatsPage();
+                          });
+                    },
+                    child: Text(
+                      provider.frequency ?? "Never",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                          color: Colors.white),
+                    )),
                 const SizedBox(
-                  width: 20,
+                  width: 40,
                 ),
               ],
             ),
@@ -252,49 +255,65 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
             const SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text(repetitionSummary),
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.indigo,
+                            borderRadius: BorderRadius.circular(7)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            repetitionSummary,
+                          ),
+                        )),
+                  ),
+                ),
+              ],
             ),
-            const Divider(),
-            const SizedBox(
-              height: 50,
+            const Divider(
+              height: 30,
             ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(
-                  width: 160,
-                  height: 60,
-                  child: ElevatedButton(
-                    child: const Text("Cancel"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red[800],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
+                  child: const Text("Cancel"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
-                SizedBox(
-                  width: 160,
-                  height: 60,
-                  child: ElevatedButton(
-                    child: const Text("Submit"),
-                    onPressed: () {
-                      if (provider.name.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content:
-                                    Text("Do not leave activity text blank!")));
-                      } else {
-                        if (provider.uuid == null) {
-                          controller.syncToDB();
-                        } else {
-                          controller.syncEditedModel();
-                        }
-                        Navigator.pop(context);
-                      }
-                    },
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.indigo[500],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
+                  child: const Text("Submit"),
+                  onPressed: () {
+                    if (provider.name.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Do not leave activity text blank!")));
+                    } else {
+                      if (provider.uuid == null) {
+                        controller.syncToDB();
+                      } else {
+                        controller.syncEditedModel();
+                      }
+                      Navigator.pop(context);
+                    }
+                  },
                 )
               ],
             ),
