@@ -6,7 +6,9 @@ import 'package:timely/app_theme.dart';
 import 'package:timely/modules/tab_3/controllers/input_controller.dart';
 
 class Tab3InputScreen extends ConsumerWidget {
-  const Tab3InputScreen({super.key});
+  final bool? removeDateAndTime;
+
+  const Tab3InputScreen({super.key, this.removeDateAndTime});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,19 +29,12 @@ class Tab3InputScreen extends ConsumerWidget {
                 Expanded(
                   child: Column(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.indigo,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Text("Priority"),
-                        ),
+                      const Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text("Priority"),
                       ),
                       const SizedBox(
                         height: 20,
-                        child: VerticalDivider(),
                       ),
                       SizedBox(
                         height: 120,
@@ -57,71 +52,83 @@ class Tab3InputScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue[800],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        onPressed: () async {
-                          var dateSelected = await showDatePicker(
-                              context: context,
-                              initialDate: provider.date == null
-                                  ? DateTime.now()
-                                  : DateTime.parse(provider.date!),
-                              firstDate: DateTime(2017, 1, 1),
-                              lastDate:
-                                  DateTime(DateTime.now().year + 2, 1, 1));
-                          if (dateSelected != null) {
-                            controller.setDate(
-                                dateSelected.toString().substring(0, 10));
-                          }
-                        },
-                        child: provider.date != null
-                            ? Text(DateFormat("dd-MMM")
-                                .format(DateTime.parse(provider.date!)))
-                            : Text(
-                                Tab3InputLayout.dateButtonText,
-                                style: Tab3InputLayout.dateButtonStyle,
+                (removeDateAndTime != null && removeDateAndTime == true)
+                    ? Container()
+                    : Expanded(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 50,
+                              width: 150,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue[800],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  var dateSelected = await showDatePicker(
+                                      context: context,
+                                      initialDate: provider.date == null
+                                          ? DateTime.now()
+                                          : DateTime.parse(provider.date!),
+                                      firstDate: DateTime(2017, 1, 1),
+                                      lastDate: DateTime(
+                                          DateTime.now().year + 2, 1, 1));
+                                  if (dateSelected != null) {
+                                    controller.setDate(dateSelected
+                                        .toString()
+                                        .substring(0, 10));
+                                  }
+                                },
+                                child: provider.date != null
+                                    ? Text(DateFormat("dd-MMM")
+                                        .format(DateTime.parse(provider.date!)))
+                                    : Text(
+                                        Tab3InputLayout.dateButtonText,
+                                        style: Tab3InputLayout.dateButtonStyle,
+                                      ),
                               ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue[800],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        onPressed: () async {
-                          var timeSelected = await showTimePicker(
-                              context: context,
-                              initialTime: provider.time ?? TimeOfDay.now());
-                          if (timeSelected != null) {
-                            controller.setTime(timeSelected);
-                          }
-                        },
-                        child: provider.time != null
-                            ? Text(provider.time!.format(context))
-                            : Text(
-                                Tab3InputLayout.timeButtonText,
-                                style: Tab3InputLayout.timeButtonStyle,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              height: 50,
+                              width: 150,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue[800],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  var timeSelected = await showTimePicker(
+                                      context: context,
+                                      initialTime:
+                                          provider.time ?? TimeOfDay.now());
+                                  if (timeSelected != null) {
+                                    controller.setTime(timeSelected);
+                                  }
+                                },
+                                child: provider.time != null
+                                    ? Text(provider.time!.format(context))
+                                    : Text(
+                                        Tab3InputLayout.timeButtonText,
+                                        style: Tab3InputLayout.timeButtonStyle,
+                                      ),
                               ),
-                      )
-                    ],
-                  ),
-                ),
+                            )
+                          ],
+                        ),
+                      ),
               ],
             ),
 
             const Divider(
-              height: 40,
+              height: 120,
             ),
 
             // Activity Comment/text_1
@@ -144,7 +151,7 @@ class Tab3InputScreen extends ConsumerWidget {
 
             // Space
             const SizedBox(
-              height: 30,
+              height: 50,
             ),
 
             // Submit Button and Cancel Button

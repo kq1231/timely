@@ -72,7 +72,9 @@ class Tab4OutputScreen extends ConsumerWidget {
                             MaterialPageRoute(
                               builder: (context) {
                                 return Scaffold(
-                                  body: const Tab3InputScreen(),
+                                  body: const Tab3InputScreen(
+                                    removeDateAndTime: true,
+                                  ),
                                   appBar: AppBar(),
                                 );
                               },
@@ -142,7 +144,9 @@ class Tab4OutputScreen extends ConsumerWidget {
                             MaterialPageRoute(
                               builder: (context) {
                                 return Scaffold(
-                                  body: const Tab3InputScreen(),
+                                  body: const Tab3InputScreen(
+                                    removeDateAndTime: true,
+                                  ),
                                   appBar: AppBar(),
                                 );
                               },

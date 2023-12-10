@@ -15,6 +15,7 @@ class Tab1InputScreen extends ConsumerWidget {
 
     return SingleChildScrollView(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
             width: 170,
@@ -45,113 +46,113 @@ class Tab1InputScreen extends ConsumerWidget {
             ),
           ),
           const Divider(
-            height: 40,
+            height: 80,
           ),
           Row(children: [
             Expanded(
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.blue[900],
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(Tab1InputLayout.scoreNames[0]),
+              child: Container(
+                color: Colors.indigo[800],
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                    child: VerticalDivider(),
-                  ),
-                  SizedBox(
-                    height: 120,
-                    child: CupertinoPicker(
-                      itemExtent: 50,
-                      scrollController: FixedExtentScrollController(
-                          initialItem: provider.fScore),
-                      onSelectedItemChanged: (index) {
-                        controller.setFScore(index);
-                      },
-                      children:
-                          labels.map((e) => Center(child: Text(e))).toList(),
+                    Text(Tab1InputLayout.scoreNames[0]),
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.blue[900],
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(Tab1InputLayout.scoreNames[1]),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                    child: VerticalDivider(),
-                  ),
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: 120,
-                        child: CupertinoPicker(
-                          itemExtent: 50,
-                          scrollController: FixedExtentScrollController(
-                              initialItem: provider.mScore),
-                          onSelectedItemChanged: (index) {
-                            controller.setMScore(index);
-                          },
-                          children: labels
-                              .map((e) => Center(child: Text(e)))
-                              .toList(),
+                    SizedBox(
+                      height: 120,
+                      child: CupertinoPicker(
+                        selectionOverlay: Container(
+                          color: const Color.fromARGB(78, 33, 149, 243),
                         ),
+                        itemExtent: 50,
+                        scrollController: FixedExtentScrollController(
+                            initialItem: provider.fScore),
+                        onSelectedItemChanged: (index) {
+                          controller.setFScore(index);
+                        },
+                        children:
+                            labels.map((e) => Center(child: Text(e))).toList(),
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.blue[900],
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(Tab1InputLayout.scoreNames[2]),
+              child: Container(
+                color: Colors.indigo[600],
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                    child: VerticalDivider(),
-                  ),
-                  SizedBox(
-                    height: 120,
-                    child: CupertinoPicker(
-                      itemExtent: 50,
-                      scrollController: FixedExtentScrollController(
-                          initialItem: provider.mScore),
-                      onSelectedItemChanged: (index) {
-                        controller.setMScore(index);
-                      },
-                      children:
-                          labels.map((e) => Center(child: Text(e))).toList(),
+                    Text(Tab1InputLayout.scoreNames[1]),
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
-                ],
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: 120,
+                          child: CupertinoPicker(
+                            itemExtent: 50,
+                            selectionOverlay: Container(
+                              color: const Color.fromARGB(78, 33, 149, 243),
+                            ),
+                            scrollController: FixedExtentScrollController(
+                                initialItem: provider.mScore),
+                            onSelectedItemChanged: (index) {
+                              controller.setMScore(index);
+                            },
+                            children: labels
+                                .map((e) => Center(child: Text(e)))
+                                .toList(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                color: Colors.indigo[800],
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(Tab1InputLayout.scoreNames[2]),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      height: 120,
+                      child: CupertinoPicker(
+                        itemExtent: 50,
+                        selectionOverlay: Container(
+                          color: const Color.fromARGB(78, 33, 149, 243),
+                        ),
+                        scrollController: FixedExtentScrollController(
+                            initialItem: provider.mScore),
+                        onSelectedItemChanged: (index) {
+                          controller.setMScore(index);
+                        },
+                        children:
+                            labels.map((e) => Center(child: Text(e))).toList(),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
           ]),
           const Divider(
-            height: 40,
+            height: 80,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

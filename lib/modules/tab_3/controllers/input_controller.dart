@@ -9,7 +9,11 @@ import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
 class Tab3InputNotifier extends Notifier<Tab3Model> {
   @override
   Tab3Model build() {
-    return Tab3Model(text_1: "", priority: 1);
+    return Tab3Model(
+        text_1: "",
+        priority: 1,
+        time: TimeOfDay.now(),
+        date: DateTime.now().toString().substring(0, 10));
   }
 
   setActivity(String activity) {
@@ -32,7 +36,7 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
     state.uuid != null
         ? (state.date == null || state.time == null)
             ? await ref.read(tab4RepositoryProvider.notifier).editModel(state)
-            : ref.read(tab3RepositoryProvider.notifier).editModel(state)
+            : await ref.read(tab3RepositoryProvider.notifier).editModel(state)
         : await ref.read(tab3RepositoryProvider.notifier).writeTab3Model(state);
     ref.invalidate(tab3OutputProvider);
     ref.invalidate(tab4OutputProvider);

@@ -160,3 +160,22 @@
     - Input redesign 
     - Date choti hai 
     - Text default styling 
+
+---
+
+- Tab 1 Input Screen 
+    - Increase spacings between -D
+    - Instead of vertical lines, use alternate colours -D
+
+- Tab 2 Input Screen 
+    - Repeats description should be italicized -D
+    - Duration should be simple -D
+
+- Tab 3 
+    - Date should not be like a bouton -D
+    - Date and time should be mandatory -D
+    - Bug fix -D
+
+- Tab 6 & 7 
+    - No duration 
+    - No end time

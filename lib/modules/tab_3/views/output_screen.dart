@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/modules/tab_3/controllers/input_controller.dart';
 import 'package:timely/modules/tab_3/controllers/output_controller.dart';
@@ -23,28 +22,22 @@ class Tab3OutputScreen extends ConsumerWidget {
                 return ListView(
                   children: [
                     ...List.generate(data.keys.toList().length, (index) {
-                      return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, i) {
-                          Tab3Model model = data[data.keys.toList()[index]]![i];
-                          // Row of time and text_1
-                          return Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.indigo,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(model.date!),
-                                  ),
-                                ),
-                              ),
-                              Dismissible(
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(data.keys.toList()[index]),
+                            ),
+                          ),
+                          ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, i) {
+                              Tab3Model model =
+                                  data[data.keys.toList()[index]]![i];
+                              // Row of time and text_1
+                              return Dismissible(
                                 // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
                                 confirmDismiss: (direction) async {
                                   if (direction ==
@@ -79,10 +72,10 @@ class Tab3OutputScreen extends ConsumerWidget {
                                   }
                                 },
                                 background: Container(color: Colors.red),
-                                onDismissed: (direction) {
+                                onDismissed: (direction) async {
                                   if (direction ==
                                       DismissDirection.startToEnd) {
-                                    ref
+                                    await ref
                                         .read(tab3RepositoryProvider.notifier)
                                         .deleteModel(model);
                                     data[data.keys.toList()[index]]!
@@ -149,12 +142,12 @@ class Tab3OutputScreen extends ConsumerWidget {
                                     ],
                                   ),
                                 ),
-                              ),
-                            ],
-                          );
-                        },
-                        itemCount: data[data.keys.toList()[index]]!.length,
-                        shrinkWrap: true,
+                              );
+                            },
+                            itemCount: data[data.keys.toList()[index]]!.length,
+                            shrinkWrap: true,
+                          ),
+                        ],
                       );
                     })
                   ],

@@ -133,25 +133,16 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
             const SizedBox(
               height: 10,
             ),
-            Center(
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.blue[700],
-                    borderRadius: BorderRadius.circular(8)),
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Text(
-                    "Duration",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            const Center(
+              child: Text(
+                "Duration",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             const SizedBox(
               height: 20,
-              child: VerticalDivider(),
             ),
             Row(
               children: [
@@ -255,24 +246,14 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
             const SizedBox(
               height: 20,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                    child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.indigo,
-                            borderRadius: BorderRadius.circular(7)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            repetitionSummary,
-                          ),
-                        )),
-                  ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  repetitionSummary,
+                  style: TextStyle(fontStyle: FontStyle.italic),
                 ),
-              ],
+              ),
             ),
             const Divider(
               height: 30,
