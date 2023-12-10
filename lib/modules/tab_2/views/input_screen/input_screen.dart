@@ -6,7 +6,8 @@ import 'package:timely/modules/tab_2/models/tab_2_model.dart';
 import 'repeats_page.dart';
 
 class Tab2InputScreen extends ConsumerStatefulWidget {
-  const Tab2InputScreen({super.key});
+  final bool? showDuration;
+  const Tab2InputScreen({super.key, this.showDuration});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => Tab2InputScreenState();
@@ -133,80 +134,86 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
             const SizedBox(
               height: 10,
             ),
-            const Center(
-              child: Text(
-                "Duration",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 120,
-                    child: CupertinoPicker(
-                      itemExtent: 50,
-                      magnification: 1.2,
-                      scrollController: FixedExtentScrollController(
-                        initialItem: provider.dur.inHours,
-                      ),
-                      onSelectedItemChanged: (val) {
-                        controller.setEndTime(
-                          Duration(
-                            hours: val,
-                            minutes: provider.dur.inMinutes % 60,
-                          ),
-                        );
-                      },
-                      children: List<Widget>.generate(
-                        25,
-                        (index) => Center(
-                          child: Text(
-                            (index).toString(),
+            widget.showDuration == false
+                ? Container()
+                : Column(
+                    children: [
+                      const Center(
+                        child: Text(
+                          "Duration",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    height: 120,
-                    child: CupertinoPicker(
-                      itemExtent: 50,
-                      magnification: 1.2,
-                      scrollController: FixedExtentScrollController(
-                        initialItem: provider.dur.inMinutes % 60,
+                      const SizedBox(
+                        height: 20,
                       ),
-                      onSelectedItemChanged: (val) {
-                        controller.setEndTime(
-                          Duration(
-                            hours: provider.dur.inHours,
-                            minutes: val,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 120,
+                              child: CupertinoPicker(
+                                itemExtent: 50,
+                                magnification: 1.2,
+                                scrollController: FixedExtentScrollController(
+                                  initialItem: provider.dur.inHours,
+                                ),
+                                onSelectedItemChanged: (val) {
+                                  controller.setEndTime(
+                                    Duration(
+                                      hours: val,
+                                      minutes: provider.dur.inMinutes % 60,
+                                    ),
+                                  );
+                                },
+                                children: List<Widget>.generate(
+                                  25,
+                                  (index) => Center(
+                                    child: Text(
+                                      (index).toString(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        );
-                      },
-                      children: List<Widget>.generate(
-                        61,
-                        (index) => Center(
-                          child: Text(
-                            (index).toString(),
+                          Expanded(
+                            child: SizedBox(
+                              height: 120,
+                              child: CupertinoPicker(
+                                itemExtent: 50,
+                                magnification: 1.2,
+                                scrollController: FixedExtentScrollController(
+                                  initialItem: provider.dur.inMinutes % 60,
+                                ),
+                                onSelectedItemChanged: (val) {
+                                  controller.setEndTime(
+                                    Duration(
+                                      hours: provider.dur.inHours,
+                                      minutes: val,
+                                    ),
+                                  );
+                                },
+                                children: List<Widget>.generate(
+                                  61,
+                                  (index) => Center(
+                                    child: Text(
+                                      (index).toString(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ),
+                      const Divider(
+                        height: 30,
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-            const Divider(
-              height: 30,
-            ),
             Row(
               children: [
                 const SizedBox(

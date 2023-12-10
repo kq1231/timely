@@ -9,7 +9,8 @@ import 'package:timely/modules/tab_2/views/input_screen/input_screen.dart';
 import 'package:timely/reusables.dart';
 
 class Tab2OutputScreen extends ConsumerWidget {
-  const Tab2OutputScreen({super.key});
+  final bool? showEndTime;
+  const Tab2OutputScreen({super.key, this.showEndTime});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,14 +46,16 @@ class Tab2OutputScreen extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: Container(
-                                color: Colors.indigo[500],
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Center(child: Text("End")),
-                                )),
-                          )
+                          showEndTime == false
+                              ? Container()
+                              : Expanded(
+                                  child: Container(
+                                      color: Colors.indigo[500],
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Center(child: Text("End")),
+                                      )),
+                                )
                         ],
                       ),
                     ),
@@ -64,122 +67,140 @@ class Tab2OutputScreen extends ConsumerWidget {
                       (i) {
                         Tab2Model model = models[i];
                         List<int> endTime = model.calculateEndTime(model.dur);
-                        return Dismissible(
-                          background: Container(color: Colors.red),
-                          // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
-                          confirmDismiss: (direction) async {
-                            if (direction == DismissDirection.startToEnd) {
-                              return await showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: const Text("Delete"),
-                                        content: const Text(
-                                            'Are you sure you want to delete?'),
-                                        actions: [
-                                          IconButton.filledTonal(
-                                              icon: const Icon(Icons.done),
-                                              onPressed: () =>
-                                                  Navigator.pop(context, true)),
-                                          IconButton.filled(
-                                              icon: const Icon(Icons.dangerous),
-                                              onPressed: () => Navigator.pop(
-                                                  context, false)),
-                                        ],
+                        if ((showEndTime != false &&
+                                model.dur != Duration.zero) ||
+                            (showEndTime == false &&
+                                model.dur == Duration.zero)) {
+                          return Dismissible(
+                            background: Container(color: Colors.red),
+                            // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
+                            confirmDismiss: (direction) async {
+                              if (direction == DismissDirection.startToEnd) {
+                                return await showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: const Text("Delete"),
+                                          content: const Text(
+                                              'Are you sure you want to delete?'),
+                                          actions: [
+                                            IconButton.filledTonal(
+                                                icon: const Icon(Icons.done),
+                                                onPressed: () => Navigator.pop(
+                                                    context, true)),
+                                            IconButton.filled(
+                                                icon:
+                                                    const Icon(Icons.dangerous),
+                                                onPressed: () => Navigator.pop(
+                                                    context, false)),
+                                          ],
+                                        );
+                                      },
+                                    ) ??
+                                    false;
+                              } else {
+                                return false;
+                              }
+                            },
+                            onDismissed: (direction) {
+                              if (direction == DismissDirection.startToEnd) {
+                                ref
+                                    .read(tab2RepositoryProvider.notifier)
+                                    .deleteModel(model);
+                                data.removeAt(i);
+                                setState(() {});
+                              }
+                            },
+                            key: Key(model
+                                .uuid!), // ! is used when you are sure that the nullable field will never be null
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(minHeight: 60),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 1, horizontal: 1),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.indigo[700],
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      ref
+                                          .read(tab2InputProvider.notifier)
+                                          .setModel(model);
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return Scaffold(
+                                              body: showEndTime == false
+                                                  ? const Tab2InputScreen(
+                                                      showDuration: false,
+                                                    )
+                                                  : const Tab2InputScreen(),
+                                              appBar: AppBar(),
+                                            );
+                                          },
+                                        ),
                                       );
                                     },
-                                  ) ??
-                                  false;
-                            } else {
-                              return false;
-                            }
-                          },
-                          onDismissed: (direction) {
-                            if (direction == DismissDirection.startToEnd) {
-                              ref
-                                  .read(tab2RepositoryProvider.notifier)
-                                  .deleteModel(model);
-                              data.removeAt(i);
-                              setState(() {});
-                            }
-                          },
-                          key: Key(model
-                              .uuid!), // ! is used when you are sure that the nullable field will never be null
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(minHeight: 60),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 1, horizontal: 1),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.indigo[700],
-                                ),
-                                child: InkWell(
-                                  onTap: () {
-                                    ref
-                                        .read(tab2InputProvider.notifier)
-                                        .setModel(model);
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return Scaffold(
-                                            body: const Tab2InputScreen(),
-                                            appBar: AppBar(),
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 3,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0,
-                                          ),
-                                          child: Text(
-                                            model.name,
-                                            style:
-                                                const TextStyle(fontSize: 12),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            DateFormat("h:mm a").format(
-                                              DateTime(
-                                                  0,
-                                                  0,
-                                                  0,
-                                                  model.startTime.hour,
-                                                  model.startTime.minute),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 3,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0,
                                             ),
-                                            style:
-                                                const TextStyle(fontSize: 12),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            DateFormat("h:mm a").format(
-                                              DateTime(0, 0, 0, endTime[0],
-                                                  endTime[1]),
+                                            child: Text(
+                                              model.name,
+                                              style:
+                                                  const TextStyle(fontSize: 12),
                                             ),
-                                            style:
-                                                const TextStyle(fontSize: 12),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                        Expanded(
+                                          child: Center(
+                                            child: Text(
+                                              DateFormat("h:mm a").format(
+                                                DateTime(
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    model.startTime.hour,
+                                                    model.startTime.minute),
+                                              ),
+                                              style:
+                                                  const TextStyle(fontSize: 12),
+                                            ),
+                                          ),
+                                        ),
+                                        showEndTime == false
+                                            ? Container()
+                                            : Expanded(
+                                                child: Center(
+                                                  child: Text(
+                                                    DateFormat("h:mm a").format(
+                                                      DateTime(
+                                                          0,
+                                                          0,
+                                                          0,
+                                                          endTime[0],
+                                                          endTime[1]),
+                                                    ),
+                                                    style: const TextStyle(
+                                                        fontSize: 12),
+                                                  ),
+                                                ),
+                                              ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
+                          );
+                        } else {
+                          return Container();
+                        }
                       },
                     ),
                   ],
@@ -204,13 +225,21 @@ class Tab2OutputScreen extends ConsumerWidget {
                               .add), // Text(DateTime.now().toString().substring(5, 10)),
                           onPressed: () {
                             ref.invalidate(tab2InputProvider);
+                            if (showEndTime != false) {
+                              ref.read(tab2InputProvider.notifier).setEndTime(
+                                  const Duration(hours: 0, minutes: 30));
+                            }
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
                                   return Scaffold(
                                     appBar: AppBar(),
-                                    body: const Tab2InputScreen(),
+                                    body: showEndTime == false
+                                        ? const Tab2InputScreen(
+                                            showDuration: false,
+                                          )
+                                        : const Tab2InputScreen(),
                                   );
                                 },
                               ),
