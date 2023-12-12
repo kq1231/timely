@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_2_6_7/models/tab_2_model.dart';
-import 'package:timely/modules/tab_2_6_7/repositories/repo.dart';
+import 'package:timely/modules/tab_2_6_7/common/models/tab_2_model.dart';
+import 'package:timely/modules/tab_2_6_7/common/repositories/repo.dart';
 import 'package:timely/reusables.dart';
 
 final tab6OutputProvider = FutureProvider<Map>((ref) async {

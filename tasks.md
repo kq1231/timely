@@ -184,18 +184,18 @@
 ---
 
 - Tab 1 
-    - Change row colour || Bahir nikaldo 
-    - No need for time 
-    - Output screen should be like tab 5's
+    - Change row colour || Bahir nikaldo -D
+    - No need for time -D
+    - Output screen should be like tab 5's -D
 
 - Tab 5 
-    - Date should not wrap 
-    - Default text styling 
+    - Date should not wrap -D
+    - Default text styling -D
 
-- Left align "Activities" header 
+- Left align "Activities" header -D 
 
-- Tab 6 and 7
-    - Create files for tab 6 and 7 -D
+- Tab 6 and 7 -D
+    - Create files for tab 6 and 7
     - Get tab 2, 6, and 7 under one umbrella: *tab_[2, 6, 7]*
     - Have a common repository: *repo.dart*
     - Have CRUD function named *writeTab2Model, etc.* that take in as arguments the file. 
@@ -210,5 +210,6 @@
 --- 
 
 - Make tab_2_6_7's output controller code more DRY by using a family provider
+- Keyboard issue
 
 **Inshaa Allah**

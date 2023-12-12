@@ -50,18 +50,18 @@ class Tab1InputScreen extends ConsumerWidget {
           ),
           Row(children: [
             Expanded(
-              child: Container(
-                color: Colors.indigo[800],
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(Tab1InputLayout.scoreNames[0]),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(Tab1InputLayout.scoreNames[0]),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    color: Colors.indigo[800],
+                    child: SizedBox(
                       height: 120,
                       child: CupertinoPicker(
                         selectionOverlay: Container(
@@ -77,25 +77,25 @@ class Tab1InputScreen extends ConsumerWidget {
                             labels.map((e) => Center(child: Text(e))).toList(),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Expanded(
-              child: Container(
-                color: Colors.indigo[600],
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(Tab1InputLayout.scoreNames[1]),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(Tab1InputLayout.scoreNames[1]),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        color: Colors.indigo[600],
+                        child: SizedBox(
                           height: 120,
                           child: CupertinoPicker(
                             itemExtent: 50,
@@ -112,25 +112,25 @@ class Tab1InputScreen extends ConsumerWidget {
                                 .toList(),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
             Expanded(
-              child: Container(
-                color: Colors.indigo[800],
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(Tab1InputLayout.scoreNames[2]),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(Tab1InputLayout.scoreNames[2]),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    color: Colors.indigo[800],
+                    child: SizedBox(
                       height: 120,
                       child: CupertinoPicker(
                         itemExtent: 50,
@@ -140,14 +140,14 @@ class Tab1InputScreen extends ConsumerWidget {
                         scrollController: FixedExtentScrollController(
                             initialItem: provider.mScore),
                         onSelectedItemChanged: (index) {
-                          controller.setMScore(index);
+                          controller.setSScore(index);
                         },
                         children:
                             labels.map((e) => Center(child: Text(e))).toList(),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             )
           ]),

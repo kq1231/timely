@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_2_6_7/controllers/input_controller.dart';
-import 'package:timely/modules/tab_2_6_7/models/tab_2_model.dart';
+import 'package:timely/modules/tab_2_6_7/common/controllers/input_controller.dart';
+import 'package:timely/modules/tab_2_6_7/common/models/tab_2_model.dart';
 
 class MonthlySelector extends ConsumerWidget {
   const MonthlySelector({super.key});

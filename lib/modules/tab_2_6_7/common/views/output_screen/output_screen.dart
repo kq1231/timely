@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:timely/modules/tab_2_6_7/controllers/input_controller.dart';
-import 'package:timely/modules/tab_2_6_7/models/tab_2_model.dart';
-import 'package:timely/modules/tab_2_6_7/repositories/repo.dart';
-import 'package:timely/modules/tab_2_6_7/views/input_screen/input_screen.dart';
+import 'package:timely/modules/tab_2_6_7/common/controllers/input_controller.dart';
+import 'package:timely/modules/tab_2_6_7/common/models/tab_2_model.dart';
+import 'package:timely/modules/tab_2_6_7/common/repositories/repo.dart';
+import 'package:timely/modules/tab_2_6_7/common/views/input_screen/input_screen.dart';
 import 'package:timely/reusables.dart';
 
 class OutputScreen extends ConsumerWidget {
@@ -39,11 +39,17 @@ class OutputScreen extends ConsumerWidget {
                           Expanded(
                             flex: 3,
                             child: Container(
-                                color: Colors.indigo[300],
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Center(child: Text("Activities")),
-                                )),
+                              height: 50,
+                              color: Colors.indigo[300],
+                              child: const Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text("Activities"),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                           Expanded(
                             child: Container(

@@ -50,20 +50,10 @@ class Tab1OutputScreen extends ConsumerWidget {
                             Tab1OutputLayout.headers[3],
                             style: Tab1OutputLayout.headerFont,
                           ))),
-                          SizedBox(
-                              width: 70,
-                              child: Center(
-                                  child: Text(
-                                Tab1OutputLayout.headers[4],
-                                style: Tab1OutputLayout.headerFont,
-                              ))),
                         ],
                       ),
                     ),
                     ...List.generate(data.length, (index) {
-                      var time = TimeOfDay(
-                          hour: (data[index].nextUpdateTime.hour % 12),
-                          minute: data[index].nextUpdateTime.minute);
                       return Dismissible(
                         // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
                         confirmDismiss: (direction) async {
@@ -151,19 +141,16 @@ class Tab1OutputScreen extends ConsumerWidget {
                                           data[index].sScore
                                         ];
                                         return Expanded(
-                                          child: Center(
-                                              child: Text("${scores[i]}",
-                                                  style: Tab1OutputLayout
-                                                      .tileFont)),
+                                          child: Container(
+                                            color: ref.read(
+                                                colorProvider)[scores[i] * 3],
+                                            child: Center(
+                                                child: Text("${scores[i]}",
+                                                    style: Tab1OutputLayout
+                                                        .tileFont)),
+                                          ),
                                         );
                                       }),
-                                      SizedBox(
-                                          width: 70,
-                                          child: Center(
-                                              child: Text(
-                                            "${time.hour < 10 ? '0' : ''}${time.hour}:${time.minute < 10 ? '0' : ''}${time.minute} ${data[index].nextUpdateTime.hour > 12 ? 'PM' : 'AM'}",
-                                            style: Tab1OutputLayout.tileFont,
-                                          ))),
                                     ],
                                   ),
                                 ),

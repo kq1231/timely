@@ -165,8 +165,7 @@ class Tab5OutputLayout {
   ];
 
   // Typography
-  static TextStyle tabFiveOutputTileTextStyle =
-      const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
+  static TextStyle tabFiveOutputTileTextStyle = const TextStyle(fontSize: 13);
 }
 
 class LaunchScreenLayout {

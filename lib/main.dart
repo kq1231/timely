@@ -66,18 +66,24 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   ];
 
   final tabIcons = [
-    tabOneIcon,
-    tabTwoIcon,
-    tabThreeIcon,
-    tabFourIcon,
-    tabFiveIcon,
-    tabSixIcon,
-    tabSevenIcon,
-    tabEightIcon,
-    tabNineIcon,
-    tabTenIcon,
-    tabElevenIcon,
-    tabTwelveIcon,
+    for (int i in Iterable.generate(12))
+      Container(
+        width: 30,
+        height: 30,
+        decoration: BoxDecoration(
+          color: Colors.indigo,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Center(
+          child: Text(
+            (i + 1).toString(),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
+            ),
+          ),
+        ),
+      ),
   ];
 
   final tabColors = [
@@ -137,7 +143,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                   backgroundColor: i != selectedIndex
                                       ? tabColors[i]
                                       : Colors
-                                          .purple, // Add color for selected Tab
+                                          .indigo, // Add color for selected Tab
                                   shape: const BeveledRectangleBorder(
                                     borderRadius: BorderRadius.zero,
                                     side: BorderSide(
