@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_2/controllers/output_controller.dart';
-import 'package:timely/modules/tab_2/models/tab_2_model.dart';
-import 'package:timely/modules/tab_2/repositories/tab_2_repo.dart';
+import 'package:timely/modules/tab_2_6_7/tab_2/controllers/output_controller.dart';
+import 'package:timely/modules/tab_2_6_7/models/tab_2_model.dart';
+import 'package:timely/modules/tab_2_6_7/repositories/repo.dart';
+import 'package:timely/modules/tab_2_6_7/tab_6/controllers/output_controller.dart';
+import 'package:timely/modules/tab_2_6_7/tab_7/controllers/output_controller.dart';
 
 class Tab2InputNotifier extends Notifier<Tab2Model> {
   @override
@@ -67,14 +69,30 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
   }
 
   // Methods
-  Future<void> syncToDB() async {
-    await ref.read(tab2RepositoryProvider.notifier).writeTab2Model(state);
-    ref.invalidate(tab2OutputProvider);
+  Future<void> syncToDB(file) async {
+    await ref.read(tab2RepositoryProvider.notifier).writeTab2Model(state, file);
+
+    for (final provider in [
+      tab2OutputProvider,
+      tab6OutputProvider,
+      tab7OutputProvider,
+    ]) {
+      ref.invalidate(provider);
+    }
   }
 
-  Future<void> syncEditedModel() async {
-    await ref.read(tab2RepositoryProvider.notifier).writeEditedModel(state);
-    ref.invalidate(tab2OutputProvider);
+  Future<void> syncEditedModel(file) async {
+    await ref
+        .read(tab2RepositoryProvider.notifier)
+        .writeEditedModel(state, file);
+
+    for (final provider in [
+      tab2OutputProvider,
+      tab6OutputProvider,
+      tab7OutputProvider,
+    ]) {
+      ref.invalidate(provider);
+    }
   }
 }
 

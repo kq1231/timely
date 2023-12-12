@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/modules/tab_2/controllers/input_controller.dart';
-import 'package:timely/modules/tab_2/models/tab_2_model.dart';
-import 'package:timely/modules/tab_2/views/input_screen/selectors/monthly.dart';
-import 'package:timely/modules/tab_2/views/input_screen/selectors/weekly.dart';
-import 'package:timely/modules/tab_2/views/input_screen/selectors/yearly.dart';
+import 'package:timely/modules/tab_2_6_7/controllers/input_controller.dart';
+import 'package:timely/modules/tab_2_6_7/models/tab_2_model.dart';
+import 'package:timely/modules/tab_2_6_7/views/input_screen/selectors/monthly.dart';
+import 'package:timely/modules/tab_2_6_7/views/input_screen/selectors/weekly.dart';
+import 'package:timely/modules/tab_2_6_7/views/input_screen/selectors/yearly.dart';
 
 class RepeatsPage extends ConsumerWidget {
   const RepeatsPage({super.key});

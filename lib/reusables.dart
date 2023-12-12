@@ -7,20 +7,25 @@ import 'package:path_provider/path_provider.dart';
 class DBFiles {
   final File tab1File;
   final File tab1ReFile;
+  final File currentActivitiesFile;
   final File tab5File;
   final File tab3File;
   final File tab4File;
   final File tab2File;
-  final File tab2CurrentActivitiesFile;
+  final File tab6File;
+  final File tab7File;
 
-  DBFiles(
-      {required this.tab1File,
-      required this.tab5File,
-      required this.tab1ReFile,
-      required this.tab3File,
-      required this.tab4File,
-      required this.tab2File,
-      required this.tab2CurrentActivitiesFile});
+  DBFiles({
+    required this.tab1File,
+    required this.currentActivitiesFile,
+    required this.tab1ReFile,
+    required this.tab2File,
+    required this.tab3File,
+    required this.tab4File,
+    required this.tab5File,
+    required this.tab6File,
+    required this.tab7File,
+  });
 }
 
 // Providers
@@ -44,8 +49,15 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
   File tab5File = File('${docDir.path}/tab_5.json');
   File tab3File = File('${docDir.path}/tab_3.json');
   File tab4File = File('${docDir.path}/tab_4.json');
-  File tab2CurrentActivitiesFile =
-      File('${docDir.path}/tab_2_current_activities.json');
+  File tab6File = File('${docDir.path}/tab_6.json');
+  File tab7File = File('${docDir.path}/tab_7.json');
+  File currentActivitiesFile = File('${docDir.path}/current_activities.json');
+
+  if (!await currentActivitiesFile.exists()) {
+    await currentActivitiesFile.writeAsString(
+      "[]",
+    );
+  }
 
   if (!await tab1File.exists()) {
     await tab1File.writeAsString(
@@ -60,12 +72,6 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
 
   if (!await tabTwoFile.exists()) {
     await tabTwoFile.writeAsString(
-      "[]",
-    );
-  }
-
-  if (!await tab2CurrentActivitiesFile.exists()) {
-    await tab2CurrentActivitiesFile.writeAsString(
       "[]",
     );
   }
@@ -86,6 +92,18 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
     );
   }
 
+  if (!await tab6File.exists()) {
+    await tab6File.writeAsString(
+      "[]",
+    );
+  }
+
+  if (!await tab7File.exists()) {
+    await tab7File.writeAsString(
+      "[]",
+    );
+  }
+
   return DBFiles(
     tab1File: tab1File,
     tab5File: tab5File,
@@ -93,7 +111,9 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
     tab3File: tab3File,
     tab4File: tab4File,
     tab2File: tabTwoFile,
-    tab2CurrentActivitiesFile: tab2CurrentActivitiesFile,
+    currentActivitiesFile: currentActivitiesFile,
+    tab6File: tab6File,
+    tab7File: tab7File,
   );
 });
 

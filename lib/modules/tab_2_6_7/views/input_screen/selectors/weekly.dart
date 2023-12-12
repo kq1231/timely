@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_2/controllers/input_controller.dart';
+import 'package:timely/modules/tab_2_6_7/controllers/input_controller.dart';
 
 class WeeklySelector extends ConsumerWidget {
   const WeeklySelector({super.key});

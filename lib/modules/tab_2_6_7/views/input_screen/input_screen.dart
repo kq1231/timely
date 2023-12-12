@@ -1,13 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_2/controllers/input_controller.dart';
-import 'package:timely/modules/tab_2/models/tab_2_model.dart';
+import 'package:timely/modules/tab_2_6_7/controllers/input_controller.dart';
+import 'package:timely/modules/tab_2_6_7/models/tab_2_model.dart';
 import 'repeats_page.dart';
 
 class Tab2InputScreen extends ConsumerStatefulWidget {
   final bool? showDuration;
-  const Tab2InputScreen({super.key, this.showDuration});
+  final File file;
+  const Tab2InputScreen({super.key, this.showDuration, required this.file});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => Tab2InputScreenState();
@@ -295,9 +298,9 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                           content: Text("Do not leave activity text blank!")));
                     } else {
                       if (provider.uuid == null) {
-                        controller.syncToDB();
+                        controller.syncToDB(widget.file);
                       } else {
-                        controller.syncEditedModel();
+                        controller.syncEditedModel(widget.file);
                       }
                       Navigator.pop(context);
                     }

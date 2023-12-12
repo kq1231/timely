@@ -177,5 +177,38 @@
     - Bug fix -D
 
 - Tab 6 & 7 
-    - No duration 
-    - No end time
+    - No duration -D 
+    - No end time -D
+**Inshaa Allah**
+
+---
+
+- Tab 1 
+    - Change row colour || Bahir nikaldo 
+    - No need for time 
+    - Output screen should be like tab 5's
+
+- Tab 5 
+    - Date should not wrap 
+    - Default text styling 
+
+- Left align "Activities" header 
+
+- Tab 6 and 7
+    - Create files for tab 6 and 7 -D
+    - Get tab 2, 6, and 7 under one umbrella: *tab_[2, 6, 7]*
+    - Have a common repository: *repo.dart*
+    - Have CRUD function named *writeTab2Model, etc.* that take in as arguments the file. 
+        Then, create separate CRUD functions for each of the that call these basic CRUD functions. 
+    - Each tab will have separate output controllers but only **one** input controller.
+    - Tab_2 output screen will take in the output controller as a parameter. 
+    - Intersections: *repositories, models, input controller, views*.
+    - Differences: *output controller*.
+
+**Inshaa Allah**
+
+--- 
+
+- Make tab_2_6_7's output controller code more DRY by using a family provider
+
+**Inshaa Allah**
