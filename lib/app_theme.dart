@@ -138,10 +138,7 @@ class Tab5InputLayout {
   static String submissionStatusMessage = "Submitted Successfully";
 
   // Typography
-  static TextStyle dateStyle = const TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
-  );
+  static TextStyle dateStyle = const TextStyle();
   static TextStyle scoreNamesStyle = const TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,

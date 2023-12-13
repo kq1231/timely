@@ -19,12 +19,26 @@ class Tab5InputScreen extends ConsumerWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ElevatedButton(
-            onPressed: () {},
-            child: Text(
-              controller.getFormattedDate(),
-              style: Tab5InputLayout.dateStyle,
+          SizedBox(
+            width: 170,
+            height: 50,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Text(
+                controller.getFormattedDate(),
+                style: Tab5InputLayout.dateStyle,
+              ),
             ),
+          ),
+          const SizedBox(
+            height: 30,
           ),
           Row(children: [
             Expanded(
@@ -137,20 +151,22 @@ class Tab5InputScreen extends ConsumerWidget {
               const SizedBox(
                 width: 10,
               ),
-              SizedBox(
-                width: 100,
-                child: Text(
-                  Tab5InputLayout.weightFieldName,
-                  style: Tab5InputLayout.weightFieldStyle,
-                ),
-              ),
               Expanded(
                 child: TextFormField(
-                  initialValue: provider.weight.toString(),
+                  initialValue: provider.weight.toString() != "0.0"
+                      ? provider.weight.toString()
+                      : "",
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    filled: true,
+                    hintText: "Weight",
                   ),
                   onChanged: (weight) {
                     ref.read(tab5InputProvider.notifier).setWeight(weight);
@@ -162,11 +178,19 @@ class Tab5InputScreen extends ConsumerWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(
+            height: 40,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red[800],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                   child: Text(
                     Tab5InputLayout.cancelButtonText,
                     style: Tab5InputLayout.cancelButtonStyle,
@@ -175,6 +199,12 @@ class Tab5InputScreen extends ConsumerWidget {
                     Navigator.of(context).pop();
                   }),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.indigo[800],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
                 child: Text(
                   Tab5InputLayout.submitButtonText,
                   style: Tab5InputLayout.submitButtonStyle,
@@ -195,7 +225,10 @@ class Tab5InputScreen extends ConsumerWidget {
                 },
               )
             ],
-          )
+          ),
+          const SizedBox(
+            height: 40,
+          ),
         ],
       ),
     );
