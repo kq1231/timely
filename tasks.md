@@ -216,8 +216,11 @@
         - Date        ------------------    DateButton
         - Time        ------------------    TimeButton
         - Priority    ------------------    PriorityPicker
-- Tab 5 
+- Tab 5 -D
     - Input Screen Redesign 
     - Date should be editable
+- Tab 8
+    - Input Screen 
+    - Output Screen 
 
 **Inshaa Allah**
