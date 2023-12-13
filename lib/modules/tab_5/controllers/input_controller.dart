@@ -9,9 +9,9 @@ class Tab5InputNotifier extends Notifier<SPWModel> {
   build() {
     return SPWModel(
       DateTime.now().toString().substring(0, 10),
-      0,
-      0,
-      0,
+      1,
+      1,
+      1,
       0,
     );
   }

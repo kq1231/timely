@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_5/controllers/input_controller.dart';
@@ -18,111 +19,118 @@ class Tab5InputScreen extends ConsumerWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Text(
-            controller.getFormattedDate(),
-            style: Tab5InputLayout.dateStyle,
+          ElevatedButton(
+            onPressed: () {},
+            child: Text(
+              controller.getFormattedDate(),
+              style: Tab5InputLayout.dateStyle,
+            ),
           ),
           Row(children: [
-            const SizedBox(width: 10),
-            SizedBox(
-                width: 100,
-                child: Text(
-                  Tab5InputLayout.scoreNames[0],
-                  style: Tab5InputLayout.scoreNamesStyle,
-                )),
-            ...List.generate(
-              3,
-              (index) {
-                return Expanded(
-                  child: Column(
-                    children: [
-                      Radio<int>(
-                        value: provider.sScore,
-                        groupValue: index,
-                        onChanged: (value) {
-                          ref.read(tab5InputProvider.notifier).setSScore(index);
-                        },
-                      ),
-                      Text(labels[index]),
-                    ],
+            Expanded(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
                   ),
-                );
-              },
-            ),
-          ]),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(children: [
-            const SizedBox(width: 10),
-            SizedBox(
-              width: 100,
-              child: Text(
-                Tab5InputLayout.scoreNames[1],
-                style: Tab5InputLayout.scoreNamesStyle,
-              ),
-            ),
-            ...List.generate(
-              3,
-              (index) {
-                return Expanded(
-                  child: Column(
-                    children: [
-                      Radio<int>(
-                        value: provider.pScore,
-                        groupValue: index,
-                        onChanged: (value) {
-                          ref.read(tab5InputProvider.notifier).setPScore(index);
-                        },
-                      ),
-                      Text(labels[index]),
-                    ],
+                  Text(Tab1InputLayout.scoreNames[0]),
+                  const SizedBox(
+                    height: 20,
                   ),
-                );
-              },
-            ),
-          ]),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              const SizedBox(width: 10),
-              SizedBox(
-                width: 100,
-                child: Text(
-                  Tab5InputLayout.scoreNames[2],
-                  style: Tab5InputLayout.scoreNamesStyle,
-                ),
-              ),
-              ...List.generate(
-                3,
-                (index) {
-                  return Expanded(
-                    child: Column(
-                      children: [
-                        Radio<int>(
-                          value: provider.wScore,
-                          groupValue: index,
-                          onChanged: (value) {
-                            ref
-                                .read(tab5InputProvider.notifier)
-                                .setWScore(index);
-                          },
+                  Container(
+                    color: Colors.indigo[800],
+                    child: SizedBox(
+                      height: 120,
+                      child: CupertinoPicker(
+                        selectionOverlay: Container(
+                          color: const Color.fromARGB(78, 33, 149, 243),
                         ),
-                        Text(
-                          labels[index],
-                          style: Tab5InputLayout.labelStyle,
-                        ),
-                      ],
+                        itemExtent: 50,
+                        scrollController: FixedExtentScrollController(
+                            initialItem: provider.sScore),
+                        onSelectedItemChanged: (index) {
+                          controller.setSScore(index);
+                        },
+                        children:
+                            labels.map((e) => Center(child: Text(e))).toList(),
+                      ),
                     ),
-                  );
-                },
+                  ),
+                ],
               ),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(Tab1InputLayout.scoreNames[1]),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        color: Colors.indigo[600],
+                        child: SizedBox(
+                          height: 120,
+                          child: CupertinoPicker(
+                            itemExtent: 50,
+                            selectionOverlay: Container(
+                              color: const Color.fromARGB(78, 33, 149, 243),
+                            ),
+                            scrollController: FixedExtentScrollController(
+                                initialItem: provider.pScore),
+                            onSelectedItemChanged: (index) {
+                              controller.setPScore(index);
+                            },
+                            children: labels
+                                .map((e) => Center(child: Text(e)))
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(Tab1InputLayout.scoreNames[2]),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    color: Colors.indigo[800],
+                    child: SizedBox(
+                      height: 120,
+                      child: CupertinoPicker(
+                        itemExtent: 50,
+                        selectionOverlay: Container(
+                          color: const Color.fromARGB(78, 33, 149, 243),
+                        ),
+                        scrollController: FixedExtentScrollController(
+                            initialItem: provider.wScore),
+                        onSelectedItemChanged: (index) {
+                          controller.setWScore(index);
+                        },
+                        children:
+                            labels.map((e) => Center(child: Text(e))).toList(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ]),
+          const Divider(
+            height: 80,
           ),
           Row(
             children: [
