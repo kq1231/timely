@@ -142,8 +142,13 @@ class _Tab8OutputScreenState extends ConsumerState<Tab8OutputScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [Text(model.description)],
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Wrap(
+                                children: [
+                                  Text(model.description),
+                                ],
+                              ),
                             ),
                           ),
                           const Divider(
