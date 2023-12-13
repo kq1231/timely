@@ -21,88 +21,98 @@ class Tab3InputScreen extends ConsumerWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text("Date"),
-                  SizedBox(
-                    height: 50,
-                    width: 150,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[800],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+            (removeDateAndTime != true)
+                ? Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Date"),
+                            SizedBox(
+                              height: 50,
+                              width: 150,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue[800],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  var dateSelected = await showDatePicker(
+                                      context: context,
+                                      initialDate: provider.date == null
+                                          ? DateTime.now()
+                                          : DateTime.parse(provider.date!),
+                                      firstDate: DateTime(2017, 1, 1),
+                                      lastDate: DateTime(
+                                          DateTime.now().year + 2, 1, 1));
+                                  if (dateSelected != null) {
+                                    controller.setDate(dateSelected
+                                        .toString()
+                                        .substring(0, 10));
+                                  }
+                                },
+                                child: provider.date != null
+                                    ? Text(DateFormat("dd-MMM")
+                                        .format(DateTime.parse(provider.date!)))
+                                    : Text(
+                                        Tab3InputLayout.dateButtonText,
+                                        style: Tab3InputLayout.dateButtonStyle,
+                                      ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                      onPressed: () async {
-                        var dateSelected = await showDatePicker(
-                            context: context,
-                            initialDate: provider.date == null
-                                ? DateTime.now()
-                                : DateTime.parse(provider.date!),
-                            firstDate: DateTime(2017, 1, 1),
-                            lastDate: DateTime(DateTime.now().year + 2, 1, 1));
-                        if (dateSelected != null) {
-                          controller.setDate(
-                              dateSelected.toString().substring(0, 10));
-                        }
-                      },
-                      child: provider.date != null
-                          ? Text(DateFormat("dd-MMM")
-                              .format(DateTime.parse(provider.date!)))
-                          : Text(
-                              Tab3InputLayout.dateButtonText,
-                              style: Tab3InputLayout.dateButtonStyle,
-                            ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const Divider(
-              height: 80,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text("Time"),
-                  SizedBox(
-                    height: 50,
-                    width: 150,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[800],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                      const Divider(
+                        height: 80,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Time"),
+                            SizedBox(
+                              height: 50,
+                              width: 150,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue[800],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  var timeSelected = await showTimePicker(
+                                      context: context,
+                                      initialTime:
+                                          provider.time ?? TimeOfDay.now());
+                                  if (timeSelected != null) {
+                                    controller.setTime(timeSelected);
+                                  }
+                                },
+                                child: provider.time != null
+                                    ? Text(provider.time!.format(context))
+                                    : Text(
+                                        Tab3InputLayout.timeButtonText,
+                                        style: Tab3InputLayout.timeButtonStyle,
+                                      ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                      onPressed: () async {
-                        var timeSelected = await showTimePicker(
-                            context: context,
-                            initialTime: provider.time ?? TimeOfDay.now());
-                        if (timeSelected != null) {
-                          controller.setTime(timeSelected);
-                        }
-                      },
-                      child: provider.time != null
-                          ? Text(provider.time!.format(context))
-                          : Text(
-                              Tab3InputLayout.timeButtonText,
-                              style: Tab3InputLayout.timeButtonStyle,
-                            ),
-                    ),
+                      const Divider(
+                        height: 80,
+                      ),
+                    ],
                   )
-                ],
-              ),
-            ),
-            const Divider(
-              height: 80,
-            ),
+                : Container(),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Row(

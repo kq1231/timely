@@ -16,7 +16,7 @@ class Tab8InputScreen extends ConsumerWidget {
       child: Column(
         children: [
           const SizedBox(
-            height: 30,
+            height: 20,
           ),
           SizedBox(
             width: 170,
@@ -49,64 +49,67 @@ class Tab8InputScreen extends ConsumerWidget {
           const Divider(
             height: 40,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("LSJ"),
-                Expanded(
-                  child: Container(),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    const Text("LSJ"),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      height: 120,
+                      child: Container(
+                        color: Colors.indigo[800],
+                        child: CupertinoPicker(
+                            selectionOverlay: Container(
+                              color: const Color.fromARGB(78, 33, 149, 243),
+                            ),
+                            itemExtent: 60,
+                            scrollController: FixedExtentScrollController(
+                                initialItem: provider.lsj),
+                            onSelectedItemChanged: (index) {
+                              controller.setLSJ(index);
+                            },
+                            children: ["L", "S", "J"]
+                                .map((label) => Center(child: Text(label)))
+                                .toList()),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: 150,
-                  child: SizedBox(
-                    height: 120,
-                    child: CupertinoPicker(
-                        itemExtent: 60,
-                        scrollController: FixedExtentScrollController(
-                            initialItem: provider.lsj),
-                        onSelectedItemChanged: (index) {
-                          controller.setLSJ(index);
-                        },
-                        children: ["L", "S", "J"]
-                            .map((label) => Center(child: Text(label)))
-                            .toList()),
-                  ),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    const Text("Priority"),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      height: 120,
+                      child: Container(
+                        color: Colors.indigo[600],
+                        child: CupertinoPicker(
+                            selectionOverlay: Container(
+                              color: const Color.fromARGB(78, 33, 149, 243),
+                            ),
+                            itemExtent: 60,
+                            scrollController: FixedExtentScrollController(
+                                initialItem: provider.hml),
+                            onSelectedItemChanged: (index) {
+                              controller.setHML(index);
+                            },
+                            children: ["High", "Medium", "Low"]
+                                .map((label) => Center(child: Text(label)))
+                                .toList()),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          const Divider(
-            height: 40,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Priority"),
-                Expanded(
-                  child: Container(),
-                ),
-                SizedBox(
-                  width: 150,
-                  child: SizedBox(
-                    height: 120,
-                    child: CupertinoPicker(
-                        itemExtent: 60,
-                        scrollController: FixedExtentScrollController(
-                            initialItem: provider.lsj),
-                        onSelectedItemChanged: (index) {
-                          controller.setLSJ(index);
-                        },
-                        children: ["High", "Medium", "Low"]
-                            .map((label) => Center(child: Text(label)))
-                            .toList()),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           const Divider(
             height: 40,
@@ -119,6 +122,7 @@ class Tab8InputScreen extends ConsumerWidget {
               Expanded(
                 child: TextFormField(
                   initialValue: provider.title,
+                  textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -150,6 +154,8 @@ class Tab8InputScreen extends ConsumerWidget {
               Expanded(
                 child: TextFormField(
                   initialValue: provider.title,
+                  maxLines: 5,
+                  textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -212,7 +218,7 @@ class Tab8InputScreen extends ConsumerWidget {
             ],
           ),
           const SizedBox(
-            height: 40,
+            height: 20,
           ),
         ],
       ),
