@@ -11,7 +11,7 @@ class Tab5InputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(tab5InputProvider.notifier);
+    final controller = ref.read(tab5InputProvider.notifier);
     final provider = ref.watch(tab5InputProvider);
     List<String> labels = Tab5InputLayout.labels;
 
@@ -23,7 +23,18 @@ class Tab5InputScreen extends ConsumerWidget {
             width: 170,
             height: 50,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                var dateSelected = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.parse(provider.date),
+                    firstDate: DateTime(0),
+                    lastDate: DateTime(
+                      DateTime.now().year + 50,
+                    ));
+                if (dateSelected != null) {
+                  controller.setDate(dateSelected);
+                }
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 foregroundColor: Colors.white,

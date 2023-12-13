@@ -22,7 +22,18 @@ class Tab8InputScreen extends ConsumerWidget {
             width: 170,
             height: 50,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                var dateSelected = await showDatePicker(
+                    context: context,
+                    initialDate: provider.date,
+                    firstDate: DateTime(0),
+                    lastDate: DateTime(
+                      DateTime.now().year + 50,
+                    ));
+                if (dateSelected != null) {
+                  controller.setDate(dateSelected);
+                }
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 foregroundColor: Colors.white,

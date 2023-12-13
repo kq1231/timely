@@ -48,7 +48,7 @@ class Tab8InputNotifier extends Notifier<Tab8Model> {
   }
 
   String getFormattedDate() {
-    return DateFormat("dd-MMM-yyyy").format(DateTime.now());
+    return DateFormat("dd-MMM-yyyy").format(state.date);
   }
 
   Future<void> syncEditedModel() async {

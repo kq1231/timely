@@ -17,7 +17,7 @@ class Tab5InputNotifier extends Notifier<SPWModel> {
   }
 
   String getFormattedDate() {
-    return DateFormat("dd-MMM-yyyy").format(DateTime.now());
+    return DateFormat("dd-MMM-yyyy").format(DateTime.parse(state.date));
   }
 
   void setSScore(sScore) {
@@ -47,6 +47,10 @@ class Tab5InputNotifier extends Notifier<SPWModel> {
 
   void setModel(SPWModel model) {
     state = model;
+  }
+
+  void setDate(date) {
+    state = state.copyWith(date: date.toString().substring(0, 10));
   }
 }
 
