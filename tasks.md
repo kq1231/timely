@@ -211,5 +211,13 @@
 
 - Make tab_2_6_7's output controller code more DRY by using a family provider
 - Keyboard issue
+- Tab 3 Input -D
+    - Redesign 
+        - Date        ------------------    DateButton
+        - Time        ------------------    TimeButton
+        - Priority    ------------------    PriorityPicker
+- Tab 5 
+    - Input Screen Redesign 
+    - Date should be editable
 
 **Inshaa Allah**

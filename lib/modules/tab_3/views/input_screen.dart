@@ -21,114 +21,122 @@ class Tab3InputScreen extends ConsumerWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // Row of Radio buttons
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Text("Priority"),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        height: 120,
-                        child: CupertinoPicker(
-                            itemExtent: 60,
-                            scrollController: FixedExtentScrollController(
-                                initialItem: provider.priority),
-                            onSelectedItemChanged: (index) {
-                              controller.setPriority(index);
-                            },
-                            children: labels
-                                .map((label) => Center(child: Text(label)))
-                                .toList()),
-                      ),
-                    ],
-                  ),
-                ),
-                (removeDateAndTime != null && removeDateAndTime == true)
-                    ? Container()
-                    : Expanded(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 50,
-                              width: 150,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue[800],
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                                onPressed: () async {
-                                  var dateSelected = await showDatePicker(
-                                      context: context,
-                                      initialDate: provider.date == null
-                                          ? DateTime.now()
-                                          : DateTime.parse(provider.date!),
-                                      firstDate: DateTime(2017, 1, 1),
-                                      lastDate: DateTime(
-                                          DateTime.now().year + 2, 1, 1));
-                                  if (dateSelected != null) {
-                                    controller.setDate(dateSelected
-                                        .toString()
-                                        .substring(0, 10));
-                                  }
-                                },
-                                child: provider.date != null
-                                    ? Text(DateFormat("dd-MMM")
-                                        .format(DateTime.parse(provider.date!)))
-                                    : Text(
-                                        Tab3InputLayout.dateButtonText,
-                                        style: Tab3InputLayout.dateButtonStyle,
-                                      ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-                              height: 50,
-                              width: 150,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue[800],
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                                onPressed: () async {
-                                  var timeSelected = await showTimePicker(
-                                      context: context,
-                                      initialTime:
-                                          provider.time ?? TimeOfDay.now());
-                                  if (timeSelected != null) {
-                                    controller.setTime(timeSelected);
-                                  }
-                                },
-                                child: provider.time != null
-                                    ? Text(provider.time!.format(context))
-                                    : Text(
-                                        Tab3InputLayout.timeButtonText,
-                                        style: Tab3InputLayout.timeButtonStyle,
-                                      ),
-                              ),
-                            )
-                          ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Date"),
+                  SizedBox(
+                    height: 50,
+                    width: 150,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[800],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-              ],
+                      onPressed: () async {
+                        var dateSelected = await showDatePicker(
+                            context: context,
+                            initialDate: provider.date == null
+                                ? DateTime.now()
+                                : DateTime.parse(provider.date!),
+                            firstDate: DateTime(2017, 1, 1),
+                            lastDate: DateTime(DateTime.now().year + 2, 1, 1));
+                        if (dateSelected != null) {
+                          controller.setDate(
+                              dateSelected.toString().substring(0, 10));
+                        }
+                      },
+                      child: provider.date != null
+                          ? Text(DateFormat("dd-MMM")
+                              .format(DateTime.parse(provider.date!)))
+                          : Text(
+                              Tab3InputLayout.dateButtonText,
+                              style: Tab3InputLayout.dateButtonStyle,
+                            ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const Divider(
+              height: 80,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Time"),
+                  SizedBox(
+                    height: 50,
+                    width: 150,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[800],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: () async {
+                        var timeSelected = await showTimePicker(
+                            context: context,
+                            initialTime: provider.time ?? TimeOfDay.now());
+                        if (timeSelected != null) {
+                          controller.setTime(timeSelected);
+                        }
+                      },
+                      child: provider.time != null
+                          ? Text(provider.time!.format(context))
+                          : Text(
+                              Tab3InputLayout.timeButtonText,
+                              style: Tab3InputLayout.timeButtonStyle,
+                            ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const Divider(
+              height: 80,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Priority"),
+                  Expanded(
+                    child: Container(),
+                  ),
+                  SizedBox(
+                    width: 150,
+                    child: SizedBox(
+                      height: 120,
+                      child: CupertinoPicker(
+                          itemExtent: 60,
+                          scrollController: FixedExtentScrollController(
+                              initialItem: provider.priority),
+                          onSelectedItemChanged: (index) {
+                            controller.setPriority(index);
+                          },
+                          children: labels
+                              .map((label) => Center(child: Text(label)))
+                              .toList()),
+                    ),
+                  ),
+                  (removeDateAndTime != null && removeDateAndTime == true)
+                      ? Container()
+                      : Container()
+                ],
+              ),
             ),
 
             const Divider(
-              height: 120,
+              height: 80,
             ),
 
             // Activity Comment/text_1
