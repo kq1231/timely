@@ -19,7 +19,7 @@ class Tab8Model {
 
   Tab8Model.fromJson(Map json) {
     uuid = json["ID"];
-    date = json["Date"];
+    date = DateTime.parse(json["Date"]);
     title = json["Title"];
     description = json["Description"];
     lsj = json["LSJ"];
