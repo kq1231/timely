@@ -14,6 +14,7 @@ class DBFiles {
   final File tab2File;
   final File tab6File;
   final File tab7File;
+  final File tab8File;
 
   DBFiles({
     required this.tab1File,
@@ -25,6 +26,7 @@ class DBFiles {
     required this.tab5File,
     required this.tab6File,
     required this.tab7File,
+    required this.tab8File,
   });
 }
 
@@ -43,6 +45,8 @@ final colorProvider = Provider<List<Color>>((ref) {
 
 final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
   Directory docDir = await getApplicationDocumentsDirectory();
+
+  File currentActivitiesFile = File('${docDir.path}/current_activities.json');
   File tab1File = File('${docDir.path}/tab_1.json');
   File tab1re = File('${docDir.path}/tab_1_re.json');
   File tabTwoFile = File('${docDir.path}/tab_2.json');
@@ -51,7 +55,7 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
   File tab4File = File('${docDir.path}/tab_4.json');
   File tab6File = File('${docDir.path}/tab_6.json');
   File tab7File = File('${docDir.path}/tab_7.json');
-  File currentActivitiesFile = File('${docDir.path}/current_activities.json');
+  File tab8File = File('${docDir.path}/tab_8.json');
 
   if (!await currentActivitiesFile.exists()) {
     await currentActivitiesFile.writeAsString(
@@ -64,6 +68,7 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
       "{}",
     );
   }
+
   if (!await tab1re.exists()) {
     await tab1re.writeAsString(
       "{}",
@@ -104,6 +109,12 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
     );
   }
 
+  if (!await tab8File.exists()) {
+    await tab8File.writeAsString(
+      "[]",
+    );
+  }
+
   return DBFiles(
     tab1File: tab1File,
     tab5File: tab5File,
@@ -114,6 +125,7 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
     currentActivitiesFile: currentActivitiesFile,
     tab6File: tab6File,
     tab7File: tab7File,
+    tab8File: tab8File,
   );
 });
 

@@ -6,6 +6,7 @@ import 'package:timely/app_theme.dart';
 import 'package:timely/modules/tab_2_6_7/tab_2/views/output_screen.dart';
 import 'package:timely/modules/tab_2_6_7/tab_6/views/output_screen.dart';
 import 'package:timely/modules/tab_2_6_7/tab_7/views/output_screen.dart';
+import 'package:timely/modules/tab_8/views/input_screen.dart';
 import 'package:timely/reusables.dart';
 import 'exports/screens.dart';
 
@@ -57,7 +58,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
     const Tab5OutputScreen(),
     const Tab6OutputScreen(),
     const Tab7OutputScreen(),
-    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Tab8InputScreen(),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
