@@ -227,8 +227,8 @@
 
 ---
 
-- Tab 8 
-    - Design Finalization 
-    - Update
-    - Delete
+- Tab 8 -D
+    - Design Finalization -D
+    - Update -D
+    - Delete -D
 

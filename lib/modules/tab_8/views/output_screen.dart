@@ -31,82 +31,93 @@ class _Tab8OutputScreenState extends ConsumerState<Tab8OutputScreen> {
       ListView(
         children: [
           // Segmented Buttons
-          Column(
+          Row(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: SegmentedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
+              Flexible(
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: SegmentedButton(
+                        style: ElevatedButton.styleFrom(
+                          side: BorderSide.none,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
                         ),
+                        segments: const [
+                          ButtonSegment(
+                            value: 0,
+                            label: Text("L"),
+                          ),
+                          ButtonSegment(
+                            value: 1,
+                            label: Text("S"),
+                          ),
+                          ButtonSegment(
+                            value: 2,
+                            label: Text("J"),
+                          ),
+                        ],
+                        selected: filterProv["LSJ"],
+                        onSelectionChanged: (Set<int> newSelections) {
+                          filterCont.state["LSJ"] = newSelections;
+                          setState(() {});
+                        },
+                        multiSelectionEnabled: true,
+                        emptySelectionAllowed: true,
+                        showSelectedIcon: false,
                       ),
-                      segments: const [
-                        ButtonSegment(
-                          value: 0,
-                          label: Text("L"),
-                        ),
-                        ButtonSegment(
-                          value: 1,
-                          label: Text("S"),
-                        ),
-                        ButtonSegment(
-                          value: 2,
-                          label: Text("J"),
-                        ),
-                      ],
-                      selected: filterProv["LSJ"],
-                      onSelectionChanged: (Set<int> newSelections) {
-                        filterCont.state["LSJ"] = newSelections;
-                        setState(() {});
-                      },
-                      multiSelectionEnabled: true,
-                      emptySelectionAllowed: true,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 2,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: SegmentedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
+              Flexible(
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: SegmentedButton(
+                        style: ElevatedButton.styleFrom(
+                          side: BorderSide.none,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
                         ),
+                        segments: const [
+                          ButtonSegment(
+                            value: 0,
+                            label: Text("H"),
+                          ),
+                          ButtonSegment(
+                            value: 1,
+                            label: Text("M"),
+                          ),
+                          ButtonSegment(
+                            value: 2,
+                            label: Text("L"),
+                          ),
+                        ],
+                        selected: filterProv["HML"],
+                        onSelectionChanged: (Set<int> newSelections) {
+                          filterCont.state["HML"] = newSelections;
+                          setState(() {});
+                        },
+                        multiSelectionEnabled: true,
+                        emptySelectionAllowed: true,
+                        showSelectedIcon: false,
                       ),
-                      segments: const [
-                        ButtonSegment(
-                          value: 0,
-                          label: Text("H"),
-                        ),
-                        ButtonSegment(
-                          value: 1,
-                          label: Text("M"),
-                        ),
-                        ButtonSegment(
-                          value: 2,
-                          label: Text("L"),
-                        ),
-                      ],
-                      selected: filterProv["HML"],
-                      onSelectionChanged: (Set<int> newSelections) {
-                        filterCont.state["HML"] = newSelections;
-                        setState(() {});
-                      },
-                      multiSelectionEnabled: true,
-                      emptySelectionAllowed: true,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               )
             ],
           ),
-          const Divider(),
+          const Divider(
+            height: 0,
+          ),
+
           modelsProv.when(
               data: (models) {
                 // Filter out models
