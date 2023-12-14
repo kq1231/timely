@@ -5,6 +5,7 @@ import 'package:timely/modules/tab_8/controllers/filter_controller.dart';
 import 'package:timely/modules/tab_8/controllers/input_controller.dart';
 import 'package:timely/modules/tab_8/controllers/output_controller.dart';
 import 'package:timely/modules/tab_8/models/tab_8_model.dart';
+import 'package:timely/modules/tab_8/repositories/tab_8_repo.dart';
 import 'package:timely/modules/tab_8/views/input_screen.dart';
 import 'package:timely/reusables.dart';
 
@@ -109,7 +110,7 @@ class _Tab8OutputScreenState extends ConsumerState<Tab8OutputScreen> {
           modelsProv.when(
               data: (models) {
                 // Filter out models
-                models = models.where((model) {
+                List filteredModels = models.where((model) {
                   if (filterProv["LSJ"].length + filterProv["HML"].length ==
                       0) {
                     return true;
@@ -118,50 +119,104 @@ class _Tab8OutputScreenState extends ConsumerState<Tab8OutputScreen> {
                         filterProv["LSJ"].contains(model.lsj);
                   }
                 }).toList();
-                print(models);
                 return ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    Tab8Model model = models[index];
-                    return Container(
-                      color: Colors.indigo,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  DateFormat(DateFormat.ABBR_MONTH_DAY)
-                                      .format(model.date),
+                    Tab8Model model = filteredModels[index];
+                    return Dismissible(
+                      key: Key(model.uuid!),
+                      confirmDismiss: (direction) async {
+                        if (direction == DismissDirection.startToEnd) {
+                          return await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text("Delete"),
+                                    content: const Text(
+                                        'Are you sure you want to delete?'),
+                                    actions: [
+                                      IconButton.filledTonal(
+                                          icon: const Icon(Icons.done),
+                                          onPressed: () =>
+                                              Navigator.pop(context, true)),
+                                      IconButton.filled(
+                                          icon: const Icon(Icons.dangerous),
+                                          onPressed: () =>
+                                              Navigator.pop(context, false)),
+                                    ],
+                                  );
+                                },
+                              ) ??
+                              false;
+                        } else {
+                          return false;
+                        }
+                      },
+                      background: Container(color: Colors.red),
+                      onDismissed: (direction) {
+                        if (direction == DismissDirection.startToEnd) {
+                          ref
+                              .read(tab8RepositoryProvider.notifier)
+                              .deleteModel(model);
+                          models.removeWhere(
+                              (element) => element.uuid == model.uuid);
+                          setState(() {});
+                        }
+                      },
+                      child: InkWell(
+                        onTap: () {
+                          ref.read(tab8InputProvider.notifier).setModel(model);
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return Scaffold(
+                                appBar: AppBar(),
+                                body: const Tab8InputScreen(),
+                              );
+                            },
+                          ));
+                        },
+                        child: Container(
+                          color: Colors.indigo,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      DateFormat(DateFormat.ABBR_MONTH_DAY)
+                                          .format(model.date),
+                                    ),
+                                    Text(model.title),
+                                  ],
                                 ),
-                                Text(model.title),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Wrap(
-                                children: [
-                                  Text(model.description),
-                                ],
                               ),
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Wrap(
+                                    children: [
+                                      Text(model.description),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const Divider(
+                                height: 0,
+                                color: Colors.black,
+                                thickness: 2,
+                              )
+                            ],
                           ),
-                          const Divider(
-                            height: 0,
-                            color: Colors.black,
-                            thickness: 2,
-                          )
-                        ],
+                        ),
                       ),
                     );
                   },
                   shrinkWrap: true,
-                  itemCount: models.length,
+                  itemCount: filteredModels.length,
                 );
               },
               error: (_, __) => const Text("ERROR"),

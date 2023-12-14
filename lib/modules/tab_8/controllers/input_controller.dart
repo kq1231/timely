@@ -43,7 +43,11 @@ class Tab8InputNotifier extends Notifier<Tab8Model> {
 
   // Methods
   Future<void> syncToDB() async {
-    await ref.read(tab8RepositoryProvider.notifier).writeTab8Model(state);
+    if (state.uuid != null) {
+      await ref.read(tab8RepositoryProvider.notifier).editModel(state);
+    } else {
+      await ref.read(tab8RepositoryProvider.notifier).writeTab8Model(state);
+    }
     ref.invalidate(tab8OutputProvider);
   }
 

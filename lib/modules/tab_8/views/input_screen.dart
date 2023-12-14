@@ -153,7 +153,7 @@ class Tab8InputScreen extends ConsumerWidget {
               ),
               Expanded(
                 child: TextFormField(
-                  initialValue: provider.title,
+                  initialValue: provider.description,
                   maxLines: 5,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(

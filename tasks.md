@@ -219,8 +219,16 @@
 - Tab 5 -D
     - Input Screen Redesign 
     - Date should be editable
-- Tab 8
+- Tab 8 -D
     - Input Screen 
     - Output Screen 
 
 **Inshaa Allah**
+
+---
+
+- Tab 8 
+    - Design Finalization 
+    - Update
+    - Delete
+

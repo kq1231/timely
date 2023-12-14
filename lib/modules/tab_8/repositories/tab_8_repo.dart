@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_8/models/tab_8_model.dart';
@@ -35,7 +36,6 @@ class Tab8RepositoryNotifier extends AsyncNotifier<void> {
 
     // Loop through the models checking the ids
     // When match is found, edit the values
-
     for (int i in List.generate(jsonContent.length, (index) => index)) {
       if (jsonContent[i]["ID"] == model.uuid) {
         jsonContent[i] = model.toJson();
@@ -48,7 +48,7 @@ class Tab8RepositoryNotifier extends AsyncNotifier<void> {
   }
 
   Future<void> deleteModel(Tab8Model model) async {
-    final file = (await ref.read(dbFilesProvider.future)).tab8File;
+    final File file = (await ref.read(dbFilesProvider.future)).tab8File;
 
     // Get the list of model maps
     List jsonContent = jsonDecode(await file.readAsString());
@@ -60,6 +60,7 @@ class Tab8RepositoryNotifier extends AsyncNotifier<void> {
         break;
       }
     }
+    await file.writeAsString(jsonEncode(jsonContent));
   }
 }
 
