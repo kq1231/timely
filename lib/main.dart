@@ -3,10 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/modules/tab_2_6_7/tab_2/views/output_screen.dart';
-import 'package:timely/modules/tab_2_6_7/tab_6/views/output_screen.dart';
-import 'package:timely/modules/tab_2_6_7/tab_7/views/output_screen.dart';
-import 'package:timely/modules/tab_8/views/output_screen.dart';
 import 'package:timely/reusables.dart';
 import 'exports/screens.dart';
 
@@ -60,7 +56,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
     const Tab7OutputScreen(),
     const Tab8OutputScreen(),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
-    const Center(child: Text("Coming Soon Inshaa Allah...")),
+    const Tab10OutputScreen(),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const Center(child: Text("Coming Soon Inshaa Allah...")),
     const LaunchScreen(),
