@@ -232,3 +232,21 @@
     - Update -D
     - Delete -D
 
+--- 
+
+- Tab 2 -D
+    - Header not needed
+
+- Tab [6, 7] -D
+    - Header not needed
+
+- Tab 10
+    - Numeric with decimals
+    - Toggle ke bajaye option 
+    - endToStart swipe -> DialogBox -> isComplete
+    - Order 
+        - 1. Amount 
+        - 2. Text 
+        - 3. Date
+
+- Side tab buttons should only be displayed on Launch Screen 

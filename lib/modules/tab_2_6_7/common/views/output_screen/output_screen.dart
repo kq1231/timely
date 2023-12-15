@@ -32,47 +32,49 @@ class OutputScreen extends ConsumerWidget {
               StatefulBuilder(builder: ((context, setState) {
                 return ListView(
                   children: [
-                    SizedBox(
-                      height: 50,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              height: 50,
-                              color: Colors.indigo[300],
-                              child: const Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text("Activities"),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              color: Colors.indigo[400],
-                              child: const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Center(child: Text("Start")),
-                              ),
-                            ),
-                          ),
-                          showEndTime == false
-                              ? Container()
-                              : Expanded(
-                                  child: Container(
-                                      color: Colors.indigo[500],
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Center(child: Text("End")),
-                                      )),
-                                )
-                        ],
-                      ),
-                    ),
+                    // Header Row
+                    // SizedBox(
+                    //   height: 50,
+                    //   child: Row(
+                    //     children: [
+                    //       Expanded(
+                    //         flex: 3,
+                    //         child: Container(
+                    //           height: 50,
+                    //           color: Colors.indigo[300],
+                    //           child: const Row(
+                    //             children: [
+                    //               Padding(
+                    //                 padding: EdgeInsets.all(8.0),
+                    //                 child: Text("Activities"),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       Expanded(
+                    //         child: Container(
+                    //           color: Colors.indigo[400],
+                    //           child: const Padding(
+                    //             padding: EdgeInsets.all(8.0),
+                    //             child: Center(child: Text("Start")),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       showEndTime == false
+                    //           ? Container()
+                    //           : Expanded(
+                    //               child: Container(
+                    //                   color: Colors.indigo[500],
+                    //                   child: const Padding(
+                    //                     padding: EdgeInsets.all(8.0),
+                    //                     child: Center(child: Text("End")),
+                    //                   )),
+                    //             )
+                    //     ],
+                    //   ),
+                    // ),
+
                     const SizedBox(
                       height: 1,
                     ),
