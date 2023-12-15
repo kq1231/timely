@@ -52,7 +52,28 @@ class _Tab10OutputScreenState extends ConsumerState<Tab10OutputScreen> {
                         ) ??
                         false;
                   } else {
-                    return false;
+                    return await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text("Mark Complete"),
+                              content: const Text(
+                                  'Are you sure you want to mark as completed?'),
+                              actions: [
+                                IconButton.filledTonal(
+                                  icon: const Icon(Icons.done),
+                                  onPressed: () => Navigator.pop(context, true),
+                                ),
+                                IconButton.filled(
+                                  icon: const Icon(Icons.dangerous),
+                                  onPressed: () =>
+                                      Navigator.pop(context, false),
+                                ),
+                              ],
+                            );
+                          },
+                        ) ??
+                        false;
                   }
                 },
                 background: Container(color: Colors.red),
@@ -63,6 +84,18 @@ class _Tab10OutputScreenState extends ConsumerState<Tab10OutputScreen> {
                         .deleteModel(model);
                     models.removeWhere((element) => element.uuid == model.uuid);
                     setState(() {});
+                  } else {
+                    models.removeWhere((e) => e.uuid == model.uuid);
+                    setState(() {});
+
+                    // Shift the model from pending DB to completed DB and refresh immediately
+                    // after model is removed from pending DB.
+                    ref
+                        .read(tab10PendingRepositoryProvider.notifier)
+                        .deleteModel(model);
+                    ref
+                        .read(tab10CompletedRepositoryProvider.notifier)
+                        .writeTab10ModelAsComplete(model);
                   }
                 },
                 key: Key(model.uuid!),
@@ -85,38 +118,16 @@ class _Tab10OutputScreenState extends ConsumerState<Tab10OutputScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Text(model.amount.toString()),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Flexible(child: Text(model.text_1)),
+                          const SizedBox(width: 10),
                           Text(
                             DateFormat(DateFormat.ABBR_MONTH_DAY)
                                 .format(model.date),
                           ),
-                          Text(model.amount.toString()),
-                          Flexible(child: Text(model.text_1)),
-                          StatefulBuilder(
-                            builder: (context, setCheckboxState) {
-                              return Checkbox(
-                                  value: model.isComplete,
-                                  onChanged: (value) async {
-                                    model.isComplete = true;
-                                    setCheckboxState(() {});
-                                    await Future.delayed(
-                                        const Duration(milliseconds: 500));
-
-                                    // Shift the model from pending DB to completed DB and refresh immediately
-                                    // after model is removed from pending DB.
-                                    await ref
-                                        .read(tab10PendingRepositoryProvider
-                                            .notifier)
-                                        .deleteModel(model);
-                                    models.removeWhere(
-                                        (e) => e.uuid == model.uuid);
-                                    setState(() {});
-                                    await ref
-                                        .read(tab10CompletedRepositoryProvider
-                                            .notifier)
-                                        .writeTab10ModelAsComplete(model);
-                                  });
-                            },
-                          )
                         ],
                       ),
                     ),

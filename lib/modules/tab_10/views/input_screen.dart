@@ -56,6 +56,8 @@ class Tab10InputScreen extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
               initialValue:
                   provider.amount != 0.0 ? provider.amount.toString() : "",
               decoration: const InputDecoration(
@@ -110,7 +112,7 @@ class Tab10InputScreen extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Toggle"),
+                const Text("Option"),
                 ToggleButtons(
                   isSelected: List.generate(
                       2, (index) => (provider.option) == index + 1),

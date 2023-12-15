@@ -240,11 +240,11 @@
 - Tab [6, 7] -D
     - Header not needed
 
-- Tab 10
-    - Numeric with decimals
-    - Toggle ke bajaye option 
-    - endToStart swipe -> DialogBox -> isComplete
-    - Order 
+- Tab 10 -D
+    - Numeric with decimals -D
+    - Toggle ke bajaye option -D
+    - endToStart swipe -> DialogBox -> isComplete -D
+    - Order -D
         - 1. Amount 
         - 2. Text 
         - 3. Date
