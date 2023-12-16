@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_10/controllers/input_controller.dart';
 import 'package:timely/modules/tab_10/controllers/output_controller.dart';
 import 'package:timely/modules/tab_10/models/tab_10_model.dart';
-import 'package:timely/modules/tab_10/repositories/completed_repo.dart';
 import 'package:timely/modules/tab_10/repositories/pending_repo.dart';
+import 'package:timely/modules/tab_10/services/completion_service.dart';
 import 'package:timely/modules/tab_10/views/input_screen.dart';
 import 'package:timely/reusables.dart';
 
@@ -88,14 +88,9 @@ class _Tab10OutputScreenState extends ConsumerState<Tab10OutputScreen> {
                     models.removeWhere((e) => e.uuid == model.uuid);
                     setState(() {});
 
-                    // Shift the model from pending DB to completed DB and refresh immediately
-                    // after model is removed from pending DB.
                     ref
-                        .read(tab10PendingRepositoryProvider.notifier)
-                        .deleteModel(model);
-                    ref
-                        .read(tab10CompletedRepositoryProvider.notifier)
-                        .writeTab10ModelAsComplete(model);
+                        .read(tab10CompletionServiceProvider.notifier)
+                        .markAsComplete(model);
                   }
                 },
                 key: Key(model.uuid!),

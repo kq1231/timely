@@ -56,7 +56,7 @@
 - Make code DRY.
 - Add options: Weekly and Daily.
 
-** Inshaa Allah **
+**Inshaa Allah**
 
 ---
 
