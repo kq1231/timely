@@ -249,4 +249,13 @@
         - 2. Text 
         - 3. Date
 
-- Side tab buttons should only be displayed on Launch Screen 
+- Create service for completion :: Tab 10
+
+انشاء اللہ 
+
+--- 
+
+- Side tab buttons should only be displayed on Launch Screen
+
+- Tab 11 
+    - "Switch 1" -> "Urgent"
