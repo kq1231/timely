@@ -261,7 +261,7 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   repetitionSummary,
-                  style: TextStyle(fontStyle: FontStyle.italic),
+                  style: const TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),
             ),

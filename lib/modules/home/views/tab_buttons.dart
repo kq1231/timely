@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/exports/screens.dart';
+import 'package:timely/modules/tab_11/views/output_screen.dart';
 import 'package:timely/reusables.dart';
 
 final List tabs = [
@@ -15,7 +16,7 @@ final List tabs = [
   const Tab8OutputScreen(),
   const Center(child: Text("Coming Soon Inshaa Allah...")),
   const Tab10OutputScreen(),
-  const Center(child: Text("Coming Soon Inshaa Allah...")),
+  const Tab11OutputScreen(),
   const Center(child: Text("Coming Soon Inshaa Allah...")),
   const LaunchScreen(),
 ];

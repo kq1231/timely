@@ -36,8 +36,8 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
     state = state.copywith(startTime: startTime);
   }
 
-  void setEndTime(endTime) {
-    state = state.copywith(endTime: endTime);
+  void setEndTime(dur) {
+    state = state.copywith(dur: dur);
   }
 
   void setFrequency(frequency) {

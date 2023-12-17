@@ -17,6 +17,8 @@ class DBFiles {
   final File tab8File;
   final File tab10PendingFile;
   final File tab10CompletedFile;
+  final File tab11PendingFile;
+  final File tab11CompletedFile;
 
   DBFiles({
     required this.tab1File,
@@ -31,6 +33,8 @@ class DBFiles {
     required this.tab8File,
     required this.tab10PendingFile,
     required this.tab10CompletedFile,
+    required this.tab11CompletedFile,
+    required this.tab11PendingFile,
   });
 }
 
@@ -62,6 +66,8 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
   File tab8File = File('${docDir.path}/tab_8.json');
   File tab10PendingFile = File('${docDir.path}/tab_10_pending.json');
   File tab10CompletedFile = File('${docDir.path}/tab_10_completed.json');
+  File tab11PendingFile = File('${docDir.path}/tab_11_pending.json');
+  File tab11CompletedFile = File('${docDir.path}/tab_11_completed.json');
 
   if (!await currentActivitiesFile.exists()) {
     await currentActivitiesFile.writeAsString(
@@ -133,6 +139,18 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
     );
   }
 
+  if (!await tab11PendingFile.exists()) {
+    await tab11PendingFile.writeAsString(
+      "[]",
+    );
+  }
+
+  if (!await tab11CompletedFile.exists()) {
+    await tab11CompletedFile.writeAsString(
+      "[]",
+    );
+  }
+
   return DBFiles(
     tab1File: tab1File,
     tab5File: tab5File,
@@ -146,6 +164,8 @@ final dbFilesProvider = FutureProvider<DBFiles>((ref) async {
     tab8File: tab8File,
     tab10PendingFile: tab10PendingFile,
     tab10CompletedFile: tab10CompletedFile,
+    tab11PendingFile: tab11PendingFile,
+    tab11CompletedFile: tab11CompletedFile,
   );
 });
 
