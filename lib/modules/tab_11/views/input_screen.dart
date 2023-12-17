@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_11/controllers/input_controller.dart';
-import 'package:timely/modules/tab_11/controllers/output_controller.dart';
 
 class Tab11InputScreen extends ConsumerWidget {
   const Tab11InputScreen({super.key});
@@ -138,7 +137,6 @@ class Tab11InputScreen extends ConsumerWidget {
                 child: const Text("Submit"),
                 onPressed: () {
                   controller.syncToDB();
-                  ref.invalidate(tab11OutputProvider);
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

@@ -19,12 +19,12 @@ class PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
     }
   }
 
-  Future<List> fetchModels(toJsonMethod, file) async {
+  Future<List> fetchModels(modelize, file) async {
     final jsonContent = jsonDecode(await file.readAsString());
     final models = [];
 
     for (Map modelMap in jsonContent) {
-      models.add(toJsonMethod(modelMap));
+      models.add(modelize(modelMap));
     }
 
     return models;

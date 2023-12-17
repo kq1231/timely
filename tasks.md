@@ -259,3 +259,16 @@
 
 - Tab 11 
     - "Switch 1" -> "Urgent"
+
+---
+
+- Make the common repo accept a file argument in its constructor
+?- For $tab, the service would extend the pending repo and it will also implement the markAsComplete function
+[
+- A FutureProvider will fetch the file, pass it to this newly-created service and return it.
+    || 
+- The output provider is an AsyncNotifier with the CRUD methods. 
+    - This way, we don't a service!!!
+] 
+
+**Inshaa Allah**
