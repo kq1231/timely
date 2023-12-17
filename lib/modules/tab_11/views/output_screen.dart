@@ -33,7 +33,7 @@ class _Tab11OutputScreenState extends ConsumerState<Tab11OutputScreen> {
                     Expanded(
                         child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 9.0),
-                      child: Center(child: Text("Item")),
+                      child: Text("Item"),
                     )),
                     SizedBox(width: 60, child: Center(child: Text("Quantity"))),
                     SizedBox(width: 60, child: Center(child: Text("Unit"))),
@@ -130,9 +130,9 @@ class _Tab11OutputScreenState extends ConsumerState<Tab11OutputScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const SizedBox(
-                              width: 5,
+                              width: 10,
                             ),
-                            Expanded(child: Center(child: Text(model.item))),
+                            Expanded(child: Text(model.item)),
                             SizedBox(
                               width: 60,
                               child: Center(child: Text(model.qty.toString())),
