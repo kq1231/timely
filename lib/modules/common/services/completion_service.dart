@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/common/repositories/completed_repo.dart';
 import 'package:timely/modules/common/repositories/pending_repo.dart';
 
+/// '''This service<[Notifier]> communicates between two repositories.'''
+
 class CompletionServiceNotifier extends AutoDisposeNotifier<void> {
   @override
   void build() {}

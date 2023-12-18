@@ -262,13 +262,24 @@
 
 ---
 
-- Make the common repo accept a file argument in its constructor
-?- For $tab, the service would extend the pending repo and it will also implement the markAsComplete function
-[
-- A FutureProvider will fetch the file, pass it to this newly-created service and return it.
-    || 
-- The output provider is an AsyncNotifier with the CRUD methods. 
-    - This way, we don't a service!!!
-] 
+- Tab 11 DRYing -D
+    - Make the common repo accept a file argument in its constructor
+    ?- For $tab, the service would extend the pending repo and it will also implement the markAsComplete function
+    [
+    - A FutureProvider will fetch the file, pass it to this newly-created service and return it.
+        || 
+    - The output provider is an AsyncNotifier with the CRUD methods. 
+        - This way, we don't a service!!!
+    ] 
+
+- Other tabs' DRYness 
+    - Move all service and repo methods to controllers. It is the controller's job to manage the state. 
+        Otherwise, the code will not be maintable. It is necessary to strike a balance between DRYness and SoC.
+    - Use the common repos for **EVERY** tab.
+    - 2, 4, 6, 7, 8, 10, 11.
+
+- Efficiency 
+    - Time ticker deactivation when not in view.
+    - Dispose unnecessary providers.
 
 **Inshaa Allah**
