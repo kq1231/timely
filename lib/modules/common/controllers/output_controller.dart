@@ -17,6 +17,7 @@ class OutputNotifier extends AsyncNotifier<List> {
   @override
   FutureOr<List> build() async {
     pendingFile = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
+    completedFile = (await ref.read(dbFilesProvider.future))[tabNumber]![1];
 
     return await ref
         .read(pendingRepositoryProvider.notifier)
@@ -24,16 +25,12 @@ class OutputNotifier extends AsyncNotifier<List> {
   }
 
   Future<void> deleteModel(model) async {
-    pendingFile = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
     await ref
         .read(pendingRepositoryProvider.notifier)
         .deleteModel(model, pendingFile);
   }
 
   Future<void> markModelAsComplete(model) async {
-    pendingFile = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
-    completedFile = (await ref.read(dbFilesProvider.future))[tabNumber]![1];
-
     await ref
         .read(completionServiceProvider.notifier)
         .markModelAsComplete(model, pendingFile, completedFile);
