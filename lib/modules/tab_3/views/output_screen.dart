@@ -40,7 +40,7 @@ class Tab3OutputScreen extends ConsumerWidget {
                                   data[data.keys.toList()[index]]![i];
                               // Row of time and text_1
                               return DismissbleEntry(
-                                entryKey: model.date!,
+                                entryKey: model.uuid!,
                                 onDismissed: (direction) async {
                                   if (direction ==
                                       DismissDirection.startToEnd) {

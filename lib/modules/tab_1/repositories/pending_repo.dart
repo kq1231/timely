@@ -21,20 +21,7 @@ class Tab1PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
     dates.sort();
     dates = dates.reversed.toList();
     for (final date in dates) {
-      var content = jsonContent[date];
-
-      Map json = {
-        date: [
-          [
-            content[0][0],
-            content[0][1],
-            content[0][2],
-          ],
-          content[1],
-          content[2],
-        ]
-      };
-      fmsModels.add(FMSModel.fromJson(json));
+      fmsModels.add(FMSModel.fromJson({date: jsonContent[date]}));
     }
 
     return fmsModels;
@@ -42,19 +29,8 @@ class Tab1PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
 
   Future<void> writeFMSModel(FMSModel model) async {
     final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
-    final jsonContent = jsonDecode(await tab1File.readAsString());
-    jsonContent[model.date] = [];
-    jsonContent[model.date].add(
-      [
-        model.fScore,
-        model.mScore,
-        model.sScore,
-      ],
-    );
-    jsonContent[model.date].add(
-      "${model.nextUpdateTime.hour}: ${model.nextUpdateTime.minute}",
-    );
-    jsonContent[model.date].add(model.text_1);
+    Map jsonContent = jsonDecode(await tab1File.readAsString());
+    jsonContent = {...jsonContent, ...model.toJson()};
     await tab1File.writeAsString(jsonEncode(jsonContent));
   }
 

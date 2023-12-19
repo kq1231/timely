@@ -38,8 +38,12 @@ class FMSModel {
   Map toJson() {
     return {
       date: [
-        [fScore, mScore, sScore],
-        nextUpdateTime,
+        [
+          fScore,
+          mScore,
+          sScore,
+        ],
+        "${nextUpdateTime.hour}: ${nextUpdateTime.minute}",
         text_1,
       ]
     };

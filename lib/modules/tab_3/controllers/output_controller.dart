@@ -17,9 +17,7 @@ final tab3OutputProvider =
 
   // Add future dates and exclude any past dates
   for (String date in res.keys.toList()..sort()) {
-    if (!DateTime.parse(date).isBefore(DateTime.now())) {
-      objs[date] = res[date]!;
-    }
+    objs[date] = res[date]!;
   }
 
   return objs;

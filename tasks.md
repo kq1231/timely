@@ -282,4 +282,6 @@
     - Time ticker deactivation when not in view.
     - Dispose unnecessary providers.
 
+- Fix tab 1 toJson method and use it to make code DRY.
+
 **Inshaa Allah**
