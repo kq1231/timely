@@ -9,6 +9,7 @@ class Tab7OutputScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutputScreen(
       tabOutputProvider: tab7OutputProvider,
+      tabNumber: 7,
       showEndTime: false,
     );
   }

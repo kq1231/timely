@@ -1,32 +1,31 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_2_6_7/common/controllers/input_controller.dart';
+import 'package:timely/modules/tab_2_6_7/common/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2_6_7/common/models/tab_2_model.dart';
-import 'package:timely/modules/tab_2_6_7/common/repositories/repo.dart';
 import 'package:timely/modules/tab_2_6_7/common/views/input_screen/input_screen.dart';
 import 'package:timely/reusables.dart';
 
 class OutputScreen extends ConsumerWidget {
   final bool? showEndTime;
-  final FutureProvider tabOutputProvider;
+  final AsyncNotifierProvider<Tab2OutputNotifier, List> tabOutputProvider;
+  final int tabNumber;
+
   const OutputScreen({
     super.key,
     this.showEndTime,
     required this.tabOutputProvider,
+    required this.tabNumber,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(tabOutputProvider);
+    final controller = ref.read(tabOutputProvider.notifier);
 
     return provider.when(
-        data: (data) {
-          final File file = data["file"];
-
-          List<Tab2Model> models = data["models"];
+        data: (models) {
           return Stack(
             children: [
               StatefulBuilder(builder: ((context, setState) {
@@ -79,7 +78,7 @@ class OutputScreen extends ConsumerWidget {
                       height: 1,
                     ),
                     ...List.generate(
-                      data["models"].length,
+                      models.length,
                       (i) {
                         Tab2Model model = models[i];
                         List<int> endTime = model.calculateEndTime(model.dur);
@@ -116,10 +115,8 @@ class OutputScreen extends ConsumerWidget {
                           },
                           onDismissed: (direction) {
                             if (direction == DismissDirection.startToEnd) {
-                              ref
-                                  .read(tab2RepositoryProvider.notifier)
-                                  .deleteModel(model, file);
-                              data["models"].removeAt(i);
+                              controller.deleteModel(model);
+                              models.removeAt(i);
                               setState(() {});
                             }
                           },
@@ -146,10 +143,10 @@ class OutputScreen extends ConsumerWidget {
                                             body: showEndTime == false
                                                 ? Tab2InputScreen(
                                                     showDuration: false,
-                                                    file: file,
+                                                    tabNumber: tabNumber,
                                                   )
                                                 : Tab2InputScreen(
-                                                    file: file,
+                                                    tabNumber: tabNumber,
                                                   ),
                                             appBar: AppBar(),
                                           );
@@ -245,11 +242,11 @@ class OutputScreen extends ConsumerWidget {
                                     appBar: AppBar(),
                                     body: showEndTime == false
                                         ? Tab2InputScreen(
-                                            file: file,
+                                            tabNumber: tabNumber,
                                             showDuration: false,
                                           )
                                         : Tab2InputScreen(
-                                            file: file,
+                                            tabNumber: tabNumber,
                                           ),
                                   );
                                 },

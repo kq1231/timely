@@ -22,7 +22,7 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
   Future<List<Tab2Model>> fetchTab2ModelsForToday(File file) async {
     // Grab the file
     final tab2CurrentActivitiesFile =
-        (await ref.read(dbFilesProvider.future)).currentActivitiesFile;
+        (await ref.read(dbFilesProvider.future))[2]!.last;
 
     // Extract the contents
     var content = jsonDecode(await tab2CurrentActivitiesFile.readAsString());
@@ -189,7 +189,7 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
   Future<void> generateActivitiesForToday(File file) async {
     // Grab the file
     final currentActivitiesFile =
-        (await ref.read(dbFilesProvider.future)).currentActivitiesFile;
+        (await ref.read(dbFilesProvider.future))[2]!.last;
 
     // Save to the file
     await currentActivitiesFile

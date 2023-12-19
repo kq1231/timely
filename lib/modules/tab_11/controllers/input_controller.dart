@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/common/repositories/pending_repo.dart';
-import 'package:timely/modules/tab_11/controllers/output_controller.dart';
 import 'package:timely/modules/tab_11/models/tab_11_model.dart';
 import 'package:timely/reusables.dart';
 
@@ -40,13 +39,8 @@ class Tab11InputNotifier extends Notifier<Tab11Model> {
   }
 
   Future<void> syncToDB() async {
-    final tab11PendingFile =
-        (await ref.read(dbFilesProvider.future)).tab11PendingFile;
-    await ref
-        .read(pendingRepositoryProvider.notifier)
-        .writeModel(state, tab11PendingFile);
-
-    ref.invalidate(tab11OutputProvider);
+    final file = (await ref.read(dbFilesProvider.future))[11]![0];
+    await ref.read(pendingRepositoryProvider.notifier).writeModel(state, file);
   }
 }
 

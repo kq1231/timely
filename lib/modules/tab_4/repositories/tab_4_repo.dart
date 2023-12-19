@@ -13,7 +13,7 @@ class Tab4RepositoryNotifier extends Notifier<AsyncValue<void>> {
 
   // Methods
   Future<void> writeTab4Model(Tab3Model model) async {
-    final file = (await ref.read(dbFilesProvider.future)).tab4File;
+    final file = (await ref.read(dbFilesProvider.future))[4]![0];
     List content = jsonDecode(await file.readAsString());
 
     content = [
@@ -29,7 +29,7 @@ class Tab4RepositoryNotifier extends Notifier<AsyncValue<void>> {
   }
 
   Future<List<Tab3Model>> fetchTab4Models() async {
-    final file = (await ref.read(dbFilesProvider.future)).tab4File;
+    final file = (await ref.read(dbFilesProvider.future))[4]![0];
     List jsonContent = jsonDecode(await file.readAsString());
     List<Tab3Model> models = <Tab3Model>[];
 
@@ -40,7 +40,7 @@ class Tab4RepositoryNotifier extends Notifier<AsyncValue<void>> {
   }
 
   Future<void> deleteModel(Tab3Model model) async {
-    final file = (await ref.read(dbFilesProvider.future)).tab4File;
+    final file = (await ref.read(dbFilesProvider.future))[4]![0];
     List jsonContent = jsonDecode(await file.readAsString());
 
     jsonContent.removeWhere((modelMap) => modelMap["ID"] == model.uuid);

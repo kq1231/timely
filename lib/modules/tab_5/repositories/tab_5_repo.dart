@@ -13,7 +13,7 @@ class Tab5RepositoryNotifier extends Notifier<AsyncValue<void>> {
   }
 
   Future<void> writeSPWModel(SPWModel model) async {
-    final tab5File = (await ref.read(dbFilesProvider.future)).tab5File;
+    final tab5File = (await ref.read(dbFilesProvider.future))[5]![0];
     final jsonContent = jsonDecode(await tab5File.readAsString());
     jsonContent[model.date] = [];
     jsonContent[model.date].add(
@@ -30,7 +30,7 @@ class Tab5RepositoryNotifier extends Notifier<AsyncValue<void>> {
   }
 
   Future<List<SPWModel>> fetchSPWModels() async {
-    final tab5File = (await ref.read(dbFilesProvider.future)).tab5File;
+    final tab5File = (await ref.read(dbFilesProvider.future))[5]![0];
     final jsonContent = jsonDecode(await tab5File.readAsString());
     final spwModels = <SPWModel>[];
     for (final date in jsonContent.keys.toList().reversed) {
@@ -46,7 +46,7 @@ class Tab5RepositoryNotifier extends Notifier<AsyncValue<void>> {
 
   Future<void> deleteModel(SPWModel model) async {
     // Fetch the data
-    final tab5File = (await ref.read(dbFilesProvider.future)).tab5File;
+    final tab5File = (await ref.read(dbFilesProvider.future))[5]![0];
     Map jsonContent = jsonDecode(await tab5File.readAsString());
 
     jsonContent.removeWhere((key, value) {

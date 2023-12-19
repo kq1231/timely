@@ -5,6 +5,7 @@ import 'package:timely/modules/tab_2_6_7/common/models/tab_2_model.dart';
 import 'package:timely/modules/tab_2_6_7/common/repositories/repo.dart';
 import 'package:timely/modules/tab_2_6_7/tab_6/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2_6_7/tab_7/controllers/output_controller.dart';
+import 'package:timely/reusables.dart';
 
 class Tab2InputNotifier extends Notifier<Tab2Model> {
   @override
@@ -69,7 +70,8 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
   }
 
   // Methods
-  Future<void> syncToDB(file) async {
+  Future<void> syncToDB(tabNumber) async {
+    final file = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
     await ref.read(tab2RepositoryProvider.notifier).writeTab2Model(state, file);
 
     for (final provider in [
@@ -81,7 +83,8 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
     }
   }
 
-  Future<void> syncEditedModel(file) async {
+  Future<void> syncEditedModel(tabNumber) async {
+    final file = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
     await ref
         .read(tab2RepositoryProvider.notifier)
         .writeEditedModel(state, file);

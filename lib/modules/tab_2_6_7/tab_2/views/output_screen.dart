@@ -8,6 +8,9 @@ class Tab2OutputScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutputScreen(tabOutputProvider: tab2OutputProvider);
+    return OutputScreen(
+      tabOutputProvider: tab2OutputProvider,
+      tabNumber: 2,
+    );
   }
 }

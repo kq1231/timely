@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:timely/modules/tab_10/controllers/output_controller.dart';
+import 'package:timely/modules/common/repositories/pending_repo.dart';
 import 'package:timely/modules/tab_10/models/tab_10_model.dart';
-import 'package:timely/modules/tab_10/repositories/completed_repo.dart';
-import 'package:timely/modules/tab_10/repositories/pending_repo.dart';
+import 'package:timely/reusables.dart';
 
 class Tab10InputNotifier extends Notifier<Tab10Model> {
   @override
@@ -46,26 +45,8 @@ class Tab10InputNotifier extends Notifier<Tab10Model> {
   }
 
   Future<void> syncToDB() async {
-    if (state.uuid != null) {
-      ref.read(tab10PendingRepositoryProvider.notifier).editModel(state);
-    } else {
-      await ref
-          .read(tab10PendingRepositoryProvider.notifier)
-          .writeTab10Model(state);
-    }
-
-    ref.invalidate(tab10OutputProvider);
-  }
-
-  Future<void> markAsComplete() async {
-    // Shift the model from pending DB to completed DB and refresh immediately
-    // after model is removed from pending DB.
-    await ref.read(tab10PendingRepositoryProvider.notifier).deleteModel(state);
-    ref.invalidate(tab10OutputProvider);
-
-    await ref
-        .read(tab10CompletedRepositoryProvider.notifier)
-        .writeTab10ModelAsComplete(state);
+    final file = (await ref.read(dbFilesProvider.future))[10]![0];
+    await ref.read(pendingRepositoryProvider.notifier).writeModel(state, file);
   }
 }
 

@@ -10,7 +10,7 @@ class Tab8RepositoryNotifier extends AsyncNotifier<void> {
   Future<void> build() async {}
 
   Future<List<Tab8Model>> fetchAllTab8Models() async {
-    final file = (await ref.read(dbFilesProvider.future)).tab8File;
+    final file = (await ref.read(dbFilesProvider.future))[8]![0];
 
     List jsonContent = jsonDecode(await file.readAsString());
     List<Tab8Model> models = [];
@@ -22,7 +22,7 @@ class Tab8RepositoryNotifier extends AsyncNotifier<void> {
   }
 
   Future<void> writeTab8Model(Tab8Model model) async {
-    final file = (await ref.read(dbFilesProvider.future)).tab8File;
+    final file = (await ref.read(dbFilesProvider.future))[8]![0];
 
     List jsonContent = jsonDecode(await file.readAsString());
     jsonContent = [...jsonContent, model.toJson()];
@@ -31,7 +31,7 @@ class Tab8RepositoryNotifier extends AsyncNotifier<void> {
 
   Future<void> editModel(Tab8Model model) async {
     // Grab the file & content
-    final file = (await ref.read(dbFilesProvider.future)).tab8File;
+    final file = (await ref.read(dbFilesProvider.future))[8]![0];
     List jsonContent = jsonDecode(await file.readAsString());
 
     // Loop through the models checking the ids
@@ -48,7 +48,7 @@ class Tab8RepositoryNotifier extends AsyncNotifier<void> {
   }
 
   Future<void> deleteModel(Tab8Model model) async {
-    final File file = (await ref.read(dbFilesProvider.future)).tab8File;
+    final File file = (await ref.read(dbFilesProvider.future))[8]![0];
 
     // Get the list of model maps
     List jsonContent = jsonDecode(await file.readAsString());

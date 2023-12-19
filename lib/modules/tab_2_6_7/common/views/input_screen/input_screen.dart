@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,8 +7,12 @@ import 'repeats_page.dart';
 
 class Tab2InputScreen extends ConsumerStatefulWidget {
   final bool? showDuration;
-  final File file;
-  const Tab2InputScreen({super.key, this.showDuration, required this.file});
+  final int tabNumber;
+  const Tab2InputScreen({
+    super.key,
+    this.showDuration,
+    required this.tabNumber,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => Tab2InputScreenState();
@@ -298,9 +300,9 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                           content: Text("Do not leave activity text blank!")));
                     } else {
                       if (provider.uuid == null) {
-                        controller.syncToDB(widget.file);
+                        controller.syncToDB(widget.tabNumber);
                       } else {
-                        controller.syncEditedModel(widget.file);
+                        controller.syncEditedModel(widget.tabNumber);
                       }
                       Navigator.pop(context);
                     }

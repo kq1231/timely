@@ -17,7 +17,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
 
   @override
   Future<List<FMSModel>> fetchFMSModels() async {
-    final tab1File = (await ref.read(dbFilesProvider.future)).tab1ReFile;
+    final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
     final jsonContent = jsonDecode(await tab1File.readAsString());
     final fmsModels = <FMSModel>[];
     List dates = jsonContent.keys.toList();
@@ -45,7 +45,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
 
   @override
   Future<void> writeFMSModel(FMSModel model) async {
-    final tab1File = (await ref.read(dbFilesProvider.future)).tab1ReFile;
+    final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
     final jsonContent = jsonDecode(await tab1File.readAsString());
     jsonContent[model.date] = [];
     jsonContent[model.date].add(
@@ -64,7 +64,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
 
   @override
   Future<void> createDefaultEntry() async {
-    final tab1File = (await ref.read(dbFilesProvider.future)).tab1ReFile;
+    final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
     final jsonContent = jsonDecode(await tab1File.readAsString());
     String dateToday = DateTime.now().toString().substring(0, 10);
     DateTime currentTime = DateTime.now();
@@ -86,7 +86,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
   @override
   Future<void> updateNextUpdateTime() async {
     await createDefaultEntry();
-    final tab1File = (await ref.read(dbFilesProvider.future)).tab1ReFile;
+    final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
     final jsonContent = jsonDecode(await tab1File.readAsString());
     String dateToday = DateTime.now().toString().substring(0, 10);
     FMSModel model = FMSModel.fromJson({dateToday: jsonContent[dateToday]});
@@ -110,7 +110,7 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
   @override
   Future<void> deleteModel(FMSModel model) async {
     // Fetch the models
-    final tab1File = (await ref.read(dbFilesProvider.future)).tab1ReFile;
+    final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
     Map jsonContent = jsonDecode(await tab1File.readAsString());
 
     // Loop through the map's items

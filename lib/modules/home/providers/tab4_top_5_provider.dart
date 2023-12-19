@@ -5,7 +5,7 @@ import 'package:timely/reusables.dart';
 
 final tab4Top5Provider = FutureProvider.autoDispose<List>((ref) async {
   // Get the file
-  File file = (await ref.read(dbFilesProvider.future)).tab4File;
+  File file = (await ref.read(dbFilesProvider.future))[4]![0];
 
   // Extract the json
   List content = jsonDecode(await file.readAsString());

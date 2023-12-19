@@ -4,8 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_10/controllers/input_controller.dart';
 import 'package:timely/modules/tab_10/controllers/output_controller.dart';
 import 'package:timely/modules/tab_10/models/tab_10_model.dart';
-import 'package:timely/modules/tab_10/repositories/pending_repo.dart';
-import 'package:timely/modules/tab_10/services/completion_service.dart';
 import 'package:timely/modules/tab_10/views/input_screen.dart';
 import 'package:timely/reusables.dart';
 
@@ -21,6 +19,8 @@ class _Tab10OutputScreenState extends ConsumerState<Tab10OutputScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(tab10OutputProvider);
+    final controller = ref.watch(tab10OutputProvider.notifier);
+
     return Stack(children: [
       provider.when(
         data: (models) {
@@ -79,18 +79,14 @@ class _Tab10OutputScreenState extends ConsumerState<Tab10OutputScreen> {
                 background: Container(color: Colors.red),
                 onDismissed: (direction) {
                   if (direction == DismissDirection.startToEnd) {
-                    ref
-                        .read(tab10PendingRepositoryProvider.notifier)
-                        .deleteModel(model);
+                    controller.deleteModel(model);
                     models.removeWhere((element) => element.uuid == model.uuid);
                     setState(() {});
                   } else {
                     models.removeWhere((e) => e.uuid == model.uuid);
                     setState(() {});
 
-                    ref
-                        .read(tab10CompletionServiceProvider.notifier)
-                        .markAsComplete(model);
+                    controller.markModelAsComplete(model);
                   }
                 },
                 key: Key(model.uuid!),
