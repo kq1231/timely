@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_1/controllers/input_controller.dart';
 import 'package:timely/modules/tab_1/controllers/output_controller.dart';
-import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
 import 'package:timely/modules/tab_1/views/input_screen.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/reusables.dart';
@@ -13,7 +12,9 @@ class Tab1OutputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(tab1FutureProvider);
+    final provider = ref.watch(tab1OutputProvider);
+    final controller = ref.read(tab1OutputProvider.notifier);
+
     return provider.when(
         data: (data) {
           return Stack(
@@ -54,43 +55,18 @@ class Tab1OutputScreen extends ConsumerWidget {
                       ),
                     ),
                     ...List.generate(data.length, (index) {
-                      return Dismissible(
-                        // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
-                        confirmDismiss: (direction) async {
-                          if (direction == DismissDirection.startToEnd) {
-                            return await showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: const Text("Delete"),
-                                      content: const Text(
-                                          'Are you sure you want to delete?'),
-                                      actions: [
-                                        IconButton.filledTonal(
-                                            icon: const Icon(Icons.done),
-                                            onPressed: () =>
-                                                Navigator.pop(context, true)),
-                                        IconButton.filled(
-                                            icon: const Icon(Icons.dangerous),
-                                            onPressed: () =>
-                                                Navigator.pop(context, false)),
-                                      ],
-                                    );
-                                  },
-                                ) ??
-                                false;
-                          } else {
-                            return false;
-                          }
-                        },
-                        background: Container(color: Colors.red),
-                        key: Key(data[index].date),
+                      // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
+                      return DismissbleEntry(
+                        entryKey: data[index].date,
                         onDismissed: (direction) async {
                           if (direction == DismissDirection.startToEnd) {
-                            ref
-                                .read(tab1RepositoryProvider.notifier)
-                                .deleteModel(data[index]);
-                            data.removeAt(index);
+                            controller.deleteModel(data[index]);
+                            data.removeWhere(
+                                (element) => element.date == data[index].date);
+                            setState(() {});
+                          } else {
+                            controller.markModelAsComplete(data[index]);
+                            data.removeWhere((e) => e.date == data[index].date);
                             setState(() {});
                           }
                         },

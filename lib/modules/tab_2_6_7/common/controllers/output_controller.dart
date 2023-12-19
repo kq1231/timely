@@ -6,7 +6,8 @@ import 'package:timely/modules/tab_2_6_7/common/repositories/repo.dart';
 import 'package:timely/reusables.dart';
 
 class Tab2OutputNotifier extends OutputNotifier {
-  Tab2OutputNotifier({required super.tabNumber, required super.modelizeMethod});
+  Tab2OutputNotifier({required int tabNumber})
+      : super(tabNumber: tabNumber, modelizer: Tab2Model.fromJson);
 
   @override
   FutureOr<List> build() async {
@@ -14,12 +15,12 @@ class Tab2OutputNotifier extends OutputNotifier {
 
     await ref
         .read(tab2RepositoryProvider.notifier)
-        .generateActivitiesForToday(file);
+        .generateActivitiesForToday(modelizer, file);
 
     // Fetch the models from the db
-    List<Tab2Model> models = await ref
+    List models = await ref
         .read(tab2RepositoryProvider.notifier)
-        .fetchTab2ModelsForToday(file);
+        .fetchModels(modelizer, file);
 
     return models;
   }

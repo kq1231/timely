@@ -9,7 +9,7 @@ class CompletionServiceNotifier extends AutoDisposeNotifier<void> {
   void build() {}
 
   // Methods
-  Future<void> markAsComplete(model, pendingFile, completedFile) async {
+  Future<void> markModelAsComplete(model, pendingFile, completedFile) async {
     // Shift the model from pending DB to completed DB and refresh immediately
     // after model is removed from pending DB.
     await ref

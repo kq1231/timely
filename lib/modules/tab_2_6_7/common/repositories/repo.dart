@@ -2,49 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/modules/common/repositories/pending_repo.dart';
 import 'package:timely/modules/tab_2_6_7/common/models/tab_2_model.dart';
 import 'package:timely/reusables.dart';
 
-class Tab2RepostioryNotifier extends AsyncNotifier<void> {
-  @override
-  FutureOr<void> build() async {}
-
-  Future<List<Tab2Model>> fetchAllTab2Models(File file) async {
-    List jsonContent = jsonDecode(await file.readAsString());
-    List<Tab2Model> models = [];
-    for (Map obj in jsonContent) {
-      models.add(Tab2Model.fromJson(obj));
-    }
-
-    return models;
-  }
-
-  Future<List<Tab2Model>> fetchTab2ModelsForToday(File file) async {
-    // Grab the file
-    final tab2CurrentActivitiesFile =
-        (await ref.read(dbFilesProvider.future))[2]!.last;
-
-    // Extract the contents
-    var content = jsonDecode(await tab2CurrentActivitiesFile.readAsString());
-
-    // Loop over and extract the models
-    List<Tab2Model> models = [];
-    for (var modelMap in content) {
-      models.add(Tab2Model.fromJson(modelMap));
-    }
-
-    return models;
-  }
-
-  Future<void> writeTab2Model(Tab2Model model, File file) async {
-    List jsonContent = jsonDecode(await file.readAsString());
-
-    jsonContent = [...jsonContent, model.toJson()];
-
-    await file.writeAsString(jsonEncode(jsonContent));
-  }
-
-  Future<List> getActivitiesForToday(File file) async {
+class Tab2RepostioryNotifier extends PendingRepositoryNotifier {
+  Future<List> getActivitiesForToday(Function modelizer, File file) async {
     // Functions for DRYness
     List<int> getOccurences(
         Tab2Model model, int ordinalPosition, int dayOfWeek) {
@@ -92,7 +55,7 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
     }
 
     // Get the models
-    List models = await fetchAllTab2Models(file);
+    List models = await fetchModels(modelizer, file);
 
     // Create an array of selected models
     List<Map> currentModels = [];
@@ -186,51 +149,17 @@ class Tab2RepostioryNotifier extends AsyncNotifier<void> {
     return currentModels;
   }
 
-  Future<void> generateActivitiesForToday(File file) async {
+  Future<void> generateActivitiesForToday(Function modelizer, File file) async {
     // Grab the file
     final currentActivitiesFile =
         (await ref.read(dbFilesProvider.future))[2]!.last;
 
     // Save to the file
-    await currentActivitiesFile
-        .writeAsString(jsonEncode(await getActivitiesForToday(file)));
-  }
-
-  Future<void> writeEditedModel(Tab2Model model, File file) async {
-    // Grab the file & content
-    List jsonContent = jsonDecode(await file.readAsString());
-
-    // Loop through the models checking the ids
-    // When match is found, edit the values
-
-    for (int i in List.generate(jsonContent.length, (index) => index)) {
-      if (jsonContent[i]["ID"] == model.uuid) {
-        jsonContent[i] = model.toJson();
-        break;
-      }
-    }
-
-    // Sync with the database
-    await file.writeAsString(jsonEncode(jsonContent));
-  }
-
-  Future<void> deleteModel(Tab2Model model, File file) async {
-    // Get the list of model maps
-    List jsonContent = jsonDecode(await file.readAsString());
-
-    // Remove the model whose id matches @model.uuid
-    for (int i in List.generate(jsonContent.length, (index) => index)) {
-      if (jsonContent[i]["ID"] == model.uuid) {
-        jsonContent.removeAt(i);
-        break;
-      }
-    }
-
-    // Persist the data
-    await file.writeAsString(jsonEncode(jsonContent));
+    await currentActivitiesFile.writeAsString(
+        jsonEncode(await getActivitiesForToday(modelizer, file)));
   }
 }
 
 final tab2RepositoryProvider =
-    AsyncNotifierProvider<Tab2RepostioryNotifier, void>(
+    NotifierProvider<Tab2RepostioryNotifier, AsyncValue<void>>(
         Tab2RepostioryNotifier.new);

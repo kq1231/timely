@@ -10,21 +10,17 @@ class PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
   }
 
   Future<void> writeModel(model, file) async {
-    if (model.uuid != null) {
-      await ref.read(pendingRepositoryProvider.notifier).editModel(model, file);
-    } else {
-      final jsonContent = jsonDecode(await file.readAsString());
-      jsonContent.add(model.toJson());
-      await file.writeAsString(jsonEncode(jsonContent));
-    }
+    final jsonContent = jsonDecode(await file.readAsString());
+    jsonContent.add(model.toJson());
+    await file.writeAsString(jsonEncode(jsonContent));
   }
 
-  Future<List> fetchModels(modelize, file) async {
+  Future<List> fetchModels(Function modelizer, file) async {
     final jsonContent = jsonDecode(await file.readAsString());
     final models = [];
 
     for (Map modelMap in jsonContent) {
-      models.add(modelize(modelMap));
+      models.add(modelizer(modelMap));
     }
 
     return models;

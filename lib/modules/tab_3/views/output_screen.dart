@@ -14,6 +14,7 @@ class Tab3OutputScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(tab3OutputProvider);
+
     return provider.when(
         data: (data) {
           return Stack(children: [
@@ -34,44 +35,12 @@ class Tab3OutputScreen extends ConsumerWidget {
                           ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, i) {
+                              DateTime dateToday = DateTime.now();
                               Tab3Model model =
                                   data[data.keys.toList()[index]]![i];
                               // Row of time and text_1
-                              return Dismissible(
-                                // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
-                                confirmDismiss: (direction) async {
-                                  if (direction ==
-                                      DismissDirection.startToEnd) {
-                                    return await showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              title: const Text("Delete"),
-                                              content: const Text(
-                                                  'Are you sure you want to delete?'),
-                                              actions: [
-                                                IconButton.filledTonal(
-                                                    icon:
-                                                        const Icon(Icons.done),
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            context, true)),
-                                                IconButton.filled(
-                                                    icon: const Icon(
-                                                        Icons.dangerous),
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            context, false)),
-                                              ],
-                                            );
-                                          },
-                                        ) ??
-                                        false;
-                                  } else {
-                                    return false;
-                                  }
-                                },
-                                background: Container(color: Colors.red),
+                              return DismissbleEntry(
+                                entryKey: model.date!,
                                 onDismissed: (direction) async {
                                   if (direction ==
                                       DismissDirection.startToEnd) {
@@ -110,8 +79,14 @@ class Tab3OutputScreen extends ConsumerWidget {
                                         constraints:
                                             const BoxConstraints(minHeight: 50),
                                         child: Container(
-                                          color: Tab3OutputLayout
-                                              .rowColors[model.priority],
+                                          color: DateTime.parse(model.date!)
+                                                  .isBefore(DateTime(
+                                                      dateToday.year,
+                                                      dateToday.month,
+                                                      dateToday.day))
+                                              ? Colors.orange
+                                              : Tab3OutputLayout
+                                                  .rowColors[model.priority],
                                           child: Row(
                                             children: [
                                               Expanded(

@@ -5,17 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
-import 'package:timely/modules/tab_1/repositories/tab_one_repo_impl.dart';
 import 'package:timely/reusables.dart';
 
-class TabOneRepository extends Notifier<AsyncValue<void>>
-    implements TabOneRepositorySkeleton {
+class Tab1PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
   @override
   build() {
     return const AsyncValue.data(null);
   }
 
-  @override
   Future<List<FMSModel>> fetchFMSModels() async {
     final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
     final jsonContent = jsonDecode(await tab1File.readAsString());
@@ -43,7 +40,6 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
     return fmsModels;
   }
 
-  @override
   Future<void> writeFMSModel(FMSModel model) async {
     final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
     final jsonContent = jsonDecode(await tab1File.readAsString());
@@ -62,7 +58,6 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
     await tab1File.writeAsString(jsonEncode(jsonContent));
   }
 
-  @override
   Future<void> createDefaultEntry() async {
     final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
     final jsonContent = jsonDecode(await tab1File.readAsString());
@@ -83,7 +78,6 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
     }
   }
 
-  @override
   Future<void> updateNextUpdateTime() async {
     await createDefaultEntry();
     final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
@@ -107,7 +101,6 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
     });
   }
 
-  @override
   Future<void> deleteModel(FMSModel model) async {
     // Fetch the models
     final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
@@ -127,5 +120,6 @@ class TabOneRepository extends Notifier<AsyncValue<void>>
   }
 }
 
-final tab1RepositoryProvider =
-    NotifierProvider<TabOneRepository, AsyncValue<void>>(TabOneRepository.new);
+final tab1PendingRepositoryProvider =
+    NotifierProvider<Tab1PendingRepositoryNotifier, AsyncValue<void>>(
+        Tab1PendingRepositoryNotifier.new);

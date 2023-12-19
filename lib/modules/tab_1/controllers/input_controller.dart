@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/modules/tab_1/controllers/output_controller.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
-import 'package:timely/modules/tab_1/repositories/tab_one_repo.dart';
+import 'package:timely/modules/tab_1/repositories/pending_repo.dart';
 
 class Tab1InputNotifier extends Notifier<FMSModel> {
   @override
@@ -44,8 +44,8 @@ class Tab1InputNotifier extends Notifier<FMSModel> {
   }
 
   Future<void> syncToDB() async {
-    await ref.read(tab1RepositoryProvider.notifier).writeFMSModel(state);
-    ref.invalidate(tab1FutureProvider);
+    await ref.read(tab1PendingRepositoryProvider.notifier).writeFMSModel(state);
+    ref.invalidate(tab1OutputProvider);
     ref.invalidate(remainingTimeTickerProvider);
   }
 

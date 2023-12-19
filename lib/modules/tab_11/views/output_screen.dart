@@ -99,7 +99,6 @@ class _Tab11OutputScreenState extends ConsumerState<Tab11OutputScreen> {
                     onDismissed: (direction) {
                       if (direction == DismissDirection.startToEnd) {
                         controller.deleteModel(model);
-
                         models.removeWhere(
                             (element) => element.uuid == model.uuid);
                         setState(() {});

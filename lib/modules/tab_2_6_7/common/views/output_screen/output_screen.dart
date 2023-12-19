@@ -83,41 +83,19 @@ class OutputScreen extends ConsumerWidget {
                         Tab2Model model = models[i];
                         List<int> endTime = model.calculateEndTime(model.dur);
 
-                        return Dismissible(
-                          background: Container(color: Colors.red),
-                          // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
-                          confirmDismiss: (direction) async {
-                            if (direction == DismissDirection.startToEnd) {
-                              return await showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: const Text("Delete"),
-                                        content: const Text(
-                                            'Are you sure you want to delete?'),
-                                        actions: [
-                                          IconButton.filledTonal(
-                                              icon: const Icon(Icons.done),
-                                              onPressed: () =>
-                                                  Navigator.pop(context, true)),
-                                          IconButton.filled(
-                                              icon: const Icon(Icons.dangerous),
-                                              onPressed: () => Navigator.pop(
-                                                  context, false)),
-                                        ],
-                                      );
-                                    },
-                                  ) ??
-                                  false;
-                            } else {
-                              return false;
-                            }
-                          },
+                        return DismissbleEntry(
+                          entryKey: model.uuid!,
                           onDismissed: (direction) {
                             if (direction == DismissDirection.startToEnd) {
                               controller.deleteModel(model);
-                              models.removeAt(i);
+                              models.removeWhere(
+                                  (element) => element.uuid == model.uuid);
                               setState(() {});
+                            } else {
+                              models.removeWhere((e) => e.uuid == model.uuid);
+                              setState(() {});
+
+                              controller.markModelAsComplete(model);
                             }
                           },
                           key: Key(model
