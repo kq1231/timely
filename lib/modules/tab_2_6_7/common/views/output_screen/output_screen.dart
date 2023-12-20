@@ -9,7 +9,8 @@ import 'package:timely/reusables.dart';
 
 class OutputScreen extends ConsumerWidget {
   final bool? showEndTime;
-  final AsyncNotifierProvider<Tab2OutputNotifier, List> tabOutputProvider;
+  final AsyncNotifierProvider<Tab2OutputNotifier, List<Tab2Model>>
+      tabOutputProvider;
   final int tabNumber;
 
   const OutputScreen({

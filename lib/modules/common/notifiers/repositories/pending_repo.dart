@@ -1,9 +1,8 @@
 import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// Repositories are used to communicate to the external world eg. DB, REST API.
-
-class PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
+class PendingRepositoryNotifier<T> extends Notifier<AsyncValue<void>> {
   @override
   build() {
     return const AsyncData(null);
@@ -15,9 +14,9 @@ class PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
     await file.writeAsString(jsonEncode(jsonContent));
   }
 
-  Future<List> fetchModels(Function modelizer, file) async {
+  Future<List<T>> fetchModels(Function modelizer, file) async {
     final jsonContent = jsonDecode(await file.readAsString());
-    final models = [];
+    final models = <T>[];
 
     for (Map modelMap in jsonContent) {
       models.add(modelizer(modelMap));
@@ -43,7 +42,3 @@ class PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
     await writeModel(model, file);
   }
 }
-
-final pendingRepositoryProvider =
-    NotifierProvider<PendingRepositoryNotifier, AsyncValue<void>>(
-        PendingRepositoryNotifier.new);

@@ -282,6 +282,31 @@
     - Time ticker deactivation when not in view.
     - Dispose unnecessary providers.
 
-- Fix tab 1 toJson method and use it to make code DRY.
+- Fix tab 1 toJson method and use it to make code DRY. -D
+
+**Inshaa Allah**
+
+---
+
+- Finish completion feature for all the tabs
+- [OutputNotifier]s and repositories should be able to infer return type of models. 
+- BUG: Keyboard issue. Keyboards have a done button.
+
+- Tab 2
+    - Left align duration 
+    - Acivity TFF should be a little more below the appbar.
+
+- Tab 3
+    - TTF hint text should be "Activity" 
+    - It should be at the top
+
+- Tab 4
+    - BUG: Output provider not refreshed
+
+- Home screen 
+    - Activity left-aligned and time right-aligned
+
+- Tab 5
+    - Header names are wrong
 
 **Inshaa Allah**

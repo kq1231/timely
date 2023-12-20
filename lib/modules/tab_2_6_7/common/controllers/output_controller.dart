@@ -1,25 +1,28 @@
 import 'dart:async';
 
-import 'package:timely/modules/common/controllers/output_controller.dart';
+import 'package:timely/modules/common/notifiers/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2_6_7/common/models/tab_2_model.dart';
 import 'package:timely/modules/tab_2_6_7/common/repositories/repo.dart';
 import 'package:timely/reusables.dart';
 
-class Tab2OutputNotifier extends OutputNotifier {
+class Tab2OutputNotifier<T> extends OutputNotifier<Tab2Model> {
   Tab2OutputNotifier({required int tabNumber})
-      : super(tabNumber: tabNumber, modelizer: Tab2Model.fromJson);
+      : super(
+            tabNumber: tabNumber,
+            modelizer: Tab2Model.fromJson,
+            pendingRepositoryProvider: pendingRepositoryProvider);
 
   @override
-  FutureOr<List> build() async {
+  FutureOr<List<Tab2Model>> build() async {
     final file = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
 
     await ref
-        .read(tab2RepositoryProvider.notifier)
+        .read(pendingRepositoryProvider.notifier)
         .generateActivitiesForToday(modelizer, file);
 
     // Fetch the models from the db
-    List models = await ref
-        .read(tab2RepositoryProvider.notifier)
+    List<Tab2Model> models = await ref
+        .read(pendingRepositoryProvider.notifier)
         .fetchModels(modelizer, file);
 
     return models;

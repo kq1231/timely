@@ -72,7 +72,7 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
   // Methods
   Future<void> syncToDB(tabNumber) async {
     final file = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
-    await ref.read(tab2RepositoryProvider.notifier).writeModel(state, file);
+    await ref.read(pendingRepositoryProvider.notifier).writeModel(state, file);
 
     for (final provider in [
       tab2OutputProvider,
@@ -85,7 +85,7 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
 
   Future<void> syncEditedModel(tabNumber) async {
     final file = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
-    await ref.read(tab2RepositoryProvider.notifier).editModel(state, file);
+    await ref.read(pendingRepositoryProvider.notifier).editModel(state, file);
 
     for (final provider in [
       tab2OutputProvider,

@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:timely/modules/common/repositories/pending_repo.dart';
 import 'package:timely/modules/tab_10/controllers/output_controller.dart';
 import 'package:timely/modules/tab_10/models/tab_10_model.dart';
+import 'package:timely/modules/tab_10/repositories/pending_repo.dart';
 import 'package:timely/reusables.dart';
 
 class Tab10InputNotifier extends Notifier<Tab10Model> {
