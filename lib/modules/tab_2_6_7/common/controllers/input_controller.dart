@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_2_6_7/tab_2/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2_6_7/common/models/tab_2_model.dart';
-import 'package:timely/modules/tab_2_6_7/common/repositories/repo.dart';
+import 'package:timely/modules/tab_2_6_7/common/services/repo_service.dart';
 import 'package:timely/modules/tab_2_6_7/tab_6/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2_6_7/tab_7/controllers/output_controller.dart';
 import 'package:timely/reusables.dart';
@@ -72,7 +72,7 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
   // Methods
   Future<void> syncToDB(tabNumber) async {
     final file = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
-    await ref.read(pendingRepositoryProvider.notifier).writeModel(state, file);
+    await ref.read(repositoryServiceProvider.notifier).writeModel(state, file);
 
     for (final provider in [
       tab2OutputProvider,
@@ -85,7 +85,7 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
 
   Future<void> syncEditedModel(tabNumber) async {
     final file = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
-    await ref.read(pendingRepositoryProvider.notifier).editModel(state, file);
+    await ref.read(repositoryServiceProvider.notifier).editModel(state, file);
 
     for (final provider in [
       tab2OutputProvider,

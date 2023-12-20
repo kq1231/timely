@@ -42,3 +42,7 @@ class PendingRepositoryNotifier<T> extends Notifier<AsyncValue<void>> {
     await writeModel(model, file);
   }
 }
+
+final pendingRepositoryProvider =
+    NotifierProvider<PendingRepositoryNotifier, AsyncValue<void>>(
+        PendingRepositoryNotifier.new);

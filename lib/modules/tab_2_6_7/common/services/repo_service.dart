@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/common/notifiers/repositories/pending_repo.dart';
+import 'package:timely/modules/common/services/repo_service.dart';
 import 'package:timely/modules/tab_2_6_7/common/models/tab_2_model.dart';
 import 'package:timely/reusables.dart';
 
-class Tab2RepostioryNotifier<T> extends PendingRepositoryNotifier<Tab2Model> {
+class Tab2RepostioryNotifier<T> extends RepositoryService<Tab2Model> {
   Future<List> getActivitiesForToday(Function modelizer, File file) async {
     // Functions for DRYness
     List<int> getOccurences(
@@ -160,6 +160,6 @@ class Tab2RepostioryNotifier<T> extends PendingRepositoryNotifier<Tab2Model> {
   }
 }
 
-final pendingRepositoryProvider =
-    NotifierProvider<Tab2RepostioryNotifier<Tab2Model>, AsyncValue<void>>(
+final repositoryServiceProvider =
+    NotifierProvider<Tab2RepostioryNotifier<Tab2Model>, void>(
         Tab2RepostioryNotifier.new);

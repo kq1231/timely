@@ -2,8 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/common/notifiers/repositories/completed_repo.dart';
-import 'package:timely/modules/common/notifiers/repositories/pending_repo.dart';
+import 'package:timely/modules/common/services/repo_service.dart';
 import 'package:timely/reusables.dart';
 
 class OutputNotifier<T> extends AsyncNotifier<List<T>> {
@@ -11,15 +10,13 @@ class OutputNotifier<T> extends AsyncNotifier<List<T>> {
   late File pendingFile;
   late File completedFile;
   late Function modelizer;
-  late final NotifierProvider<PendingRepositoryNotifier<T>, AsyncValue<void>>
-      pendingRepositoryProvider;
-  late final NotifierProvider<CompletedRepositoryNotifier, AsyncValue<void>>
-      completedRepositoryProvider;
+  late final NotifierProvider<RepositoryService<T>, void>
+      repositoryServiceProvider;
 
   OutputNotifier({
     required this.tabNumber,
     required this.modelizer,
-    required this.pendingRepositoryProvider,
+    required this.repositoryServiceProvider,
   });
 
   @override
@@ -27,25 +24,20 @@ class OutputNotifier<T> extends AsyncNotifier<List<T>> {
     pendingFile = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
     completedFile = (await ref.read(dbFilesProvider.future))[tabNumber]![1];
 
-    return await ref
-        .read(pendingRepositoryProvider.notifier)
+    return ref
+        .read(repositoryServiceProvider.notifier)
         .fetchModels(modelizer, pendingFile);
   }
 
   Future<void> deleteModel(T model) async {
     await ref
-        .read(pendingRepositoryProvider.notifier)
+        .read(repositoryServiceProvider.notifier)
         .deleteModel(model, pendingFile);
   }
 
   Future<void> markModelAsComplete(T model) async {
-    // Shift the model from pending DB to completed DB and refresh immediately
-    // after model is removed from pending DB.
-    await ref
-        .read(pendingRepositoryProvider.notifier)
-        .deleteModel(model, pendingFile);
-    await ref
-        .read(completedRepositoryProvider.notifier)
-        .writeModelAsComplete(model, completedFile);
+    ref
+        .read(repositoryServiceProvider.notifier)
+        .markModelAsComplete(model, pendingFile, completedFile);
   }
 }

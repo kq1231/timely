@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_10/controllers/output_controller.dart';
 import 'package:timely/modules/tab_10/models/tab_10_model.dart';
-import 'package:timely/modules/tab_10/repositories/pending_repo.dart';
+import 'package:timely/modules/tab_10/services/repo_service.dart';
 import 'package:timely/reusables.dart';
 
 class Tab10InputNotifier extends Notifier<Tab10Model> {
@@ -49,10 +49,10 @@ class Tab10InputNotifier extends Notifier<Tab10Model> {
     final file = (await ref.read(dbFilesProvider.future))[10]![0];
 
     if (state.uuid != null) {
-      await ref.read(pendingRepositoryProvider.notifier).editModel(state, file);
+      await ref.read(repositoryServiceProvider.notifier).editModel(state, file);
     } else {
       await ref
-          .read(pendingRepositoryProvider.notifier)
+          .read(repositoryServiceProvider.notifier)
           .writeModel(state, file);
     }
 
