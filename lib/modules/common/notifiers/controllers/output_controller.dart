@@ -24,7 +24,7 @@ class OutputNotifier<T> extends AsyncNotifier<List<T>> {
     pendingFile = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
     completedFile = (await ref.read(dbFilesProvider.future))[tabNumber]![1];
 
-    return ref
+    return await ref
         .read(repositoryServiceProvider.notifier)
         .fetchModels(modelizer, pendingFile);
   }
@@ -36,7 +36,7 @@ class OutputNotifier<T> extends AsyncNotifier<List<T>> {
   }
 
   Future<void> markModelAsComplete(T model) async {
-    ref
+    await ref
         .read(repositoryServiceProvider.notifier)
         .markModelAsComplete(model, pendingFile, completedFile);
   }
