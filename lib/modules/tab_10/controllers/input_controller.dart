@@ -49,10 +49,12 @@ class Tab10InputNotifier extends Notifier<Tab10Model> {
     final file = (await ref.read(dbFilesProvider.future))[10]![0];
 
     if (state.uuid != null) {
-      await ref.read(repositoryServiceProvider.notifier).editModel(state, file);
+      await ref
+          .read(tab10RepositoryServiceProvider.notifier)
+          .editModel(state, file);
     } else {
       await ref
-          .read(repositoryServiceProvider.notifier)
+          .read(tab10RepositoryServiceProvider.notifier)
           .writeModel(state, file);
     }
 

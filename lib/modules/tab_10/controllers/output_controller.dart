@@ -8,6 +8,6 @@ final tab10OutputProvider =
   return OutputNotifier(
     tabNumber: 10,
     modelizer: Tab10Model.fromJson,
-    repositoryServiceProvider: repositoryServiceProvider,
+    repositoryServiceProvider: tab10RepositoryServiceProvider,
   );
 });
