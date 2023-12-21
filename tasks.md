@@ -292,21 +292,23 @@
 - [OutputNotifier]s and repositories should be able to infer return type of models. 
 - BUG: Keyboard issue. Keyboards have a done button.
 
-- Tab 2
+- Tab 2 -D
     - Left align duration 
     - Acivity TFF should be a little more below the appbar.
 
-- Tab 3
+- Tab 3 -D
     - TTF hint text should be "Activity" 
     - It should be at the top
+    - Date should also be deleted if its entries are zero
+    - Add completion feature
 
-- Tab 4
-    - BUG: Output provider not refreshed
+- Tab 4 -D
+    - BUG: Output not refreshed
 
-- Home screen 
+- Home screen -D
     - Activity left-aligned and time right-aligned
 
-- Tab 5
+- Tab 5 -D
     - Header names are wrong
 
 **Inshaa Allah**

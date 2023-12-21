@@ -58,7 +58,7 @@ class Tab5InputScreen extends ConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(Tab1InputLayout.scoreNames[0]),
+                  Text(Tab5InputLayout.scoreNames[0]),
                   const SizedBox(
                     height: 20,
                   ),
@@ -90,7 +90,7 @@ class Tab5InputScreen extends ConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(Tab1InputLayout.scoreNames[1]),
+                  Text(Tab5InputLayout.scoreNames[1]),
                   const SizedBox(
                     height: 20,
                   ),
@@ -127,7 +127,7 @@ class Tab5InputScreen extends ConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(Tab1InputLayout.scoreNames[2]),
+                  Text(Tab5InputLayout.scoreNames[2]),
                   const SizedBox(
                     height: 20,
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class Tab3Model {
   String? uuid;
@@ -14,6 +15,15 @@ class Tab3Model {
     this.date,
     this.time,
   });
+
+  Map toJson() {
+    return {
+      "ID": const Uuid().v4(),
+      "Activity": text_1,
+      "Time": "${time!.hour}: ${time!.minute}",
+      "Priority": priority
+    };
+  }
 
   Tab3Model.fromJson(this.date, Map json) {
     uuid = json["ID"];

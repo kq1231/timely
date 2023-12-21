@@ -69,6 +69,9 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
 
     return ListView(
       children: [
+        const SizedBox(
+          height: 40,
+        ), // Some empty space at the top below the appbar.
         SizedBox(
           height: 60,
           child: Padding(

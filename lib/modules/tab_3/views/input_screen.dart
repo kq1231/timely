@@ -21,6 +21,29 @@ class Tab3InputScreen extends ConsumerWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
+// Activity Comment/text_1
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  hintText: "Activity",
+                ),
+                initialValue: provider.text_1,
+                textCapitalization: TextCapitalization.sentences,
+                onChanged: (value) => controller.setActivity(value),
+              ),
+            ),
+
+            // Space
+            const SizedBox(
+              height: 50,
+            ),
+
             (removeDateAndTime != true)
                 ? Column(
                     children: [
@@ -149,29 +172,6 @@ class Tab3InputScreen extends ConsumerWidget {
               height: 80,
             ),
 
-            // Activity Comment/text_1
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  hintText: "Priority",
-                ),
-                initialValue: provider.text_1,
-                textCapitalization: TextCapitalization.sentences,
-                onChanged: (value) => controller.setActivity(value),
-              ),
-            ),
-
-            // Space
-            const SizedBox(
-              height: 50,
-            ),
-
             // Submit Button and Cancel Button
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -203,6 +203,9 @@ class Tab3InputScreen extends ConsumerWidget {
                     style: Tab3InputLayout.submitButtonStyle,
                   ),
                   onPressed: () {
+                    if (removeDateAndTime == true) {
+                      controller.removeDateAndTime();
+                    }
                     controller.syncToDB();
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(

@@ -2,19 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
-import 'package:timely/modules/tab_3/repositories/tab_3_repo_impl.dart';
 import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
 import 'package:timely/reusables.dart';
-import 'package:uuid/uuid.dart';
 
-class Tab3Notifier extends Notifier<AsyncValue<void>>
-    implements Tab3RepositorySkeleton {
+class Tab3Notifier extends Notifier<AsyncValue<void>> {
   @override
   AsyncValue<void> build() {
     return const AsyncValue.data(null);
   }
 
-  @override
   Future<Map<String, List<Tab3Model>>> fetchTab3Models() async {
     final tab3File = (await ref.read(dbFilesProvider.future))[3]![0];
     final jsonContent = jsonDecode(await tab3File.readAsString());
@@ -29,7 +25,6 @@ class Tab3Notifier extends Notifier<AsyncValue<void>>
     return tab3Models;
   }
 
-  @override
   Future<void> writeTab3Model(Tab3Model model) async {
     final tab3File = (await ref.read(dbFilesProvider.future))[3]![0];
     final jsonContent = jsonDecode(await tab3File.readAsString());
@@ -42,12 +37,7 @@ class Tab3Notifier extends Notifier<AsyncValue<void>>
         jsonContent[model.date] = [
           ...jsonContent[model.date], // -> Existing data
           // New data:
-          {
-            "ID": const Uuid().v4(),
-            "Activity": model.text_1,
-            "Time": "${model.time!.hour}: ${model.time!.minute}",
-            "Priority": model.priority
-          }
+          model.toJson(),
         ];
       } else {
         ref.read(tab4RepositoryProvider.notifier).writeTab4Model(model);
@@ -59,7 +49,6 @@ class Tab3Notifier extends Notifier<AsyncValue<void>>
     await tab3File.writeAsString(jsonEncode(jsonContent));
   }
 
-  @override
   Future<void> deleteModel(Tab3Model model) async {
     // Fetch the data
     final tab3File = (await ref.read(dbFilesProvider.future))[3]![0];
@@ -80,12 +69,11 @@ class Tab3Notifier extends Notifier<AsyncValue<void>>
     await tab3File.writeAsString(jsonEncode(jsonContent));
   }
 
-  @override
   Future<void> editModel(Tab3Model model) async {
     await deleteModel(model);
     await writeTab3Model(model);
   }
 }
 
-final tab3RepositoryProvider =
+final tab3PendingRepositoryProvider =
     NotifierProvider<Tab3Notifier, AsyncValue<void>>(Tab3Notifier.new);

@@ -88,7 +88,7 @@ class LaunchScreen extends ConsumerWidget {
                       ),
                     ),
                     const Divider(
-                      height: 2,
+                      height: 0.2,
                     ),
                     Expanded(
                       flex: 3,
@@ -101,10 +101,7 @@ class LaunchScreen extends ConsumerWidget {
                             return Column(
                               children: [
                                 const Divider(
-                                  height: 1,
-                                ),
-                                const Divider(
-                                  height: 1,
+                                  height: 0.2,
                                 ),
                                 Container(
                                   color: LaunchScreenLayout
@@ -114,6 +111,16 @@ class LaunchScreen extends ConsumerWidget {
                                         const BoxConstraints(minHeight: 50),
                                     child: Row(
                                       children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              models[index].text_1,
+                                              style: LaunchScreenLayout
+                                                  .tab3TextStyle,
+                                            ),
+                                          ),
+                                        ),
                                         SizedBox(
                                           width: 70,
                                           child: Center(
@@ -123,13 +130,6 @@ class LaunchScreen extends ConsumerWidget {
                                                     .format(context),
                                                 style: LaunchScreenLayout
                                                     .tab3TextStyle),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            models[index].text_1,
-                                            style: LaunchScreenLayout
-                                                .tab3TextStyle,
                                           ),
                                         )
                                       ],
@@ -144,7 +144,7 @@ class LaunchScreen extends ConsumerWidget {
                       ),
                     ),
                     const Divider(
-                      height: 2,
+                      height: 0.2,
                     ),
                     // Output4
                     Expanded(

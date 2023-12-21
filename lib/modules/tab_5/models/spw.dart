@@ -19,7 +19,7 @@ class SPWModel {
     this.weight = weight;
   }
 
-  Map toJson(date, sScore, pScore, wScore, weight) {
+  Map toJson() {
     return {
       date: [
         [sScore, pScore, wScore],
