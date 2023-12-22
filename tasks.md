@@ -311,4 +311,12 @@
 - Tab 5 -D
     - Header names are wrong
 
+- Implemention completion feature in tabs 4 and 5.
+
+- Tab 3, 4 and 5 :: DRYness
+    - $tab will create a service provider using the common service notifier.
+    - $tab will extend the common output notifier. 
+    - $tab's input controller will have syncToDB function while output controller will have delete and complete function.
+    - Less code, clean code. Inshaa Allah.
+
 **Inshaa Allah**

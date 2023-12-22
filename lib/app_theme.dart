@@ -131,7 +131,7 @@ class Tab4OutputLayout {
 
 class Tab5InputLayout {
   static List<String> labels = ["Good", "Fair", "Poor"];
-  static List scoreNames = ["S Score", "P Score", "W Score"];
+  static List scoreNames = ["S Score", "B Score", "W Score"];
   static String weightFieldName = "Weight";
   static String cancelButtonText = "Cancel";
   static String submitButtonText = "Submit";
