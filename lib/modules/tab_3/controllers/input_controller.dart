@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_3/controllers/output_controller.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
-import 'package:timely/modules/tab_3/repositories/pending_repo.dart';
+import 'package:timely/modules/tab_3/services/repo_service.dart';
 import 'package:timely/modules/tab_4/controllers/output_controller.dart';
 import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
+import 'package:timely/reusables.dart';
 
 class Tab3InputNotifier extends Notifier<Tab3Model> {
   @override
@@ -39,15 +40,16 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
   }
 
   Future<void> syncToDB() async {
+    final file = (await ref.read(dbFilesProvider.future))[3]![0];
     state.uuid != null
         ? (state.date == null || state.time == null)
             ? await ref.read(tab4RepositoryProvider.notifier).editModel(state)
             : await ref
-                .read(tab3PendingRepositoryProvider.notifier)
-                .editModel(state)
+                .read(tab3RepositoryServiceProvider.notifier)
+                .editModel(state, file)
         : await ref
-            .read(tab3PendingRepositoryProvider.notifier)
-            .writeTab3Model(state);
+            .read(tab3RepositoryServiceProvider.notifier)
+            .writeModel(state, file);
     ref.invalidate(tab3OutputProvider);
     ref.invalidate(tab4OutputProvider);
   }

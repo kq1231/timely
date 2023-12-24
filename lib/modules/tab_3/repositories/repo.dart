@@ -5,13 +5,11 @@ import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
 import 'package:timely/reusables.dart';
 
-class Tab3Notifier extends Notifier<AsyncValue<void>> {
+class RepositoryNotifier extends Notifier<void> {
   @override
-  AsyncValue<void> build() {
-    return const AsyncValue.data(null);
-  }
+  void build() {}
 
-  Future<Map<String, List<Tab3Model>>> fetchTab3Models() async {
+  Future<Map<String, List<Tab3Model>>> fetchModels(file) async {
     final tab3File = (await ref.read(dbFilesProvider.future))[3]![0];
     final jsonContent = jsonDecode(await tab3File.readAsString());
     final dates = jsonContent.keys.toList();
@@ -25,7 +23,7 @@ class Tab3Notifier extends Notifier<AsyncValue<void>> {
     return tab3Models;
   }
 
-  Future<void> writeTab3Model(Tab3Model model) async {
+  Future<void> writeModel(Tab3Model model, file) async {
     final tab3File = (await ref.read(dbFilesProvider.future))[3]![0];
     final jsonContent = jsonDecode(await tab3File.readAsString());
     if (model.date != null) {
@@ -49,7 +47,7 @@ class Tab3Notifier extends Notifier<AsyncValue<void>> {
     await tab3File.writeAsString(jsonEncode(jsonContent));
   }
 
-  Future<void> deleteModel(Tab3Model model) async {
+  Future<void> deleteModel(Tab3Model model, file) async {
     // Fetch the data
     final tab3File = (await ref.read(dbFilesProvider.future))[3]![0];
     Map jsonContent = jsonDecode(await tab3File.readAsString());
@@ -69,11 +67,8 @@ class Tab3Notifier extends Notifier<AsyncValue<void>> {
     await tab3File.writeAsString(jsonEncode(jsonContent));
   }
 
-  Future<void> editModel(Tab3Model model) async {
-    await deleteModel(model);
-    await writeTab3Model(model);
+  Future<void> editModel(Tab3Model model, file) async {
+    await deleteModel(model, file);
+    await writeModel(model, file);
   }
 }
-
-final tab3PendingRepositoryProvider =
-    NotifierProvider<Tab3Notifier, AsyncValue<void>>(Tab3Notifier.new);

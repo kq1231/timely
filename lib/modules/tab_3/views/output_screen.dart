@@ -4,8 +4,6 @@ import 'package:timely/app_theme.dart';
 import 'package:timely/modules/tab_3/controllers/input_controller.dart';
 import 'package:timely/modules/tab_3/controllers/output_controller.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
-import 'package:timely/modules/tab_3/repositories/pending_repo.dart';
-import 'package:timely/modules/tab_3/services/completion_service.dart';
 import 'package:timely/modules/tab_3/views/input_screen.dart';
 import 'package:timely/reusables.dart';
 
@@ -15,6 +13,7 @@ class Tab3OutputScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(tab3OutputProvider);
+    final controller = ref.watch(tab3OutputProvider.notifier);
 
     return provider.when(
         data: (data) {
@@ -45,15 +44,9 @@ class Tab3OutputScreen extends ConsumerWidget {
                                 onDismissed: (direction) async {
                                   if (direction ==
                                       DismissDirection.startToEnd) {
-                                    await ref
-                                        .read(tab3PendingRepositoryProvider
-                                            .notifier)
-                                        .deleteModel(model);
+                                    controller.deleteModel(model);
                                   } else {
-                                    ref
-                                        .read(tab3CompletionServiceProvider
-                                            .notifier)
-                                        .markModelAsComplete(model);
+                                    controller.markModelAsComplete(model);
                                   }
                                   data[data.keys.toList()[index]]!.removeAt(i);
 
