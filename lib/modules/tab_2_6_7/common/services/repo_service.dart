@@ -6,7 +6,7 @@ import 'package:timely/modules/common/notifiers/services/repo_service.dart';
 import 'package:timely/modules/tab_2_6_7/common/models/tab_2_model.dart';
 import 'package:timely/reusables.dart';
 
-class Tab2RepostioryNotifier<T> extends RepositoryService<Tab2Model> {
+class RepostioryNotifier<T> extends RepositoryService<Tab2Model> {
   Future<List> getActivitiesForToday(Function modelizer, File file) async {
     // Functions for DRYness
     List<int> getOccurences(
@@ -161,5 +161,5 @@ class Tab2RepostioryNotifier<T> extends RepositoryService<Tab2Model> {
 }
 
 final repositoryServiceProvider =
-    NotifierProvider<Tab2RepostioryNotifier<Tab2Model>, void>(
-        Tab2RepostioryNotifier.new);
+    NotifierProvider<RepostioryNotifier<Tab2Model>, void>(
+        RepostioryNotifier.new);
