@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RepositoryNotifier<T> extends Notifier<AsyncValue<void>> {
+class RepositoryNotifier<T> extends Notifier<void> {
   @override
   build() {
-    return const AsyncData(null);
+    return;
   }
 
   Future<void> writeModel(model, file) async {
