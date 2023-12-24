@@ -5,7 +5,6 @@ import 'package:timely/modules/tab_8/controllers/filter_controller.dart';
 import 'package:timely/modules/tab_8/controllers/input_controller.dart';
 import 'package:timely/modules/tab_8/controllers/output_controller.dart';
 import 'package:timely/modules/tab_8/models/tab_8_model.dart';
-import 'package:timely/modules/tab_8/repositories/tab_8_repo.dart';
 import 'package:timely/modules/tab_8/views/input_screen.dart';
 import 'package:timely/reusables.dart';
 
@@ -26,6 +25,7 @@ class _Tab8OutputScreenState extends ConsumerState<Tab8OutputScreen> {
     final filterProv = ref.watch(filterProvider);
     final filterCont = ref.read(filterProvider.notifier);
     final modelsProv = ref.watch(tab8OutputProvider);
+    final modelsCont = ref.read(tab8OutputProvider.notifier);
 
     return Stack(children: [
       ListView(
@@ -166,9 +166,7 @@ class _Tab8OutputScreenState extends ConsumerState<Tab8OutputScreen> {
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
                         if (direction == DismissDirection.startToEnd) {
-                          ref
-                              .read(tab8RepositoryProvider.notifier)
-                              .deleteModel(model);
+                          modelsCont.deleteModel(model);
                           models.removeWhere(
                               (element) => element.uuid == model.uuid);
                           setState(() {});

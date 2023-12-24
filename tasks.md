@@ -319,4 +319,6 @@
     - $tab's input controller will have syncToDB function while output controller will have delete and complete function.
     - Less code, clean code. Inshaa Allah.
 
+- Use *freezed* for fast and clean model generation.
+
 **Inshaa Allah**

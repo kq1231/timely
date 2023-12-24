@@ -1,9 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/modules/common/notifiers/controllers/output_controller.dart';
+import 'package:timely/modules/tab_8/services/repo_service.dart';
 import 'package:timely/modules/tab_8/models/tab_8_model.dart';
-import 'package:timely/modules/tab_8/repositories/tab_8_repo.dart';
 
-final tab8OutputProvider = FutureProvider<List<Tab8Model>>((ref) async {
-  var res =
-      await ref.read(tab8RepositoryProvider.notifier).fetchAllTab8Models();
-  return res;
+final tab8OutputProvider =
+    AsyncNotifierProvider<OutputNotifier<Tab8Model>, List<Tab8Model>>(() {
+  return OutputNotifier(
+    tabNumber: 8,
+    modelizer: Tab8Model.fromJson,
+    repositoryServiceProvider: tab8RepositoryServiceProvider,
+  );
 });

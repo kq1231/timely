@@ -1,16 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/common/notifiers/repositories/completed_repo.dart';
-import 'package:timely/modules/common/notifiers/repositories/pending_repo.dart';
+import 'package:timely/modules/common/notifiers/repositories/repository.dart';
 
 class RepositoryService<T> extends Notifier<void> {
-  late final PendingRepositoryNotifier<T> pendingRepository;
-  late final CompletedRepositoryNotifier completedRepository;
+  late final RepositoryNotifier<T> pendingRepository;
 
   RepositoryService() {
-    this.pendingRepository = PendingRepositoryNotifier<T>();
-    this.completedRepository = CompletedRepositoryNotifier();
+    this.pendingRepository = RepositoryNotifier<T>();
   }
 
   Future<void> writeModel(T model, File file) async {
@@ -33,12 +30,10 @@ class RepositoryService<T> extends Notifier<void> {
       T model, File pendingFile, File completedFile) async {
     // Shift the model from pending DB to completed DB and refresh immediately
     // after model is removed from pending DB.
+    await ref.read(repositoryProvider.notifier).deleteModel(model, pendingFile);
     await ref
-        .read(pendingRepositoryProvider.notifier)
-        .deleteModel(model, pendingFile);
-    await ref
-        .read(completedRepositoryProvider.notifier)
-        .writeModelAsComplete(model, completedFile);
+        .read(repositoryProvider.notifier)
+        .writeModel(model, completedFile);
   }
 
   @override

@@ -2,7 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_8/controllers/output_controller.dart';
 import 'package:timely/modules/tab_8/models/tab_8_model.dart';
-import 'package:timely/modules/tab_8/repositories/tab_8_repo.dart';
+import 'package:timely/modules/tab_8/services/repo_service.dart';
+import 'package:timely/reusables.dart';
 
 class Tab8InputNotifier extends Notifier<Tab8Model> {
   @override
@@ -43,10 +44,16 @@ class Tab8InputNotifier extends Notifier<Tab8Model> {
 
   // Methods
   Future<void> syncToDB() async {
+    final file = (await ref.read(dbFilesProvider.future))[8]![0];
+
     if (state.uuid != null) {
-      await ref.read(tab8RepositoryProvider.notifier).editModel(state);
+      await ref
+          .read(tab8RepositoryServiceProvider.notifier)
+          .editModel(state, file);
     } else {
-      await ref.read(tab8RepositoryProvider.notifier).writeTab8Model(state);
+      await ref
+          .read(tab8RepositoryServiceProvider.notifier)
+          .writeModel(state, file);
     }
     ref.invalidate(tab8OutputProvider);
   }
@@ -56,7 +63,11 @@ class Tab8InputNotifier extends Notifier<Tab8Model> {
   }
 
   Future<void> syncEditedModel() async {
-    await ref.read(tab8RepositoryProvider.notifier).editModel(state);
+    final file = (await ref.read(dbFilesProvider.future))[8]![0];
+
+    await ref
+        .read(tab8RepositoryServiceProvider.notifier)
+        .editModel(state, file);
   }
 }
 
