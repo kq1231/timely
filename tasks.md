@@ -288,9 +288,7 @@
 
 ---
 
-- Finish completion feature for all the tabs
-- [OutputNotifier]s and repositories should be able to infer return type of models. 
-- BUG: Keyboard issue. Keyboards have a done button.
+- [OutputNotifier]s and repositories should be able to infer return type of models. -D
 
 - Tab 2 -D
     - Left align duration 
@@ -322,3 +320,11 @@
 - Use *freezed* for fast and clean model generation.
 
 **Inshaa Allah**
+
+---
+
+**Inshaa Allah**
+
+- Tab 9 I/O screens.
+- Finish completion feature for all the tabs.
+- BUG: Keyboard issue. Keyboards have a done button.
