@@ -42,7 +42,3 @@ class RepositoryNotifier<T> extends Notifier<AsyncValue<void>> {
     await writeModel(model, file);
   }
 }
-
-final repositoryProvider =
-    NotifierProvider<RepositoryNotifier, AsyncValue<void>>(
-        RepositoryNotifier.new);
