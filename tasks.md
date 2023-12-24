@@ -328,3 +328,5 @@
 - Tab 9 I/O screens.
 - Finish completion feature for all the tabs.
 - BUG: Keyboard issue. Keyboards have a done button.
+- Tab.[1, 3, 4, 5] have their own services. Therefore, they have their own controllers as well. Can there be a way in which we use the common output controller with a custom service that is also type-safe? 
+- Alhamdulillah, now, we do not need any service. The repository is enough itself. Tabs that are similar but not identical can extend the common repository and override methods as needed. 

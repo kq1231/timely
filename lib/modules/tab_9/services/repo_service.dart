@@ -15,7 +15,7 @@ class Tab9RepositoryServiceNotifier extends RepositoryNotifier {
       pendingFile, completedFile) async {
     // Delete sub-entry from pending and add it to completed.
     await deleteSubEntry(entryUuid, model, pendingFile);
-    await writeSubEntry(model, completedFile);
+    await writeSubEntry(entryUuid, model, completedFile);
   }
 }
 

@@ -10,9 +10,12 @@ import 'package:timely/reusables.dart';
 class Tab9OutputNotifier
     extends AsyncNotifier<Map<Tab9EntryModel, List<Tab9SubEntryModel>>> {
   late File pendingFile;
+  late File completedFile;
+
   @override
   FutureOr<Map<Tab9EntryModel, List<Tab9SubEntryModel>>> build() async {
     pendingFile = (await ref.read(dbFilesProvider.future))[9]![0];
+    completedFile = (await ref.read(dbFilesProvider.future))[9]![1];
 
     final res = await ref
         .read(tab9RepositoryServiceProvider.notifier)
@@ -32,11 +35,16 @@ class Tab9OutputNotifier
           .deleteSubEntry(entryUuid, model, pendingFile);
 
   Future<void> markEntryAsComplete(Tab9EntryModel model) async {
-    // TODO Inshaa Allah
+    await ref
+        .read(tab9RepositoryServiceProvider.notifier)
+        .markEntryAsComplete(model, pendingFile, completedFile);
   }
 
-  Future<void> markSubEntryAsComplete(Tab9SubEntryModel model) async {
-    // TODO Inshaa Allah
+  Future<void> markSubEntryAsComplete(
+      String entryUuid, Tab9SubEntryModel model) async {
+    await ref
+        .read(tab9RepositoryServiceProvider.notifier)
+        .markSubEntryAsComplete(entryUuid, model, pendingFile, completedFile);
   }
 }
 

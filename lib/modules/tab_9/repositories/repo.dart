@@ -13,16 +13,20 @@ class RepositoryNotifier extends Notifier<void> {
 
   // Create: entry, subEntry
   Future<void> writeEntry(Tab9EntryModel model, File file) async {
-    await file.writeAsString(jsonEncode({
+    final content = jsonDecode(await file.readAsString());
+
+    content.add({
       ...model.toJson(),
       "SubEntries": [],
-    }));
+    });
+    await file.writeAsString(jsonEncode(content));
   }
 
-  Future<void> writeSubEntry(Tab9SubEntryModel model, File file) async {
+  Future<void> writeSubEntry(
+      String entryUuid, Tab9SubEntryModel model, File file) async {
     List jsonContent = jsonDecode(await file.readAsString());
     for (int i in Iterable.generate(jsonContent.length)) {
-      if (Tab9EntryModel.fromJson(jsonContent[i]).uuid == model.uuid) {
+      if (Tab9EntryModel.fromJson(jsonContent[i]).uuid == entryUuid) {
         jsonContent[i]["SubEntries"].add(model.toJson());
         break;
       }

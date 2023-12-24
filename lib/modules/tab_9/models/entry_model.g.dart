@@ -18,7 +18,7 @@ _$Tab9EntryModelImpl _$$Tab9EntryModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$Tab9EntryModelImplToJson(
         _$Tab9EntryModelImpl instance) =>
     <String, dynamic>{
-      'uuid': instance.uuid,
+      'uuid': const Uuid().v4(),
       'condition': instance.condition,
       'criticality': instance.criticality,
       'care': instance.care,

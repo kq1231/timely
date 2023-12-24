@@ -1,0 +1,165 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/modules/tab_9/controllers/input/sub_entry_input_controller.dart';
+import 'package:timely/modules/tab_9/controllers/output_controller.dart';
+
+class Tab9EntryInputScreen extends ConsumerWidget {
+  final String entryUuid = "";
+
+  const Tab9EntryInputScreen({super.key, required entryUuid});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.read(tab9SubEntryInputProvider);
+    final controller = ref.read(tab9SubEntryInputProvider.notifier);
+
+    return Column(
+      children: [
+        SizedBox(
+          width: 170,
+          height: 50,
+          child: ElevatedButton(
+            onPressed: () async {
+              var dateSelected = await showDatePicker(
+                  context: context,
+                  initialDate: provider.date,
+                  firstDate: DateTime(0),
+                  lastDate: DateTime(
+                    DateTime.now().year + 50,
+                  ));
+              if (dateSelected != null) {
+                controller.setDate(dateSelected);
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: Text(
+              controller.getFormattedDate(),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("Time"),
+              SizedBox(
+                height: 50,
+                width: 150,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue[800],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () async {
+                    List<int> hourAndMinute = provider.time
+                        .split(":")
+                        .map((e) => int.parse(e))
+                        .toList();
+                    var timeSelected = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay(
+                            hour: hourAndMinute[0], minute: hourAndMinute[1]));
+                    if (timeSelected != null) {
+                      controller.setTime(
+                          [timeSelected.hour, timeSelected.minute].join(":"));
+                    }
+                  },
+                  child: Text(provider.time),
+                ),
+              )
+            ],
+          ),
+        ),
+
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextFormField(
+            textCapitalization: TextCapitalization.sentences,
+            initialValue: provider.task,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              filled: true,
+              hintText: "Task",
+            ),
+            onChanged: (task) {
+              controller.setTask(task);
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextFormField(
+            textCapitalization: TextCapitalization.sentences,
+            initialValue: provider.task,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              filled: true,
+              hintText: "Description & Update",
+            ),
+            onChanged: (description) {
+              controller.setDescription(description);
+            },
+          ),
+        ),
+        // Submit and cancel buttons
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red[800],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  "Cancel",
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.indigo[800],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Text("Submit"),
+              onPressed: () {
+                controller.syncToDB(entryUuid);
+                ref.invalidate(tab9OutputProvider);
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Submitted successfully..."),
+                    duration: Duration(seconds: 1),
+                  ),
+                );
+              },
+            )
+          ],
+        ),
+      ],
+    );
+  }
+}

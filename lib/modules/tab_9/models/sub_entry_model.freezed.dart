@@ -20,7 +20,7 @@ Tab9SubEntryModel _$Tab9SubEntryModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Tab9SubEntryModel {
-  String get uuid => throw _privateConstructorUsedError;
+  String? get uuid => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   String get time => throw _privateConstructorUsedError;
   String get task => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ abstract class $Tab9SubEntryModelCopyWith<$Res> {
       _$Tab9SubEntryModelCopyWithImpl<$Res, Tab9SubEntryModel>;
   @useResult
   $Res call(
-      {String uuid,
+      {String? uuid,
       DateTime date,
       String time,
       String task,
@@ -59,17 +59,17 @@ class _$Tab9SubEntryModelCopyWithImpl<$Res, $Val extends Tab9SubEntryModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uuid = null,
+    Object? uuid = freezed,
     Object? date = null,
     Object? time = null,
     Object? task = null,
     Object? description = null,
   }) {
     return _then(_value.copyWith(
-      uuid: null == uuid
+      uuid: freezed == uuid
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -99,7 +99,7 @@ abstract class _$$Tab9SubEntryModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String uuid,
+      {String? uuid,
       DateTime date,
       String time,
       String task,
@@ -117,17 +117,17 @@ class __$$Tab9SubEntryModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uuid = null,
+    Object? uuid = freezed,
     Object? date = null,
     Object? time = null,
     Object? task = null,
     Object? description = null,
   }) {
     return _then(_$Tab9SubEntryModelImpl(
-      uuid: null == uuid
+      uuid: freezed == uuid
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -152,7 +152,7 @@ class __$$Tab9SubEntryModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$Tab9SubEntryModelImpl implements _Tab9SubEntryModel {
   const _$Tab9SubEntryModelImpl(
-      {required this.uuid,
+      {this.uuid,
       required this.date,
       required this.time,
       required this.task,
@@ -162,7 +162,7 @@ class _$Tab9SubEntryModelImpl implements _Tab9SubEntryModel {
       _$$Tab9SubEntryModelImplFromJson(json);
 
   @override
-  final String uuid;
+  final String? uuid;
   @override
   final DateTime date;
   @override
@@ -212,7 +212,7 @@ class _$Tab9SubEntryModelImpl implements _Tab9SubEntryModel {
 
 abstract class _Tab9SubEntryModel implements Tab9SubEntryModel {
   const factory _Tab9SubEntryModel(
-      {required final String uuid,
+      {final String? uuid,
       required final DateTime date,
       required final String time,
       required final String task,
@@ -222,7 +222,7 @@ abstract class _Tab9SubEntryModel implements Tab9SubEntryModel {
       _$Tab9SubEntryModelImpl.fromJson;
 
   @override
-  String get uuid;
+  String? get uuid;
   @override
   DateTime get date;
   @override
