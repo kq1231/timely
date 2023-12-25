@@ -3,15 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_9/controllers/input/sub_entry_input_controller.dart';
 import 'package:timely/modules/tab_9/controllers/output_controller.dart';
 
-class Tab9EntryInputScreen extends ConsumerWidget {
-  final String entryUuid = "";
+class Tab9SubEntryInputScreen extends ConsumerWidget {
+  final String entryUuid;
 
-  const Tab9EntryInputScreen({super.key, required entryUuid});
+  const Tab9SubEntryInputScreen({super.key, required this.entryUuid});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.read(tab9SubEntryInputProvider);
+    final provider = ref.watch(tab9SubEntryInputProvider);
     final controller = ref.read(tab9SubEntryInputProvider.notifier);
+
+    List<int> hourAndMinute =
+        provider.time.split(":").map((e) => int.parse(e)).toList();
+    TimeOfDay time =
+        TimeOfDay(hour: hourAndMinute[0], minute: hourAndMinute[1]);
 
     return Column(
       children: [
@@ -43,6 +48,11 @@ class Tab9EntryInputScreen extends ConsumerWidget {
             ),
           ),
         ),
+
+        const Divider(
+          height: 40,
+        ),
+
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Row(
@@ -60,24 +70,24 @@ class Tab9EntryInputScreen extends ConsumerWidget {
                     ),
                   ),
                   onPressed: () async {
-                    List<int> hourAndMinute = provider.time
-                        .split(":")
-                        .map((e) => int.parse(e))
-                        .toList();
                     var timeSelected = await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay(
-                            hour: hourAndMinute[0], minute: hourAndMinute[1]));
+                      context: context,
+                      initialTime: time,
+                    );
                     if (timeSelected != null) {
                       controller.setTime(
                           [timeSelected.hour, timeSelected.minute].join(":"));
                     }
                   },
-                  child: Text(provider.time),
+                  child: Text(time.format(context)),
                 ),
               )
             ],
           ),
+        ),
+
+        const Divider(
+          height: 40,
         ),
 
         Padding(
@@ -104,7 +114,7 @@ class Tab9EntryInputScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
             textCapitalization: TextCapitalization.sentences,
-            initialValue: provider.task,
+            initialValue: provider.description,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,
@@ -120,6 +130,11 @@ class Tab9EntryInputScreen extends ConsumerWidget {
             },
           ),
         ),
+
+        const Divider(
+          height: 40,
+        ),
+
         // Submit and cancel buttons
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

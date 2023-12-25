@@ -7,8 +7,8 @@ import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_9/services/repo_service.dart';
 import 'package:timely/reusables.dart';
 
-class Tab9OutputNotifier
-    extends AsyncNotifier<Map<Tab9EntryModel, List<Tab9SubEntryModel>>> {
+class Tab9OutputNotifier extends AutoDisposeAsyncNotifier<
+    Map<Tab9EntryModel, List<Tab9SubEntryModel>>> {
   late File pendingFile;
   late File completedFile;
 
@@ -34,19 +34,21 @@ class Tab9OutputNotifier
           .read(tab9RepositoryServiceProvider.notifier)
           .deleteSubEntry(entryUuid, model, pendingFile);
 
-  Future<void> markEntryAsComplete(Tab9EntryModel model) async {
+  Future<void> markEntryAsComplete(
+      Tab9EntryModel model, List subEntries) async {
     await ref
         .read(tab9RepositoryServiceProvider.notifier)
-        .markEntryAsComplete(model, pendingFile, completedFile);
+        .markEntryAsComplete(model, pendingFile, completedFile, subEntries);
   }
 
   Future<void> markSubEntryAsComplete(
-      String entryUuid, Tab9SubEntryModel model) async {
+      Tab9EntryModel entryModel, Tab9SubEntryModel subEntryModel) async {
     await ref
         .read(tab9RepositoryServiceProvider.notifier)
-        .markSubEntryAsComplete(entryUuid, model, pendingFile, completedFile);
+        .markSubEntryAsComplete(
+            entryModel, subEntryModel, pendingFile, completedFile);
   }
 }
 
-final tab9OutputProvider = AsyncNotifierProvider<Tab9OutputNotifier,
+final tab9OutputProvider = AutoDisposeAsyncNotifierProvider<Tab9OutputNotifier,
     Map<Tab9EntryModel, List<Tab9SubEntryModel>>>(Tab9OutputNotifier.new);

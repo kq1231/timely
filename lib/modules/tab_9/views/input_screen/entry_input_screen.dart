@@ -8,8 +8,8 @@ class Tab9EntryInputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.read(tab9InputProvider);
-    final controller = ref.read(tab9InputProvider.notifier);
+    final provider = ref.read(tab9EntryInputProvider);
+    final controller = ref.read(tab9EntryInputProvider.notifier);
 
     return ListView(
       children: [

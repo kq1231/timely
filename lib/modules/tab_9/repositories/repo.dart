@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_9/models/entry_model.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
+import 'package:uuid/uuid.dart';
 
 class RepositoryNotifier extends Notifier<void> {
   @override
@@ -12,27 +13,41 @@ class RepositoryNotifier extends Notifier<void> {
   // Methods:
 
   // Create: entry, subEntry
-  Future<void> writeEntry(Tab9EntryModel model, File file) async {
+  Future<void> writeEntry(
+      Tab9EntryModel model, File file, List? subEntries) async {
     final content = jsonDecode(await file.readAsString());
+
+    model = model.copyWith(uuid: model.uuid ?? const Uuid().v4());
 
     content.add({
       ...model.toJson(),
-      "SubEntries": [],
+      "SubEntries": subEntries ?? [],
     });
     await file.writeAsString(jsonEncode(content));
   }
 
   Future<void> writeSubEntry(
-      String entryUuid, Tab9SubEntryModel model, File file) async {
+    String entryUuid,
+    Tab9SubEntryModel model,
+    File file,
+    Tab9EntryModel? entryModel,
+  ) async {
     List jsonContent = jsonDecode(await file.readAsString());
+    bool isFound = false;
     for (int i in Iterable.generate(jsonContent.length)) {
       if (Tab9EntryModel.fromJson(jsonContent[i]).uuid == entryUuid) {
         jsonContent[i]["SubEntries"].add(model.toJson());
+        isFound = true;
         break;
       }
     }
 
     await file.writeAsString(jsonEncode(jsonContent));
+
+    if (!isFound) {
+      await writeEntry(entryModel!, file, null);
+      await writeSubEntry(entryUuid, model, file, null);
+    }
   }
 
   // Read: entries and subEntries

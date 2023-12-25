@@ -56,7 +56,7 @@ class Tab1OutputScreen extends ConsumerWidget {
                     ),
                     ...List.generate(data.length, (index) {
                       // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
-                      return DismissbleEntry(
+                      return DismissibleEntry(
                         entryKey: data[index].date,
                         onDismissed: (direction) async {
                           if (direction == DismissDirection.startToEnd) {

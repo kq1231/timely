@@ -28,6 +28,7 @@ class Tab9InputNotifier extends Notifier<Tab9EntryModel> {
   void setCare(String care) => state = state.copyWith(care: care);
   void setLessonLearnt(String lessonLearnt) =>
       state = state.copyWith(lessonLearnt: lessonLearnt);
+  void setModel(model) => state = model;
 
   Future<void> syncToDB() async {
     final file = (await ref.read(dbFilesProvider.future))[9]![0];
@@ -39,14 +40,14 @@ class Tab9InputNotifier extends Notifier<Tab9EntryModel> {
     } else {
       await ref
           .read(tab9RepositoryServiceProvider.notifier)
-          .writeEntry(state, file);
+          .writeEntry(state, file, null);
     }
 
     ref.invalidate(tab9OutputProvider);
   }
 }
 
-final tab9InputProvider =
+final tab9EntryInputProvider =
     NotifierProvider<Tab9InputNotifier, Tab9EntryModel>(() {
   return Tab9InputNotifier();
 });

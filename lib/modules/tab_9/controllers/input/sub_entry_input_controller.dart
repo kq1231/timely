@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_9/controllers/output_controller.dart';
@@ -10,7 +11,7 @@ class Tab9SubEntryInputNotifier extends Notifier<Tab9SubEntryModel> {
   build() {
     return Tab9SubEntryModel(
       date: DateTime.now(),
-      time: "",
+      time: [TimeOfDay.now().hour, TimeOfDay.now().minute].join(":"),
       task: "",
       description: "",
     );
@@ -23,6 +24,7 @@ class Tab9SubEntryInputNotifier extends Notifier<Tab9SubEntryModel> {
       state = state.copyWith(description: description);
   String getFormattedDate() =>
       DateFormat(DateFormat.ABBR_MONTH_DAY).format(state.date);
+  void setModel(model) => state = model;
 
   Future<void> syncToDB(String entryUuid) async {
     final file = (await ref.read(dbFilesProvider.future))[9]![0];
@@ -34,7 +36,7 @@ class Tab9SubEntryInputNotifier extends Notifier<Tab9SubEntryModel> {
     } else {
       await ref
           .read(tab9RepositoryServiceProvider.notifier)
-          .writeSubEntry(entryUuid, state, file);
+          .writeSubEntry(entryUuid, state, file, null);
     }
 
     ref.invalidate(tab9OutputProvider);

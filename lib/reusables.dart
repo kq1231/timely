@@ -60,22 +60,22 @@ class TabIndex extends StateNotifier<int> {
 final tabIndexProvider =
     StateNotifierProvider<TabIndex, int>((ref) => TabIndex());
 
-class DismissbleEntry extends StatefulWidget {
+class DismissibleEntry extends StatefulWidget {
   final String entryKey;
   final Widget child;
   final DismissDirectionCallback? onDismissed;
 
-  const DismissbleEntry(
+  const DismissibleEntry(
       {super.key,
       required this.entryKey,
       required this.child,
       required this.onDismissed});
 
   @override
-  State<DismissbleEntry> createState() => _DismissbleEntryState();
+  State<DismissibleEntry> createState() => _DismissibleEntryState();
 }
 
-class _DismissbleEntryState extends State<DismissbleEntry> {
+class _DismissibleEntryState extends State<DismissibleEntry> {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
@@ -123,7 +123,7 @@ class _DismissbleEntryState extends State<DismissbleEntry> {
               false;
         }
       },
-      key: Key(widget.entryKey),
+      key: UniqueKey(),
       onDismissed: widget.onDismissed,
       background: Container(color: Colors.red),
       child: widget.child,

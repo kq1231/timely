@@ -84,7 +84,7 @@ class OutputScreen extends ConsumerWidget {
                         Tab2Model model = models[i];
                         List<int> endTime = model.calculateEndTime(model.dur);
 
-                        return DismissbleEntry(
+                        return DismissibleEntry(
                           entryKey: model.uuid!,
                           onDismissed: (direction) {
                             if (direction == DismissDirection.startToEnd) {
