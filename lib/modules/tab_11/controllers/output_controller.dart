@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/common/notifiers/controllers/output_controller.dart';
+import 'package:timely/common/notifiers/controllers/output_controller.dart';
 import 'package:timely/modules/tab_11/models/tab_11_model.dart';
 import 'package:timely/modules/tab_11/services/repo_service.dart';
 

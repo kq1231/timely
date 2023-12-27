@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:timely/modules/common/notifiers/repositories/repo.dart';
+import 'package:timely/common/notifiers/repositories/repo.dart';
 
 class RepositoryService<T> extends RepositoryNotifier<T> {
   Future<void> markModelAsComplete(

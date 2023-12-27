@@ -1,10 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_9/controllers/input/entry_input_controller.dart';
-import 'package:timely/modules/tab_9/controllers/output_controller.dart';
+import 'package:timely/modules/tab_9/controllers/input/sub_entry_input_controller.dart';
+import 'package:timely/modules/tab_9/controllers/output/output_controller.dart';
+import 'package:timely/modules/tab_9/views/input/molecules/sub_entry_input_molecule.dart';
 
 class Tab9EntryInputScreen extends ConsumerWidget {
-  const Tab9EntryInputScreen({super.key});
+  final bool showSubEntryMolecule;
+
+  const Tab9EntryInputScreen({super.key, required this.showSubEntryMolecule});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -13,7 +18,7 @@ class Tab9EntryInputScreen extends ConsumerWidget {
 
     return ListView(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Padding(
@@ -36,10 +41,9 @@ class Tab9EntryInputScreen extends ConsumerWidget {
             },
           ),
         ),
-        Divider(
+        const Divider(
           height: 30,
         ),
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Row(
@@ -47,31 +51,24 @@ class Tab9EntryInputScreen extends ConsumerWidget {
             children: [
               const Text("Criticality"),
               SizedBox(
-                width: 50,
-                child: TextFormField(
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  initialValue: provider.criticality.toString(),
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    filled: true,
-                    hintText: "Criticality",
-                  ),
-                  onChanged: (criticality) {
-                    controller.setCriticality(criticality);
-                  },
-                ),
+                height: 100,
+                width: 100,
+                child: CupertinoPicker(
+                    itemExtent: 60,
+                    scrollController: FixedExtentScrollController(
+                        initialItem: provider.criticality - 1),
+                    onSelectedItemChanged: (criticality) {
+                      controller.setCriticality(criticality + 1);
+                    },
+                    children: List.generate(
+                        5,
+                        (index) =>
+                            Center(child: Text((index + 1).toString())))),
               ),
             ],
           ),
         ),
-
-        Divider(
+        const Divider(
           height: 30,
         ),
         Padding(
@@ -94,8 +91,7 @@ class Tab9EntryInputScreen extends ConsumerWidget {
             },
           ),
         ),
-
-        Divider(
+        const Divider(
           height: 30,
         ),
         Padding(
@@ -118,11 +114,10 @@ class Tab9EntryInputScreen extends ConsumerWidget {
             },
           ),
         ),
-
         const SizedBox(
           height: 30,
         ),
-        // Submit and cancel buttons
+        showSubEntryMolecule ? const Tab9SubEntryInputMolecule() : Container(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -148,7 +143,9 @@ class Tab9EntryInputScreen extends ConsumerWidget {
               ),
               child: const Text("Submit"),
               onPressed: () {
-                controller.syncToDB();
+                ref.read(tab9EntryInputProvider.notifier).syncToDB(
+                      ref.read(tab9SubEntryInputProvider),
+                    );
                 ref.invalidate(tab9OutputProvider);
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -160,6 +157,9 @@ class Tab9EntryInputScreen extends ConsumerWidget {
               },
             )
           ],
+        ),
+        const SizedBox(
+          height: 40,
         ),
       ],
     );

@@ -13,7 +13,7 @@ final List tabs = [
   const Tab6OutputScreen(),
   const Tab7OutputScreen(),
   const Tab8OutputScreen(),
-  const Tab9OutputScreen(),
+  const Tab9SummaryScreen(),
   const Tab10OutputScreen(),
   const Tab11OutputScreen(),
   const Center(child: Text("Coming Soon Inshaa Allah...")),

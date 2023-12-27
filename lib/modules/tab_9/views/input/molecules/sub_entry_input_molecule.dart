@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_9/controllers/input/sub_entry_input_controller.dart';
-import 'package:timely/modules/tab_9/controllers/output_controller.dart';
 
-class Tab9SubEntryInputScreen extends ConsumerWidget {
-  final String entryUuid;
-
-  const Tab9SubEntryInputScreen({super.key, required this.entryUuid});
+class Tab9SubEntryInputMolecule extends ConsumerWidget {
+  const Tab9SubEntryInputMolecule({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,11 +45,9 @@ class Tab9SubEntryInputScreen extends ConsumerWidget {
             ),
           ),
         ),
-
         const Divider(
           height: 40,
         ),
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Row(
@@ -85,11 +80,9 @@ class Tab9SubEntryInputScreen extends ConsumerWidget {
             ],
           ),
         ),
-
         const Divider(
           height: 40,
         ),
-
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
@@ -130,49 +123,8 @@ class Tab9SubEntryInputScreen extends ConsumerWidget {
             },
           ),
         ),
-
         const Divider(
           height: 40,
-        ),
-
-        // Submit and cancel buttons
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red[800],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text(
-                  "Cancel",
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                }),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.indigo[800],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: const Text("Submit"),
-              onPressed: () {
-                controller.syncToDB(entryUuid);
-                ref.invalidate(tab9OutputProvider);
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Submitted successfully..."),
-                    duration: Duration(seconds: 1),
-                  ),
-                );
-              },
-            )
-          ],
         ),
       ],
     );

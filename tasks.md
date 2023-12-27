@@ -332,3 +332,28 @@
 - Alhamdulillah, now, we do not need any service. The repository is enough itself. Tabs that are similar but not identical can extend the common repository and override methods as needed. 
 - Make the DismissibleEntry widget WET.
 - Create a compeleted repository for tab 9 to avoid complicated code. 
+
+---
+
+**Inshaa Allah**
+
+- Tab 9
+    - Add a picker for criticality
+
+---
+
+**Inshaa Allah**
+
+- Entry screen will have elements of sub-entry screen.  -D
+    - Create a common folder. 
+    - Create a file named "SubEntryInputMolecule"
+    - This way, both the subEntry and Entry will share their commonalities and also run their own functions.
+
+- All tab repos 
+    - Check uuid == null in .toJson model
+    - If null then create uuid else use the existing one.
+
+- Add completion feature to all the tabs
+    - Remaining tabs will extend the common repository. 
+    - They will override methods as needed.
+    - Their services will extend the common service, Inshaa Allah.

@@ -1,14 +1,16 @@
 import 'package:timely/modules/tab_9/models/entry_model.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
-import 'package:timely/modules/tab_9/repositories/repo.dart';
+import 'package:timely/modules/tab_9/repositories/completed_repo.dart';
+import 'package:timely/modules/tab_9/repositories/pending_repo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Tab9RepositoryServiceNotifier extends RepositoryNotifier {
-  Future<void> markEntryAsComplete(
-      Tab9EntryModel model, pendingFile, completedFile, List subEntries) async {
-    // Delete entry from pending and add it to completed.
-    await deleteEntry(model, pendingFile);
-    await writeEntry(model, completedFile, subEntries);
+class Tab9RepositoryServiceNotifier extends PendingRepositoryNotifier {
+  Future<void> markEntryAsComplete(Tab9EntryModel entry,
+      List<Tab9SubEntryModel> subEntries, pendingFile, completedFile) async {
+    await deleteEntry(entry, pendingFile);
+    await ref
+        .read(completedRepositoryProvider.notifier)
+        .writeEntryAsComplete(entry, subEntries, completedFile);
   }
 
   Future<void> markSubEntryAsComplete(Tab9EntryModel entryModel,

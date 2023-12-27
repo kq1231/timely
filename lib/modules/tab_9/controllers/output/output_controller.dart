@@ -35,10 +35,13 @@ class Tab9OutputNotifier extends AutoDisposeAsyncNotifier<
           .deleteSubEntry(entryUuid, model, pendingFile);
 
   Future<void> markEntryAsComplete(
-      Tab9EntryModel model, List subEntries) async {
-    await ref
-        .read(tab9RepositoryServiceProvider.notifier)
-        .markEntryAsComplete(model, pendingFile, completedFile, subEntries);
+      Tab9EntryModel entry, List<Tab9SubEntryModel> subEntries) async {
+    await ref.read(tab9RepositoryServiceProvider.notifier).markEntryAsComplete(
+          entry,
+          subEntries,
+          pendingFile,
+          completedFile,
+        );
   }
 
   Future<void> markSubEntryAsComplete(

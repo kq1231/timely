@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:timely/modules/tab_9/controllers/output_controller.dart';
+import 'package:timely/modules/tab_9/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_9/services/repo_service.dart';
 import 'package:timely/reusables.dart';

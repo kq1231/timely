@@ -6,7 +6,7 @@ import 'package:timely/modules/tab_9/models/entry_model.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
 import 'package:uuid/uuid.dart';
 
-class RepositoryNotifier extends Notifier<void> {
+class PendingRepositoryNotifier extends Notifier<void> {
   @override
   void build() {}
 
@@ -15,15 +15,15 @@ class RepositoryNotifier extends Notifier<void> {
   // Create: entry, subEntry
   Future<void> writeEntry(
       Tab9EntryModel model, File file, List? subEntries) async {
-    final content = jsonDecode(await file.readAsString());
+    final jsonContent = jsonDecode(await file.readAsString());
 
     model = model.copyWith(uuid: model.uuid ?? const Uuid().v4());
 
-    content.add({
+    jsonContent.add({
       ...model.toJson(),
       "SubEntries": subEntries ?? [],
     });
-    await file.writeAsString(jsonEncode(content));
+    await file.writeAsString(jsonEncode(jsonContent));
   }
 
   Future<void> writeSubEntry(
@@ -88,7 +88,7 @@ class RepositoryNotifier extends Notifier<void> {
     List jsonContent = jsonDecode(await file.readAsString());
     for (int i in Iterable.generate(jsonContent.length)) {
       if (Tab9EntryModel.fromJson(jsonContent[i]).uuid == entryUuid) {
-        List<Map> subEntries = jsonContent[i]["SubEntries"];
+        List subEntries = jsonContent[i]["SubEntries"];
         for (int j in Iterable.generate(subEntries.length)) {
           if (subEntries[j]["uuid"] == model.uuid) {
             subEntries[j] = model.toJson();
