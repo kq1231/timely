@@ -134,42 +134,18 @@ class _Tab8OutputScreenState extends ConsumerState<Tab8OutputScreen> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     Tab8Model model = filteredModels[index];
-                    return Dismissible(
-                      key: Key(model.uuid!),
-                      confirmDismiss: (direction) async {
-                        if (direction == DismissDirection.startToEnd) {
-                          return await showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text("Delete"),
-                                    content: const Text(
-                                        'Are you sure you want to delete?'),
-                                    actions: [
-                                      IconButton.filledTonal(
-                                          icon: const Icon(Icons.done),
-                                          onPressed: () =>
-                                              Navigator.pop(context, true)),
-                                      IconButton.filled(
-                                          icon: const Icon(Icons.dangerous),
-                                          onPressed: () =>
-                                              Navigator.pop(context, false)),
-                                    ],
-                                  );
-                                },
-                              ) ??
-                              false;
-                        } else {
-                          return false;
-                        }
-                      },
-                      background: Container(color: Colors.red),
+                    return DismissibleEntry(
+                      entryKey: model.uuid!,
                       onDismissed: (direction) {
                         if (direction == DismissDirection.startToEnd) {
                           modelsCont.deleteModel(model);
                           models.removeWhere(
                               (element) => element.uuid == model.uuid);
                           setState(() {});
+                        } else {
+                          models.removeWhere((e) => e.uuid == model.uuid);
+                          setState(() {});
+                          modelsCont.markModelAsComplete(model);
                         }
                       },
                       child: InkWell(

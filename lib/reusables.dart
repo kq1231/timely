@@ -61,13 +61,13 @@ final tabIndexProvider =
     StateNotifierProvider<TabIndex, int>((ref) => TabIndex());
 
 class DismissibleEntry extends StatefulWidget {
-  final String entryKey;
+  final String? entryKey;
   final Widget child;
   final DismissDirectionCallback? onDismissed;
 
   const DismissibleEntry(
       {super.key,
-      required this.entryKey,
+      this.entryKey,
       required this.child,
       required this.onDismissed});
 

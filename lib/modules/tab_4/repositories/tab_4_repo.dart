@@ -12,7 +12,7 @@ class Tab4RepositoryNotifier extends Notifier<AsyncValue<void>> {
   }
 
   // Methods
-  Future<void> writeTab4Model(Tab3Model model) async {
+  Future<void> writeModel(Tab3Model model) async {
     final file = (await ref.read(dbFilesProvider.future))[4]![0];
     List content = jsonDecode(await file.readAsString());
 
@@ -51,7 +51,15 @@ class Tab4RepositoryNotifier extends Notifier<AsyncValue<void>> {
 
   Future<void> editModel(Tab3Model model) async {
     await deleteModel(model);
-    await writeTab4Model(model);
+    await writeModel(model);
+  }
+
+  Future<void> markModelAsComplete(Tab3Model model) async {
+    await deleteModel(model);
+    final file = (await ref.read(dbFilesProvider.future))[4]![1];
+    List content = jsonDecode(await file.readAsString());
+    content.add(model.toJson());
+    await file.writeAsString(jsonEncode(content));
   }
 }
 

@@ -52,25 +52,27 @@ class Tab9EntryInputScreen extends ConsumerWidget {
               const Text("Criticality"),
               SizedBox(
                 height: 100,
-                width: 100,
+                width: 150,
                 child: CupertinoPicker(
-                    itemExtent: 60,
-                    scrollController: FixedExtentScrollController(
-                        initialItem: provider.criticality - 1),
-                    onSelectedItemChanged: (criticality) {
-                      controller.setCriticality(criticality + 1);
-                    },
-                    children: List.generate(
-                        5,
-                        (index) =>
-                            Center(child: Text((index + 1).toString())))),
+                  itemExtent: 60,
+                  scrollController: FixedExtentScrollController(
+                      initialItem: provider.criticality - 1),
+                  onSelectedItemChanged: (criticality) {
+                    controller.setCriticality(criticality + 1);
+                  },
+                  children: "Insignificant,Low,Medium,High,Critical"
+                      .split(",")
+                      .map((e) => Center(child: Text(e)))
+                      .toList(),
+                ),
               ),
             ],
           ),
         ),
-        const Divider(
+        const SizedBox(
           height: 30,
         ),
+        showSubEntryMolecule ? const Tab9SubEntryInputMolecule() : Container(),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
@@ -90,9 +92,6 @@ class Tab9EntryInputScreen extends ConsumerWidget {
               controller.setCare(care);
             },
           ),
-        ),
-        const Divider(
-          height: 30,
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -114,10 +113,9 @@ class Tab9EntryInputScreen extends ConsumerWidget {
             },
           ),
         ),
-        const SizedBox(
-          height: 30,
+        SizedBox(
+          height: 40,
         ),
-        showSubEntryMolecule ? const Tab9SubEntryInputMolecule() : Container(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

@@ -17,64 +17,64 @@ class Tab9SubEntryInputMolecule extends ConsumerWidget {
 
     return Column(
       children: [
-        SizedBox(
-          width: 170,
-          height: 50,
-          child: ElevatedButton(
-            onPressed: () async {
-              var dateSelected = await showDatePicker(
-                  context: context,
-                  initialDate: provider.date,
-                  firstDate: DateTime(0),
-                  lastDate: DateTime(
-                    DateTime.now().year + 50,
-                  ));
-              if (dateSelected != null) {
-                controller.setDate(dateSelected);
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            child: Text(
-              controller.getFormattedDate(),
-            ),
-          ),
-        ),
-        const Divider(
-          height: 40,
-        ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("Time"),
-              SizedBox(
-                height: 50,
-                width: 150,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[800],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+              Expanded(
+                child: SizedBox(
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      var dateSelected = await showDatePicker(
+                          context: context,
+                          initialDate: provider.date,
+                          firstDate: DateTime(0),
+                          lastDate: DateTime(
+                            DateTime.now().year + 50,
+                          ));
+                      if (dateSelected != null) {
+                        controller.setDate(dateSelected);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      controller.getFormattedDate(),
                     ),
                   ),
-                  onPressed: () async {
-                    var timeSelected = await showTimePicker(
-                      context: context,
-                      initialTime: time,
-                    );
-                    if (timeSelected != null) {
-                      controller.setTime(
-                          [timeSelected.hour, timeSelected.minute].join(":"));
-                    }
-                  },
-                  child: Text(time.format(context)),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue[800],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    onPressed: () async {
+                      var timeSelected = await showTimePicker(
+                        context: context,
+                        initialTime: time,
+                      );
+                      if (timeSelected != null) {
+                        controller.setTime(
+                            [timeSelected.hour, timeSelected.minute].join(":"));
+                      }
+                    },
+                    child: Text(time.format(context)),
+                  ),
                 ),
               )
             ],

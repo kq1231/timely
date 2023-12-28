@@ -357,3 +357,16 @@
     - Remaining tabs will extend the common repository. 
     - They will override methods as needed.
     - Their services will extend the common service, Inshaa Allah.
+
+---
+
+**Inshaa Allah**
+
+- Slider to show labels: insignificant, low, medium, high, and critical. -D
+- Date and time should be in the same row. -D
+- The date, time, task and description should follow the criticality. Care and lesson learnt should be at the end. -D
+- Date does not show the year. -D
+- Completion Feature -D
+- Summary screen should only show tasks. Shift the details to the detail screen. -D
+    - Show the problem name and criticality on the SS. Care and LL -> DS.
+- Alternate colours -D

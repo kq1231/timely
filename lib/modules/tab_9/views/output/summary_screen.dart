@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_9/controllers/input/entry_input_controller.dart';
+import 'package:timely/modules/tab_9/controllers/input/sub_entry_input_controller.dart';
 import 'package:timely/modules/tab_9/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_9/models/entry_model.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
@@ -31,7 +32,9 @@ class _Tab9OutputScreenState extends ConsumerState<Tab9SummaryScreen> {
             return ListView.separated(
               separatorBuilder: (context, index) {
                 return const Divider(
-                  height: 40,
+                  height: 0,
+                  thickness: 2,
+                  color: Colors.black,
                 );
               },
               itemBuilder: (context, entryIndex) {
@@ -55,126 +58,105 @@ class _Tab9OutputScreenState extends ConsumerState<Tab9SummaryScreen> {
                       controller.markEntryAsComplete(entry, subEntries);
                     }
                   },
-                  child: Column(
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          ref
-                              .read(tab9EntryInputProvider.notifier)
-                              .setModel(entry);
-
-                          await Future.delayed(
-                              const Duration(milliseconds: 100), () {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return Scaffold(
-                                  appBar: AppBar(),
-                                  body: const Tab9EntryInputScreen(
-                                    showSubEntryMolecule: false,
+                  child: Ink(
+                    color: entryIndex % 2 == 0
+                        ? Colors.indigo[400]
+                        : Colors.indigo[800],
+                    child: Column(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Scaffold(
+                                    appBar: AppBar(),
+                                    body: Tab9DetailScreen(
+                                      entry: entry,
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        lastSubEntry.task,
+                                      ),
+                                    ),
                                   ),
-                                );
-                              },
-                            ));
-                          });
-                        },
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Text(entry.condition),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text("Care"),
-                                  Text(entry.care),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text("Criticality"),
-                                  Center(
-                                      child:
-                                          Text(entry.criticality.toString())),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text("Lesson Learnt"),
-                                  Center(
-                                      child:
-                                          Text(entry.lessonLearnt.toString())),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return Scaffold(
-                                  appBar: AppBar(),
-                                  body: Tab9DetailScreen(
-                                    entry: entry,
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          DateFormat(DateFormat.ABBR_MONTH_DAY)
+                                              .format(lastSubEntry.date),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          lastSubEntry.time,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                DateFormat(DateFormat.ABBR_MONTH_DAY)
-                                    .format(lastSubEntry.date),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(lastSubEntry.time),
-                                  Text(lastSubEntry.task),
                                 ],
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Text(lastSubEntry.description),
-                                ],
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Flexible(
+                                        child: Text(lastSubEntry.description)),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        InkWell(
+                          onTap: () async {
+                            ref
+                                .read(tab9EntryInputProvider.notifier)
+                                .setModel(entry);
+                            await Future.delayed(
+                                const Duration(milliseconds: 100), () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return Scaffold(
+                                    appBar: AppBar(),
+                                    body: const Tab9EntryInputScreen(
+                                      showSubEntryMolecule: false,
+                                    ),
+                                  );
+                                },
+                              ));
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(entry.condition),
+                                Text(entry.criticality.toString())
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -201,6 +183,8 @@ class _Tab9OutputScreenState extends ConsumerState<Tab9SummaryScreen> {
                   child: const Icon(Icons.add),
                   onPressed: () {
                     ref.invalidate(tab9EntryInputProvider);
+                    ref.invalidate(tab9SubEntryInputProvider);
+
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) {

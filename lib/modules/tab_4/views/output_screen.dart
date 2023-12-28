@@ -22,43 +22,23 @@ class Tab4OutputScreen extends ConsumerWidget {
                 return ListView.builder(
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return Dismissible(
+                    return DismissibleEntry(
                       // https://stackoverflow.com/questions/64135284/how-to-achieve-delete-and-undo-operations-on-dismissible-widget-in-flutter
-                      confirmDismiss: (direction) async {
-                        if (direction == DismissDirection.startToEnd) {
-                          return await showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text("Delete"),
-                                    content: const Text(
-                                        'Are you sure you want to delete?'),
-                                    actions: [
-                                      IconButton.filledTonal(
-                                          icon: const Icon(Icons.done),
-                                          onPressed: () =>
-                                              Navigator.pop(context, true)),
-                                      IconButton.filled(
-                                          icon: const Icon(Icons.dangerous),
-                                          onPressed: () =>
-                                              Navigator.pop(context, false)),
-                                    ],
-                                  );
-                                },
-                              ) ??
-                              false;
-                        } else {
-                          return false;
-                        }
-                      },
-                      key: Key(data[index].uuid!),
-                      background: Container(color: Colors.red),
+
+                      entryKey: data[index].uuid!,
                       onDismissed: (direction) {
                         if (direction == DismissDirection.startToEnd) {
                           ref
                               .read(tab4RepositoryProvider.notifier)
                               .deleteModel(data[index]);
-                          data.removeAt(index);
+                          data.removeWhere(
+                              (element) => element.uuid == data[index].uuid);
+                          setState(() {});
+                        } else {
+                          ref
+                              .read(tab4RepositoryProvider.notifier)
+                              .markModelAsComplete(data[index]);
+                          data.removeWhere((e) => e.uuid == data[index].uuid);
                           setState(() {});
                         }
                       },

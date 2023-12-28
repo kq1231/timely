@@ -61,6 +61,14 @@ class Tab5RepositoryNotifier extends Notifier<AsyncValue<void>> {
     await deleteModel(model);
     await writeSPWModel(model);
   }
+
+  Future<void> markModelAsComplete(SPWModel model) async {
+    await deleteModel(model);
+    final file = (await ref.read(dbFilesProvider.future))[5]![1];
+    Map content = jsonDecode(await file.readAsString());
+    content = {...content, ...model.toJson()};
+    await file.writeAsString(jsonEncode(content));
+  }
 }
 
 final tab5RepositoryProvider =

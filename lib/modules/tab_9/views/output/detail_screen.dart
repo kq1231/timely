@@ -28,90 +28,141 @@ class _Tab9DetailScreenState extends ConsumerState<Tab9DetailScreen> {
         data: (data) {
           Tab9EntryModel entry = widget.entry;
           List<Tab9SubEntryModel> subEntries = data[entry]!;
+
           return Stack(
             children: [
-              ListView.separated(
-                shrinkWrap: true,
-                separatorBuilder: (context, index) {
-                  return const Divider(
-                    height: 0,
-                    thickness: 2,
-                    color: Colors.black,
-                  );
-                },
-                itemBuilder: (context, subEntryIndex) {
-                  Tab9SubEntryModel subEntry = subEntries[subEntryIndex];
-                  return DismissibleEntry(
-                    onDismissed: (direction) {
-                      if (direction == DismissDirection.startToEnd) {
-                        subEntries.removeWhere((v) => v.uuid == subEntry.uuid);
-                        controller.deleteSubEntry(entry.uuid!, subEntry);
-                        setState(() {});
-                      } else {
-                        subEntries.removeWhere((v) => v.uuid == subEntry.uuid);
-                        setState(() {});
-
-                        controller.markSubEntryAsComplete(entry, subEntry);
-                      }
-                    },
-                    entryKey: subEntry.uuid!,
-                    child: InkWell(
-                      onTap: () async {
-                        ref
-                            .read(tab9SubEntryInputProvider.notifier)
-                            .setModel(subEntry);
-
-                        await Future.delayed(const Duration(milliseconds: 100),
-                            () {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return Scaffold(
-                                appBar: AppBar(),
-                                body: Tab9SubEntryInputScreen(
-                                  entryUuid: entry.uuid!,
-                                ),
-                              );
-                            },
-                          ));
-                        });
-                      },
-                      child: Ink(
-                        color: Colors.indigo,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                DateFormat(DateFormat.ABBR_MONTH_DAY)
-                                    .format(subEntry.date),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(subEntry.time),
-                                  Text(subEntry.task),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Text(subEntry.description),
-                                ],
-                              ),
-                            ),
-                          ],
+              ListView(
+                children: [
+                  Container(
+                    color: Colors.indigo[900],
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(entry.condition),
+                              Text(entry.criticality.toString()),
+                            ],
+                          ),
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ...[entry.care, entry.lessonLearnt]
+                                  .map((e) => Flexible(child: Text(e)))
+                                  .toList()
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  );
-                },
-                itemCount: subEntries.length,
+                  ),
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    separatorBuilder: (context, index) {
+                      return const Divider(
+                        height: 0,
+                        thickness: 2,
+                        color: Colors.black,
+                      );
+                    },
+                    itemBuilder: (context, subEntryIndex) {
+                      Tab9SubEntryModel subEntry = subEntries[subEntryIndex];
+                      return DismissibleEntry(
+                        onDismissed: (direction) {
+                          if (direction == DismissDirection.startToEnd) {
+                            subEntries
+                                .removeWhere((v) => v.uuid == subEntry.uuid);
+                            controller.deleteSubEntry(entry.uuid!, subEntry);
+                            setState(() {});
+                          } else {
+                            subEntries
+                                .removeWhere((v) => v.uuid == subEntry.uuid);
+                            setState(() {});
+
+                            controller.markSubEntryAsComplete(entry, subEntry);
+                          }
+                        },
+                        entryKey: subEntry.uuid!,
+                        child: InkWell(
+                          onTap: () async {
+                            ref
+                                .read(tab9SubEntryInputProvider.notifier)
+                                .setModel(subEntry);
+
+                            await Future.delayed(
+                                const Duration(milliseconds: 100), () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return Scaffold(
+                                    appBar: AppBar(),
+                                    body: Tab9SubEntryInputScreen(
+                                      entryUuid: entry.uuid!,
+                                    ),
+                                  );
+                                },
+                              ));
+                            });
+                          },
+                          child: Ink(
+                            color: Colors.indigo,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Flexible(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          subEntry.task,
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            DateFormat(
+                                                    DateFormat.ABBR_MONTH_DAY)
+                                                .format(subEntry.date),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            subEntry.time,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Flexible(
+                                          child: Text(subEntry.description)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: subEntries.length,
+                  )
+                ],
               ),
               Column(
                 children: [

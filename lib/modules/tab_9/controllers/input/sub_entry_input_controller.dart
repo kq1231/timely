@@ -23,7 +23,7 @@ class Tab9SubEntryInputNotifier extends Notifier<Tab9SubEntryModel> {
   void setDescription(String description) =>
       state = state.copyWith(description: description);
   String getFormattedDate() =>
-      DateFormat(DateFormat.ABBR_MONTH_DAY).format(state.date);
+      DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY).format(state.date);
   void setModel(model) => state = model;
 
   Future<void> syncToDB(String entryUuid) async {

@@ -27,56 +27,7 @@ class _Tab10OutputScreenState extends ConsumerState<Tab10OutputScreen> {
           return ListView.separated(
             itemBuilder: (context, index) {
               Tab10Model model = models[index];
-              return Dismissible(
-                confirmDismiss: (direction) async {
-                  if (direction == DismissDirection.startToEnd) {
-                    return await showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text("Delete"),
-                              content: const Text(
-                                  'Are you sure you want to delete?'),
-                              actions: [
-                                IconButton.filledTonal(
-                                    icon: const Icon(Icons.done),
-                                    onPressed: () =>
-                                        Navigator.pop(context, true)),
-                                IconButton.filled(
-                                    icon: const Icon(Icons.dangerous),
-                                    onPressed: () =>
-                                        Navigator.pop(context, false)),
-                              ],
-                            );
-                          },
-                        ) ??
-                        false;
-                  } else {
-                    return await showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text("Mark Complete"),
-                              content: const Text(
-                                  'Are you sure you want to mark as completed?'),
-                              actions: [
-                                IconButton.filledTonal(
-                                  icon: const Icon(Icons.done),
-                                  onPressed: () => Navigator.pop(context, true),
-                                ),
-                                IconButton.filled(
-                                  icon: const Icon(Icons.dangerous),
-                                  onPressed: () =>
-                                      Navigator.pop(context, false),
-                                ),
-                              ],
-                            );
-                          },
-                        ) ??
-                        false;
-                  }
-                },
-                background: Container(color: Colors.red),
+              return DismissibleEntry(
                 onDismissed: (direction) {
                   if (direction == DismissDirection.startToEnd) {
                     controller.deleteModel(model);
@@ -89,7 +40,7 @@ class _Tab10OutputScreenState extends ConsumerState<Tab10OutputScreen> {
                     controller.markModelAsComplete(model);
                   }
                 },
-                key: Key(model.uuid!),
+                entryKey: model.uuid!,
                 child: InkWell(
                   onTap: () {
                     ref.read(tab10InputProvider.notifier).setModel(model);

@@ -38,10 +38,10 @@ class RepositoryNotifier extends Notifier<void> {
           model.toJson(),
         ];
       } else {
-        ref.read(tab4RepositoryProvider.notifier).writeTab4Model(model);
+        ref.read(tab4RepositoryProvider.notifier).writeModel(model);
       }
     } else {
-      ref.read(tab4RepositoryProvider.notifier).writeTab4Model(model);
+      ref.read(tab4RepositoryProvider.notifier).writeModel(model);
     }
 
     await tab3File.writeAsString(jsonEncode(jsonContent));
