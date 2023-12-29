@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:timely/common/notifiers/controllers/output_controller.dart';
+import 'package:timely/modules/common/notifiers/list_struct/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2_6_7/common/models/tab_2_model.dart';
 import 'package:timely/modules/tab_2_6_7/common/services/repo_service.dart';
 import 'package:timely/reusables.dart';

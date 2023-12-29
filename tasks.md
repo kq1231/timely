@@ -381,3 +381,4 @@
 - Care and LL should be in different lines. -D
 - Condition row on the top, center aligned and in bold. -D 
 - Remove unit from tab 11 -D
+- Dates not aligned perfectly 

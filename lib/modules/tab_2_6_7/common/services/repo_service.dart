@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/common/notifiers/services/repo_service.dart';
+import 'package:timely/modules/common/notifiers/list_struct/services/repo_service.dart';
 import 'package:timely/modules/tab_2_6_7/common/models/tab_2_model.dart';
 import 'package:timely/reusables.dart';
 

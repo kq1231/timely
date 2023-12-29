@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/common/notifiers/services/repo_service.dart';
+import 'package:timely/modules/common/notifiers/list_struct/services/repo_service.dart';
 import 'package:timely/reusables.dart';
 
 class OutputNotifier<T> extends AsyncNotifier<List<T>> {
