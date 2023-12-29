@@ -370,3 +370,14 @@
 - Summary screen should only show tasks. Shift the details to the detail screen. -D
     - Show the problem name and criticality on the SS. Care and LL -> DS.
 - Alternate colours -D
+
+---
+
+**Inshaa Allah**
+
+- Remove all **unnecessary** services. 
+    - Common repo
+    - Other tabs
+- Care and LL should be in different lines. -D
+- Condition row on the top, center aligned and in bold. -D 
+- Remove unit from tab 11 -D

@@ -11,7 +11,6 @@ class Tab11InputNotifier extends Notifier<Tab11Model> {
       item: "",
       qty: 0,
       urgent: false,
-      unit: "",
     );
   }
 
@@ -29,10 +28,6 @@ class Tab11InputNotifier extends Notifier<Tab11Model> {
 
   void setUrgency(bool urgent) {
     state = state.copyWith(urgent: urgent);
-  }
-
-  void setUnit(String unit) {
-    state = state.copyWith(unit: unit);
   }
 
   void setModel(Tab11Model model) {

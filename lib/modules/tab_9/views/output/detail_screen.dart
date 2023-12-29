@@ -47,17 +47,16 @@ class _Tab9DetailScreenState extends ConsumerState<Tab9DetailScreen> {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ...[entry.care, entry.lessonLearnt]
-                                  .map((e) => Flexible(child: Text(e)))
-                                  .toList()
-                            ],
-                          ),
-                        ),
+                        ...[entry.care, entry.lessonLearnt]
+                            .map((e) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Flexible(child: Text(e)),
+                                    ],
+                                  ),
+                                ))
+                            .toList()
                       ],
                     ),
                   ),

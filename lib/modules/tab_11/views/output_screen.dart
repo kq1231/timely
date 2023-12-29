@@ -36,7 +36,6 @@ class _Tab11OutputScreenState extends ConsumerState<Tab11OutputScreen> {
                       child: Text("Item"),
                     )),
                     SizedBox(width: 60, child: Center(child: Text("Quantity"))),
-                    SizedBox(width: 60, child: Center(child: Text("Unit"))),
                     SizedBox(width: 60, child: Center(child: Text("Urgent?"))),
                   ],
                 ),
@@ -135,10 +134,6 @@ class _Tab11OutputScreenState extends ConsumerState<Tab11OutputScreen> {
                             SizedBox(
                               width: 60,
                               child: Center(child: Text(model.qty.toString())),
-                            ),
-                            SizedBox(
-                              width: 60,
-                              child: Center(child: Text(model.unit)),
                             ),
                             SizedBox(
                               width: 60,

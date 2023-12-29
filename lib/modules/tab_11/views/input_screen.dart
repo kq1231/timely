@@ -68,31 +68,6 @@ class Tab11InputScreen extends ConsumerWidget {
           const Divider(
             height: 40,
           ),
-
-          // Unit Menu
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              const Text("Unit"),
-              DropdownMenu(
-                initialSelection: provider.unit,
-                dropdownMenuEntries: [
-                  for (String unit in ["KG", "Mg", "G", "Lit", "mLit"])
-                    DropdownMenuEntry(value: unit, label: unit)
-                ],
-                onSelected: (unit) {
-                  if (unit != null) {
-                    controller.setUnit(unit);
-                  }
-                },
-              ),
-            ],
-          ),
-
-          const Divider(
-            height: 40,
-          ),
-
           // Urgency Switch
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

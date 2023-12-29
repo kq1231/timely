@@ -65,6 +65,52 @@ class _Tab9OutputScreenState extends ConsumerState<Tab9SummaryScreen> {
                     child: Column(
                       children: [
                         InkWell(
+                          onTap: () async {
+                            ref
+                                .read(tab9EntryInputProvider.notifier)
+                                .setModel(entry);
+                            await Future.delayed(
+                                const Duration(milliseconds: 100), () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return Scaffold(
+                                    appBar: AppBar(),
+                                    body: const Tab9EntryInputScreen(
+                                      showSubEntryMolecule: false,
+                                    ),
+                                  );
+                                },
+                              ));
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      entry.condition,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                  child: Text(
+                                    entry.criticality.toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        InkWell(
                           onTap: () {
                             Navigator.push(
                               context,
@@ -123,36 +169,6 @@ class _Tab9OutputScreenState extends ConsumerState<Tab9SummaryScreen> {
                                 ),
                               ),
                             ],
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () async {
-                            ref
-                                .read(tab9EntryInputProvider.notifier)
-                                .setModel(entry);
-                            await Future.delayed(
-                                const Duration(milliseconds: 100), () {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return Scaffold(
-                                    appBar: AppBar(),
-                                    body: const Tab9EntryInputScreen(
-                                      showSubEntryMolecule: false,
-                                    ),
-                                  );
-                                },
-                              ));
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(entry.condition),
-                                Text(entry.criticality.toString())
-                              ],
-                            ),
                           ),
                         ),
                       ],
