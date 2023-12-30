@@ -35,16 +35,26 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>((ref) async {
       }
     }
 
+    if ([2, 6, 7].contains(i)) {
+      File current = File('${docDir.path}/tab_${i}_current_activities.json');
+      await current.create();
+      if ((await current.readAsString()).isEmpty) {
+        await current.writeAsString("[]");
+      }
+    }
+
     files[i] = [
       pending,
       completed,
     ];
   }
 
-  files[2] = [
-    ...files[2]!,
-    File('${docDir.path}/tab_2_current_activities.json')
-  ];
+  for (int i in [2, 6, 7]) {
+    files[i] = [
+      ...files[i]!,
+      File('${docDir.path}/tab_${i}_current_activities.json')
+    ];
+  }
 
   return files;
 });

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_9/controllers/output/output_controller.dart';
+import 'package:timely/modules/tab_9/models/entry_model.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_9/services/repo_service.dart';
 import 'package:timely/reusables.dart';
@@ -32,11 +33,15 @@ class Tab9SubEntryInputNotifier extends Notifier<Tab9SubEntryModel> {
     if (state.uuid != null) {
       await ref
           .read(tab9RepositoryServiceProvider.notifier)
-          .updateSubEntry(entryUuid, state, file);
+          .updateSubEntry(entryUuid, state, file, Tab9SubEntryModel.fromJson);
     } else {
-      await ref
-          .read(tab9RepositoryServiceProvider.notifier)
-          .writeSubEntry(entryUuid, state, file, null);
+      await ref.read(tab9RepositoryServiceProvider.notifier).writeSubEntry(
+          entryUuid,
+          state,
+          file,
+          null,
+          Tab9EntryModel.fromJson,
+          Tab9SubEntryModel.fromJson);
     }
 
     ref.invalidate(tab9OutputProvider);
