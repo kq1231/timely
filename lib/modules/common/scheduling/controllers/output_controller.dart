@@ -24,7 +24,7 @@ class Tab2OutputNotifier<T> extends OutputNotifier<Tab2Model> {
 
     await ref
         .read(schedulingRepositoryServiceProvider.notifier)
-        .generateActivitiesForToday(tabNumber, modelizer, pendingFile);
+        .generateActivitiesForToday(tabNumber, modelizer);
 
     // Fetch the models from the db
     List<Tab2Model> models = await ref

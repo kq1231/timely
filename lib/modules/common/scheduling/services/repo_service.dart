@@ -16,14 +16,16 @@ class SchedulingRepostioryNotifier<T>
   }
 
   Future<void> generateActivitiesForToday(
-      int tabNumber, Function modelizer, File file) async {
-    // Grab the file
+      int tabNumber, Function modelizer) async {
+    // Grab the files
     final currentActivitiesFile =
         (await ref.read(dbFilesProvider.future))[tabNumber]!.last;
+    final pendingFile =
+        (await ref.read(dbFilesProvider.future))[tabNumber]!.first;
 
     // Save to the file
     await currentActivitiesFile.writeAsString(
-        jsonEncode(await getActivitiesForToday(modelizer, file)));
+        jsonEncode(await getActivitiesForToday(modelizer, pendingFile)));
   }
 }
 
