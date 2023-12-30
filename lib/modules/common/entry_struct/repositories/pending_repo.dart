@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PendingRepositoryNotifier<T, V> extends Notifier<void> {
+class EntryStructPendingRepositoryNotifier<T, V> extends Notifier<void> {
   @override
   void build() {}
 
@@ -126,12 +126,11 @@ class PendingRepositoryNotifier<T, V> extends Notifier<void> {
     String entryUuid,
     subEntry,
     File file,
-    entryModelizer,
   ) async {
     List jsonContent = jsonDecode(await file.readAsString());
 
     for (int i in Iterable.generate(jsonContent.length)) {
-      if (entryModelizer(jsonContent[i]).uuid == entryUuid) {
+      if (jsonContent[i]["uuid"] == entryUuid) {
         jsonContent[i]["SubEntries"]
             .removeWhere((element) => element["uuid"] == subEntry.uuid);
       }

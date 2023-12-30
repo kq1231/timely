@@ -38,7 +38,7 @@ class EntryStructOutputNotifier<T, V>
           String entryUuid, Tab9SubEntryModel model) async =>
       await ref
           .read(repoService.notifier)
-          .deleteSubEntry(entryUuid, model, pendingFile, entryModelizer);
+          .deleteSubEntry(entryUuid, model, pendingFile);
 
   Future<void> markEntryAsComplete(
       Tab9EntryModel entry, List<Tab9SubEntryModel> subEntries) async {
@@ -57,8 +57,6 @@ class EntryStructOutputNotifier<T, V>
           subEntryModel,
           pendingFile,
           completedFile,
-          entryModelizer,
-          subEntryModelizer,
         );
   }
 }

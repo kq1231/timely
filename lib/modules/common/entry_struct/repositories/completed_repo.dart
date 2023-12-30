@@ -13,11 +13,7 @@ class EntryStructCompletedRepositoryNotifier<T> extends Notifier<void> {
   // completeEntry
   // completeSubEntry
 
-  Future<void> writeEntryAsComplete(
-    model,
-    List subEntries,
-    File file,
-  ) async {
+  Future<void> writeEntryAsComplete(entry, List subEntries, File file) async {
     // Check if the entry is already present or not
     // If it is, just append the subEntries
     // Else, create a new one from scratch.
@@ -26,7 +22,7 @@ class EntryStructCompletedRepositoryNotifier<T> extends Notifier<void> {
     bool isFound = false;
 
     for (int i in Iterable.generate(jsonContent.length)) {
-      if (jsonContent[i]["uuid"] == model.uuid) {
+      if (jsonContent[i]["uuid"] == entry.uuid) {
         jsonContent[i]["SubEntries"] = [
           ...jsonContent[i]["SubEntries"],
           ...subEntries.map(
@@ -41,12 +37,36 @@ class EntryStructCompletedRepositoryNotifier<T> extends Notifier<void> {
 
     if (!isFound) {
       jsonContent.add({
-        ...model.toJson(),
+        ...entry.toJson(),
         "SubEntries": subEntries
             .map(
               (e) => e.toJson().update("uuid", (value) => e.uuid),
             )
             .toList(),
+      });
+    }
+
+    await file.writeAsString(jsonEncode(jsonContent));
+  }
+
+  Future<void> writeSubEntryAsComplete(entry, subEntry, File file) async {
+    // Go through the entries
+    // If $entry exists, then append the subEntry into it
+    // Else, create a new entry and then append the subEntry
+
+    List jsonContent = jsonDecode(await file.readAsString());
+    bool isFound = false;
+    for (int i in Iterable.generate(jsonContent.length)) {
+      if (jsonContent[i]["uuid"] == entry.uuid) {
+        jsonContent[i]["SubEntries"].add(subEntry.toJson());
+      }
+    }
+
+    if (!isFound) {
+      // Create the entry
+      jsonContent.add({
+        ...entry.toJson(),
+        "SubEntries": [subEntry.toJson()],
       });
     }
 

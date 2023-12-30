@@ -1,6 +1,6 @@
 import 'package:timely/modules/common/scheduling/models/tab_2_model.dart';
 
-mixin FilterMixin {
+mixin FilterMixin<T> {
   Future<List> filterCurrentActivities(Function modelizer, List models) async {
 // Functions for DRYness
     List<int> getOccurences(

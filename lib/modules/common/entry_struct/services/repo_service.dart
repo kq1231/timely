@@ -2,7 +2,7 @@ import 'package:timely/modules/common/entry_struct/repositories/completed_repo.d
 import 'package:timely/modules/common/entry_struct/repositories/pending_repo.dart';
 
 class EntryStructRepositoryServiceNotifier<T, V>
-    extends PendingRepositoryNotifier<T, V> {
+    extends EntryStructPendingRepositoryNotifier<T, V> {
   Future<void> markEntryAsComplete(
       entry, List subEntries, pendingFile, completedFile) async {
     await deleteEntry(entry, pendingFile);
@@ -12,22 +12,14 @@ class EntryStructRepositoryServiceNotifier<T, V>
   }
 
   Future<void> markSubEntryAsComplete(
-    entryModel,
-    model,
+    entry,
+    subEntry,
     pendingFile,
     completedFile,
-    entryModelizer,
-    subEntryModelizer,
   ) async {
-    // Delete sub-entry from pending and add it to completed.
-    await deleteSubEntry(entryModel.uuid!, model, pendingFile, entryModelizer);
-    await writeSubEntry(
-      entryModel.uuid!,
-      model,
-      completedFile,
-      entryModel,
-      entryModelizer,
-      subEntryModelizer,
-    );
+    await deleteSubEntry(entry, subEntry, pendingFile);
+    await ref
+        .read(completedRepositoryProvider.notifier)
+        .writeSubEntryAsComplete(entry, subEntry, completedFile);
   }
 }
