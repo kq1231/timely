@@ -20,6 +20,7 @@ Tab9SubEntryModel _$Tab9SubEntryModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Tab9SubEntryModel {
+  @JsonKey(name: "ID")
   String? get uuid => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   String get time => throw _privateConstructorUsedError;
@@ -39,7 +40,7 @@ abstract class $Tab9SubEntryModelCopyWith<$Res> {
       _$Tab9SubEntryModelCopyWithImpl<$Res, Tab9SubEntryModel>;
   @useResult
   $Res call(
-      {String? uuid,
+      {@JsonKey(name: "ID") String? uuid,
       DateTime date,
       String time,
       String task,
@@ -99,7 +100,7 @@ abstract class _$$Tab9SubEntryModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? uuid,
+      {@JsonKey(name: "ID") String? uuid,
       DateTime date,
       String time,
       String task,
@@ -152,7 +153,7 @@ class __$$Tab9SubEntryModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$Tab9SubEntryModelImpl implements _Tab9SubEntryModel {
   const _$Tab9SubEntryModelImpl(
-      {this.uuid,
+      {@JsonKey(name: "ID") this.uuid,
       required this.date,
       required this.time,
       required this.task,
@@ -162,6 +163,7 @@ class _$Tab9SubEntryModelImpl implements _Tab9SubEntryModel {
       _$$Tab9SubEntryModelImplFromJson(json);
 
   @override
+  @JsonKey(name: "ID")
   final String? uuid;
   @override
   final DateTime date;
@@ -212,7 +214,7 @@ class _$Tab9SubEntryModelImpl implements _Tab9SubEntryModel {
 
 abstract class _Tab9SubEntryModel implements Tab9SubEntryModel {
   const factory _Tab9SubEntryModel(
-      {final String? uuid,
+      {@JsonKey(name: "ID") final String? uuid,
       required final DateTime date,
       required final String time,
       required final String task,
@@ -222,6 +224,7 @@ abstract class _Tab9SubEntryModel implements Tab9SubEntryModel {
       _$Tab9SubEntryModelImpl.fromJson;
 
   @override
+  @JsonKey(name: "ID")
   String? get uuid;
   @override
   DateTime get date;

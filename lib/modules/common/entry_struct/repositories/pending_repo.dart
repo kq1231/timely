@@ -100,14 +100,14 @@ class EntryStructPendingRepositoryNotifier<T, V> extends Notifier<void> {
       if (entryModelizer(jsonContent[i]).uuid == entryUuid) {
         List subEntries = jsonContent[i]["SubEntries"];
         for (int j in Iterable.generate(subEntries.length)) {
-          if (subEntries[j]["uuid"] == subEntry.uuid) {
+          if (subEntries[j]["ID"] == subEntry.uuid) {
             subEntries[j] = subEntry.toJson();
             jsonContent[i]["SubEntries"] = subEntries;
             break;
           }
         }
+        break;
       }
-      break;
     }
 
     await file.writeAsString(jsonEncode(jsonContent));
@@ -117,7 +117,7 @@ class EntryStructPendingRepositoryNotifier<T, V> extends Notifier<void> {
   Future<void> deleteEntry(entry, File file) async {
     List jsonContent = jsonDecode(await file.readAsString());
 
-    jsonContent.removeWhere((element) => element["uuid"] == entry.uuid);
+    jsonContent.removeWhere((element) => element["ID"] == entry.uuid);
 
     await file.writeAsString(jsonEncode(jsonContent));
   }
@@ -130,9 +130,9 @@ class EntryStructPendingRepositoryNotifier<T, V> extends Notifier<void> {
     List jsonContent = jsonDecode(await file.readAsString());
 
     for (int i in Iterable.generate(jsonContent.length)) {
-      if (jsonContent[i]["uuid"] == entryUuid) {
+      if (jsonContent[i]["ID"] == entryUuid) {
         jsonContent[i]["SubEntries"]
-            .removeWhere((element) => element["uuid"] == subEntry.uuid);
+            .removeWhere((element) => element["ID"] == subEntry.uuid);
       }
     }
 

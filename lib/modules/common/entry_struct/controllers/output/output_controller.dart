@@ -3,16 +3,14 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/common/entry_struct/services/repo_service.dart';
-import 'package:timely/modules/tab_9/models/entry_model.dart';
-import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
 import 'package:timely/reusables.dart';
 
-class EntryStructOutputNotifier<T, V>
+class EntryStructOutputNotifier<T, V,
+        U extends EntryStructRepositoryServiceNotifier<T, V>>
     extends AutoDisposeAsyncNotifier<Map<T, List<V>>> {
   late File pendingFile;
   late File completedFile;
-  final NotifierProvider<EntryStructRepositoryServiceNotifier<T, V>, void>
-      repoService;
+  final NotifierProvider<U, void> repoService;
   final Function entryModelizer;
   final Function subEntryModelizer;
 
@@ -31,17 +29,14 @@ class EntryStructOutputNotifier<T, V>
         pendingFile, entryModelizer, subEntryModelizer));
   }
 
-  Future<void> deleteEntry(Tab9EntryModel model) async =>
+  Future<void> deleteEntry(T model) async =>
       await ref.read(repoService.notifier).deleteEntry(model, pendingFile);
 
-  Future<void> deleteSubEntry(
-          String entryUuid, Tab9SubEntryModel model) async =>
-      await ref
-          .read(repoService.notifier)
-          .deleteSubEntry(entryUuid, model, pendingFile);
+  Future<void> deleteSubEntry(String entryUuid, V model) async => await ref
+      .read(repoService.notifier)
+      .deleteSubEntry(entryUuid, model, pendingFile);
 
-  Future<void> markEntryAsComplete(
-      Tab9EntryModel entry, List<Tab9SubEntryModel> subEntries) async {
+  Future<void> markEntryAsComplete(T entry, List<V> subEntries) async {
     await ref.read(repoService.notifier).markEntryAsComplete(
           entry,
           subEntries,
@@ -50,8 +45,7 @@ class EntryStructOutputNotifier<T, V>
         );
   }
 
-  Future<void> markSubEntryAsComplete(
-      Tab9EntryModel entryModel, Tab9SubEntryModel subEntryModel) async {
+  Future<void> markSubEntryAsComplete(T entryModel, V subEntryModel) async {
     await ref.read(repoService.notifier).markSubEntryAsComplete(
           entryModel,
           subEntryModel,

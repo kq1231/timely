@@ -13,7 +13,7 @@ class Tab9EntryInputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.read(tab9EntryInputProvider);
+    final provider = ref.watch(tab9EntryInputProvider);
     final controller = ref.read(tab9EntryInputProvider.notifier);
 
     return ListView(
@@ -113,7 +113,7 @@ class Tab9EntryInputScreen extends ConsumerWidget {
             },
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
         Row(

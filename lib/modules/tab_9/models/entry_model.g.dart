@@ -8,7 +8,7 @@ part of 'entry_model.dart';
 
 _$Tab9EntryModelImpl _$$Tab9EntryModelImplFromJson(Map<String, dynamic> json) =>
     _$Tab9EntryModelImpl(
-      uuid: json['uuid'] as String?,
+      uuid: json['ID'] as String?,
       condition: json['condition'] as String,
       criticality: json['criticality'] as int,
       care: json['care'] as String,
@@ -18,7 +18,7 @@ _$Tab9EntryModelImpl _$$Tab9EntryModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$Tab9EntryModelImplToJson(
         _$Tab9EntryModelImpl instance) =>
     <String, dynamic>{
-      'uuid': instance.uuid ?? const Uuid().v4(),
+      'ID': instance.uuid ?? const Uuid().v4(),
       'condition': instance.condition,
       'criticality': instance.criticality,
       'care': instance.care,

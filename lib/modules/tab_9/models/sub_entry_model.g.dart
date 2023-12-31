@@ -9,7 +9,7 @@ part of 'sub_entry_model.dart';
 _$Tab9SubEntryModelImpl _$$Tab9SubEntryModelImplFromJson(
         Map<String, dynamic> json) =>
     _$Tab9SubEntryModelImpl(
-      uuid: json['uuid'] as String?,
+      uuid: json['ID'] as String?,
       date: DateTime.parse(json['date'] as String),
       time: json['time'] as String,
       task: json['task'] as String,
@@ -19,7 +19,7 @@ _$Tab9SubEntryModelImpl _$$Tab9SubEntryModelImplFromJson(
 Map<String, dynamic> _$$Tab9SubEntryModelImplToJson(
         _$Tab9SubEntryModelImpl instance) =>
     <String, dynamic>{
-      'uuid': const Uuid().v4(),
+      'ID': instance.uuid ?? const Uuid().v4(),
       'date': instance.date.toIso8601String(),
       'time': instance.time,
       'task': instance.task,

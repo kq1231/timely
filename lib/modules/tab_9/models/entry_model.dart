@@ -6,7 +6,8 @@ part 'entry_model.g.dart';
 @Freezed()
 class Tab9EntryModel with _$Tab9EntryModel {
   const factory Tab9EntryModel({
-    String? uuid,
+    // ignore: invalid_annotation_target
+    @JsonKey(name: "ID") String? uuid,
     required String condition,
     required int criticality,
     required String care,

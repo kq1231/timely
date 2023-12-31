@@ -20,6 +20,7 @@ Tab9EntryModel _$Tab9EntryModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Tab9EntryModel {
+  @JsonKey(name: "ID")
   String? get uuid => throw _privateConstructorUsedError;
   String get condition => throw _privateConstructorUsedError;
   int get criticality => throw _privateConstructorUsedError;
@@ -39,7 +40,7 @@ abstract class $Tab9EntryModelCopyWith<$Res> {
       _$Tab9EntryModelCopyWithImpl<$Res, Tab9EntryModel>;
   @useResult
   $Res call(
-      {String? uuid,
+      {@JsonKey(name: "ID") String? uuid,
       String condition,
       int criticality,
       String care,
@@ -99,7 +100,7 @@ abstract class _$$Tab9EntryModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? uuid,
+      {@JsonKey(name: "ID") String? uuid,
       String condition,
       int criticality,
       String care,
@@ -152,7 +153,7 @@ class __$$Tab9EntryModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$Tab9EntryModelImpl implements _Tab9EntryModel {
   const _$Tab9EntryModelImpl(
-      {this.uuid,
+      {@JsonKey(name: "ID") this.uuid,
       required this.condition,
       required this.criticality,
       required this.care,
@@ -162,6 +163,7 @@ class _$Tab9EntryModelImpl implements _Tab9EntryModel {
       _$$Tab9EntryModelImplFromJson(json);
 
   @override
+  @JsonKey(name: "ID")
   final String? uuid;
   @override
   final String condition;
@@ -214,7 +216,7 @@ class _$Tab9EntryModelImpl implements _Tab9EntryModel {
 
 abstract class _Tab9EntryModel implements Tab9EntryModel {
   const factory _Tab9EntryModel(
-      {final String? uuid,
+      {@JsonKey(name: "ID") final String? uuid,
       required final String condition,
       required final int criticality,
       required final String care,
@@ -224,6 +226,7 @@ abstract class _Tab9EntryModel implements Tab9EntryModel {
       _$Tab9EntryModelImpl.fromJson;
 
   @override
+  @JsonKey(name: "ID")
   String? get uuid;
   @override
   String get condition;

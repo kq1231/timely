@@ -13,3 +13,4 @@ export 'package:timely/modules/tab_7/views/output_screen.dart';
 export 'package:timely/modules/tab_8/views/output_screen.dart';
 export 'package:timely/modules/tab_11/views/output_screen.dart';
 export 'package:timely/modules/tab_9/views/output/summary_screen.dart';
+export 'package:timely/modules/tab_12/views/output/summary_screen.dart';

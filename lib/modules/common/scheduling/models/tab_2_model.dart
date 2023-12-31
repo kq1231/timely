@@ -9,7 +9,7 @@ class Tab2Model {
   Duration dur = const Duration();
   String? frequency = Frequency.daily;
   Basis? basis = Basis.day;
-  DateTime startDate = DateTime.now();
+  DateTime? startDate = DateTime.now();
   DateTime? endDate;
   Map repetitions = {};
   int every = 1;
@@ -23,11 +23,14 @@ class Tab2Model {
     this.basis,
     this.endDate,
     required this.every,
-    required this.startDate,
+    this.startDate,
     required this.repetitions,
   });
 
   Tab2Model.fromJson(Map json) {
+    if (json.containsKey("Start Date")) {
+      startDate = DateTime.parse(json["Start Date"]);
+    }
     name = json["Name"];
     uuid = json["ID"];
     List times = [
@@ -36,7 +39,6 @@ class Tab2Model {
     ];
 
     startTime = TimeOfDay(hour: times[0][0], minute: times[0][1]);
-    startDate = DateTime.parse(json["Start Date"]);
     dur = Duration(hours: times[1][0], minutes: times[1][1]);
     every = json["Every"];
     frequency = json["Frequency"];
@@ -58,10 +60,9 @@ class Tab2Model {
       }
     }
 
-    return {
+    Map json = {
       "ID": uuid ?? const Uuid().v4(),
       "Name": name,
-      "Start Date": startDate.toString().substring(0, 10),
       "Start": [startTime.hour, startTime.minute].join(":"),
       "Duration": [dur.inHours, dur.inMinutes % 60].join(":"),
       "Frequency": frequency,
@@ -75,11 +76,17 @@ class Tab2Model {
       "Ends":
           endDate == null ? "Never" : DateFormat("yyyy-MM-dd").format(endDate!)
     };
+
+    if (startDate != null) {
+      json["Start Date"] = startDate.toString().substring(0, 10);
+    }
+
+    return json;
   }
 
   List<int> calculateEndTime(Duration duration) {
-    DateTime finalTime = DateTime(startDate.year, startDate.month,
-            startDate.day, startTime.hour, startTime.minute)
+    DateTime finalTime = DateTime(startDate!.year, startDate!.month,
+            startDate!.day, startTime.hour, startTime.minute)
         .add(dur);
 
     return [finalTime.hour, finalTime.minute];

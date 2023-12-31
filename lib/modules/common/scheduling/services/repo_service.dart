@@ -12,7 +12,7 @@ class SchedulingRepostioryNotifier<T>
   Future<List> getActivitiesForToday(Function modelizer, File file) async {
     // Get the models
     List models = await fetchModels(modelizer, file);
-    return filterCurrentActivities(modelizer, models);
+    return filterCurrentActivities(models);
   }
 
   Future<void> generateActivitiesForToday(
