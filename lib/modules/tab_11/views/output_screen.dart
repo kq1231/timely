@@ -36,7 +36,6 @@ class _Tab11OutputScreenState extends ConsumerState<Tab11OutputScreen> {
                       child: Text("Item"),
                     )),
                     SizedBox(width: 60, child: Center(child: Text("Quantity"))),
-                    SizedBox(width: 60, child: Center(child: Text("Urgent?"))),
                   ],
                 ),
               ),
@@ -122,7 +121,7 @@ class _Tab11OutputScreenState extends ConsumerState<Tab11OutputScreen> {
                         ));
                       },
                       child: Container(
-                        color: Colors.indigo[400],
+                        color: model.urgent ? Colors.red : Colors.green,
                         height: 40,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -134,12 +133,6 @@ class _Tab11OutputScreenState extends ConsumerState<Tab11OutputScreen> {
                             SizedBox(
                               width: 60,
                               child: Center(child: Text(model.qty.toString())),
-                            ),
-                            SizedBox(
-                              width: 60,
-                              child: Center(
-                                  child: Text(
-                                      model.urgent == true ? "Yes" : "No")),
                             ),
                             const SizedBox(
                               width: 5,
