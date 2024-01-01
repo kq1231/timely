@@ -42,6 +42,26 @@ class Tab12EntryInputScreen extends ConsumerWidget {
             },
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextFormField(
+            textCapitalization: TextCapitalization.sentences,
+            initialValue: provider.objective,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              filled: true,
+              hintText: "Objective",
+            ),
+            onChanged: (objective) {
+              controller.setObjective(objective);
+            },
+          ),
+        ),
         const Divider(
           height: 30,
         ),
@@ -70,30 +90,10 @@ class Tab12EntryInputScreen extends ConsumerWidget {
             ],
           ),
         ),
-        const SizedBox(
+        const Divider(
           height: 30,
         ),
         showSubEntryMolecule ? const Tab12SubEntryInputMolecule() : Container(),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextFormField(
-            textCapitalization: TextCapitalization.sentences,
-            initialValue: provider.objective,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              filled: true,
-              hintText: "Objective",
-            ),
-            onChanged: (objective) {
-              controller.setObjective(objective);
-            },
-          ),
-        ),
         Padding(
           padding: const EdgeInsets.all(20),
           child: Row(
@@ -158,8 +158,11 @@ class Tab12EntryInputScreen extends ConsumerWidget {
             ],
           ),
         ),
+        const Divider(
+          height: 30,
+        ),
         const SizedBox(
-          height: 20,
+          height: 40,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

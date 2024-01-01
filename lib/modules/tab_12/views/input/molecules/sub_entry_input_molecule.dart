@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/common/scheduling/models/tab_2_model.dart';
@@ -129,84 +128,6 @@ class Tab12SubEntryInputMolecule extends ConsumerWidget {
           height: 10,
         ),
 
-        Column(
-          children: [
-            const Center(
-              child: Text(
-                "Duration",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 120,
-                    child: CupertinoPicker(
-                      itemExtent: 50,
-                      magnification: 1.2,
-                      scrollController: FixedExtentScrollController(
-                        initialItem: provider.dur.inHours,
-                      ),
-                      onSelectedItemChanged: (val) {
-                        controller.setEndTime(
-                          Duration(
-                            hours: val,
-                            minutes: provider.dur.inMinutes % 60,
-                          ),
-                        );
-                      },
-                      children: List<Widget>.generate(
-                        25,
-                        (index) => Center(
-                          child: Text(
-                            (index).toString(),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    height: 120,
-                    child: CupertinoPicker(
-                      itemExtent: 50,
-                      magnification: 1.2,
-                      scrollController: FixedExtentScrollController(
-                        initialItem: provider.dur.inMinutes % 60,
-                      ),
-                      onSelectedItemChanged: (val) {
-                        controller.setEndTime(
-                          Duration(
-                            hours: provider.dur.inHours,
-                            minutes: val,
-                          ),
-                        );
-                      },
-                      children: List<Widget>.generate(
-                        61,
-                        (index) => Center(
-                          child: Text(
-                            (index).toString(),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const Divider(
-              height: 30,
-            ),
-          ],
-        ),
         Row(
           children: [
             const SizedBox(
