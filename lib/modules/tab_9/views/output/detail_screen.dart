@@ -27,7 +27,6 @@ class _Tab9DetailScreenState extends ConsumerState<Tab9DetailScreen> {
     return provider.when(
         data: (data) {
           Tab9EntryModel entry = widget.entry;
-          print(entry.hashCode);
           List<Tab9SubEntryModel> subEntries = data[entry]!;
 
           return Stack(
@@ -199,7 +198,7 @@ class _Tab9DetailScreenState extends ConsumerState<Tab9DetailScreen> {
             ],
           );
         },
-        error: (_, __) => Text("ERROR"),
-        loading: () => CircularProgressIndicator());
+        error: (_, __) => const Text("ERROR"),
+        loading: () => const CircularProgressIndicator());
   }
 }

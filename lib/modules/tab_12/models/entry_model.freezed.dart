@@ -20,7 +20,6 @@ Tab12EntryModel _$Tab12EntryModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Tab12EntryModel {
-// ignore: invalid_annotation_target
   @JsonKey(name: "ID")
   String? get uuid => throw _privateConstructorUsedError;
   String get activity => throw _privateConstructorUsedError;
@@ -163,7 +162,6 @@ class _$Tab12EntryModelImpl implements _Tab12EntryModel {
   factory _$Tab12EntryModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$Tab12EntryModelImplFromJson(json);
 
-// ignore: invalid_annotation_target
   @override
   @JsonKey(name: "ID")
   final String? uuid;
@@ -228,7 +226,7 @@ abstract class _Tab12EntryModel implements Tab12EntryModel {
   factory _Tab12EntryModel.fromJson(Map<String, dynamic> json) =
       _$Tab12EntryModelImpl.fromJson;
 
-  @override // ignore: invalid_annotation_target
+  @override
   @JsonKey(name: "ID")
   String? get uuid;
   @override

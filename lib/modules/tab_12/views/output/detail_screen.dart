@@ -103,7 +103,7 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   ListView.separated(

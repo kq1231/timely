@@ -50,7 +50,7 @@ class Tab9SubEntryInputMolecule extends ConsumerWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
