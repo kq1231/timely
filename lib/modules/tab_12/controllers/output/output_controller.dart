@@ -19,12 +19,8 @@ class Tab12OutputNotifier extends EntryStructOutputNotifier<Tab12EntryModel,
     pendingFile = (await ref.read(dbFilesProvider.future))[12]![0];
     completedFile = (await ref.read(dbFilesProvider.future))[12]![1];
 
-    Map<Tab12EntryModel, List<Tab12SubEntryModel>> res = (await ref
-        .read(repoService.notifier)
-        .fetchEntriesAndSubEntries(pendingFile, Tab12EntryModel.fromJson,
-            Tab12SubEntryModel.fromJson));
-
-    return res;
+    return (await ref.read(repoService.notifier).fetchEntriesAndSubEntries(
+        pendingFile, Tab12EntryModel.fromJson, Tab12SubEntryModel.fromJson));
   }
 }
 

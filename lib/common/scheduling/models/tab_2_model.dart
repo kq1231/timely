@@ -92,6 +92,11 @@ class Tab2Model {
     return [finalTime.hour, finalTime.minute];
   }
 
+  TimeOfDay getEndTime() {
+    List finalTime = calculateEndTime(dur);
+    return TimeOfDay(hour: finalTime[0], minute: finalTime[1]);
+  }
+
   Tab2Model copywith({
     String? name,
     String? uuid,
@@ -116,6 +121,38 @@ class Tab2Model {
       repetitions: repetitions ?? this.repetitions,
       every: every ?? this.every,
     );
+  }
+
+  DateTime getNextOccurenceDateTime() {
+    TimeOfDay endTime = getEndTime();
+    DateTime dateToday = DateTime.now();
+    switch (frequency) {
+      case "Daily":
+        return dateToday
+            .add(
+                Duration(days: dateToday.difference(startDate!).inDays % every))
+            .copyWith(hour: endTime.hour, minute: endTime.minute);
+
+      case "Weekly":
+        int firstDayIndex = startDate!.copyWith(day: 1).weekday - 1;
+        List weekdays = repetitions["Weekdays"];
+        List filteredWeekdays = weekdays
+            .where((element) => element >= (dateToday.weekday - 1))
+            .toList();
+        int weekNumber =
+            ((dateToday.difference(startDate!).inDays + 1 + firstDayIndex) / 7)
+                    .ceil() -
+                1;
+        return dateToday
+            .add(Duration(
+                days: (filteredWeekdays[0] - (dateToday.weekday - 1)) +
+                    (weekNumber % every) * 7))
+            .copyWith(hour: endTime.hour, minute: endTime.minute);
+      // case "Monthly":
+
+      default:
+        return DateTime(0);
+    }
   }
 }
 

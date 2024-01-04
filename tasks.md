@@ -399,4 +399,19 @@
 - Importance -> [Not at all, Slightly, Important, Fairly, Very] + Important -D
 - Next task will be at the end. Also a TextArea. -D
 - End time will be there. -D
-- All entries will be shown in order of closeness to DateTime. 
+
+---
+
+- All entries will be shown in order of closeness to DateTime.
+- Date should have year. -D
+- Date and time should be in the same row. -D
+- Remove time from children. -D
+- Assignment's start and end date show it separately 
+    - Assignment Period -------------------- Jan 6 2024 -- Jan 20 2024 -D
+- Add a Frequency -D
+    - Frequency -------------------- Daily
+- Time allocation -D
+    - Time Allocation -------------------- 08:12 - 09:12
+- Update issue :: Showing two rows. Does not update. -D
+- New task at the top. -D New task is always the upcoming task and there is only one new task which gets automatically scheduled as per the frequency.
+- FAB -a->b-> "+ Next Task". -D

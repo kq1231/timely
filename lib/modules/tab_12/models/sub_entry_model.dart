@@ -5,6 +5,7 @@ class Tab12SubEntryModel {
   String nextTask = "";
 
   Tab12SubEntryModel({
+    this.uuid,
     required this.nextTask,
   });
 
@@ -20,6 +21,7 @@ class Tab12SubEntryModel {
 
   Tab12SubEntryModel copyWith({String? uuid, String? nextTask}) {
     return Tab12SubEntryModel(
+      uuid: uuid ?? this.uuid,
       nextTask: nextTask ?? this.nextTask,
     );
   }

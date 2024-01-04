@@ -120,7 +120,7 @@ class Tab12EntryInputScreen extends ConsumerWidget {
               const Text("Importance"),
               SizedBox(
                 height: 100,
-                width: 150,
+                width: 170,
                 child: CupertinoPicker(
                   itemExtent: 60,
                   scrollController: FixedExtentScrollController(
@@ -128,10 +128,11 @@ class Tab12EntryInputScreen extends ConsumerWidget {
                   onSelectedItemChanged: (importance) {
                     controller.setImportance(importance + 1);
                   },
-                  children: "Not at all,Slightly,Important,Fairly,Very"
-                      .split(",")
-                      .map((e) => Center(child: Text("$e Imp")))
-                      .toList(),
+                  children:
+                      "Not at all Imp,Slightly Imp,Important,Fairly Imp,Very Imp"
+                          .split(",")
+                          .map((e) => Center(child: Text(e)))
+                          .toList(),
                 ),
               ),
             ],
@@ -144,15 +145,18 @@ class Tab12EntryInputScreen extends ConsumerWidget {
         Row(
           children: [
             const SizedBox(
-              width: 40,
+              width: 20,
             ),
-            const Center(
-              child: Text(
-                "Start Time",
+            const SizedBox(
+              width: 40,
+              child: Center(
+                child: Text(
+                  "Start",
+                ),
               ),
             ),
-            Expanded(
-              child: Container(),
+            const SizedBox(
+              width: 20,
             ),
             Center(
               child: ElevatedButton(
@@ -176,25 +180,54 @@ class Tab12EntryInputScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(
-              width: 40,
+              width: 20,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red[800],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: () async {
+                DateTime? selectedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(DateTime.now().year + 50));
+
+                if (selectedDate != null) {
+                  controller.setStartDate(selectedDate);
+                }
+              },
+              child: Text(
+                DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
+                    .format(entry.tab2Model.startDate!),
+              ),
+            ),
+            const SizedBox(
+              width: 20,
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Row(
           children: [
             const SizedBox(
-              width: 40,
+              width: 20,
             ),
-            const Center(
-              child: Text(
-                "End Time",
+            const SizedBox(
+              width: 40,
+              child: Center(
+                child: Text(
+                  "End",
+                ),
               ),
             ),
-            Expanded(
-              child: Container(),
+            const SizedBox(
+              width: 20,
             ),
             Center(
               child: ElevatedButton(
@@ -218,7 +251,33 @@ class Tab12EntryInputScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(
-              width: 40,
+              width: 20,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red[800],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: () async {
+                DateTime? selectedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(DateTime.now().year + 50));
+
+                if (selectedDate != null) {
+                  controller.setEndDate(selectedDate);
+                }
+              },
+              child: Text(
+                DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
+                    .format(entry.tab2Model.endDate!),
+              ),
+            ),
+            const SizedBox(
+              width: 20,
             ),
           ],
         ),
@@ -276,74 +335,7 @@ class Tab12EntryInputScreen extends ConsumerWidget {
             ),
           ),
         ),
-        const Divider(
-          height: 30,
-        ),
 
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("Start Date"),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red[800],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                onPressed: () async {
-                  DateTime? selectedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(DateTime.now().year + 50));
-
-                  if (selectedDate != null) {
-                    controller.setStartDate(selectedDate);
-                  }
-                },
-                child: Text(
-                  DateFormat(DateFormat.ABBR_MONTH_DAY)
-                      .format(entry.tab2Model.startDate!),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text("End Date"),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red[800],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                onPressed: () async {
-                  DateTime? selectedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(DateTime.now().year + 50));
-
-                  if (selectedDate != null) {
-                    controller.setEndDate(selectedDate);
-                  }
-                },
-                child: Text(
-                  DateFormat(DateFormat.ABBR_MONTH_DAY)
-                      .format(entry.tab2Model.endDate!),
-                ),
-              ),
-            ],
-          ),
-        ),
         const Divider(
           height: 30,
         ),

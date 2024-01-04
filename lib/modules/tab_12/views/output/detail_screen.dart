@@ -9,9 +9,9 @@ import 'package:timely/modules/tab_12/views/input/sub_entry_input_screen.dart';
 import 'package:timely/reusables.dart';
 
 class Tab12DetailScreen extends ConsumerStatefulWidget {
-  final Tab12EntryModel entry;
+  final int entryIndex;
 
-  const Tab12DetailScreen({super.key, required this.entry});
+  const Tab12DetailScreen({super.key, required this.entryIndex});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -26,21 +26,16 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
 
     return provider.when(
         data: (data) {
-          Tab12EntryModel entry = widget.entry;
-          List<Tab12SubEntryModel> subEntries = [];
-          for (Tab12EntryModel e in data.keys) {
-            if (e.uuid == entry.uuid) {
-              subEntries = data[e]!;
-              break;
-            }
-          }
+          Tab12EntryModel entry = data.keys.toList()[widget.entryIndex];
+          List<Tab12SubEntryModel> subEntries =
+              data.values.toList()[widget.entryIndex].reversed.toList();
 
           return Stack(
             children: [
               ListView(
                 children: [
                   Container(
-                    color: Colors.indigo[1200],
+                    color: Colors.indigo[900],
                     child: Column(
                       children: [
                         Padding(
@@ -68,15 +63,10 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              const Flexible(child: Text("Assignment Period")),
                               Flexible(
                                 child: Text(
-                                  DateFormat(DateFormat.ABBR_MONTH_DAY)
-                                      .format(entry.tab2Model.startDate!),
-                                ),
-                              ),
-                              Flexible(
-                                child: Text(
-                                  entry.tab2Model.startTime.format(context),
+                                  "${DateFormat(DateFormat.ABBR_MONTH_DAY).format(entry.tab2Model.startDate!)} - ${DateFormat(DateFormat.ABBR_MONTH_DAY).format(entry.tab2Model.endDate!)}",
                                 ),
                               ),
                             ],
@@ -87,17 +77,24 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              const Flexible(child: Text("Time Allocation")),
                               Flexible(
                                 child: Text(
-                                  DateFormat(DateFormat.ABBR_MONTH_DAY)
-                                      .format(entry.tab2Model.endDate!),
+                                  "${entry.tab2Model.startTime.format(context)} - ${entry.tab2Model.getEndTime().format(context)} ",
                                 ),
                               ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Flexible(child: Text("Frequency")),
                               Flexible(
                                 child: Text(
-                                  entry.tab2Model
-                                      .calculateEndTime(entry.tab2Model.dur)
-                                      .join(":"),
+                                  entry.tab2Model.frequency!,
                                 ),
                               ),
                             ],
@@ -106,13 +103,16 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     separatorBuilder: (context, index) {
                       return const Divider(
                         height: 0,
-                        thickness: 2,
+                        thickness: 1,
                         color: Colors.black,
                       );
                     },
@@ -155,7 +155,9 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                             });
                           },
                           child: Ink(
-                            color: Colors.indigo,
+                            color: subEntryIndex != 0
+                                ? Colors.indigo
+                                : Colors.yellow[900],
                             child: Column(
                               children: [
                                 Row(
@@ -169,26 +171,6 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                                           subEntry.nextTask,
                                         ),
                                       ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            entry.tab2Model.startTime
-                                                .format(context),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            entry.tab2Model
-                                                .calculateEndTime(
-                                                    entry.tab2Model.dur)
-                                                .join(":"),
-                                          ),
-                                        ),
-                                      ],
                                     ),
                                   ],
                                 ),
@@ -208,9 +190,12 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      FloatingActionButton(
-                        heroTag: null,
-                        child: const Icon(Icons.add),
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.add),
+                        label: const Text("Next Task"),
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5))),
                         onPressed: () {
                           ref.invalidate(tab12SubEntryInputProvider);
                           Navigator.of(context).push(

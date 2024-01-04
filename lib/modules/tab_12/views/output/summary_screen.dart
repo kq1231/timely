@@ -118,7 +118,7 @@ class _Tab12OutputScreenState extends ConsumerState<Tab12SummaryScreen> {
                                   return Scaffold(
                                     appBar: AppBar(),
                                     body: Tab12DetailScreen(
-                                      entry: entry,
+                                      entryIndex: entryIndex,
                                     ),
                                   );
                                 },
