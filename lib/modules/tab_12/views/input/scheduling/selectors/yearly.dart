@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
+import 'package:timely/common/scheduling/models/tab_2_model.dart';
+import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.dart';
 
 class YearlySelector extends ConsumerWidget {
   const YearlySelector({super.key});
@@ -24,8 +24,8 @@ class YearlySelector extends ConsumerWidget {
       ]
     ];
 
-    final provider = ref.watch(tab12SubEntryInputProvider);
-    final controller = ref.read(tab12SubEntryInputProvider.notifier);
+    final provider = ref.watch(tab12EntryInputProvider);
+    final controller = ref.read(tab12EntryInputProvider.notifier);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -47,14 +47,17 @@ class YearlySelector extends ConsumerWidget {
                       onTap: () {
                         setState(() {
                           // Add and remove the dates
-                          if (!provider.repetitions["Months"]
+                          if (!provider.tab2Model.repetitions["Months"]
                               .contains(index + 1)) {
-                            provider.repetitions["Months"].add(index + 1);
-                            controller.setRepetitions(provider.repetitions);
+                            provider.tab2Model.repetitions["Months"]
+                                .add(index + 1);
+                            controller
+                                .setRepetitions(provider.tab2Model.repetitions);
                           } else {
-                            provider.repetitions["Months"]
+                            provider.tab2Model.repetitions["Months"]
                                 .removeWhere((element) => element == index + 1);
-                            controller.setRepetitions(provider.repetitions);
+                            controller
+                                .setRepetitions(provider.tab2Model.repetitions);
                           }
                         });
                       },
@@ -62,17 +65,17 @@ class YearlySelector extends ConsumerWidget {
                         duration: const Duration(milliseconds: 200),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.black),
-                          color:
-                              provider.repetitions["Months"].contains(index + 1)
-                                  ? Colors.blue
-                                  : Colors.blueGrey,
+                          color: provider.tab2Model.repetitions["Months"]
+                                  .contains(index + 1)
+                              ? Colors.blue
+                              : Colors.blueGrey,
                         ),
                         alignment: Alignment.center,
                         child: Text(
                           months[index].toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: provider.repetitions["Months"]
+                            color: provider.tab2Model.repetitions["Months"]
                                     .contains(index + 1)
                                 ? Colors.black
                                 : Colors.white,
@@ -93,23 +96,23 @@ class YearlySelector extends ConsumerWidget {
             children: [
               const Text("Days of Week"),
               Switch(
-                  value: provider.basis == Basis.day ? true : false,
+                  value: provider.tab2Model.basis == Basis.day ? true : false,
                   onChanged: (val) {
                     controller.setBasis(val == true ? Basis.day : Basis.date);
                     if (val) {
                       controller.setRepetitions({
-                        "Months": provider.repetitions["Months"],
+                        "Months": provider.tab2Model.repetitions["Months"],
                         "DoW": [0, 0],
                       });
                     } else {
                       controller.setRepetitions({
-                        "Months": provider.repetitions["Months"],
+                        "Months": provider.tab2Model.repetitions["Months"],
                       });
                     }
                   })
             ],
           ),
-          provider.basis == Basis.day
+          provider.tab2Model.basis == Basis.day
               ? Row(
                   children: [
                     Expanded(
@@ -118,12 +121,15 @@ class YearlySelector extends ConsumerWidget {
                         child: CupertinoPicker(
                           squeeze: 1.45,
                           scrollController: FixedExtentScrollController(
-                            initialItem: provider.repetitions["DoW"][0],
+                            initialItem: provider.tab2Model.repetitions["DoW"]
+                                [0],
                           ),
                           itemExtent: 60,
                           onSelectedItemChanged: (item) {
-                            provider.repetitions["DoW"].first = item.toInt();
-                            controller.setRepetitions(provider.repetitions);
+                            provider.tab2Model.repetitions["DoW"].first =
+                                item.toInt();
+                            controller
+                                .setRepetitions(provider.tab2Model.repetitions);
                           },
                           children: List<Widget>.generate(
                               sliderNames.first.length,
@@ -138,12 +144,15 @@ class YearlySelector extends ConsumerWidget {
                         child: CupertinoPicker(
                           squeeze: 1.45,
                           scrollController: FixedExtentScrollController(
-                            initialItem: provider.repetitions["DoW"][1],
+                            initialItem: provider.tab2Model.repetitions["DoW"]
+                                [1],
                           ),
                           itemExtent: 60,
                           onSelectedItemChanged: (item) {
-                            provider.repetitions["DoW"].last = item.toInt();
-                            controller.setRepetitions(provider.repetitions);
+                            provider.tab2Model.repetitions["DoW"].last =
+                                item.toInt();
+                            controller
+                                .setRepetitions(provider.tab2Model.repetitions);
                           },
                           children: List<Widget>.generate(
                               sliderNames.last.length,

@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/views/input/molecules/sub_entry_input_molecule.dart';
+import 'package:timely/modules/tab_12/views/input/scheduling/repeats_page.dart';
 
 class Tab12EntryInputScreen extends ConsumerWidget {
   final bool showSubEntryMolecule;
@@ -14,8 +16,52 @@ class Tab12EntryInputScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(tab12EntryInputProvider);
+    final entry = ref.watch(tab12EntryInputProvider);
     final controller = ref.read(tab12EntryInputProvider.notifier);
+
+    List sliderNames = [
+      ["First", "Second", "Third", "Fourth", "Fifth", "Last"],
+      [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ]
+    ];
+
+    List monthNames =
+        "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec".split(",");
+
+    String repetitionSummary = "";
+    switch (entry.tab2Model.frequency) {
+      case "Monthly":
+        if (entry.tab2Model.basis == Basis.date) {
+          repetitionSummary =
+              "Repeats on ${entry.tab2Model.repetitions['Dates'].join(', ')} every ${entry.tab2Model.every} months";
+        } else {
+          repetitionSummary =
+              "Repeats on the ${sliderNames[0][entry.tab2Model.repetitions["DoW"][0]].toLowerCase()} ${sliderNames[1][entry.tab2Model.repetitions["DoW"][1]]} every ${entry.tab2Model.every} months";
+        }
+        break;
+      case "Yearly":
+        if (entry.tab2Model.basis == Basis.date ||
+            entry.tab2Model.basis == null) {
+          repetitionSummary =
+              "Repeats in ${entry.tab2Model.repetitions["Months"].map((val) => monthNames[val - 1]).toList().join(", ")} every ${entry.tab2Model.every} years";
+        } else {
+          repetitionSummary =
+              "Repeats on the ${sliderNames[0][entry.tab2Model.repetitions["DoW"][0]].toLowerCase()} ${sliderNames[1][entry.tab2Model.repetitions["DoW"][1]]} of ${entry.tab2Model.repetitions["Months"].map((val) => monthNames[val - 1]).toList().join(", ")} every ${entry.tab2Model.every} years";
+        }
+        break;
+      case "Weekly":
+        repetitionSummary =
+            "Repeats on ${entry.tab2Model.repetitions["Weekdays"].map((val) => sliderNames[1][val]).toList().join(", ")} every ${entry.tab2Model.every} weeks";
+      case "Daily":
+        repetitionSummary = "Repeats daily";
+    }
 
     return ListView(
       children: [
@@ -26,7 +72,7 @@ class Tab12EntryInputScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
             textCapitalization: TextCapitalization.sentences,
-            initialValue: provider.activity,
+            initialValue: entry.activity,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,
@@ -46,7 +92,8 @@ class Tab12EntryInputScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
             textCapitalization: TextCapitalization.sentences,
-            initialValue: provider.objective,
+            initialValue: entry.objective,
+            maxLines: 5,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,
@@ -77,13 +124,13 @@ class Tab12EntryInputScreen extends ConsumerWidget {
                 child: CupertinoPicker(
                   itemExtent: 60,
                   scrollController: FixedExtentScrollController(
-                      initialItem: provider.importance - 1),
+                      initialItem: entry.importance - 1),
                   onSelectedItemChanged: (importance) {
                     controller.setImportance(importance + 1);
                   },
-                  children: "Insignificant,Low,Medium,High,Critical"
+                  children: "Not at all,Slightly,Important,Fairly,Very"
                       .split(",")
-                      .map((e) => Center(child: Text(e)))
+                      .map((e) => Center(child: Text("$e Imp")))
                       .toList(),
                 ),
               ),
@@ -93,7 +140,146 @@ class Tab12EntryInputScreen extends ConsumerWidget {
         const Divider(
           height: 30,
         ),
-        showSubEntryMolecule ? const Tab12SubEntryInputMolecule() : Container(),
+        // Scheduling
+        Row(
+          children: [
+            const SizedBox(
+              width: 40,
+            ),
+            const Center(
+              child: Text(
+                "Start Time",
+              ),
+            ),
+            Expanded(
+              child: Container(),
+            ),
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.indigo[900],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                onPressed: () async {
+                  TimeOfDay? timeSelected = await showTimePicker(
+                      context: context, initialTime: entry.tab2Model.startTime);
+                  timeSelected != null
+                      ? controller.setStartTime(timeSelected)
+                      : null;
+                },
+                child: Text(
+                  entry.tab2Model.startTime.toString().substring(10, 15),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 40,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          children: [
+            const SizedBox(
+              width: 40,
+            ),
+            const Center(
+              child: Text(
+                "End Time",
+              ),
+            ),
+            Expanded(
+              child: Container(),
+            ),
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.indigo[900],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                onPressed: () async {
+                  TimeOfDay? timeSelected = await showTimePicker(
+                      context: context, initialTime: entry.tab2Model.startTime);
+                  if (timeSelected != null) {
+                    controller.setEndTime(timeSelected);
+                  }
+                },
+                child: Text(
+                  entry.tab2Model.startTime.toString().substring(10, 15),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 40,
+            ),
+          ],
+        ),
+        const Divider(height: 30),
+        // End repeat
+        const SizedBox(
+          height: 10,
+        ),
+
+        Row(
+          children: [
+            const SizedBox(
+              width: 40,
+            ),
+            const Text(
+              "Repeats",
+              style: TextStyle(),
+            ),
+            Expanded(child: Container()),
+            FilledButton(
+                style: FilledButton.styleFrom(
+                    backgroundColor: Colors.blue[900],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    )),
+                onPressed: () {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return const RepeatsPage();
+                      });
+                },
+                child: Text(
+                  entry.tab2Model.frequency ?? "Never",
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: Colors.white),
+                )),
+            const SizedBox(
+              width: 40,
+            ),
+          ],
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              repetitionSummary,
+              style: const TextStyle(fontStyle: FontStyle.italic),
+            ),
+          ),
+        ),
+        const Divider(
+          height: 30,
+        ),
+
         Padding(
           padding: const EdgeInsets.all(20),
           child: Row(
@@ -120,7 +306,7 @@ class Tab12EntryInputScreen extends ConsumerWidget {
                 },
                 child: Text(
                   DateFormat(DateFormat.ABBR_MONTH_DAY)
-                      .format(provider.startDate),
+                      .format(entry.tab2Model.startDate!),
                 ),
               ),
             ],
@@ -152,7 +338,7 @@ class Tab12EntryInputScreen extends ConsumerWidget {
                 },
                 child: Text(
                   DateFormat(DateFormat.ABBR_MONTH_DAY)
-                      .format(provider.endDate),
+                      .format(entry.tab2Model.endDate!),
                 ),
               ),
             ],
@@ -161,8 +347,10 @@ class Tab12EntryInputScreen extends ConsumerWidget {
         const Divider(
           height: 30,
         ),
+        showSubEntryMolecule ? const Tab12SubEntryInputMolecule() : Container(),
+
         const SizedBox(
-          height: 40,
+          height: 10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

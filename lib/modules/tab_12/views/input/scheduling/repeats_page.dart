@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/modules/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
+import 'package:timely/common/scheduling/models/tab_2_model.dart';
+import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.dart';
 import 'package:timely/modules/tab_12/views/input/scheduling/selectors/monthly.dart';
 import 'package:timely/modules/tab_12/views/input/scheduling/selectors/weekly.dart';
 import 'package:timely/modules/tab_12/views/input/scheduling/selectors/yearly.dart';
@@ -12,8 +12,8 @@ class RepeatsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(tab12SubEntryInputProvider);
-    final controller = ref.read(tab12SubEntryInputProvider.notifier);
+    final provider = ref.watch(tab12EntryInputProvider);
+    final controller = ref.read(tab12EntryInputProvider.notifier);
 
     return ListView(
       children: [
@@ -51,7 +51,7 @@ class RepeatsPage extends ConsumerWidget {
                   }
                   controller.setFrequency(value);
                 },
-                value: provider.frequency,
+                value: provider.tab2Model.frequency,
               ),
             ),
             Expanded(
@@ -78,7 +78,7 @@ class RepeatsPage extends ConsumerWidget {
             SizedBox(
               width: 30,
               child: TextFormField(
-                initialValue: provider.every.toString(),
+                initialValue: provider.tab2Model.every.toString(),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   try {
@@ -135,7 +135,7 @@ class RepeatsPage extends ConsumerWidget {
           "Weekly",
           "Yearly",
           "Never",
-        ].indexOf(provider.frequency ?? "Never")],
+        ].indexOf(provider.tab2Model.frequency ?? "Never")],
         const SizedBox(
           height: 20,
         ),

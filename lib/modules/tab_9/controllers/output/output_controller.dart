@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/common/entry_struct/controllers/output/output_controller.dart';
-import 'package:timely/modules/common/entry_struct/services/repo_service.dart';
+import 'package:timely/common/entry_struct/controllers/output/output_controller.dart';
+import 'package:timely/common/entry_struct/services/repo_service.dart';
 import 'package:timely/modules/tab_9/models/entry_model.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_9/services/repo_service.dart';

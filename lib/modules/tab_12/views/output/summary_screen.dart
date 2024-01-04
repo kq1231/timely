@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
+import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_12/views/input/entry_input_screen.dart';
 import 'package:timely/modules/tab_12/views/output/detail_screen.dart';
 import 'package:timely/reusables.dart';
@@ -38,8 +38,10 @@ class _Tab12OutputScreenState extends ConsumerState<Tab12SummaryScreen> {
               },
               itemBuilder: (context, entryIndex) {
                 Tab12EntryModel entry = entries[entryIndex];
-                List<Tab2Model> subEntries = data.values.toList()[entryIndex];
-                Tab2Model lastSubEntry = data.values.toList()[entryIndex].last;
+                List<Tab12SubEntryModel> subEntries =
+                    data.values.toList()[entryIndex];
+                Tab12SubEntryModel lastSubEntry =
+                    data.values.toList()[entryIndex].last;
 
                 return DismissibleEntry(
                   entryKey: entry.uuid!,
@@ -65,7 +67,7 @@ class _Tab12OutputScreenState extends ConsumerState<Tab12SummaryScreen> {
                           onTap: () async {
                             ref
                                 .read(tab12EntryInputProvider.notifier)
-                                .setModel(entry);
+                                .setEntry(entry);
                             await Future.delayed(
                                 const Duration(milliseconds: 100), () {
                               Navigator.push(context, MaterialPageRoute(
@@ -133,20 +135,9 @@ class _Tab12OutputScreenState extends ConsumerState<Tab12SummaryScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        lastSubEntry.name,
+                                        lastSubEntry.nextTask,
                                       ),
                                     ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          lastSubEntry.startTime
-                                              .format(context),
-                                        ),
-                                      ),
-                                    ],
                                   ),
                                 ],
                               ),

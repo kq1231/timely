@@ -390,3 +390,13 @@
 - Tab 11
     - Urgent ? yellow : green -D
 - Tab 12 -D
+
+---
+
+**Inshaa Allah**
+
+- Objective -> Big TextArea -D
+- Importance -> [Not at all, Slightly, Important, Fairly, Very] + Important -D
+- Next task will be at the end. Also a TextArea. -D
+- End time will be there. -D
+- All entries will be shown in order of closeness to DateTime. 

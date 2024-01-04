@@ -12,9 +12,8 @@ _$Tab12EntryModelImpl _$$Tab12EntryModelImplFromJson(
       uuid: json['ID'] as String?,
       activity: json['activity'] as String,
       objective: json['objective'] as String,
+      tab2Model: Tab2Model.fromJson(json),
       importance: json['importance'] as int,
-      startDate: DateTime.parse(json['startDate'] as String),
-      endDate: DateTime.parse(json['endDate'] as String),
     );
 
 Map<String, dynamic> _$$Tab12EntryModelImplToJson(
@@ -24,6 +23,5 @@ Map<String, dynamic> _$$Tab12EntryModelImplToJson(
       'activity': instance.activity,
       'objective': instance.objective,
       'importance': instance.importance,
-      'startDate': instance.startDate.toIso8601String(),
-      'endDate': instance.endDate.toIso8601String(),
+      ...(instance.tab2Model.toJson())
     };

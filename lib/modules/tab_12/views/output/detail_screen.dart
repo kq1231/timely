@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/common/scheduling/models/tab_2_model.dart';
+import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
+import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_12/views/input/sub_entry_input_screen.dart';
 import 'package:timely/reusables.dart';
 
@@ -26,7 +27,13 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
     return provider.when(
         data: (data) {
           Tab12EntryModel entry = widget.entry;
-          List<Tab2Model> subEntries = data[entry]!;
+          List<Tab12SubEntryModel> subEntries = [];
+          for (Tab12EntryModel e in data.keys) {
+            if (e.uuid == entry.uuid) {
+              subEntries = data[e]!;
+              break;
+            }
+          }
 
           return Stack(
             children: [
@@ -41,25 +48,61 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(entry.activity),
+                              Flexible(child: Text(entry.activity)),
                               Text(entry.importance.toString()),
                             ],
                           ),
                         ),
-                        ...[
-                          entry.objective,
-                          entry.startDate.toString(),
-                          entry.endDate.toString()
-                        ]
-                            .map((e) => Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Flexible(child: Text(e)),
-                                    ],
-                                  ),
-                                ))
-                            .toList()
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: Text(entry.objective),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  DateFormat(DateFormat.ABBR_MONTH_DAY)
+                                      .format(entry.tab2Model.startDate!),
+                                ),
+                              ),
+                              Flexible(
+                                child: Text(
+                                  entry.tab2Model.startTime.format(context),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  DateFormat(DateFormat.ABBR_MONTH_DAY)
+                                      .format(entry.tab2Model.endDate!),
+                                ),
+                              ),
+                              Flexible(
+                                child: Text(
+                                  entry.tab2Model
+                                      .calculateEndTime(entry.tab2Model.dur)
+                                      .join(":"),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -74,7 +117,7 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                       );
                     },
                     itemBuilder: (context, subEntryIndex) {
-                      Tab2Model subEntry = subEntries[subEntryIndex];
+                      Tab12SubEntryModel subEntry = subEntries[subEntryIndex];
                       return DismissibleEntry(
                         onDismissed: (direction) {
                           if (direction == DismissDirection.startToEnd) {
@@ -123,7 +166,7 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          subEntry.name,
+                                          subEntry.nextTask,
                                         ),
                                       ),
                                     ),
@@ -132,14 +175,16 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
-                                            subEntry.startTime.format(context),
+                                            entry.tab2Model.startTime
+                                                .format(context),
                                           ),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
-                                            subEntry
-                                                .calculateEndTime(subEntry.dur)
+                                            entry.tab2Model
+                                                .calculateEndTime(
+                                                    entry.tab2Model.dur)
                                                 .join(":"),
                                           ),
                                         ),

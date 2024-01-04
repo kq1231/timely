@@ -20,13 +20,13 @@ Tab12EntryModel _$Tab12EntryModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Tab12EntryModel {
+// ignore: invalid_annotation_target
   @JsonKey(name: "ID")
   String? get uuid => throw _privateConstructorUsedError;
   String get activity => throw _privateConstructorUsedError;
   String get objective => throw _privateConstructorUsedError;
+  Tab2Model get tab2Model => throw _privateConstructorUsedError;
   int get importance => throw _privateConstructorUsedError;
-  DateTime get startDate => throw _privateConstructorUsedError;
-  DateTime get endDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,9 +44,8 @@ abstract class $Tab12EntryModelCopyWith<$Res> {
       {@JsonKey(name: "ID") String? uuid,
       String activity,
       String objective,
-      int importance,
-      DateTime startDate,
-      DateTime endDate});
+      Tab2Model tab2Model,
+      int importance});
 }
 
 /// @nodoc
@@ -65,9 +64,8 @@ class _$Tab12EntryModelCopyWithImpl<$Res, $Val extends Tab12EntryModel>
     Object? uuid = freezed,
     Object? activity = null,
     Object? objective = null,
+    Object? tab2Model = null,
     Object? importance = null,
-    Object? startDate = null,
-    Object? endDate = null,
   }) {
     return _then(_value.copyWith(
       uuid: freezed == uuid
@@ -82,18 +80,14 @@ class _$Tab12EntryModelCopyWithImpl<$Res, $Val extends Tab12EntryModel>
           ? _value.objective
           : objective // ignore: cast_nullable_to_non_nullable
               as String,
+      tab2Model: null == tab2Model
+          ? _value.tab2Model
+          : tab2Model // ignore: cast_nullable_to_non_nullable
+              as Tab2Model,
       importance: null == importance
           ? _value.importance
           : importance // ignore: cast_nullable_to_non_nullable
               as int,
-      startDate: null == startDate
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      endDate: null == endDate
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ) as $Val);
   }
 }
@@ -110,9 +104,8 @@ abstract class _$$Tab12EntryModelImplCopyWith<$Res>
       {@JsonKey(name: "ID") String? uuid,
       String activity,
       String objective,
-      int importance,
-      DateTime startDate,
-      DateTime endDate});
+      Tab2Model tab2Model,
+      int importance});
 }
 
 /// @nodoc
@@ -129,9 +122,8 @@ class __$$Tab12EntryModelImplCopyWithImpl<$Res>
     Object? uuid = freezed,
     Object? activity = null,
     Object? objective = null,
+    Object? tab2Model = null,
     Object? importance = null,
-    Object? startDate = null,
-    Object? endDate = null,
   }) {
     return _then(_$Tab12EntryModelImpl(
       uuid: freezed == uuid
@@ -146,18 +138,14 @@ class __$$Tab12EntryModelImplCopyWithImpl<$Res>
           ? _value.objective
           : objective // ignore: cast_nullable_to_non_nullable
               as String,
+      tab2Model: null == tab2Model
+          ? _value.tab2Model
+          : tab2Model // ignore: cast_nullable_to_non_nullable
+              as Tab2Model,
       importance: null == importance
           ? _value.importance
           : importance // ignore: cast_nullable_to_non_nullable
               as int,
-      startDate: null == startDate
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      endDate: null == endDate
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ));
   }
 }
@@ -169,13 +157,13 @@ class _$Tab12EntryModelImpl implements _Tab12EntryModel {
       {@JsonKey(name: "ID") this.uuid,
       required this.activity,
       required this.objective,
-      required this.importance,
-      required this.startDate,
-      required this.endDate});
+      required this.tab2Model,
+      required this.importance});
 
   factory _$Tab12EntryModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$Tab12EntryModelImplFromJson(json);
 
+// ignore: invalid_annotation_target
   @override
   @JsonKey(name: "ID")
   final String? uuid;
@@ -184,15 +172,13 @@ class _$Tab12EntryModelImpl implements _Tab12EntryModel {
   @override
   final String objective;
   @override
+  final Tab2Model tab2Model;
+  @override
   final int importance;
-  @override
-  final DateTime startDate;
-  @override
-  final DateTime endDate;
 
   @override
   String toString() {
-    return 'Tab12EntryModel(uuid: $uuid, activity: $activity, objective: $objective, importance: $importance, startDate: $startDate, endDate: $endDate)';
+    return 'Tab12EntryModel(uuid: $uuid, activity: $activity, objective: $objective, tab2Model: $tab2Model, importance: $importance)';
   }
 
   @override
@@ -205,17 +191,16 @@ class _$Tab12EntryModelImpl implements _Tab12EntryModel {
                 other.activity == activity) &&
             (identical(other.objective, objective) ||
                 other.objective == objective) &&
+            (identical(other.tab2Model, tab2Model) ||
+                other.tab2Model == tab2Model) &&
             (identical(other.importance, importance) ||
-                other.importance == importance) &&
-            (identical(other.startDate, startDate) ||
-                other.startDate == startDate) &&
-            (identical(other.endDate, endDate) || other.endDate == endDate));
+                other.importance == importance));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, uuid, activity, objective, importance, startDate, endDate);
+      runtimeType, uuid, activity, objective, tab2Model, importance);
 
   @JsonKey(ignore: true)
   @override
@@ -237,14 +222,13 @@ abstract class _Tab12EntryModel implements Tab12EntryModel {
       {@JsonKey(name: "ID") final String? uuid,
       required final String activity,
       required final String objective,
-      required final int importance,
-      required final DateTime startDate,
-      required final DateTime endDate}) = _$Tab12EntryModelImpl;
+      required final Tab2Model tab2Model,
+      required final int importance}) = _$Tab12EntryModelImpl;
 
   factory _Tab12EntryModel.fromJson(Map<String, dynamic> json) =
       _$Tab12EntryModelImpl.fromJson;
 
-  @override
+  @override // ignore: invalid_annotation_target
   @JsonKey(name: "ID")
   String? get uuid;
   @override
@@ -252,11 +236,9 @@ abstract class _Tab12EntryModel implements Tab12EntryModel {
   @override
   String get objective;
   @override
+  Tab2Model get tab2Model;
+  @override
   int get importance;
-  @override
-  DateTime get startDate;
-  @override
-  DateTime get endDate;
   @override
   @JsonKey(ignore: true)
   _$$Tab12EntryModelImplCopyWith<_$Tab12EntryModelImpl> get copyWith =>

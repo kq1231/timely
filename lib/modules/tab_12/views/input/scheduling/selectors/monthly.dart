@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
+import 'package:timely/common/scheduling/models/tab_2_model.dart';
+import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.dart';
 
 class MonthlySelector extends ConsumerWidget {
   const MonthlySelector({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(tab12SubEntryInputProvider);
-    final controller = ref.read(tab12SubEntryInputProvider.notifier);
+    final provider = ref.watch(tab12EntryInputProvider);
+    final controller = ref.read(tab12EntryInputProvider.notifier);
 
     List sliderNames = [
       ["First", "Second", "Third", "Fourth", "Fifth", "Last"],
@@ -29,21 +29,21 @@ class MonthlySelector extends ConsumerWidget {
       children: [
         CheckboxListTile(
             title: const Text("Each"),
-            value: provider.basis == Basis.date ? true : false,
+            value: provider.tab2Model.basis == Basis.date ? true : false,
             onChanged: (val) {
               controller.setBasis(val == true ? Basis.date : null);
               controller.setRepetitions({"Dates": []});
             }),
         CheckboxListTile(
             title: const Text("On the..."),
-            value: provider.basis == Basis.day ? true : false,
+            value: provider.tab2Model.basis == Basis.day ? true : false,
             onChanged: (val) {
               controller.setBasis(val == true ? Basis.day : null);
               controller.setRepetitions({
                 "DoW": [0, 0]
               });
             }),
-        provider.basis == Basis.date
+        provider.tab2Model.basis == Basis.date
             ? StatefulBuilder(
                 builder: (context, setState) {
                   return Padding(
@@ -60,14 +60,18 @@ class MonthlySelector extends ConsumerWidget {
                         return InkWell(
                           onTap: () {
                             setState(() {
-                              if (!provider.repetitions["Dates"]
+                              if (!provider.tab2Model.repetitions["Dates"]
                                   .contains(index + 1)) {
-                                provider.repetitions["Dates"].add(index + 1);
-                                controller.setRepetitions(provider.repetitions);
+                                provider.tab2Model.repetitions["Dates"]
+                                    .add(index + 1);
+                                controller.setRepetitions(
+                                    provider.tab2Model.repetitions);
                               } else {
-                                provider.repetitions["Dates"].removeWhere(
-                                    (element) => element == index + 1);
-                                controller.setRepetitions(provider.repetitions);
+                                provider.tab2Model.repetitions["Dates"]
+                                    .removeWhere(
+                                        (element) => element == index + 1);
+                                controller.setRepetitions(
+                                    provider.tab2Model.repetitions);
                               }
                             });
                           },
@@ -75,7 +79,7 @@ class MonthlySelector extends ConsumerWidget {
                             duration: const Duration(milliseconds: 200),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.black),
-                              color: provider.repetitions["Dates"]
+                              color: provider.tab2Model.repetitions["Dates"]
                                       .contains(index + 1)
                                   ? Colors.blue
                                   : Colors.blueGrey,
@@ -85,7 +89,7 @@ class MonthlySelector extends ConsumerWidget {
                               (index + 1).toString(),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: provider.repetitions["Dates"]
+                                color: provider.tab2Model.repetitions["Dates"]
                                         .contains(index + 1)
                                     ? Colors.black
                                     : Colors.white,
@@ -98,7 +102,7 @@ class MonthlySelector extends ConsumerWidget {
                   );
                 },
               )
-            : provider.basis == Basis.day
+            : provider.tab2Model.basis == Basis.day
                 ? Row(
                     children: [
                       Expanded(
@@ -107,12 +111,15 @@ class MonthlySelector extends ConsumerWidget {
                           child: CupertinoPicker(
                             squeeze: 1.45,
                             scrollController: FixedExtentScrollController(
-                              initialItem: provider.repetitions["DoW"][0],
+                              initialItem: provider.tab2Model.repetitions["DoW"]
+                                  [0],
                             ),
                             itemExtent: 60,
                             onSelectedItemChanged: (item) {
-                              provider.repetitions["DoW"].first = item.toInt();
-                              controller.setRepetitions(provider.repetitions);
+                              provider.tab2Model.repetitions["DoW"].first =
+                                  item.toInt();
+                              controller.setRepetitions(
+                                  provider.tab2Model.repetitions);
                             },
                             children: List<Widget>.generate(
                                 sliderNames.first.length,
@@ -127,12 +134,15 @@ class MonthlySelector extends ConsumerWidget {
                           child: CupertinoPicker(
                             squeeze: 1.45,
                             scrollController: FixedExtentScrollController(
-                              initialItem: provider.repetitions["DoW"][1],
+                              initialItem: provider.tab2Model.repetitions["DoW"]
+                                  [1],
                             ),
                             itemExtent: 60,
                             onSelectedItemChanged: (item) {
-                              provider.repetitions["DoW"].last = item.toInt();
-                              controller.setRepetitions(provider.repetitions);
+                              provider.tab2Model.repetitions["DoW"].last =
+                                  item.toInt();
+                              controller.setRepetitions(
+                                  provider.tab2Model.repetitions);
                             },
                             children: List<Widget>.generate(
                                 sliderNames.last.length,

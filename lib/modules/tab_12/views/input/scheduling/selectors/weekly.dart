@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
+import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.dart';
 
 class WeeklySelector extends ConsumerWidget {
   const WeeklySelector({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(tab12SubEntryInputProvider);
-    final controller = ref.read(tab12SubEntryInputProvider.notifier);
+    final provider = ref.watch(tab12EntryInputProvider);
+    final controller = ref.read(tab12EntryInputProvider.notifier);
 
     final List<String> weekdays = "Mon,Tue,Wed,Thu,Fri,Sat,Sun".split(",");
 
@@ -32,13 +32,16 @@ class WeeklySelector extends ConsumerWidget {
                   return InkWell(
                     onTap: () {
                       setState(() {
-                        if (!provider.repetitions["Weekdays"].contains(index)) {
-                          provider.repetitions["Weekdays"].add(index);
-                          controller.setRepetitions(provider.repetitions);
+                        if (!provider.tab2Model.repetitions["Weekdays"]
+                            .contains(index)) {
+                          provider.tab2Model.repetitions["Weekdays"].add(index);
+                          controller
+                              .setRepetitions(provider.tab2Model.repetitions);
                         } else {
-                          provider.repetitions["Weekdays"]
+                          provider.tab2Model.repetitions["Weekdays"]
                               .removeWhere((element) => element == index);
-                          controller.setRepetitions(provider.repetitions);
+                          controller
+                              .setRepetitions(provider.tab2Model.repetitions);
                         }
                       });
                     },
@@ -46,7 +49,8 @@ class WeeklySelector extends ConsumerWidget {
                       duration: const Duration(milliseconds: 200),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black),
-                        color: provider.repetitions["Weekdays"].contains(index)
+                        color: provider.tab2Model.repetitions["Weekdays"]
+                                .contains(index)
                             ? Colors.orange
                             : Colors.lime,
                       ),

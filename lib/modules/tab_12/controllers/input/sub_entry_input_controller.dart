@@ -1,61 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/common/scheduling/models/tab_2_model.dart';
+import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
+import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_12/services/repo_service.dart';
 import 'package:timely/reusables.dart';
 
-class Tab12SubEntryInputNotifier extends Notifier<Tab2Model> {
+class Tab12SubEntryInputNotifier extends Notifier<Tab12SubEntryModel> {
   @override
-  Tab2Model build() {
-    return Tab2Model(
-      basis: Basis.day,
-      frequency: "Daily",
-      name: "",
-      startTime: TimeOfDay.now(),
-      dur: const Duration(hours: 0, minutes: 0),
-      repetitions: {
-        "DoW": [0, 0]
-      },
-      every: 1,
-    );
+  Tab12SubEntryModel build() {
+    return Tab12SubEntryModel(nextTask: "");
   }
 
   // Setters
-  void setName(name) {
-    state = state.copywith(name: name);
+  void setName(nextTask) {
+    state = state.copyWith(nextTask: nextTask);
   }
 
-  void setStartTime(startTime) {
-    state = state.copywith(startTime: startTime);
-  }
-
-  void setEndTime(dur) {
-    state = state.copywith(dur: dur);
-  }
-
-  void setFrequency(frequency) {
-    state = state.copywith(frequency: frequency);
-  }
-
-  void resetBasis() {
-    state.basis = null;
-  }
-
-  void setBasis(basis) {
-    state = state.copywith(basis: basis);
-  }
-
-  void setRepetitions(Map repetitions) {
-    state = state.copywith(repetitions: repetitions);
-  }
-
-  void setEvery(int every) {
-    state = state.copywith(every: every);
-  }
-
-  void setModel(Tab2Model model) {
+  void setModel(model) {
     state = model;
   }
 
@@ -82,5 +44,5 @@ class Tab12SubEntryInputNotifier extends Notifier<Tab2Model> {
 }
 
 final tab12SubEntryInputProvider =
-    NotifierProvider<Tab12SubEntryInputNotifier, Tab2Model>(
+    NotifierProvider<Tab12SubEntryInputNotifier, Tab12SubEntryModel>(
         Tab12SubEntryInputNotifier.new);
