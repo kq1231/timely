@@ -298,7 +298,7 @@ class Tab2InputScreenState extends ConsumerState<Tab2InputScreen> {
                   ),
                   child: const Text("Submit"),
                   onPressed: () {
-                    if (provider.name.isEmpty) {
+                    if (provider.name!.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text("Do not leave activity text blank!")));
                     } else {

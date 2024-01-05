@@ -419,6 +419,6 @@
 
 **Inshaa Allah**
 
-- All entries will be shown in order of closeness to DateTime.
-- Only one task for a date. If already a task exists for that date, sub-entry input screen will update that task instead of creating a new one.
+- All entries will be shown in order of closeness to DateTime. -D
+- Only one task for a date. If already a task exists for that date, sub-entry input screen will update that task instead of creating a new one. -D
 - Remove the "Name" parameter from `Tab2Model` by marking it nullable. Group nullable fields together for clarity.

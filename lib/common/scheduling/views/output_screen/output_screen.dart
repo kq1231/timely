@@ -142,7 +142,7 @@ class OutputScreen extends ConsumerWidget {
                                             horizontal: 8.0,
                                           ),
                                           child: Text(
-                                            model.name,
+                                            model.name!,
                                             style:
                                                 const TextStyle(fontSize: 12),
                                           ),

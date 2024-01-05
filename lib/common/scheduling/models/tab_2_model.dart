@@ -4,7 +4,7 @@ import 'package:uuid/uuid.dart';
 
 class Tab2Model {
   String? uuid;
-  String name = "";
+  String? name;
   TimeOfDay startTime = const TimeOfDay(hour: 0, minute: 0);
   Duration dur = const Duration();
   String? frequency = Frequency.daily;
@@ -28,10 +28,10 @@ class Tab2Model {
   });
 
   Tab2Model.fromJson(Map json) {
-    if (json.containsKey("Start Date")) {
+    if (json.containsKey("Start Date") || json.containsKey("Name")) {
       startDate = DateTime.parse(json["Start Date"]);
+      name = json["Name"];
     }
-    name = json["Name"];
     uuid = json["ID"];
     List times = [
       json["Start"].split(":").map((val) => int.parse(val)).toList(),
@@ -62,7 +62,6 @@ class Tab2Model {
 
     Map json = {
       "ID": uuid ?? const Uuid().v4(),
-      "Name": name,
       "Start": [startTime.hour, startTime.minute].join(":"),
       "Duration": [dur.inHours, dur.inMinutes % 60].join(":"),
       "Frequency": frequency,
@@ -79,6 +78,10 @@ class Tab2Model {
 
     if (startDate != null) {
       json["Start Date"] = startDate.toString().substring(0, 10);
+    }
+
+    if (name != null) {
+      json["Name"] = name;
     }
 
     return json;
