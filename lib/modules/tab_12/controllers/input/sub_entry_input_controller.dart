@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
+import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
@@ -9,12 +10,21 @@ import 'package:timely/reusables.dart';
 class Tab12SubEntryInputNotifier extends Notifier<Tab12SubEntryModel> {
   @override
   Tab12SubEntryModel build() {
-    return Tab12SubEntryModel(nextTask: "");
+    return Tab12SubEntryModel(
+        nextTask: "",
+        date: ref
+            .read(tab12EntryInputProvider)
+            .tab2Model
+            .nextOccurenceDateTime());
   }
 
   // Setters
   void setName(nextTask) {
     state = state.copyWith(nextTask: nextTask);
+  }
+
+  void setDate(date) {
+    state = state.copyWith(date: date);
   }
 
   void setModel(model) {

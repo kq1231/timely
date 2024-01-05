@@ -40,7 +40,7 @@ class EntryStructCompletedRepositoryNotifier<T> extends Notifier<void> {
         ...entry.toJson(),
         "SubEntries": subEntries
             .map(
-              (e) => e.toJson().update("uuid", (value) => e.uuid),
+              (e) => e.toJson().update("ID", (value) => e.uuid),
             )
             .toList(),
       });

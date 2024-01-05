@@ -402,7 +402,6 @@
 
 ---
 
-- All entries will be shown in order of closeness to DateTime.
 - Date should have year. -D
 - Date and time should be in the same row. -D
 - Remove time from children. -D
@@ -415,3 +414,11 @@
 - Update issue :: Showing two rows. Does not update. -D
 - New task at the top. -D New task is always the upcoming task and there is only one new task which gets automatically scheduled as per the frequency.
 - FAB -a->b-> "+ Next Task". -D
+
+---
+
+**Inshaa Allah**
+
+- All entries will be shown in order of closeness to DateTime.
+- Only one task for a date. If already a task exists for that date, sub-entry input screen will update that task instead of creating a new one.
+- Remove the "Name" parameter from `Tab2Model` by marking it nullable. Group nullable fields together for clarity.

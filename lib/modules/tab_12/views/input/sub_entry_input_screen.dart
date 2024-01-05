@@ -13,7 +13,9 @@ class Tab12SubEntryInputScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ListView(
       children: [
-        const Tab12SubEntryInputMolecule(),
+        const Tab12SubEntryInputMolecule(
+          showNextOccurenceDate: true,
+        ),
         // Submit and cancel buttons
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

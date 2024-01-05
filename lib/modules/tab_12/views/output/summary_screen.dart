@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
@@ -108,6 +109,20 @@ class _Tab12OutputScreenState extends ConsumerState<Tab12SummaryScreen> {
                               ],
                             ),
                           ),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(DateFormat(
+                                      DateFormat.YEAR_ABBR_MONTH_DAY)
+                                  .format(
+                                      entry.tab2Model.nextOccurenceDateTime())),
+                            )
+                          ],
                         ),
                         InkWell(
                           onTap: () {

@@ -198,6 +198,36 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                                 borderRadius: BorderRadius.circular(5))),
                         onPressed: () {
                           ref.invalidate(tab12SubEntryInputProvider);
+
+                          DateTime nextDate =
+                              entry.tab2Model.nextOccurenceDateTime();
+
+                          ref
+                              .read(tab12SubEntryInputProvider.notifier)
+                              .setDate(nextDate);
+
+                          for (Tab12SubEntryModel subEntry in subEntries) {
+                            if (subEntry.date
+                                .copyWith(
+                                    hour: 0,
+                                    minute: 0,
+                                    second: 0,
+                                    millisecond: 0,
+                                    microsecond: 0)
+                                .isAtSameMomentAs(nextDate.copyWith(
+                                    hour: 0,
+                                    minute: 0,
+                                    second: 0,
+                                    millisecond: 0,
+                                    microsecond: 0))) {
+                              // Set the model to this one to update.
+                              ref
+                                  .read(tab12SubEntryInputProvider.notifier)
+                                  .setModel(subEntry);
+                              break;
+                            }
+                          }
+
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) {

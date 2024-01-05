@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
 
 class Tab12SubEntryInputMolecule extends ConsumerWidget {
-  const Tab12SubEntryInputMolecule({super.key});
+  final bool? showNextOccurenceDate;
+  const Tab12SubEntryInputMolecule({super.key, this.showNextOccurenceDate});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,6 +39,26 @@ class Tab12SubEntryInputMolecule extends ConsumerWidget {
         const Divider(
           height: 40,
         ),
+        showNextOccurenceDate == true
+            ? Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Date"),
+                        Text(DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
+                            .format(provider.date))
+                      ],
+                    ),
+                  ),
+                  const Divider(
+                    height: 40,
+                  ),
+                ],
+              )
+            : Container(),
       ],
     );
   }

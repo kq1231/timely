@@ -123,7 +123,34 @@ class Tab2Model {
     );
   }
 
-  DateTime getNextOccurenceDateTime() {
+// Functions for DRYness
+  List<int> getOccurences() {
+    List<int> occurences = [];
+    int dayOfWeek = repetitions["DoW"][1];
+    // Get all occurences of $day
+    int firstOccurence = 0;
+    int num = 0;
+    while (true) {
+      num++;
+      if (DateTime(DateTime.now().year, DateTime.now().month, num).weekday ==
+          (dayOfWeek + 1)) {
+        firstOccurence = num - 1; // As index.
+        break;
+      }
+    }
+    num = 0;
+    while (true) {
+      num++;
+      if ((firstOccurence + 1) + (7 * num) < 31) {
+        occurences.add((firstOccurence + 1) + (7 * num));
+      } else {
+        break;
+      }
+    }
+    return [firstOccurence, ...occurences];
+  }
+
+  DateTime nextOccurenceDateTime() {
     TimeOfDay endTime = getEndTime();
     DateTime dateToday = DateTime.now();
     switch (frequency) {
@@ -148,10 +175,30 @@ class Tab2Model {
                 days: (filteredWeekdays[0] - (dateToday.weekday - 1)) +
                     (weekNumber % every) * 7))
             .copyWith(hour: endTime.hour, minute: endTime.minute);
-      // case "Monthly":
 
+      case "Monthly":
+        DateTime nextDate = startDate!;
+        List<int> dates = basis == Basis.date
+            ? repetitions["Dates"]
+            : [getOccurences()[repetitions["DoW"][0]]];
+
+        while (nextDate.isBefore(dateToday) ||
+            nextDate.day !=
+                dates.firstWhere((date) => date >= nextDate.day,
+                    orElse: () => dates[0])) {
+          nextDate =
+              DateTime(nextDate.year, nextDate.month + every, nextDate.day);
+          if (nextDate.day > dates.last) {
+            nextDate =
+                DateTime(nextDate.year, nextDate.month + every, dates[0]);
+          } else {
+            nextDate = DateTime(nextDate.year, nextDate.month,
+                dates.firstWhere((date) => date >= nextDate.day));
+          }
+        }
+        return nextDate.copyWith(hour: endTime.hour, minute: endTime.minute);
       default:
-        return DateTime(0);
+        return DateTime(0).copyWith(hour: endTime.hour, minute: endTime.minute);
     }
   }
 }

@@ -339,7 +339,12 @@ class Tab12EntryInputScreen extends ConsumerWidget {
         const Divider(
           height: 30,
         ),
-        showSubEntryMolecule ? const Tab12SubEntryInputMolecule() : Container(),
+
+        showSubEntryMolecule
+            ? const Tab12SubEntryInputMolecule(
+                showNextOccurenceDate: true,
+              )
+            : Container(),
 
         const SizedBox(
           height: 10,
