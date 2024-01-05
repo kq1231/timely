@@ -202,24 +202,13 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                           DateTime nextDate =
                               entry.tab2Model.nextOccurenceDateTime();
 
-                          ref
-                              .read(tab12SubEntryInputProvider.notifier)
-                              .setDate(nextDate);
+                          ref.read(tab12SubEntryInputProvider.notifier).setDate(
+                              DateTime(
+                                  nextDate.year, nextDate.month, nextDate.day));
 
                           for (Tab12SubEntryModel subEntry in subEntries) {
-                            if (subEntry.date
-                                .copyWith(
-                                    hour: 0,
-                                    minute: 0,
-                                    second: 0,
-                                    millisecond: 0,
-                                    microsecond: 0)
-                                .isAtSameMomentAs(nextDate.copyWith(
-                                    hour: 0,
-                                    minute: 0,
-                                    second: 0,
-                                    millisecond: 0,
-                                    microsecond: 0))) {
+                            if (subEntry.date.isAtSameMomentAs(DateTime(
+                                nextDate.year, nextDate.month, nextDate.day))) {
                               // Set the model to this one to update.
                               ref
                                   .read(tab12SubEntryInputProvider.notifier)

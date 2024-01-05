@@ -178,7 +178,7 @@ class Tab2Model {
 
       case "Monthly":
         DateTime nextDate = startDate!;
-        List<int> dates = basis == Basis.date
+        List dates = basis == Basis.date
             ? repetitions["Dates"]
             : [getOccurences()[repetitions["DoW"][0]]];
 
@@ -187,10 +187,10 @@ class Tab2Model {
                 dates.firstWhere((date) => date >= nextDate.day,
                     orElse: () => dates[0])) {
           nextDate =
-              DateTime(nextDate.year, nextDate.month + every, nextDate.day);
+              DateTime(nextDate.year, nextDate.month + every - 1, nextDate.day);
           if (nextDate.day > dates.last) {
             nextDate =
-                DateTime(nextDate.year, nextDate.month + every, dates[0]);
+                DateTime(nextDate.year, nextDate.month + every - 1, dates[0]);
           } else {
             nextDate = DateTime(nextDate.year, nextDate.month,
                 dates.firstWhere((date) => date >= nextDate.day));
