@@ -92,8 +92,8 @@ class Tab1OutputLayout {
 }
 
 class Tab1InputLayout {
-  static List labels = ["Good", "Fair", "Poor"];
-  static List scoreNames = ["F Score", "M Score", "S Score"];
+  static List<String> labels = ["Good", "Fair", "Poor"];
+  static List<String> scoreNames = ["F Score", "M Score", "S Score"];
   static String text_1Name = "Comment";
 }
 

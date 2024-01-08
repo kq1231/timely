@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/modules/tab_1/controllers/output_controller.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
@@ -10,17 +9,13 @@ class Tab1InputNotifier extends Notifier<FMSModel> {
   @override
   FMSModel build() {
     return FMSModel(
-      date: DateTime.now().toString().substring(0, 10),
+      date: DateTime.now(),
       fScore: 1,
       mScore: 1,
       sScore: 1,
       nextUpdateTime: TimeOfDay(hour: TimeOfDay.now().hour + 1, minute: 0),
       text_1: "",
     );
-  }
-
-  String getFormattedDate() {
-    return DateFormat("dd-MMM-yyyy").format(DateTime.parse(state.date));
   }
 
   void setFScore(score) {

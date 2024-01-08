@@ -37,7 +37,7 @@ class Tab1PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
   Future<void> createDefaultEntry() async {
     final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
     final jsonContent = jsonDecode(await tab1File.readAsString());
-    String dateToday = DateTime.now().toString().substring(0, 10);
+    DateTime dateToday = DateTime.now();
     DateTime currentTime = DateTime.now();
     TimeOfDay nextUpdateTime = const TimeOfDay(hour: 6, minute: 0);
     if (currentTime.hour > 6) {

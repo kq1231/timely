@@ -192,7 +192,7 @@ class Tab12EntryInputScreen extends ConsumerWidget {
               onPressed: () async {
                 DateTime? selectedDate = await showDatePicker(
                     context: context,
-                    initialDate: DateTime.now(),
+                    initialDate: entry.tab2Model.startDate!,
                     firstDate: DateTime.now(),
                     lastDate: DateTime(DateTime.now().year + 50));
 
@@ -263,7 +263,7 @@ class Tab12EntryInputScreen extends ConsumerWidget {
               onPressed: () async {
                 DateTime? selectedDate = await showDatePicker(
                     context: context,
-                    initialDate: DateTime.now(),
+                    initialDate: entry.tab2Model.endDate!,
                     firstDate: DateTime.now(),
                     lastDate: DateTime(DateTime.now().year + 50));
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FMSModel {
-  late String date;
+  late DateTime date;
   late int fScore;
   late int mScore;
   late int sScore;
@@ -17,7 +17,7 @@ class FMSModel {
       required this.nextUpdateTime});
 
   FMSModel.fromJson(Map json) {
-    var date = json.keys.toList().first;
+    var date = DateTime.parse(json.keys.first);
 
     var content = json.values.toList().first;
     List<int> scores = List.generate(3, (index) => content.first[index]);
@@ -37,7 +37,7 @@ class FMSModel {
 
   Map toJson() {
     return {
-      date: [
+      date.toString().substring(0, 10): [
         [
           fScore,
           mScore,

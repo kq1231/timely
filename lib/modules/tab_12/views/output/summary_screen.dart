@@ -117,10 +117,10 @@ class _Tab12OutputScreenState extends ConsumerState<Tab12SummaryScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(DateFormat(
-                                      DateFormat.YEAR_ABBR_MONTH_DAY)
-                                  .format(
-                                      entry.tab2Model.nextOccurenceDateTime())),
+                              child: Text(
+                                  DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
+                                      .format(entry.tab2Model
+                                          .getNextOccurenceDateTime())),
                             )
                           ],
                         ),

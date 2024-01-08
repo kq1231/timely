@@ -13,9 +13,9 @@ class Tab12SubEntryInputNotifier extends Notifier<Tab12SubEntryModel> {
     return Tab12SubEntryModel(
         nextTask: "",
         date: ref
-            .read(tab12EntryInputProvider)
+            .watch(tab12EntryInputProvider)
             .tab2Model
-            .nextOccurenceDateTime()
+            .getNextOccurenceDateTime()
             .copyWith(
                 hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0));
   }

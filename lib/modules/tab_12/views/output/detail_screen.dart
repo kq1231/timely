@@ -200,7 +200,7 @@ class _Tab12DetailScreenState extends ConsumerState<Tab12DetailScreen> {
                           ref.invalidate(tab12SubEntryInputProvider);
 
                           DateTime nextDate =
-                              entry.tab2Model.nextOccurenceDateTime();
+                              entry.tab2Model.getNextOccurenceDateTime();
 
                           ref.read(tab12SubEntryInputProvider.notifier).setDate(
                               DateTime(

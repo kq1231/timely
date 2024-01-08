@@ -126,7 +126,8 @@ class Tab2Model {
     );
   }
 
-// Functions for DRYness
+  // The following functions calculate the next closest date on which
+  // the task is set to occur.
   List<int> getOccurences() {
     List<int> occurences = [];
     int dayOfWeek = repetitions["DoW"][1];
@@ -153,9 +154,44 @@ class Tab2Model {
     return [firstOccurence, ...occurences];
   }
 
-  DateTime nextOccurenceDateTime() {
+  bool isNthDayOfWeek(DateTime date, int dayOfWeek, int ordinalPosition) {
+    int count = 0;
+    for (int i = 1; i <= date.day; i++) {
+      if (DateTime(date.year, date.month, i).weekday == dayOfWeek) {
+        count++;
+      }
+    }
+    return count == ordinalPosition;
+  }
+
+  DateTime getNthDayOfWeekInMonth(
+      DateTime date, int dayOfWeek, int ordinalPosition) {
+    int count = 0;
+    for (int i = 1; i <= 31; i++) {
+      try {
+        DateTime currentDate = DateTime(date.year, date.month, i);
+        if (currentDate.weekday == dayOfWeek) {
+          count++;
+          if (count == ordinalPosition) {
+            return currentDate;
+          }
+        }
+      } catch (e) {
+        break;
+      }
+    }
+    return date;
+  }
+
+  DateTime getNextOccurenceDateTime() {
     TimeOfDay endTime = getEndTime();
     DateTime dateToday = DateTime.now();
+
+    // Assuming endDate is a DateTime object
+    if (endDate!.isBefore(dateToday)) {
+      return DateTime(0);
+    }
+
     switch (frequency) {
       case "Daily":
         return dateToday
@@ -200,6 +236,45 @@ class Tab2Model {
           }
         }
         return nextDate.copyWith(hour: endTime.hour, minute: endTime.minute);
+
+      case "Yearly":
+        List<int> months = repetitions["Months"];
+        if (basis == Basis.date) {
+          DateTime nextDate =
+              DateTime(startDate!.year, months.first, startDate!.day);
+          while (nextDate.isBefore(dateToday) ||
+              !months.contains(nextDate.month)) {
+            nextDate =
+                DateTime(nextDate.year + every, nextDate.month, startDate!.day);
+            if (!months.contains(nextDate.month)) {
+              nextDate = DateTime(
+                  nextDate.year,
+                  months.firstWhere((month) => month > nextDate.month,
+                      orElse: () => months[0]),
+                  nextDate.day);
+            }
+          }
+          return nextDate;
+        } else {
+          DateTime nextDate = DateTime(startDate!.year, months.first, 1);
+          int ordinalPosition = repetitions["Dow"][0];
+          int dayOfWeek = repetitions["DoW"][1];
+          while (nextDate.isBefore(dateToday) ||
+              !months.contains(nextDate.month) ||
+              !isNthDayOfWeek(nextDate, dayOfWeek, ordinalPosition)) {
+            nextDate = DateTime(nextDate.year + every, nextDate.month, 1);
+            if (!months.contains(nextDate.month)) {
+              nextDate = DateTime(
+                  nextDate.year,
+                  months.firstWhere((month) => month > nextDate.month,
+                      orElse: () => months[0]),
+                  1);
+            }
+            nextDate =
+                getNthDayOfWeekInMonth(nextDate, dayOfWeek, ordinalPosition);
+          }
+          return nextDate;
+        }
       default:
         return DateTime(0).copyWith(hour: endTime.hour, minute: endTime.minute);
     }

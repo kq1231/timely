@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/exports/screens.dart';
+import 'package:timely/modules/tab_1/atomic/output/pages/tab_1_output_page.dart';
 import 'package:timely/reusables.dart';
 
 final List tabs = [
-  const Tab1OutputScreen(),
+  const Tab1OutputPage(),
   const Tab2OutputScreen(),
   const Tab3OutputScreen(),
   const Tab4OutputScreen(),

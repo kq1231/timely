@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
 import 'package:timely/modules/tab_1/repositories/pending_repo.dart';
 import 'package:timely/reusables.dart';
+import 'package:timely/tokens/app/themes/app_dark_theme.dart';
 import 'exports/screens.dart';
 
 void main() {
@@ -23,9 +24,7 @@ class MyApp extends StatelessWidget {
         }
       },
       child: MaterialApp(
-        theme: ThemeData.dark(
-          useMaterial3: true,
-        ),
+        theme: appDarkTheme,
         themeMode: ThemeMode.dark,
         home: const MyHomePage(),
       ),

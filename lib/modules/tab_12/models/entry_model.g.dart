@@ -19,9 +19,9 @@ _$Tab12EntryModelImpl _$$Tab12EntryModelImplFromJson(
 Map<String, dynamic> _$$Tab12EntryModelImplToJson(
         _$Tab12EntryModelImpl instance) =>
     <String, dynamic>{
-      'ID': instance.uuid ?? const Uuid().v4(),
+      'ID': instance.uuid,
       'activity': instance.activity,
       'objective': instance.objective,
+      ...instance.tab2Model.toJson(),
       'importance': instance.importance,
-      ...(instance.tab2Model.toJson())
     };
