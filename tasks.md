@@ -454,6 +454,13 @@
 
 - Tab 12 Testing 
     - Date calculation stops after setting "every".
+    - Daily calculation seems fine. 
     - Need to sort weekly dates before picking the closest one. 
-    - App hangs when switching between weekly, monthly and yearly. It hangs the longest when switched to monthly. 
+    - The detail screen errs if all tasks, including the first task, are deleted.
+    - App hangs when switching between weekly, monthly and yearly. It hangs the longest when switched to monthly.
+    - Tab 12 input 
+        - Time allocation 
+        - Assignment period 
+        - Archival 
+    - Output controller should output a `Map<String, List>`. For eg., `{"entries": [...], "subEntries": [...]}`.
 - Tab.[1, 2, 3, 4 and 5].atomify()

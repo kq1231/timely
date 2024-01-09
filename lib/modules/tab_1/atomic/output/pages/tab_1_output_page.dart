@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/modules/tab_1/atomic/input/pages/tab_1_input_page.dart';
 import 'package:timely/modules/tab_1/atomic/output/templates/tab_1_output_template.dart';
 import 'package:timely/modules/tab_1/controllers/input_controller.dart';
 import 'package:timely/modules/tab_1/controllers/output_controller.dart';
-import 'package:timely/modules/tab_1/views/input_screen.dart';
 import 'package:timely/reusables.dart';
 
 class Tab1OutputPage extends ConsumerStatefulWidget {
@@ -16,10 +16,10 @@ class Tab1OutputPage extends ConsumerStatefulWidget {
 class _Tab1OutputPageState extends ConsumerState<Tab1OutputPage> {
   @override
   Widget build(BuildContext context) {
-    final provider = ref.watch(tab1OutputProvider);
+    final providerOfFMSModels = ref.watch(tab1OutputProvider);
     final controller = ref.read(tab1OutputProvider.notifier);
 
-    return provider.when(
+    return providerOfFMSModels.when(
         data: (models) {
           return Tab1OutputTemplate(
             models: models,
@@ -32,7 +32,7 @@ class _Tab1OutputPageState extends ConsumerState<Tab1OutputPage> {
                 MaterialPageRoute(
                   builder: (context) {
                     return Scaffold(
-                        appBar: AppBar(), body: const Tab1InputScreen());
+                        appBar: AppBar(), body: const Tab1InputPage());
                   },
                 ),
               );
@@ -52,13 +52,16 @@ class _Tab1OutputPageState extends ConsumerState<Tab1OutputPage> {
               }
             },
             onEntryTap: (index) {
+              // Set the model
               ref.read(tab1InputProvider.notifier).setModel(models[index]);
+
+              // Display it
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
                     return Scaffold(
-                        appBar: AppBar(), body: const Tab1InputScreen());
+                        appBar: AppBar(), body: const Tab1InputPage());
                   },
                 ),
               );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:timely/common/atomic/molecules/molecules.dart';
-import 'package:timely/modules/tab_1/tokens/tab_1_constants.dart';
+
+import '../../../tokens/tab_1.dart';
 
 class Tab1HeaderRowMolecule extends StatelessWidget {
   const Tab1HeaderRowMolecule({super.key});
