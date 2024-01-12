@@ -85,7 +85,7 @@ class Tab1PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
     // Loop through the map's items
     // Delete if $model.date matches the date of the map item
     for (String date in jsonContent.keys) {
-      if (date == model.date) {
+      if (DateTime.parse(date) == model.date) {
         jsonContent.removeWhere((key, value) => key == date);
         break;
       }

@@ -8,7 +8,6 @@ import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_12/views/archived/detail_screen.dart';
 import 'package:timely/modules/tab_12/views/input/entry_input_screen.dart';
-import 'package:timely/modules/tab_12/views/output/detail_screen.dart';
 import 'package:timely/reusables.dart';
 
 class Tab12ArchiveSummaryScreen extends ConsumerStatefulWidget {

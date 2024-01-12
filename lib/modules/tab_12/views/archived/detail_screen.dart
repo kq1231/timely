@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_12/controllers/archived/archived_provider.dart';
-import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
-import 'package:timely/modules/tab_12/views/input/sub_entry_input_screen.dart';
 
 class Tab12ArchiveDetailScreen extends ConsumerStatefulWidget {
   final int entryIndex;
