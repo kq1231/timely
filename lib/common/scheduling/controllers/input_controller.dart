@@ -37,12 +37,47 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
     state = state.copywith(startTime: startTime);
   }
 
-  void setEndTime(dur) {
+  void setDuration(Duration dur) {
     state = state.copywith(dur: dur);
   }
 
   void setFrequency(frequency) {
     state = state.copywith(frequency: frequency);
+
+    // Set the default values based on selection
+    switch (frequency) {
+      case "Monthly":
+        if (state.basis == null) {
+          setBasis(Basis.day);
+        }
+
+        setRepetitions({
+          "Dates": [],
+          "DoW": [0, 0]
+        });
+        break;
+
+      case "Yearly":
+        if (state.basis == null) {
+          setBasis(Basis.day);
+        }
+
+        setRepetitions({
+          "Months": [],
+          "DoW": [0, 0]
+        });
+
+      case "Weekly":
+        resetBasis();
+        setRepetitions({"Weekdays": []});
+
+      case "Daily":
+        if (state.basis == null) {
+          setBasis(Basis.day);
+        }
+
+        setRepetitions({});
+    }
   }
 
   void resetBasis() {
@@ -51,6 +86,58 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
 
   void setBasis(basis) {
     state = state.copywith(basis: basis);
+    if (basis == Basis.day) {
+      setRepetitions({
+        ...state.repetitions,
+        "DoW": [0, 0],
+      });
+    }
+  }
+
+  void setWeeklyRepetitions(List<int> weekdayIndices) {
+    state = state.copywith(repetitions: {"Weekdays": weekdayIndices});
+  }
+
+  void setMonthlyRepetitions(List<int> dates) {
+    state = state.copywith(
+      repetitions: {
+        ...state.repetitions,
+        "Dates": dates,
+      },
+    );
+  }
+
+  void setYearlyRepetitions(List<int> monthIndices) {
+    state = state.copywith(
+      repetitions: {
+        ...state.repetitions,
+        "Months": monthIndices,
+      },
+    );
+  }
+
+  void setOrdinalPosition(int pos) {
+    state = state.copywith(
+      repetitions: {
+        ...state.repetitions,
+        "DoW": [
+          pos,
+          state.repetitions["DoW"][1],
+        ],
+      },
+    );
+  }
+
+  void setWeekdayIndex(int index) {
+    state = state.copywith(
+      repetitions: {
+        ...state.repetitions,
+        "DoW": [
+          state.repetitions["DoW"][0],
+          index,
+        ],
+      },
+    );
   }
 
   void setRepetitions(Map repetitions) {

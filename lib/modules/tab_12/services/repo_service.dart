@@ -10,6 +10,8 @@ import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 class Tab12RepositoryServiceNotifier
     extends EntryStructRepositoryServiceNotifier<Tab12EntryModel,
         Tab12SubEntryModel> with FilterMixin {
+  // --------- --------- --------- --------- --------- --------- ---------
+
   Future<Map<Tab12EntryModel, List<Tab12SubEntryModel>>>
       fetchFilteredEntriesAndSubEntries(
     File file,

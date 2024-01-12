@@ -6,6 +6,7 @@ import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controll
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
+import 'package:timely/modules/tab_12/views/archived/summary_screen.dart';
 import 'package:timely/modules/tab_12/views/input/entry_input_screen.dart';
 import 'package:timely/modules/tab_12/views/output/detail_screen.dart';
 import 'package:timely/reusables.dart';
@@ -197,6 +198,25 @@ class _Tab12OutputScreenState extends ConsumerState<Tab12SummaryScreen> {
                             body: const Tab12EntryInputScreen(
                               showSubEntryMolecule: true,
                             ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+                FloatingActionButton(
+                  heroTag: null,
+                  child: const Icon(Icons.archive_rounded),
+                  onPressed: () {
+                    ref.invalidate(tab12EntryInputProvider);
+                    ref.invalidate(tab12SubEntryInputProvider);
+
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Scaffold(
+                            appBar: AppBar(),
+                            body: const Tab12ArchiveSummaryScreen(),
                           );
                         },
                       ),

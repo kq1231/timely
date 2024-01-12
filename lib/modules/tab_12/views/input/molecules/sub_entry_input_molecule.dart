@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:timely/common/atomic/atoms/text/text_form_field_atom.dart';
 import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
+import 'package:timely/tokens/app/app_sizes.dart';
 
 class Tab12SubEntryInputMolecule extends ConsumerWidget {
   final bool? showNextOccurenceDate;
@@ -16,24 +18,12 @@ class Tab12SubEntryInputMolecule extends ConsumerWidget {
       children: [
         // Next Task TextField
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextFormField(
-            textCapitalization: TextCapitalization.sentences,
+          padding: const EdgeInsets.all(AppSizes.p_8),
+          child: TextFormFieldAtom(
             initialValue: provider.nextTask,
-            maxLines: 5,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              filled: true,
-              hintText: "Next Task",
-            ),
-            onChanged: (name) {
-              controller.setName(name);
-            },
+            onChanged: (text) => controller.setName(text),
+            hintText: "Next Task",
+            isTextArea: true,
           ),
         ),
         const Divider(

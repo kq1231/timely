@@ -18,4 +18,6 @@ class AppTypography {
   static const TextStyle regularStyle = TextStyle(color: AppColors.bgWhite);
   static const TextStyle boldStyle =
       TextStyle(color: AppColors.bgWhite, fontWeight: FontWeight.bold);
+  static const TextStyle italicStyle =
+      TextStyle(color: AppColors.bgWhite, fontStyle: FontStyle.italic);
 }

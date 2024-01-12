@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 
 class CupertinoPickerAtom extends StatelessWidget {
   final double itemExtent;
-  final ValueChanged<int>? onSelectedItemChanged;
   final List<String> elements;
   final int initialItemIndex;
+  final Size size;
+  final ValueChanged<int>? onSelectedItemChanged;
   final Color? containerColor;
   final Color? selectionOverlayColor;
-  final Size size;
 
   const CupertinoPickerAtom({
     super.key,
@@ -31,9 +31,11 @@ class CupertinoPickerAtom extends StatelessWidget {
             FixedExtentScrollController(initialItem: initialItemIndex),
         itemExtent: itemExtent,
         onSelectedItemChanged: onSelectedItemChanged,
-        selectionOverlay: Container(
-          color: selectionOverlayColor,
-        ),
+        selectionOverlay: selectionOverlayColor != null
+            ? Container(
+                color: selectionOverlayColor,
+              )
+            : const CupertinoPickerDefaultSelectionOverlay(),
         children: elements
             .map((e) => Center(child: Text(e)))
             .toList(), // Pass down the color to the picker

@@ -202,6 +202,7 @@ class Tab2Model {
       case "Weekly":
         int firstDayIndex = startDate!.copyWith(day: 1).weekday - 1;
         List weekdays = repetitions["Weekdays"];
+        weekdays.sort();
         List filteredWeekdays = weekdays
             .where((element) => element >= (dateToday.weekday - 1))
             .toList();
@@ -278,6 +279,53 @@ class Tab2Model {
       default:
         return DateTime(0).copyWith(hour: endTime.hour, minute: endTime.minute);
     }
+  }
+
+  String getRepetitionSummary() {
+    List sliderNames = [
+      ["First", "Second", "Third", "Fourth", "Fifth", "Last"],
+      [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ]
+    ];
+    List monthNames =
+        "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec".split(",");
+
+    String repetitionSummary = "";
+
+    switch (frequency) {
+      case "Monthly":
+        if (basis == Basis.date) {
+          repetitionSummary =
+              "Repeats on ${repetitions['Dates'].join(', ')} every $every months";
+        } else {
+          repetitionSummary =
+              "Repeats on the ${sliderNames[0][repetitions["DoW"][0]].toLowerCase()} ${sliderNames[1][repetitions["DoW"][1]]} every $every months";
+        }
+        break;
+      case "Yearly":
+        if (basis == Basis.date || basis == null) {
+          repetitionSummary =
+              "Repeats in ${repetitions["Months"].map((val) => monthNames[val - 1]).toList().join(", ")} every $every years";
+        } else {
+          repetitionSummary =
+              "Repeats on the ${sliderNames[0][repetitions["DoW"][0]].toLowerCase()} ${sliderNames[1][repetitions["DoW"][1]]} of ${repetitions["Months"].map((val) => monthNames[val - 1]).toList().join(", ")} every $every years";
+        }
+        break;
+      case "Weekly":
+        repetitionSummary =
+            "Repeats on ${repetitions["Weekdays"].map((val) => sliderNames[1][val]).toList().join(", ")} every $every weeks";
+      case "Daily":
+        repetitionSummary = "Repeats daily";
+    }
+
+    return repetitionSummary;
   }
 }
 

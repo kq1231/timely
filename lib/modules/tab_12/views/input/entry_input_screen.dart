@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:timely/common/atomic/atoms/atoms.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/views/input/molecules/sub_entry_input_molecule.dart';
 import 'package:timely/modules/tab_12/views/input/scheduling/repeats_page.dart';
+import 'package:timely/tokens/app/app.dart';
 
 class Tab12EntryInputScreen extends ConsumerWidget {
   final bool showSubEntryMolecule;
@@ -69,44 +70,20 @@ class Tab12EntryInputScreen extends ConsumerWidget {
           height: 20,
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextFormField(
-            textCapitalization: TextCapitalization.sentences,
+          padding: const EdgeInsets.all(AppSizes.p_8),
+          child: TextFormFieldAtom(
             initialValue: entry.activity,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              filled: true,
-              hintText: "Activity Name",
-            ),
-            onChanged: (activity) {
-              controller.setActivity(activity);
-            },
+            onChanged: (text) => controller.setActivity(text),
+            hintText: "Next Activity",
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextFormField(
-            textCapitalization: TextCapitalization.sentences,
+          padding: const EdgeInsets.all(AppSizes.p_8),
+          child: TextFormFieldAtom(
             initialValue: entry.objective,
-            maxLines: 5,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              filled: true,
-              hintText: "Objective",
-            ),
-            onChanged: (objective) {
-              controller.setObjective(objective);
-            },
+            onChanged: (text) => controller.setObjective(text),
+            hintText: "Objective",
+            isTextArea: true,
           ),
         ),
         const Divider(
@@ -142,145 +119,98 @@ class Tab12EntryInputScreen extends ConsumerWidget {
           height: 30,
         ),
         // Scheduling
-        Row(
+        Column(
           children: [
             const SizedBox(
               width: 20,
             ),
-            const SizedBox(
-              width: 40,
-              child: Center(
-                child: Text(
-                  "Start",
-                ),
+            const Center(
+              child: Text(
+                "Assignment Period",
               ),
             ),
             const SizedBox(
-              width: 20,
+              height: 20,
             ),
-            Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.indigo[900],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  width: 20,
+                ),
+                DateButtonAtom(
+                  buttonSize: const Size(130, 30),
+                  initialDate: entry.tab2Model.startDate!,
+                  onDateChanged: (selectedDate) =>
+                      controller.setStartDate(selectedDate),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 2,
+                    width: 40,
+                    color: const Color.fromARGB(255, 112, 112, 112),
                   ),
                 ),
-                onPressed: () async {
-                  TimeOfDay? timeSelected = await showTimePicker(
-                      context: context, initialTime: entry.tab2Model.startTime);
-                  timeSelected != null
-                      ? controller.setStartTime(timeSelected)
-                      : null;
-                },
-                child: Text(
-                  entry.tab2Model.startTime.toString().substring(10, 15),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                DateButtonAtom(
+                  buttonSize: const Size(130, 30),
+                  initialDate: entry.tab2Model.endDate!,
+                  onDateChanged: (selectedDate) =>
+                      controller.setEndDate(selectedDate),
                 ),
-              ),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red[800],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                const SizedBox(
+                  width: 20,
                 ),
-              ),
-              onPressed: () async {
-                DateTime? selectedDate = await showDatePicker(
-                    context: context,
-                    initialDate: entry.tab2Model.startDate!,
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(DateTime.now().year + 50));
-
-                if (selectedDate != null) {
-                  controller.setStartDate(selectedDate);
-                }
-              },
-              child: Text(
-                DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
-                    .format(entry.tab2Model.startDate!),
-              ),
-            ),
-            const SizedBox(
-              width: 20,
+              ],
             ),
           ],
         ),
         const SizedBox(
           height: 20,
         ),
-        Row(
+        Column(
           children: [
             const SizedBox(
               width: 20,
             ),
-            const SizedBox(
-              width: 40,
-              child: Center(
-                child: Text(
-                  "End",
-                ),
+            const Center(
+              child: Text(
+                "Time Allocation",
               ),
             ),
             const SizedBox(
-              width: 20,
+              height: 20,
             ),
-            Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.indigo[900],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  width: 20,
+                ),
+                TimeButtonAtom(
+                  buttonSize: const Size(130, 30),
+                  initialTime: entry.tab2Model.startTime,
+                  onTimeChanged: (time) => controller.setStartTime(time),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 2,
+                    width: 40,
+                    color: const Color.fromARGB(255, 112, 112, 112),
                   ),
                 ),
-                onPressed: () async {
-                  TimeOfDay? timeSelected = await showTimePicker(
-                      context: context, initialTime: entry.tab2Model.startTime);
-                  if (timeSelected != null) {
-                    controller.setEndTime(timeSelected);
-                  }
-                },
-                child: Text(
-                  entry.tab2Model.startTime.toString().substring(10, 15),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                TimeButtonAtom(
+                  buttonSize: const Size(130, 30),
+                  initialTime: entry.tab2Model.getEndTime(),
+                  onTimeChanged: (time) => controller.setEndTime(time),
                 ),
-              ),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red[800],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                const SizedBox(
+                  width: 20,
                 ),
-              ),
-              onPressed: () async {
-                DateTime? selectedDate = await showDatePicker(
-                    context: context,
-                    initialDate: entry.tab2Model.endDate!,
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(DateTime.now().year + 50));
-
-                if (selectedDate != null) {
-                  controller.setEndDate(selectedDate);
-                }
-              },
-              child: Text(
-                DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
-                    .format(entry.tab2Model.endDate!),
-              ),
-            ),
-            const SizedBox(
-              width: 20,
+              ],
             ),
           ],
         ),
+
         const Divider(height: 30),
         // End repeat
         const SizedBox(
