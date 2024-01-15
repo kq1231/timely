@@ -15,15 +15,16 @@ class Tab5RepositoryNotifier extends Notifier<AsyncValue<void>> {
   Future<void> writeSPWModel(SPWModel model) async {
     final tab5File = (await ref.read(dbFilesProvider.future))[5]![0];
     final jsonContent = jsonDecode(await tab5File.readAsString());
-    jsonContent[model.date] = [];
-    jsonContent[model.date].add(
+    String date = model.date.toString().substring(0, 10);
+    jsonContent[date] = [];
+    jsonContent[date].add(
       [
         model.sScore,
         model.pScore,
         model.wScore,
       ],
     );
-    jsonContent[model.date].add(
+    jsonContent[date].add(
       model.weight,
     );
     await tab5File.writeAsString(jsonEncode(jsonContent));
@@ -37,7 +38,13 @@ class Tab5RepositoryNotifier extends Notifier<AsyncValue<void>> {
       final scores = jsonContent[date][0];
       final weight = jsonContent[date][1] as double;
       spwModels.add(
-        SPWModel(date, scores[0], scores[1], scores[2], weight),
+        SPWModel(
+          date: DateTime.parse(date),
+          sScore: scores[0],
+          pScore: scores[1],
+          wScore: scores[2],
+          weight: weight,
+        ),
       );
     }
 

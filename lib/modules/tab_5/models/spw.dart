@@ -1,14 +1,19 @@
 class SPWModel {
-  late String date;
+  late DateTime date;
   late int sScore;
   late int pScore;
   late int wScore;
-  late double weight;
+  late double? weight;
 
-  SPWModel(this.date, this.sScore, this.pScore, this.wScore, this.weight);
+  SPWModel(
+      {required this.date,
+      required this.sScore,
+      required this.pScore,
+      required this.wScore,
+      this.weight});
 
   SPWModel.fromJson(Map json) {
-    date = json.keys.toList()[0];
+    date = DateTime.parse(json.keys.toList()[0]);
     List spw = json.values.toList()[0];
     double weight = json.values.toList()[1];
     int accum = 0;
@@ -21,7 +26,7 @@ class SPWModel {
 
   Map toJson() {
     return {
-      date: [
+      date.toString().substring(0, 10): [
         [sScore, pScore, wScore],
         weight
       ]
@@ -30,11 +35,11 @@ class SPWModel {
 
   SPWModel copyWith({date, sScore, pScore, wScore, weight}) {
     return SPWModel(
-      date ?? this.date,
-      sScore ?? this.sScore,
-      pScore ?? this.pScore,
-      wScore ?? this.wScore,
-      weight ?? this.weight,
+      date: date ?? this.date,
+      sScore: sScore ?? this.sScore,
+      pScore: pScore ?? this.pScore,
+      wScore: wScore ?? this.wScore,
+      weight: weight ?? this.weight,
     );
   }
 }

@@ -46,7 +46,7 @@ class Tab1InputTemplate extends ConsumerWidget {
           CupertinoPickerRowOrganism(
             headers: Tab1InputLayout.scoreNames,
             labels: Tab1InputLayout.labels,
-            onSelectedItemChangedList: onPickerSelectionChangedList,
+            onSelectedItemsChangedList: onPickerSelectionChangedList,
             pickerContainerColors: [
               AppColors.bgIndigo800,
               AppColors.bgIndigo600,

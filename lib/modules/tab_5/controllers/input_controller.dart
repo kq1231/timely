@@ -7,17 +7,11 @@ import 'package:timely/modules/tab_5/repositories/tab_5_repo.dart';
 class Tab5InputNotifier extends Notifier<SPWModel> {
   @override
   build() {
-    return SPWModel(
-      DateTime.now().toString().substring(0, 10),
-      1,
-      1,
-      1,
-      0,
-    );
+    return SPWModel(date: DateTime.now(), sScore: 1, pScore: 1, wScore: 1);
   }
 
   String getFormattedDate() {
-    return DateFormat("dd-MMM-yyyy").format(DateTime.parse(state.date));
+    return DateFormat("dd-MMM-yyyy").format(state.date);
   }
 
   void setSScore(sScore) {
@@ -42,7 +36,7 @@ class Tab5InputNotifier extends Notifier<SPWModel> {
 
   Future<void> syncToDB() async {
     await ref.read(tab5RepositoryProvider.notifier).writeSPWModel(state);
-    ref.invalidate(tab5FutureProvider);
+    ref.invalidate(tab5OutputProvider);
   }
 
   void setModel(SPWModel model) {
