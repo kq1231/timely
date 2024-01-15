@@ -15,18 +15,22 @@ class CancelSubmitRowMolecule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Column(
       children: [
-        TextButtonAtom(
-          onPressed: onCancelPressed,
-          text: "Cancel",
-          color: AppColors.bgRed800,
-        ),
-        TextButtonAtom(
-          color: AppColors.bgIndigo800,
-          onPressed: onSubmitPressed,
-          text: "Submit",
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TextButtonAtom(
+              onPressed: onCancelPressed,
+              text: "Cancel",
+              color: AppColors.bgRed800,
+            ),
+            TextButtonAtom(
+              color: AppColors.bgIndigo800,
+              onPressed: onSubmitPressed,
+              text: "Submit",
+            ),
+          ],
         ),
       ],
     );

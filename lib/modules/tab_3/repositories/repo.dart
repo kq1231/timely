@@ -17,7 +17,12 @@ class RepositoryNotifier extends Notifier<void> {
     for (String date in dates) {
       tab3Models[date] = [];
       for (Map content in jsonContent[date]) {
-        tab3Models[date]!.add(Tab3Model.fromJson(date, content));
+        tab3Models[date]!.add(
+          Tab3Model.fromJson(
+            DateTime.parse(date),
+            content,
+          ),
+        );
       }
     }
     return tab3Models;

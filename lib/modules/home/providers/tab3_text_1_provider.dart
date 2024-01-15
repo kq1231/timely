@@ -18,7 +18,7 @@ final tab3Text1Provider =
   for (String date in content.keys) {
     models[date] = [];
     for (Map modelData in content[date]) {
-      models[date]!.add(Tab3Model.fromJson(date, modelData));
+      models[date]!.add(Tab3Model.fromJson(DateTime.parse(date), modelData));
     }
   }
 

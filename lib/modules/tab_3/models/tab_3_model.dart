@@ -3,7 +3,7 @@ import 'package:uuid/uuid.dart';
 
 class Tab3Model {
   String? uuid;
-  String? date;
+  DateTime? date;
   TimeOfDay? time;
   String text_1 = "";
   int priority = 0;
@@ -17,7 +17,7 @@ class Tab3Model {
   });
 
   Map toJson() {
-    if (time != null) {
+    if (time != null && date != null) {
       return {
         "ID": const Uuid().v4(),
         "Activity": text_1,
@@ -57,7 +57,7 @@ class Tab3Model {
   }
 
   Tab3Model copyWith(
-      {String? date,
+      {DateTime? date,
       String? uuid,
       String? text_1,
       int? priority,

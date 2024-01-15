@@ -74,7 +74,7 @@ class Tab12EntryInputScreen extends ConsumerWidget {
           child: TextFormFieldAtom(
             initialValue: entry.activity,
             onChanged: (text) => controller.setActivity(text),
-            hintText: "Next Activity",
+            hintText: "Assignment Name",
           ),
         ),
         Padding(

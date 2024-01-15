@@ -13,8 +13,6 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
     return Tab3Model(
       text_1: "",
       priority: 1,
-      time: TimeOfDay.now(),
-      date: DateTime.now().toString().substring(0, 10),
     );
   }
 
@@ -22,7 +20,7 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
     state.text_1 = activity;
   }
 
-  setDate(String date) {
+  setDate(DateTime date) {
     state = state.copyWith(date: date);
   }
 
@@ -30,8 +28,8 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
     state = state.copyWith(time: time);
   }
 
-  void setPriority(int priority) {
-    state = state.copyWith(priority: priority);
+  void setPriority(int index) {
+    state = state.copyWith(priority: index);
   }
 
   void removeDateAndTime() {

@@ -13,7 +13,7 @@ class Tab12InputNotifier extends Notifier<Tab12EntryModel> {
     return Tab12EntryModel(
       activity: "",
       objective: "",
-      importance: 1,
+      importance: 3,
       tab2Model: Tab2Model(
         name: "",
         startTime: TimeOfDay.now(),
