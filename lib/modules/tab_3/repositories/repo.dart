@@ -31,14 +31,17 @@ class RepositoryNotifier extends Notifier<void> {
   Future<void> writeModel(Tab3Model model, file) async {
     final tab3File = (await ref.read(dbFilesProvider.future))[3]![0];
     final jsonContent = jsonDecode(await tab3File.readAsString());
+
+    print(model.date);
+    String date = model.date.toString().substring(0, 10);
     if (model.date != null) {
-      if (!jsonContent.keys.contains(model.date)) {
-        jsonContent[model.date] = [];
+      if (!jsonContent.keys.contains(date)) {
+        jsonContent[date] = [];
       }
 
       if (model.time != null) {
-        jsonContent[model.date] = [
-          ...jsonContent[model.date], // -> Existing data
+        jsonContent[date] = [
+          ...jsonContent[date], // -> Existing data
           // New data:
           model.toJson(),
         ];

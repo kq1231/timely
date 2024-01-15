@@ -13,6 +13,8 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
     return Tab3Model(
       text_1: "",
       priority: 1,
+      time: TimeOfDay.now(),
+      date: DateTime.now(),
     );
   }
 

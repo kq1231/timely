@@ -8,8 +8,8 @@ import 'package:timely/reusables.dart';
 
 class OutputNotifier extends AsyncNotifier<Map<String, List<Tab3Model>>> {
   final int tabNumber = 3;
-  late final File pendingFile;
-  late final File completedFile;
+  late File pendingFile;
+  late File completedFile;
   final repositoryServiceProvider = tab3RepositoryServiceProvider;
 
   @override

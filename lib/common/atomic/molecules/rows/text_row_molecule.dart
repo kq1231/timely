@@ -8,7 +8,7 @@ class TextRowMolecule extends StatelessWidget {
   final Map<int, double> customWidths;
   final Map<int, Color> colors; // New addition for custom colors
   final bool? bolded;
-  final double height;
+  final double? height;
 
   const TextRowMolecule({
     Key? key,
@@ -16,7 +16,7 @@ class TextRowMolecule extends StatelessWidget {
     this.customWidths = const {},
     this.colors = const {}, // Initialize with an empty map
     this.bolded,
-    this.height = 40,
+    this.height,
     this.rowColor,
     this.defaultAligned = const [],
   }) : super(key: key);
@@ -63,11 +63,13 @@ class TextRowMolecule extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: [
-                                Text(
-                                  texts[index],
-                                  style: bolded == true
-                                      ? AppTypography.boldStyle
-                                      : AppTypography.regularStyle,
+                                Flexible(
+                                  child: Text(
+                                    texts[index],
+                                    style: bolded == true
+                                        ? AppTypography.boldStyle
+                                        : AppTypography.regularStyle,
+                                  ),
                                 ),
                               ],
                             ),
