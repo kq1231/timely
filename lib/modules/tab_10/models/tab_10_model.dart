@@ -3,15 +3,15 @@ import 'package:uuid/uuid.dart';
 class Tab10Model {
   String? uuid;
   DateTime date = DateTime.now();
-  double amount = 0;
+  double? amount = 0;
   String text_1 = "";
   int option = 1;
   bool isComplete = false;
 
   Tab10Model({
     this.uuid,
+    this.amount,
     required this.date,
-    required this.amount,
     required this.text_1,
     required this.option,
     required this.isComplete,

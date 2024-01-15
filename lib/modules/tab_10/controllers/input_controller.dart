@@ -10,7 +10,6 @@ class Tab10InputNotifier extends Notifier<Tab10Model> {
   build() {
     return Tab10Model(
       date: DateTime.now(),
-      amount: 0.0,
       text_1: "",
       option: 1,
       isComplete: false,

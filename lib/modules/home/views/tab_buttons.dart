@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/exports/screens.dart';
 import 'package:timely/modules/tab_1/atomic/output/pages/tab_1_output_page.dart';
+import 'package:timely/modules/tab_10/atomic/pages/output/tab_10_output_page.dart';
 import 'package:timely/modules/tab_2/pages/tab_2_output_page.dart';
 import 'package:timely/modules/tab_3/atomic/pages/output/tab_3_output_page.dart';
 import 'package:timely/modules/tab_4/atomic/pages/tab_4_output_page.dart';
@@ -21,7 +22,7 @@ final List tabs = [
   const Tab7OutputPage(),
   const Tab8OutputScreen(),
   const Tab9SummaryScreen(),
-  const Tab10OutputScreen(),
+  const Tab10OutputPage(),
   const Tab11OutputScreen(),
   const Tab12SummaryScreen(),
   const LaunchScreen(),
