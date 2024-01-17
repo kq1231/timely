@@ -6,7 +6,7 @@ import 'package:timely/tokens/app/app.dart';
 
 class Tab11InputTemplate extends StatelessWidget {
   final Tab11Model model;
-  final void Function(String date) onItemChanged;
+  final void Function(String item) onItemChanged;
   final void Function(String qty) onQuantityChanged;
   final void Function(bool isUrgent) onUrgencyChanged;
   final VoidCallback onSubmitPressed;

@@ -18,7 +18,7 @@ class TextFormFieldAtom extends TextFormField {
               ),
             ),
             filled: true,
-            fillColor: AppColors.scale_05,
+            fillColor: AppColors.scale_06,
             hintText: hintText,
           ),
           maxLines: isTextArea == true ? 5 : 1,

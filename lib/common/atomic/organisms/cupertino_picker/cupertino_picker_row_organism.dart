@@ -6,10 +6,10 @@ import '../../atoms/cupertino_picker/cupertino_picker_atom.dart';
 
 class CupertinoPickerRowOrganism extends StatelessWidget {
   final List<String> headers;
+  final List<List<String>> labels;
   final List<ValueChanged<int>> onSelectedItemsChangedList;
   final List<Color?> pickerContainerColors;
   final double pickerHeight;
-  final List<String> labels;
   final List<int> initialItemIndices;
 
   const CupertinoPickerRowOrganism({
@@ -35,7 +35,7 @@ class CupertinoPickerRowOrganism extends StatelessWidget {
             child: CupertinoPickerAtom(
               itemExtent: 50,
               onSelectedItemChanged: onSelectedItemsChangedList[index],
-              elements: labels,
+              elements: labels[index],
               initialItemIndex: initialItemIndices[index],
               size: Size(0, pickerHeight),
               containerColor: pickerContainerColors[index],

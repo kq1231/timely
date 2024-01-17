@@ -49,7 +49,11 @@ class Tab5InputTemplate extends StatelessWidget {
         // Row of Cupertino Pickers
         CupertinoPickerRowOrganism(
           headers: "S,B,W".split(",").map((e) => "$e Score").toList(),
-          labels: "Good,Fair,Poor".split(","),
+          labels: [
+            "Good,Fair,Poor".split(","),
+            "Good,Fair,Poor".split(","),
+            "Good,Fair,Poor".split(","),
+          ],
           onSelectedItemsChangedList: onSelectedItemsChangedList,
           pickerContainerColors: [
             AppColors.bgIndigo800,
