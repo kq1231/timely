@@ -12,6 +12,7 @@ import 'package:timely/modules/tab_5/atomic/pages/output/tab_5_output_page.dart'
 import 'package:timely/modules/tab_6/pages/tab_6_output_page.dart';
 import 'package:timely/modules/tab_7/pages/tab_7_output_page.dart';
 import 'package:timely/modules/tab_8/atomic/pages/output/tab_8_output_page.dart';
+import 'package:timely/modules/tab_9/atomic/pages/output/tab_9_summary_page.dart';
 import 'package:timely/reusables.dart';
 
 final List tabs = [
@@ -23,7 +24,7 @@ final List tabs = [
   const Tab6OutputPage(),
   const Tab7OutputPage(),
   const Tab8OutputPage(),
-  const Tab9SummaryScreen(),
+  const Tab9SummaryPage(),
   const Tab10OutputPage(),
   const Tab11OutputPage(),
   const Tab12SummaryScreen(),
