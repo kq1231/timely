@@ -472,3 +472,9 @@
     - Scheduling 
         - Shift the default logic for basis to the controller. -D
         - Controller function naming should be simple and coherent.
+
+---
+
+**Inshaa Allah** 
+
+- Ask about end date in tab 12.

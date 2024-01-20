@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/scheduling/atomic/input/pages/tab_2_input_page.dart';
+import 'package:timely/common/scheduling/atomic/input/pages/scheduling_input_page.dart';
 
 class Tab6InputPage extends StatelessWidget {
   const Tab6InputPage({super.key});

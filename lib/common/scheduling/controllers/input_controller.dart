@@ -26,23 +26,23 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
 
   // Setters
   void setName(name) {
-    state = state.copywith(name: name);
+    state = state.copyWith(name: name);
   }
 
   void setStartDate(date) {
-    state = state.copywith(startDate: date);
+    state = state.copyWith(startDate: date);
   }
 
   void setStartTime(startTime) {
-    state = state.copywith(startTime: startTime);
+    state = state.copyWith(startTime: startTime);
   }
 
   void setDuration(Duration dur) {
-    state = state.copywith(dur: dur);
+    state = state.copyWith(dur: dur);
   }
 
   void setFrequency(frequency) {
-    state = state.copywith(frequency: frequency);
+    state = state.copyWith(frequency: frequency);
 
     // Set the default values based on selection
     switch (frequency) {
@@ -85,7 +85,7 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
   }
 
   void setBasis(basis) {
-    state = state.copywith(basis: basis);
+    state = state.copyWith(basis: basis);
     if (basis == Basis.day) {
       setRepetitions({
         ...state.repetitions,
@@ -95,11 +95,11 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
   }
 
   void setWeeklyRepetitions(List<int> weekdayIndices) {
-    state = state.copywith(repetitions: {"Weekdays": weekdayIndices});
+    state = state.copyWith(repetitions: {"Weekdays": weekdayIndices});
   }
 
   void setMonthlyRepetitions(List<int> dates) {
-    state = state.copywith(
+    state = state.copyWith(
       repetitions: {
         ...state.repetitions,
         "Dates": dates,
@@ -108,7 +108,7 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
   }
 
   void setYearlyRepetitions(List<int> monthIndices) {
-    state = state.copywith(
+    state = state.copyWith(
       repetitions: {
         ...state.repetitions,
         "Months": monthIndices,
@@ -117,7 +117,7 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
   }
 
   void setOrdinalPosition(int pos) {
-    state = state.copywith(
+    state = state.copyWith(
       repetitions: {
         ...state.repetitions,
         "DoW": [
@@ -129,7 +129,7 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
   }
 
   void setWeekdayIndex(int index) {
-    state = state.copywith(
+    state = state.copyWith(
       repetitions: {
         ...state.repetitions,
         "DoW": [
@@ -141,15 +141,15 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
   }
 
   void setRepetitions(Map repetitions) {
-    state = state.copywith(repetitions: repetitions);
+    state = state.copyWith(repetitions: repetitions);
   }
 
   void setEvery(int every) {
-    state = state.copywith(every: every);
+    state = state.copyWith(every: every);
   }
 
   void setEndDate(endDate) {
-    state = state.copywith(endDate: endDate);
+    state = state.copyWith(endDate: endDate);
   }
 
   void setModel(Tab2Model model) {

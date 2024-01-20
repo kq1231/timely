@@ -100,7 +100,7 @@ class Tab2Model {
     return TimeOfDay(hour: finalTime[0], minute: finalTime[1]);
   }
 
-  Tab2Model copywith({
+  Tab2Model copyWith({
     String? name,
     String? uuid,
     TimeOfDay? startTime,

@@ -21,7 +21,7 @@ class Tab12SubEntryInputNotifier extends Notifier<Tab12SubEntryModel> {
   }
 
   // Setters
-  void setName(nextTask) {
+  void setNextTask(nextTask) {
     state = state.copyWith(nextTask: nextTask);
   }
 
