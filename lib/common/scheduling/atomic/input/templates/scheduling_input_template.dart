@@ -4,7 +4,6 @@ import 'package:timely/tokens/app/app_sizes.dart';
 import 'package:timely/tokens/app/app_typography.dart';
 
 import '../../../../atomic/atoms/atoms.dart';
-import '../../../../atomic/molecules/columns/title_widget_row_molecule.dart';
 import '../../../../atomic/molecules/molecules.dart';
 import '../molecules/duration_selection_molecule.dart';
 
@@ -70,16 +69,22 @@ class SchedulingInputTemplate extends StatelessWidget {
                 ? Container()
                 : Column(
                     children: [
-                      TitleWidgetColumnMolecule(
-                        title: "Duration",
-                        widget: DurationSelectionMolecule(
-                          onHoursChanged: (int hours) => onHoursChanged(hours),
-                          onMinutesChanged: (int minutes) =>
-                              onMinutesChanged(minutes),
-                          initalHourIndex: model.dur.inHours,
-                          initalMinuteIndex: model.dur.inMinutes % 60,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: AppSizes.p_24),
+                        child: TitleWidgetRowMolecule(
+                          title: "Duration",
+                          widget: Expanded(
+                            child: DurationSelectionMolecule(
+                              onHoursChanged: (int hours) =>
+                                  onHoursChanged(hours),
+                              onMinutesChanged: (int minutes) =>
+                                  onMinutesChanged(minutes),
+                              initalHourIndex: model.dur.inHours,
+                              initalMinuteIndex: model.dur.inMinutes % 60,
+                            ),
+                          ),
                         ),
-                        bolded: true,
                       ),
                       const Divider(
                         height: 40,

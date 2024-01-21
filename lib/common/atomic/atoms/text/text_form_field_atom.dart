@@ -7,7 +7,7 @@ class TextFormFieldAtom extends TextFormField {
       required super.initialValue,
       required super.onChanged,
       required hintText,
-      super.textCapitalization,
+      super.textCapitalization = TextCapitalization.sentences,
       bool? isTextArea})
       : super(
           decoration: InputDecoration(

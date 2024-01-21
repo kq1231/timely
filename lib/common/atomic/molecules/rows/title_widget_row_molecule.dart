@@ -24,6 +24,9 @@ class TitleWidgetRowMolecule extends StatelessWidget {
             ? AppTypography.boldStyle
             : AppTypography.regularStyle,
       ),
+      const SizedBox(
+        width: 20,
+      ),
       widget,
     ];
     return Row(

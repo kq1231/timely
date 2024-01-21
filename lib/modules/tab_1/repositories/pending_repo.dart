@@ -20,6 +20,11 @@ class Tab1PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
     List dates = jsonContent.keys.toList();
     dates.sort();
     dates = dates.reversed.toList();
+
+    if (dates.length > 15) {
+      dates = dates.sublist(0, 15);
+    }
+
     for (final date in dates) {
       fmsModels.add(FMSModel.fromJson({date: jsonContent[date]}));
     }

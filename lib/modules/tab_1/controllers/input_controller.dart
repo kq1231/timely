@@ -49,7 +49,7 @@ class Tab1InputNotifier extends Notifier<FMSModel> {
   }
 
   void setDate(DateTime date) {
-    state = state.copyWith(date: date.toString().substring(0, 10));
+    state = state.copyWith(date: date);
   }
 }
 
