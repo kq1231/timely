@@ -44,7 +44,7 @@ class TimeButtonAtom extends StatelessWidget {
           ),
         ),
         child: Text(
-          initialTime.format(context),
+          initialTime.format(context).replaceAll("AM", "").replaceAll("PM", ""),
         ),
       ),
     );
