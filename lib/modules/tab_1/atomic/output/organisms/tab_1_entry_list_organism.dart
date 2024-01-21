@@ -24,8 +24,15 @@ class Tab1EntryListOrganism extends StatefulWidget {
 class _Tab1EntryListOrganismState extends State<Tab1EntryListOrganism> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      separatorBuilder: (context, index) {
+        return const Divider(
+          height: 1,
+          color: Colors.black,
+        );
+      },
       itemBuilder: (context, index) {
         FMSModel model = widget.models[index];
         List colors = [Tab1Colors.good, Tab1Colors.fair, Tab1Colors.poor];
@@ -35,6 +42,7 @@ class _Tab1EntryListOrganismState extends State<Tab1EntryListOrganism> {
           child: DismissibleEntryRowMolecule(
             onDismissed: (direction) => widget.onDismissed(direction, index),
             child: TextRowMolecule(
+              height: 40,
               colors: {
                 0: Tab1Colors.alternateColors[index % 2],
                 1: colors[model.fScore],

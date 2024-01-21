@@ -25,16 +25,17 @@ class TextRowMolecule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        minHeight: minHeight ?? 0.0,
-      ),
-      child: Container(
-        color: rowColor,
+    return Container(
+      color: rowColor,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: minHeight ?? 0.0,
+        ),
         child: Row(
           children: List.generate(texts.length, (index) {
             return customWidths.containsKey(index)
                 ? Container(
+                    height: height,
                     color: colors.containsKey(index) ? colors[index] : null,
                     child: SizedBox(
                       width: customWidths[index],

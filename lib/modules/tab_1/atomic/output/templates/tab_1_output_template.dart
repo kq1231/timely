@@ -25,7 +25,6 @@ class Tab1OutputTemplate extends StatelessWidget {
     return Stack(
       children: [
         ListView(
-          physics: const NeverScrollableScrollPhysics(),
           children: [
             const Tab1HeaderRowMolecule(),
             Tab1EntryListOrganism(
