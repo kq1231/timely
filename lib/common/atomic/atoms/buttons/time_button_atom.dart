@@ -10,7 +10,7 @@ class TimeButtonAtom extends StatelessWidget {
     super.key,
     required this.initialTime,
     required this.onTimeChanged,
-    this.buttonSize = const Size(90, 30),
+    this.buttonSize = const Size(120, 30),
   });
   const TimeButtonAtom.large({
     super.key,
@@ -44,7 +44,7 @@ class TimeButtonAtom extends StatelessWidget {
           ),
         ),
         child: Text(
-          initialTime.format(context).replaceAll("AM", "").replaceAll("PM", ""),
+          initialTime.format(context),
         ),
       ),
     );
