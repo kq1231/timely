@@ -88,8 +88,9 @@ class Tab1InputTemplate extends ConsumerWidget {
           ),
           const SizedBox(height: 30),
           CancelSubmitRowMolecule(
-              onCancelPressed: () => Navigator.of(context).pop(),
-              onSubmitPressed: () => onSubmitPressed),
+            onCancelPressed: () => Navigator.of(context).pop(),
+            onSubmitPressed: onSubmitPressed,
+          ),
           const SizedBox(
             height: 30,
           ),
