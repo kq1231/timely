@@ -42,7 +42,7 @@ class _Tab1EntryListOrganismState extends State<Tab1EntryListOrganism> {
           child: DismissibleEntryRowMolecule(
             onDismissed: (direction) => widget.onDismissed(direction, index),
             child: TextRowMolecule(
-              height: 40,
+              height: 60,
               colors: {
                 0: Tab1Colors.alternateColors[index % 2],
                 1: colors[model.fScore],
