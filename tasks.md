@@ -478,3 +478,25 @@
 **Inshaa Allah** 
 
 - Ask about end date in tab 12.
+
+---
+
+**Inshaa Allah**
+
+- Common 
+    - Time showing AM/PM
+    - Keyboard does not unfocus
+
+- Launch Screen 
+    - Default text will always be there
+        - Default text_$i {for i in range(3)}
+
+- Tab 1 
+    - Layout boht buri hai
+        - Remove time header 
+    - Show data of 14 days (+1 for today == 15 days)
+    - Submit nahin ho raha 
+
+- Tab 2 
+    - Duration label and pickers in one row
+    - Keyboard not capitalised

@@ -7,9 +7,11 @@ import 'package:timely/tokens/app/app.dart';
 
 class SchedulingInputPage extends ConsumerWidget {
   final bool? showDurationSelector;
+  final int tabNumber;
   const SchedulingInputPage({
     super.key,
     this.showDurationSelector,
+    required this.tabNumber,
   });
 
   @override
@@ -66,7 +68,19 @@ class SchedulingInputPage extends ConsumerWidget {
         );
       },
       model: providerOfTab2Model,
-      onSubmitButtonPressed: () {},
+      onSubmitButtonPressed: () {
+        if (providerOfTab2Model.name!.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Do not leave activity text blank!")));
+        } else {
+          if (providerOfTab2Model.uuid == null) {
+            controller.syncToDB(tabNumber);
+          } else {
+            controller.syncEditedModel(tabNumber);
+          }
+          Navigator.pop(context);
+        }
+      },
     );
   }
 }

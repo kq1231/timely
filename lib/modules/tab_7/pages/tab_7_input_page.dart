@@ -7,6 +7,7 @@ class Tab7InputPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SchedulingInputPage(
+      tabNumber: 7,
       showDurationSelector: false,
     );
   }

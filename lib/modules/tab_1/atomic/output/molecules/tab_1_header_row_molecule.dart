@@ -10,6 +10,7 @@ class Tab1HeaderRowMolecule extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextRowMolecule(
       texts: Tab1Constants.headers,
+      minHeight: 40,
       bolded: true,
       customWidths: const {0: 70},
     );

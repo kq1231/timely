@@ -5,7 +5,6 @@ import 'package:timely/exports/screens.dart';
 import 'package:timely/modules/tab_1/atomic/output/pages/tab_1_output_page.dart';
 import 'package:timely/modules/tab_10/atomic/pages/output/tab_10_output_page.dart';
 import 'package:timely/modules/tab_11/atomic/pages/output/tab_11_output_page.dart';
-import 'package:timely/modules/tab_12/atomic/pages/input/tab_12_input_page.dart';
 import 'package:timely/modules/tab_12/atomic/pages/output/tab_12_summary_page.dart';
 import 'package:timely/modules/tab_2/pages/tab_2_output_page.dart';
 import 'package:timely/modules/tab_3/atomic/pages/output/tab_3_output_page.dart';
