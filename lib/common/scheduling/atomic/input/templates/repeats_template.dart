@@ -77,7 +77,7 @@ class RepeatsTemplate extends StatelessWidget {
           title: "End Repeat",
           widget: DateButtonAtom(
             defaultText: "Never",
-            buttonSize: const Size(150, 40),
+            buttonSize: const Size(160, 50),
             initialDate: model.endDate,
             onDateChanged: (date) => onEndDateChanged(date),
           ),
@@ -92,6 +92,7 @@ class RepeatsTemplate extends StatelessWidget {
               ? Padding(
                   padding: const EdgeInsets.all(AppSizes.p_12),
                   child: GridSelectionMolecule(
+                    selections: model.repetitions["Weekdays"].cast<int>(),
                     texts: "Mon,Tue,Wed,Thu,Fri,Sat,Sun".split(","),
                     onSelectionsChanged: onWeekdaySelectionsChanged,
                   ),

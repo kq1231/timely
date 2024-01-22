@@ -60,7 +60,11 @@ class MonthlySelectionOrganism extends StatelessWidget {
         ),
 
         GridSelectionMolecule(
-          texts: List.generate(31, (index) => (++index).toString()),
+          selections: model.repetitions["Dates"].cast<int>(),
+          texts: List.generate(
+            31,
+            (index) => (++index).toString(),
+          ),
           onSelectionsChanged: (selections) => onSelectionsChanged(selections),
         ),
         model.basis == Basis.day

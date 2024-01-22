@@ -56,7 +56,7 @@ class Tab12InputTemplate extends StatelessWidget {
           padding: const EdgeInsets.all(AppSizes.p_16),
           child: TextFormFieldAtom(
             initialValue: entry.activity,
-            onChanged: (activity) => onActivityChanged,
+            onChanged: onActivityChanged,
             hintText: "Assignment Name",
           ),
         ),
@@ -70,7 +70,7 @@ class Tab12InputTemplate extends StatelessWidget {
           padding: const EdgeInsets.all(AppSizes.p_16),
           child: TextFormFieldAtom(
             initialValue: entry.objective,
-            onChanged: (objective) => onObjectiveChanged,
+            onChanged: onObjectiveChanged,
             hintText: "Objective",
             isTextArea: true,
           ),
@@ -105,18 +105,18 @@ class Tab12InputTemplate extends StatelessWidget {
         TitleWidgetColumnMolecule(
           title: "Assignment Period",
           widget: SizedBox(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSizes.p_16),
               child: ConnectedWidgetsRowMolecule(
                 widgets: [
                   DateButtonAtom(
-                    buttonSize: const Size(130, 30),
+                    buttonSize: const Size(160, 60),
                     initialDate: entry.tab2Model.startDate!,
                     onDateChanged: onStartDateChanged,
                   ),
                   DateButtonAtom(
-                    buttonSize: const Size(130, 30),
+                    buttonSize: const Size(160, 60),
                     initialDate: entry.tab2Model.endDate!,
                     onDateChanged: onEndDateChanged,
                   ),
@@ -127,25 +127,25 @@ class Tab12InputTemplate extends StatelessWidget {
         ),
 
         const SizedBox(
-          height: 20,
+          height: 40,
         ),
 
         // Time Allocation
         TitleWidgetColumnMolecule(
           title: "Time Allocation",
           widget: SizedBox(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSizes.p_16),
               child: ConnectedWidgetsRowMolecule(
                 widgets: [
                   TimeButtonAtom(
-                    buttonSize: const Size(130, 30),
+                    buttonSize: const Size(160, 60),
                     initialTime: entry.tab2Model.startTime,
                     onTimeChanged: onStartTimeChanged,
                   ),
                   TimeButtonAtom(
-                    buttonSize: const Size(130, 30),
+                    buttonSize: const Size(160, 60),
                     initialTime: entry.tab2Model.getEndTime(),
                     onTimeChanged: onEndTimeChanged,
                   ),
@@ -165,7 +165,22 @@ class Tab12InputTemplate extends StatelessWidget {
             title: "Repeats",
             widget: TextButtonAtom(
               onPressed: onPressedRepeatsButton,
-              text: "Daily",
+              text: entry.tab2Model.frequency.toString(),
+            ),
+          ),
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        // |--| Repetition Summary
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSizes.p_8),
+            child: Text(
+              entry.tab2Model.getRepetitionSummary(),
+              style: AppTypography.italicStyle,
             ),
           ),
         ),

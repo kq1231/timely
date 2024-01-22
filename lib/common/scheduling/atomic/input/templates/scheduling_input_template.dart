@@ -98,7 +98,7 @@ class SchedulingInputTemplate extends StatelessWidget {
               child: TitleWidgetRowMolecule(
                 title: "Repeats",
                 widget: TextButtonAtom(
-                  text: "Daily",
+                  text: model.frequency.toString(),
                   onPressed: () => onRepeatsButtonPressed(),
                 ),
               ),

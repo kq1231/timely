@@ -45,19 +45,17 @@ class Tab11OutputTemplate extends StatelessWidget {
                   onTap: () => onTap(index),
                   child: DismissibleEntryRowMolecule(
                     onDismissed: (direction) => onDismissed(direction, index),
-                    child: Padding(
+                    child: TextRowMolecule(
                       padding: const EdgeInsets.all(AppSizes.p_8),
-                      child: TextRowMolecule(
-                        minHeight: 60,
-                        texts: [
-                          model.item.toString(),
-                          model.qty.toString(),
-                        ],
-                        defaultAligned: const [0],
-                        customWidths: const {1: 100},
-                        rowColor: Tab11Colors
-                            .optionColors[model.urgent == true ? 1 : 0],
-                      ),
+                      minHeight: 60,
+                      texts: [
+                        model.item.toString(),
+                        model.qty.toString(),
+                      ],
+                      defaultAligned: const [0],
+                      customWidths: const {1: 100},
+                      rowColor: Tab11Colors
+                          .optionColors[model.urgent == true ? 1 : 0],
                     ),
                   ),
                 );

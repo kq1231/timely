@@ -9,12 +9,10 @@ import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 
 class Tab12DetailPage extends ConsumerStatefulWidget {
   final Tab12EntryModel entry;
-  final List<Tab12SubEntryModel> subEntries;
 
   const Tab12DetailPage({
     super.key,
     required this.entry,
-    required this.subEntries,
   });
 
   @override
@@ -25,24 +23,66 @@ class Tab12DetailPage extends ConsumerStatefulWidget {
 class _Tab12DetailPageState extends ConsumerState<Tab12DetailPage> {
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(tab12OutputProvider);
     final controller = ref.read(tab12OutputProvider.notifier);
 
-    return Tab12DetailTemplate(
-      onTapSubEntry: (entry, subEntry) async {
-        ref.read(tab12SubEntryInputProvider.notifier).setModel(subEntry);
+    return provider.when(
+      data: (models) {
+        Tab12EntryModel entry = widget.entry;
+        List<Tab12SubEntryModel> subEntries = [];
 
-        await Future.delayed(
-          const Duration(milliseconds: 100),
-          () {
-            Navigator.push(
-              context,
+        for (Tab12EntryModel ent in models.keys) {
+          if (ent.uuid == entry.uuid) {
+            subEntries = models[ent]!;
+            break;
+          }
+        }
+
+        return Tab12DetailTemplate(
+          onTapSubEntry: (entry, subEntry) async {
+            ref.read(tab12SubEntryInputProvider.notifier).setModel(subEntry);
+
+            await Future.delayed(
+              const Duration(milliseconds: 100),
+              () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return Scaffold(
+                        appBar: AppBar(),
+                        body: Tab12SubEntryInputPage(
+                          entryID: entry.uuid!,
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            );
+          },
+          entry: widget.entry,
+          subEntries: subEntries,
+          onSubEntryDismissed: (direction, entry, subEntry) {
+            if (direction == DismissDirection.startToEnd) {
+              subEntries.removeWhere((v) => v.uuid == subEntry.uuid);
+              controller.deleteSubEntry(entry.uuid!, subEntry);
+              setState(() {});
+            } else {
+              subEntries.removeWhere((v) => v.uuid == subEntry.uuid);
+              setState(() {});
+
+              controller.markSubEntryAsComplete(entry, subEntry);
+            }
+          },
+          onPressedAdd: (entry) {
+            ref.invalidate(tab12SubEntryInputProvider);
+            Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
                   return Scaffold(
                     appBar: AppBar(),
-                    body: Tab12SubEntryInputPage(
-                      entryID: entry.uuid!,
-                    ),
+                    body: Tab12SubEntryInputPage(entryID: entry.uuid!),
                   );
                 },
               ),
@@ -50,33 +90,10 @@ class _Tab12DetailPageState extends ConsumerState<Tab12DetailPage> {
           },
         );
       },
-      entry: widget.entry,
-      subEntries: widget.subEntries,
-      onSubEntryDismissed: (direction, entry, subEntry) {
-        if (direction == DismissDirection.startToEnd) {
-          widget.subEntries.removeWhere((v) => v.uuid == subEntry.uuid);
-          controller.deleteSubEntry(entry.uuid!, subEntry);
-          setState(() {});
-        } else {
-          widget.subEntries.removeWhere((v) => v.uuid == subEntry.uuid);
-          setState(() {});
-
-          controller.markSubEntryAsComplete(entry, subEntry);
-        }
-      },
-      onPressedAdd: (entry) {
-        ref.invalidate(tab12SubEntryInputProvider);
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return Scaffold(
-                appBar: AppBar(),
-                body: Tab12SubEntryInputPage(entryID: entry.uuid!),
-              );
-            },
-          ),
-        );
-      },
+      error: (_, __) => const Text("ERROR"),
+      loading: () => const Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

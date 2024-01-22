@@ -4,10 +4,12 @@ import 'package:timely/common/scheduling/tokens/scheduling_colors.dart';
 class GridSelectionMolecule extends StatefulWidget {
   final List<String> texts;
   final Function(List<int> selections) onSelectionsChanged;
+  final List<int> selections;
   const GridSelectionMolecule({
     super.key,
     required this.texts,
     required this.onSelectionsChanged,
+    required this.selections,
   });
 
   @override
@@ -18,7 +20,6 @@ class GridSelectionMolecule extends StatefulWidget {
 // InshaaAllah
 
 class _GridSelectionMoleculeState extends State<GridSelectionMolecule> {
-  List<int> selectedIndices = [];
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -30,18 +31,18 @@ class _GridSelectionMoleculeState extends State<GridSelectionMolecule> {
         return InkWell(
           onTap: () {
             setState(() {
-              selectedIndices.contains(index)
-                  ? selectedIndices.remove(index)
-                  : selectedIndices.add(index);
+              widget.selections.contains(index)
+                  ? widget.selections.remove(index)
+                  : widget.selections.add(index);
 
-              widget.onSelectionsChanged(selectedIndices);
+              widget.onSelectionsChanged(widget.selections);
             });
           },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
-              color: selectedIndices.contains(index)
+              color: widget.selections.contains(index)
                   ? SchedulingColors.bgSelected
                   : SchedulingColors.bgDeselected,
             ),

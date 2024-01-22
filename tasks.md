@@ -500,3 +500,10 @@
 - Tab 2 
     - Duration label and pickers in one row -D
     - Keyboard not capitalised -D
+
+---
+
+**Inshaa Allah** 
+
+- Month grid selector does not remember the months selected.
+- Test tab 12 by making different scenarios. Use GPT to analyse possible use-cases. 

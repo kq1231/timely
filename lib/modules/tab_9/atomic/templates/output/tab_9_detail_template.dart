@@ -10,6 +10,8 @@ class Tab9DetailTemplate extends StatelessWidget {
   final List<Tab9SubEntryModel> subEntries;
   final void Function(DismissDirection direction, Tab9EntryModel entry,
       Tab9SubEntryModel subEntry) onSubEntryDismissed;
+  final void Function(Tab9EntryModel entry, Tab9SubEntryModel subEntry)
+      onSubEntryTapped;
   final void Function(Tab9EntryModel entry) onPressedAdd;
 
   const Tab9DetailTemplate({
@@ -18,6 +20,7 @@ class Tab9DetailTemplate extends StatelessWidget {
     required this.subEntries,
     required this.onSubEntryDismissed,
     required this.onPressedAdd,
+    required this.onSubEntryTapped,
   });
 
   @override
@@ -32,18 +35,27 @@ class Tab9DetailTemplate extends StatelessWidget {
                 entry: entry,
               ),
             ),
+            const Divider(
+              height: 20,
+            ),
             ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return DismissibleEntryRowMolecule(
-                  onDismissed: (direction) => onSubEntryDismissed(
-                    direction,
-                    entry,
-                    subEntries[index],
-                  ),
-                  child: Tab9SubEntryCardMolecule(
-                    subEntry: subEntries[index],
+                return InkWell(
+                  onTap: () => onSubEntryTapped(entry, subEntries[index]),
+                  child: DismissibleEntryRowMolecule(
+                    onDismissed: (direction) => onSubEntryDismissed(
+                      direction,
+                      entry,
+                      subEntries[index],
+                    ),
+                    child: Container(
+                      color: Colors.indigoAccent,
+                      child: Tab9SubEntryCardMolecule(
+                        subEntry: subEntries[index],
+                      ),
+                    ),
                   ),
                 );
               },

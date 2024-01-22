@@ -33,7 +33,7 @@ class Tab9SubEntryInputNotifier extends Notifier<Tab9SubEntryModel> {
     if (state.uuid != null) {
       await ref
           .read(tab9RepositoryServiceProvider.notifier)
-          .updateSubEntry(entryUuid, state, file, Tab9SubEntryModel.fromJson);
+          .updateSubEntry(entryUuid, state, file, Tab9EntryModel.fromJson);
     } else {
       await ref.read(tab9RepositoryServiceProvider.notifier).writeSubEntry(
           entryUuid,

@@ -39,9 +39,7 @@ class Tab12InputPage extends ConsumerWidget {
       onEndTimeChanged: (endTime) => entryController.setEndTime(endTime),
       onNextTaskChanged: (nextTask) => subEntryController.setNextTask(nextTask),
       onSubmitPressed: () {
-        ref.read(tab12EntryInputProvider.notifier).syncToDB(
-              ref.read(tab12SubEntryInputProvider),
-            );
+        entryController.syncToDB(subEntry);
         ref.invalidate(tab12OutputProvider);
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(

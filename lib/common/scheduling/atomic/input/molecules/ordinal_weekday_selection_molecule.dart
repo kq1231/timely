@@ -34,11 +34,11 @@ class OrdinalWeekdaySelectionMolecule extends StatelessWidget {
       children: [
         Expanded(
           child: CupertinoPickerAtom(
-            itemExtent: 40,
+            itemExtent: 70,
             onSelectedItemChanged: (index) => onOrdinalPositionChanged(index),
             elements: sliderNames[0],
             initialItemIndex: initialOrdinalPosition,
-            size: const Size(0, 150),
+            size: const Size(0, 200),
           ),
         ),
 
@@ -46,11 +46,11 @@ class OrdinalWeekdaySelectionMolecule extends StatelessWidget {
 
         Expanded(
           child: CupertinoPickerAtom(
-            itemExtent: 40,
+            itemExtent: 70,
             onSelectedItemChanged: (index) => onWeekdayIndexChanged(index),
-            elements: sliderNames[0],
+            elements: sliderNames[1],
             initialItemIndex: initialWeekdayIndex,
-            size: const Size(0, 150),
+            size: const Size(0, 200),
           ),
         )
       ],

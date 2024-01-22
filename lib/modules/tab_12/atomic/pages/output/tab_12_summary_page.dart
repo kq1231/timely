@@ -85,7 +85,6 @@ class _Tab12SummaryPageState extends ConsumerState<Tab12SummaryPage> {
                     appBar: AppBar(),
                     body: Tab12DetailPage(
                       entry: entry,
-                      subEntries: subEntries,
                     ),
                   );
                 },
