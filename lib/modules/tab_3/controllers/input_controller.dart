@@ -42,7 +42,7 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
   Future<void> syncToDB() async {
     final file = (await ref.read(dbFilesProvider.future))[3]![0];
     state.uuid != null
-        ? (state.date == null || state.time == null)
+        ? (state.date == null && state.time == null)
             ? await ref.read(tab4RepositoryProvider.notifier).editModel(state)
             : await ref
                 .read(tab3RepositoryServiceProvider.notifier)

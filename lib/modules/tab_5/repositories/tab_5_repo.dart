@@ -36,7 +36,7 @@ class Tab5RepositoryNotifier extends Notifier<AsyncValue<void>> {
     final spwModels = <SPWModel>[];
     for (final date in jsonContent.keys.toList().reversed) {
       final scores = jsonContent[date][0];
-      final weight = jsonContent[date][1] as double;
+      final weight = jsonContent[date][1] ?? 0.0;
       spwModels.add(
         SPWModel(
           date: DateTime.parse(date),

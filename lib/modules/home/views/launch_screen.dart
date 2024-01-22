@@ -39,17 +39,18 @@ class LaunchScreen extends ConsumerWidget {
                                       ref.watch(remainingTimeTickerProvider);
 
                                   return remTime.when(
-                                      data: (diff) {
-                                        return Text(
-                                          diff,
-                                          style: LaunchScreenLayout.timeStyle,
-                                        );
-                                      },
-                                      error: (_, __) => const Text("ERROR"),
-                                      loading: () =>
-                                          const CircularProgressIndicator(
-                                            color: Colors.black,
-                                          ));
+                                    data: (diff) {
+                                      return Text(
+                                        diff,
+                                        style: LaunchScreenLayout.timeStyle,
+                                      );
+                                    },
+                                    error: (_, __) => const Text("ERROR"),
+                                    loading: () =>
+                                        const CircularProgressIndicator(
+                                      color: Colors.black,
+                                    ),
+                                  );
                                 },
                               ),
                             ),
@@ -81,7 +82,9 @@ class LaunchScreen extends ConsumerWidget {
                         color: launchSectionTwoColor,
                         child: Center(
                           child: Text(
-                            data["tab_1Text"],
+                            data["tab_1Text"] != ""
+                                ? data["tab_1Text"]
+                                : "Default Text 1",
                             style: LaunchScreenLayout.tab1TextStyle,
                           ),
                         ),
@@ -94,53 +97,61 @@ class LaunchScreen extends ConsumerWidget {
                       flex: 3,
                       child: Container(
                         color: launchSectionThreeColor,
-                        child: ListView.builder(
-                          itemBuilder: (context, index) {
-                            List models = data["tab_3"];
+                        child: data["tab_3"].length == 0
+                            ? const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(child: Text("Default Text 2")),
+                                ],
+                              )
+                            : ListView.builder(
+                                itemBuilder: (context, index) {
+                                  List models = data["tab_3"];
 
-                            return Column(
-                              children: [
-                                const Divider(
-                                  height: 0.2,
-                                ),
-                                Container(
-                                  color: LaunchScreenLayout
-                                      .colors[models[index].priority],
-                                  child: ConstrainedBox(
-                                    constraints:
-                                        const BoxConstraints(minHeight: 50),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              models[index].text_1,
-                                              style: LaunchScreenLayout
-                                                  .tab3TextStyle,
-                                            ),
+                                  return Column(
+                                    children: [
+                                      const Divider(
+                                        height: 0.2,
+                                      ),
+                                      Container(
+                                        color: LaunchScreenLayout
+                                            .colors[models[index].priority],
+                                        child: ConstrainedBox(
+                                          constraints: const BoxConstraints(
+                                              minHeight: 50),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    models[index].text_1,
+                                                    style: LaunchScreenLayout
+                                                        .tab3TextStyle,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 70,
+                                                child: Center(
+                                                  child: Text(
+                                                      models[index]
+                                                          .time
+                                                          .format(context),
+                                                      style: LaunchScreenLayout
+                                                          .tab3TextStyle),
+                                                ),
+                                              )
+                                            ],
                                           ),
                                         ),
-                                        SizedBox(
-                                          width: 70,
-                                          child: Center(
-                                            child: Text(
-                                                models[index]
-                                                    .time
-                                                    .format(context),
-                                                style: LaunchScreenLayout
-                                                    .tab3TextStyle),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                          itemCount: data["tab_3"].length,
-                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                                itemCount: data["tab_3"].length,
+                              ),
                       ),
                     ),
                     const Divider(
@@ -151,52 +162,59 @@ class LaunchScreen extends ConsumerWidget {
                       flex: 1,
                       child: Container(
                         color: launchSectionFourColor,
-                        child: Center(
-                          child: ListView.builder(
-                            itemBuilder: (context, index) {
-                              return Column(
+                        child: data["tab_4"].length == 0
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  ConstrainedBox(
-                                    constraints:
-                                        const BoxConstraints(minHeight: 50),
-                                    child: Container(
-                                      color: LaunchScreenLayout
-                                          .colors[data["tab_4"][index][0]],
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 30,
-                                            child: Center(
-                                              child: Text(
-                                                "${index + 1}",
-                                                style: LaunchScreenLayout
-                                                    .tab4TextStyle,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              data["tab_4"][index][1],
-                                              style: LaunchScreenLayout
-                                                  .tab4TextStyle,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  index != data["tab_4"].length - 1
-                                      ? Divider(
-                                          color: Colors.grey[900],
-                                          height: 1,
-                                        )
-                                      : Container(),
+                                  Flexible(child: Text("Default Text 3")),
                                 ],
-                              );
-                            },
-                            itemCount: data["tab_4"].length,
-                          ),
-                        ),
+                              )
+                            : Center(
+                                child: ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      children: [
+                                        ConstrainedBox(
+                                          constraints: const BoxConstraints(
+                                              minHeight: 50),
+                                          child: Container(
+                                            color: LaunchScreenLayout.colors[
+                                                data["tab_4"][index][0]],
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 30,
+                                                  child: Center(
+                                                    child: Text(
+                                                      "${index + 1}",
+                                                      style: LaunchScreenLayout
+                                                          .tab4TextStyle,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    data["tab_4"][index][1],
+                                                    style: LaunchScreenLayout
+                                                        .tab4TextStyle,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        index != data["tab_4"].length - 1
+                                            ? Divider(
+                                                color: Colors.grey[900],
+                                                height: 1,
+                                              )
+                                            : Container(),
+                                      ],
+                                    );
+                                  },
+                                  itemCount: data["tab_4"].length,
+                                ),
+                              ),
                       ),
                     ),
                     const Divider(

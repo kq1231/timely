@@ -20,7 +20,7 @@ class SchedulingInputPage extends ConsumerWidget {
     final controller = ref.read(tab2InputProvider.notifier);
 
     return SchedulingInputTemplate(
-      showDurationSelector: true,
+      showDurationSelector: showDurationSelector,
       onActivityChanged: (activity) => controller.setName(activity),
       onStartTimeChanged: (time) => controller.setStartTime(time),
       onHoursChanged: (hours) => controller.setDuration(

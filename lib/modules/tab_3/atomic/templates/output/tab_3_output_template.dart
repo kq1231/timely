@@ -53,6 +53,7 @@ class Tab3OutputTemplate extends StatelessWidget {
                         onDismissed: (direction) =>
                             onDismissed(direction, date, index),
                         child: TextRowMolecule(
+                          minHeight: 60,
                           rowColor: date.isBefore(
                             DateTime(
                                 dateToday.year, dateToday.month, dateToday.day),

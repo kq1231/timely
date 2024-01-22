@@ -10,8 +10,13 @@ import 'package:timely/reusables.dart';
 class SchedulingOutputRepage extends ConsumerStatefulWidget {
   final AsyncNotifierProvider<Tab2OutputNotifier, List<Tab2Model>>
       providerOfTab2Models;
+  final Widget inputPage;
 
-  const SchedulingOutputRepage({super.key, required this.providerOfTab2Models});
+  const SchedulingOutputRepage({
+    super.key,
+    required this.providerOfTab2Models,
+    required this.inputPage,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -66,7 +71,7 @@ class _Tab2OutputRepageState extends ConsumerState<SchedulingOutputRepage> {
                 MaterialPageRoute(
                   builder: (context) {
                     return Scaffold(
-                      body: const Tab2InputPage(),
+                      body: widget.inputPage,
                       appBar: AppBar(),
                     );
                   },

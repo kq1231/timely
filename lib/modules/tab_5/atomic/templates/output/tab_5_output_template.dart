@@ -29,8 +29,10 @@ class Tab5OutputTemplate extends StatelessWidget {
         Column(
           children: [
             TextRowMolecule(
+              height: 40,
+              bolded: true,
               texts: "Date,S,P,W,Weight".split(","),
-              customWidths: const {0: 100, 4: 100},
+              customWidths: const {0: 120, 4: 100},
             ),
             ListView.builder(
               shrinkWrap: true,
@@ -51,7 +53,7 @@ class Tab5OutputTemplate extends StatelessWidget {
                         model.wScore.toString(),
                         model.weight.toString(),
                       ],
-                      customWidths: const {0: 100, 4: 100},
+                      customWidths: const {0: 120, 4: 100},
                       colors: {
                         1: Tab5Colors.spwColors[model.sScore],
                         2: Tab5Colors.spwColors[model.pScore],

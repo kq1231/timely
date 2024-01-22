@@ -4,6 +4,7 @@ import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecu
 import 'package:timely/common/atomic/molecules/rows/navigation_row_molecule.dart';
 import 'package:timely/modules/tab_11/models/tab_11_model.dart';
 import 'package:timely/modules/tab_11/tokens/tab_11_colors.dart';
+import 'package:timely/tokens/app/app_sizes.dart';
 
 class Tab11OutputTemplate extends StatelessWidget {
   final List<Tab11Model> models;
@@ -27,9 +28,13 @@ class Tab11OutputTemplate extends StatelessWidget {
       children: [
         ListView(
           children: [
-            TextRowMolecule(
-              texts: "Item,Quantity".split(","),
-              defaultAligned: const [0],
+            Padding(
+              padding: const EdgeInsets.all(AppSizes.p_8),
+              child: TextRowMolecule(
+                texts: "Item,Quantity".split(","),
+                defaultAligned: const [0],
+                customWidths: const {1: 100},
+              ),
             ),
             ...List.generate(
               models.length,
@@ -40,16 +45,19 @@ class Tab11OutputTemplate extends StatelessWidget {
                   onTap: () => onTap(index),
                   child: DismissibleEntryRowMolecule(
                     onDismissed: (direction) => onDismissed(direction, index),
-                    child: TextRowMolecule(
-                      minHeight: 40,
-                      texts: [
-                        model.item.toString(),
-                        model.qty.toString(),
-                      ],
-                      defaultAligned: const [0],
-                      customWidths: const {1: 100},
-                      rowColor: Tab11Colors
-                          .optionColors[model.urgent == true ? 1 : 0],
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppSizes.p_8),
+                      child: TextRowMolecule(
+                        minHeight: 60,
+                        texts: [
+                          model.item.toString(),
+                          model.qty.toString(),
+                        ],
+                        defaultAligned: const [0],
+                        customWidths: const {1: 100},
+                        rowColor: Tab11Colors
+                            .optionColors[model.urgent == true ? 1 : 0],
+                      ),
                     ),
                   ),
                 );

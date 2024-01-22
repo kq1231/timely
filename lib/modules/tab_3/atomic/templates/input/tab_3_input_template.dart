@@ -102,7 +102,7 @@ class Tab3InputTemplate extends StatelessWidget {
         child: children[index],
       ),
       separatorBuilder: (context, index) =>
-          [0, children.length - 2].contains(index)
+          [0, 2, children.length - 2].contains(index)
               ? Container()
               : const Divider(height: 40),
       itemCount: children.length,

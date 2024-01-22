@@ -34,6 +34,7 @@ class Tab4OutputTemplate extends StatelessWidget {
                   child: DismissibleEntryRowMolecule(
                     onDismissed: (direction) => onDismissed(direction, index),
                     child: TextRowMolecule(
+                      minHeight: 60,
                       rowColor: Tab3OutputColors
                           .priorityColors[models[index].priority],
                       texts: [

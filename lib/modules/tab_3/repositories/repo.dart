@@ -5,7 +5,7 @@ import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
 import 'package:timely/reusables.dart';
 
-class RepositoryNotifier extends Notifier<void> {
+class Tab3RepositoryNotifier extends Notifier<void> {
   @override
   void build() {}
 
@@ -32,9 +32,8 @@ class RepositoryNotifier extends Notifier<void> {
     final tab3File = (await ref.read(dbFilesProvider.future))[3]![0];
     final jsonContent = jsonDecode(await tab3File.readAsString());
 
-    print(model.date);
-    String date = model.date.toString().substring(0, 10);
     if (model.date != null) {
+      String date = model.date.toString().substring(0, 10);
       if (!jsonContent.keys.contains(date)) {
         jsonContent[date] = [];
       }

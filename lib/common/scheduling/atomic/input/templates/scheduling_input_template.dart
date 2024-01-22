@@ -18,16 +18,17 @@ class SchedulingInputTemplate extends StatelessWidget {
   final VoidCallback onRepeatsButtonPressed;
   final VoidCallback onSubmitButtonPressed;
 
-  const SchedulingInputTemplate(
-      {super.key,
-      this.showDurationSelector,
-      required this.onActivityChanged,
-      required this.onStartTimeChanged,
-      required this.onHoursChanged,
-      required this.onMinutesChanged,
-      required this.onRepeatsButtonPressed,
-      required this.model,
-      required this.onSubmitButtonPressed});
+  const SchedulingInputTemplate({
+    super.key,
+    this.showDurationSelector,
+    required this.onActivityChanged,
+    required this.onStartTimeChanged,
+    required this.onHoursChanged,
+    required this.onMinutesChanged,
+    required this.onRepeatsButtonPressed,
+    required this.model,
+    required this.onSubmitButtonPressed,
+  });
 
   @override
   Widget build(BuildContext context) {

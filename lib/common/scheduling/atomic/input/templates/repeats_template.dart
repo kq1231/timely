@@ -77,7 +77,7 @@ class RepeatsTemplate extends StatelessWidget {
           title: "End Repeat",
           widget: DateButtonAtom(
             defaultText: "Never",
-            buttonSize: const Size(130, 40),
+            buttonSize: const Size(150, 40),
             initialDate: model.endDate,
             onDateChanged: (date) => onEndDateChanged(date),
           ),

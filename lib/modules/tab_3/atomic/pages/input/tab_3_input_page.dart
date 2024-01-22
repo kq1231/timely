@@ -25,6 +25,9 @@ class Tab3InputPage extends ConsumerWidget {
       onPriorityChanged: (index) => controller.setPriority(index),
       onCancelPressed: () => Navigator.pop(context),
       onSubmitPressed: () {
+        if (removeDateTime == true) {
+          controller.removeDateAndTime();
+        }
         controller.syncToDB();
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(

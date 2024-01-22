@@ -487,9 +487,9 @@
     - Time should show AM/PM nicely -D
     - Keyboard does not unfocus
 
-- Launch Screen 
-    - Default text will always be there
-        - Default text_$i {for i in range(3)}
+- Launch Screen -D
+    - Default text will always be there -D
+        - Default text_$i {for i in range(3)} -D
 
 - Tab 1 -D
     - Layout boht buri hai

@@ -35,7 +35,7 @@ class Tab10OutputTemplate extends StatelessWidget {
               child: DismissibleEntryRowMolecule(
                 onDismissed: (direction) => onDismissed(direction, index),
                 child: TextRowMolecule(
-                  minHeight: 40,
+                  minHeight: 60,
                   texts: [
                     model.amount.toString(),
                     model.text_1,

@@ -4,7 +4,7 @@ import 'package:timely/modules/tab_3/repositories/repo.dart';
 
 // Repositories are used to communicate to the external world eg. DB, REST API.
 
-class Tab3RepositoryServiceNotifier extends RepositoryNotifier {
+class Tab3RepositoryServiceNotifier extends Tab3RepositoryNotifier {
   @override
   build() {
     return;
