@@ -16,18 +16,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
-      child: MaterialApp(
-        theme: appDarkTheme,
-        themeMode: ThemeMode.dark,
-        home: const MyHomePage(),
-      ),
+    return MaterialApp(
+      theme: appDarkTheme,
+      themeMode: ThemeMode.dark,
+      home: const MyHomePage(),
     );
   }
 }
@@ -59,24 +51,33 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           if (snapshot.connectionState == ConnectionState.done) {
             return Consumer(
               builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                return Scaffold(
-                  appBar: AppBar(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.inversePrimary,
-                    title: Text(
-                      DateFormat(DateFormat.ABBR_MONTH_DAY).format(
-                        DateTime.now(),
+                return GestureDetector(
+                  onTap: () {
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
+                  },
+                  child: Scaffold(
+                    appBar: AppBar(
+                      backgroundColor:
+                          Theme.of(context).colorScheme.inversePrimary,
+                      title: Text(
+                        DateFormat(DateFormat.ABBR_MONTH_DAY).format(
+                          DateTime.now(),
+                        ),
                       ),
+                      actions: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: IconButton.outlined(
+                              onPressed: () {},
+                              icon: const Icon(Icons.settings)),
+                        )
+                      ],
                     ),
-                    actions: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: IconButton.outlined(
-                            onPressed: () {}, icon: const Icon(Icons.settings)),
-                      )
-                    ],
+                    body: tabs[ref.watch(tabIndexProvider)],
                   ),
-                  body: tabs[ref.watch(tabIndexProvider)],
                 );
               },
             );

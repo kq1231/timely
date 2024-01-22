@@ -485,7 +485,6 @@
 
 - Common
     - Time should show AM/PM nicely -D
-    - Keyboard does not unfocus
 
 - Launch Screen -D
     - Default text will always be there -D
@@ -505,5 +504,6 @@
 
 **Inshaa Allah** 
 
-- Month grid selector does not remember the months selected.
+- Monthly, yearly and weekly grid selectors do not remember the months selected. -D
 - Test tab 12 by making different scenarios. Use GPT to analyse possible use-cases. 
+- Fix keyboard focus issue
