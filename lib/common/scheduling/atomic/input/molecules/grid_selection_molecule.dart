@@ -3,12 +3,12 @@ import 'package:timely/common/scheduling/tokens/scheduling_colors.dart';
 
 class GridSelectionMolecule extends StatefulWidget {
   final List<String> texts;
-  final Function(List<int> selections) onSelectionsChanged;
+  final Function(int index) onTapTile;
   final List<int> selections;
   const GridSelectionMolecule({
     super.key,
     required this.texts,
-    required this.onSelectionsChanged,
+    required this.onTapTile,
     required this.selections,
   });
 
@@ -29,15 +29,7 @@ class _GridSelectionMoleculeState extends State<GridSelectionMolecule> {
           maxCrossAxisExtent: 50),
       itemBuilder: (context, index) {
         return InkWell(
-          onTap: () {
-            setState(() {
-              widget.selections.contains(index)
-                  ? widget.selections.remove(index)
-                  : widget.selections.add(index);
-
-              widget.onSelectionsChanged(widget.selections);
-            });
-          },
+          onTap: () => widget.onTapTile(index),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(

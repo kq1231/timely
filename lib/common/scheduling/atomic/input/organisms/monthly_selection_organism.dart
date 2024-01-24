@@ -65,7 +65,13 @@ class MonthlySelectionOrganism extends StatelessWidget {
             31,
             (index) => (++index).toString(),
           ),
-          onSelectionsChanged: (selections) => onSelectionsChanged(selections),
+          onTapTile: (index) {
+            model.repetitions["Dates"].contains(index)
+                ? model.repetitions["Dates"].remove(index)
+                : model.repetitions["Dates"].add(index);
+
+            onSelectionsChanged(model.repetitions["Dates"].cast<int>());
+          },
         ),
         model.basis == Basis.day
             ? OrdinalWeekdaySelectionMolecule(

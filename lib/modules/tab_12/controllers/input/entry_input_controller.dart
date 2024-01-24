@@ -56,8 +56,9 @@ class Tab12InputNotifier extends Notifier<Tab12EntryModel> {
 
   void setEndTime(TimeOfDay endTime) {
     Duration dur = DateTime(0, 0, 0, endTime.hour, endTime.minute).difference(
-        DateTime(0, 0, 0, state.tab2Model.startTime.hour,
-            state.tab2Model.startTime.minute));
+      DateTime(0, 0, 0, state.tab2Model.startTime.hour,
+          state.tab2Model.startTime.minute),
+    );
 
     state = state.copyWith(
       tab2Model: state.tab2Model.copyWith(dur: dur),
@@ -79,10 +80,12 @@ class Tab12InputNotifier extends Notifier<Tab12EntryModel> {
     );
 
     if (basis == Basis.day) {
-      setRepetitions({
-        ...state.tab2Model.repetitions,
-        "DoW": [0, 0],
-      });
+      setRepetitions(
+        {
+          ...state.tab2Model.repetitions,
+          "DoW": [0, 0],
+        },
+      );
     }
   }
 
@@ -121,14 +124,23 @@ class Tab12InputNotifier extends Notifier<Tab12EntryModel> {
           setBasis(Basis.day);
         }
 
-        setRepetitions({
-          "Months": [],
-          "DoW": [0, 0]
-        });
+        setRepetitions(
+          {
+            "Months": [],
+            "DoW": [
+              0,
+              0,
+            ],
+          },
+        );
 
       case "Weekly":
         resetBasis();
-        setRepetitions({"Weekdays": []});
+        setRepetitions(
+          {
+            "Weekdays": [],
+          },
+        );
 
       case "Daily":
         if (state.tab2Model.basis == null) {

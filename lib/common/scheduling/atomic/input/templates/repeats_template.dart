@@ -94,7 +94,14 @@ class RepeatsTemplate extends StatelessWidget {
                   child: GridSelectionMolecule(
                     selections: model.repetitions["Weekdays"].cast<int>(),
                     texts: "Mon,Tue,Wed,Thu,Fri,Sat,Sun".split(","),
-                    onSelectionsChanged: onWeekdaySelectionsChanged,
+                    onTapTile: (index) {
+                      model.repetitions["Weekdays"].contains(index)
+                          ? model.repetitions["Weekdays"].remove(index)
+                          : model.repetitions["Weekdays"].add(index);
+
+                      onWeekdaySelectionsChanged(
+                          model.repetitions["Weekdays"].cast<int>());
+                    },
                   ),
                 )
               : model.frequency == "Monthly"

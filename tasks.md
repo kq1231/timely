@@ -506,4 +506,8 @@
 
 - Monthly, yearly and weekly grid selectors do not remember the months selected. -D
 - Test tab 12 by making different scenarios. Use GPT to analyse possible use-cases. 
-- Fix keyboard focus issue
+- Fix keyboard focus issue. -D
+- Make tab 12 repeats module DRYer
+    - Do not copy and paste the same functions of tab 2 input controller to the entry input controller. 
+    - Instead, use the tab 2 controller and pass the Tab2Model when submit button is pressed. 
+- Tab 1, "Default Text 1" keeps coming back after every app launch. The text I enter goes missing. 

@@ -8,7 +8,11 @@ import 'package:timely/tokens/app/themes/app_dark_theme.dart';
 import 'exports/screens.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

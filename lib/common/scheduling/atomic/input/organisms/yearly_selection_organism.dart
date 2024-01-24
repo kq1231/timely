@@ -29,9 +29,19 @@ class YearlySelectionOrganism extends StatelessWidget {
       children: [
         // Grid of Months in Tiles
         GridSelectionMolecule(
-          selections: model.repetitions["Months"].cast<int>(),
+          selections: model.repetitions["Months"]
+              .map((val) => val - 1)
+              .toList()
+              .cast<int>(),
           texts: months,
-          onSelectionsChanged: (selections) => onSelectionsChanged(selections),
+          onTapTile: (index) {
+            print(index);
+            model.repetitions["Months"].contains(index + 1)
+                ? model.repetitions["Months"].remove(index + 1)
+                : model.repetitions["Months"].add(index + 1);
+
+            onSelectionsChanged(model.repetitions["Months"].cast<int>());
+          },
         ),
 
         const SizedBox(
