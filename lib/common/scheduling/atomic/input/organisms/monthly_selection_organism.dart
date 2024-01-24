@@ -59,20 +59,6 @@ class MonthlySelectionOrganism extends StatelessWidget {
           height: 20,
         ),
 
-        GridSelectionMolecule(
-          selections: model.repetitions["Dates"].cast<int>(),
-          texts: List.generate(
-            31,
-            (index) => (++index).toString(),
-          ),
-          onTapTile: (index) {
-            model.repetitions["Dates"].contains(index)
-                ? model.repetitions["Dates"].remove(index)
-                : model.repetitions["Dates"].add(index);
-
-            onSelectionsChanged(model.repetitions["Dates"].cast<int>());
-          },
-        ),
         model.basis == Basis.day
             ? OrdinalWeekdaySelectionMolecule(
                 onOrdinalPositionChanged: onOrdinalPositionChanged,
@@ -80,7 +66,20 @@ class MonthlySelectionOrganism extends StatelessWidget {
                 initialOrdinalPosition: model.repetitions["DoW"][0],
                 initialWeekdayIndex: model.repetitions["DoW"][1],
               )
-            : Container(),
+            : GridSelectionMolecule(
+                selections: model.repetitions["Dates"].cast<int>(),
+                texts: List.generate(
+                  31,
+                  (index) => (++index).toString(),
+                ),
+                onTapTile: (index) {
+                  model.repetitions["Dates"].contains(index)
+                      ? model.repetitions["Dates"].remove(index)
+                      : model.repetitions["Dates"].add(index);
+
+                  onSelectionsChanged(model.repetitions["Dates"].cast<int>());
+                },
+              ),
       ],
     );
   }

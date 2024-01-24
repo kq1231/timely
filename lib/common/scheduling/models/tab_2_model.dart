@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
-import 'dart:math';
 
 class Tab2Model {
   String? uuid;
@@ -129,7 +128,7 @@ class Tab2Model {
 
   // The following functions calculate the next closest date on which
   // the task is set to occur.
-  List<int> getOccurences() {
+  List<int> getOccurences(year, month) {
     List<int> occurences = [];
     int dayOfWeek = repetitions["DoW"][1];
     // Get all occurences of $day
@@ -137,17 +136,18 @@ class Tab2Model {
     int num = 0;
     while (true) {
       num++;
-      if (DateTime(DateTime.now().year, DateTime.now().month, num).weekday ==
-          (dayOfWeek + 1)) {
+      if (DateTime(year, month, num).weekday == (dayOfWeek + 1)) {
         firstOccurence = num - 1; // As index.
         break;
       }
     }
+
+    print("FIRST OCCURRENCE: $firstOccurence for $year and $month");
     num = 0;
     while (true) {
       num++;
       if ((firstOccurence + 1) + (7 * num) < 31) {
-        occurences.add((firstOccurence + 1) + (7 * num));
+        occurences.add((firstOccurence) + (7 * num));
       } else {
         break;
       }
@@ -187,6 +187,8 @@ class Tab2Model {
   DateTime getNextOccurenceDateTime() {
     TimeOfDay endTime = getEndTime();
     DateTime today = DateTime.now();
+    DateTime start =
+        startDate!.copyWith(hour: startTime.hour, minute: startTime.minute);
 
     // Assuming endDate is a DateTime object
     if ((endDate ?? DateTime(double.maxFinite.toInt())).isBefore(today)) {
@@ -200,35 +202,36 @@ class Tab2Model {
             .copyWith(hour: endTime.hour, minute: endTime.minute);
 
       case "Weekly":
-        int firstDayIndex = startDate!.copyWith(day: 1).weekday - 1;
-        if (!(basis == Basis.day)) {
-          List weekdays = repetitions["Weekdays"];
-          weekdays.sort();
-          List filteredWeekdays = weekdays
-              .where((element) => element >= (today.weekday - 1))
-              .toList();
-          int weekNumber =
-              ((today.difference(startDate!).inDays + 1 + firstDayIndex) / 7)
-                      .ceil() -
-                  1;
-          return today
-              .add(Duration(
-                  days: (filteredWeekdays[0] - (today.weekday - 1)) +
-                      (weekNumber % every) * 7))
-              .copyWith(hour: endTime.hour, minute: endTime.minute);
-        } else {
-          return DateTime(0); // DUMMY datetime
+        List<int> weekdayIndices = repetitions["Weekdays"].cast<int>();
+        DateTime nextDate = DateTime(0);
+        int i = 0;
+        bool found = false;
+
+        // Sort
+        weekdayIndices.sort();
+
+        while (!found && weekdayIndices.isNotEmpty) {
+          for (int weekdayIndex in weekdayIndices) {
+            nextDate = start.copyWith(
+                day: start.day +
+                    (((((start.day - today.day) * 7) / (every)).floor() + 1) *
+                            (every * i) *
+                            7 +
+                        (weekdayIndex -
+                            (today.weekday -
+                                1)) // -1 as today.weekday does not return an index.
+                    ));
+            if (nextDate.isAfter(today)) {
+              found = true;
+              break;
+            }
+          }
+          i++;
         }
 
+        return nextDate;
+
       case "Monthly":
-        DateTime start = startDate!;
-        List dates = basis == Basis.date
-            ? repetitions["Dates"]
-            : [getOccurences()[repetitions["DoW"][0]]];
-
-        // Sort the dates
-        dates.sort();
-
         // First, calculate the closest occurring month
         // Formula: Start + [floor((Current - Start) / n) + 1] * n, where n = Every
         // Check if any of the dates exist in that month
@@ -239,13 +242,40 @@ class Tab2Model {
         DateTime nextDate = DateTime(0);
         int i = 0;
         bool found = false;
-        while (!found && dates.isNotEmpty) {
+
+        while (!found) {
           nextDate = start.copyWith(
-              month: start.month +
-                  ((today.month - start.month) / every + 1).floor() *
-                      (every *
-                          i)); // We are adding i because we want to go to the
+            month: start.month +
+                ((today.month - start.month) / every + 1).floor() * (every * i),
+          ); // We are adding i because we want to go to the
           // 2nd next closest month if the 1st closest does not suffice.
+
+          List<int> dates = [];
+          if (basis == Basis.date) {
+            dates = repetitions["Dates"].cast<int>();
+            if (dates.isEmpty) {
+              // Dates will be empty if none are selected.
+              break;
+            }
+          } else if (basis == Basis.day) {
+            try {
+              int ordinalPosition = repetitions["DoW"][0];
+              if (ordinalPosition != 5) {
+                dates = [
+                  getOccurences(nextDate.year, nextDate.month)[ordinalPosition]
+                ];
+              } else {
+                dates = [
+                  getOccurences(nextDate.year, nextDate.month).last
+                ]; // OP of 5 means the last one.
+              }
+            } catch (e) {
+              dates = [];
+            }
+          }
+
+          // Sort the dates
+          dates.sort();
 
           for (int date in dates) {
             date += 1; // Since it is an index.
