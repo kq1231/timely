@@ -96,7 +96,9 @@ class Tab12InputNotifier extends Notifier<Tab12EntryModel> {
   }
 
   void setEvery(int every) {
-    state.tab2Model.every = every;
+    state = state.copyWith(
+      tab2Model: state.tab2Model.copyWith(every: every),
+    );
   }
 
   void setFrequency(frequency) {

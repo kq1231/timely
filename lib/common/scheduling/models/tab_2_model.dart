@@ -360,7 +360,7 @@ class Tab2Model {
       case "Monthly":
         if (basis == Basis.date) {
           repetitionSummary =
-              "Repeats on ${repetitions['Dates'].join(', ')} every $every months";
+              "Repeats on ${repetitions['Dates'].map((date) => date + 1).join(', ')} every $every ${every == 1 ? "month" : "months"}";
         } else {
           repetitionSummary =
               "Repeats on the ${sliderNames[0][repetitions["DoW"][0]].toLowerCase()} ${sliderNames[1][repetitions["DoW"][1]]} every $every months";
