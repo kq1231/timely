@@ -31,6 +31,12 @@ class Tab2OutputNotifier<T> extends OutputNotifier<Tab2Model> {
         .read(schedulingRepositoryServiceProvider.notifier)
         .fetchModels(modelizer, currentFile);
 
+    models.sort((a, b) {
+      Duration dur = DateTime(0, 0, 0, a.startTime.hour, a.startTime.minute)
+          .difference(DateTime(0, 0, 0, b.startTime.hour, b.startTime.minute));
+      return dur.inMinutes;
+    });
+
     return models;
   }
 }

@@ -48,14 +48,18 @@ class Tab1PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
     if (currentTime.hour > 6) {
       nextUpdateTime = TimeOfDay(hour: currentTime.hour + 1, minute: 0);
     }
-    if (!(jsonContent.keys.toList().contains(dateToday))) {
-      await writeFMSModel(FMSModel(
-          date: dateToday,
-          fScore: 0,
-          mScore: 0,
-          sScore: 0,
-          text_1: "",
-          nextUpdateTime: nextUpdateTime));
+    if (!(jsonContent.keys
+        .toList()
+        .contains(dateToday.toString().substring(0, 10)))) {
+      await writeFMSModel(
+        FMSModel(
+            date: dateToday,
+            fScore: 0,
+            mScore: 0,
+            sScore: 0,
+            text_1: "",
+            nextUpdateTime: nextUpdateTime),
+      );
     }
   }
 
