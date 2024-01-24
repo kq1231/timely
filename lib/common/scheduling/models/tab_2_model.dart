@@ -226,8 +226,11 @@ class Tab2Model {
             ? repetitions["Dates"]
             : [getOccurences()[repetitions["DoW"][0]]];
 
+        // Sort the dates
+        dates.sort();
+
         // First, calculate the closest occurring month
-        // Formula: [floor((Current - Start) / n) + 1] * n, where n = Every
+        // Formula: Start + [floor((Current - Start) / n) + 1] * n, where n = Every
         // Check if any of the dates exist in that month
         // If none exist, then return the first date of the next closest month
         // We can check whether any of the dates exists in a particular month or
@@ -236,8 +239,7 @@ class Tab2Model {
         DateTime nextDate = DateTime(0);
         int i = 0;
         bool found = false;
-        while (!found) {
-          i++;
+        while (!found && dates.isNotEmpty) {
           nextDate = start.copyWith(
               month: start.month +
                   ((today.month - start.month) / every + 1).floor() *
@@ -246,14 +248,20 @@ class Tab2Model {
           // 2nd next closest month if the 1st closest does not suffice.
 
           for (int date in dates) {
-            ++date; // Since it is an index.
+            date += 1; // Since it is an index.
             if (nextDate.copyWith(day: date).month == nextDate.month) {
               nextDate = nextDate.copyWith(day: date);
               // Now, also check whether the next date is after today's date.
               // If it is, well and good. Else, continue!
-              found = true;
+              if (nextDate.isAfter(today)) {
+                found = true;
+                break;
+              } else {
+                continue;
+              }
             }
           }
+          i++;
         }
 
         return nextDate;

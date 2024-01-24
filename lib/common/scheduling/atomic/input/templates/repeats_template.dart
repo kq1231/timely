@@ -62,8 +62,8 @@ class RepeatsTemplate extends StatelessWidget {
           widget: CupertinoPickerAtom(
             itemExtent: 40,
             onSelectedItemChanged: (index) => onEveryChanged(index + 1),
-            elements: List.generate(100, (index) => (++index).toString()),
-            initialItemIndex: model.every,
+            elements: List.generate(100, (index) => (index + 1).toString()),
+            initialItemIndex: model.every - 1,
             size: const Size(100, 80),
           ),
           inverted: true,
