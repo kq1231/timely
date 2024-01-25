@@ -196,9 +196,20 @@ class Tab2Model {
 
     switch (frequency) {
       case "Daily":
-        return today
-            .add(Duration(days: today.difference(startDate!).inDays % every))
-            .copyWith(hour: endTime.hour, minute: endTime.minute);
+        int i = 0;
+        bool found = false;
+        while (!found) {
+          nextDate = start.copyWith(
+              day: start.day +
+                  (((start.day - today.day) / every).floor() + 1) * every);
+          if (nextDate.isAfter(today)) {
+            found = true;
+          }
+
+          i++;
+        }
+        print(nextDate);
+        return nextDate;
 
       case "Weekly":
         List<int> weekdayIndices = repetitions["Weekdays"].cast<int>();
