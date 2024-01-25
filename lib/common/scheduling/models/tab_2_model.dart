@@ -201,14 +201,13 @@ class Tab2Model {
         while (!found) {
           nextDate = start.copyWith(
               day: start.day +
-                  (((start.day - today.day) / every).floor() + 1) * every);
+                  (((start.day - today.day) / every).floor() + 1) * every * i);
           if (nextDate.isAfter(today)) {
             found = true;
           }
 
           i++;
         }
-        print(nextDate);
         return nextDate;
 
       case "Weekly":
