@@ -8,7 +8,7 @@ class Tab6OutputPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SchedulingOutputRepage(
+    return SchedulingOutputPage(
       providerOfTab2Models: tab6OutputProvider,
       inputPage: const Tab6InputPage(),
     );

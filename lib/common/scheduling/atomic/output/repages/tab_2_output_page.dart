@@ -7,12 +7,12 @@ import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/modules/tab_2/pages/tab_2_input_page.dart';
 import 'package:timely/reusables.dart';
 
-class SchedulingOutputRepage extends ConsumerStatefulWidget {
+class SchedulingOutputPage extends ConsumerStatefulWidget {
   final AsyncNotifierProvider<Tab2OutputNotifier, List<Tab2Model>>
       providerOfTab2Models;
   final Widget inputPage;
 
-  const SchedulingOutputRepage({
+  const SchedulingOutputPage({
     super.key,
     required this.providerOfTab2Models,
     required this.inputPage,
@@ -23,7 +23,7 @@ class SchedulingOutputRepage extends ConsumerStatefulWidget {
       _Tab2OutputRepageState();
 }
 
-class _Tab2OutputRepageState extends ConsumerState<SchedulingOutputRepage> {
+class _Tab2OutputRepageState extends ConsumerState<SchedulingOutputPage> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(widget.providerOfTab2Models);

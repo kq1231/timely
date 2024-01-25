@@ -428,7 +428,6 @@
 **Inshaa Allah**
 
 - Tab 12
-    - Make the sub-entry molecule take in the date as a parameter. It should pass it to the sub-entry provider as a family provider. 
     - Make DetailScreen WET. 
         - Go through each line of the code.
         - Jot down alternatives, selecting the best one. 
@@ -438,13 +437,7 @@
     - Create class "Repetition".
     - Complete the getNextOccurenceDateTime function. -D
 - Engineer the common atoms, molecules and organisms of the app. -D
-- The common service should NOT extend anything. Services shouldn't extend repositories.
-- Remove FilterMixin from Tab 2. Shift the function to Tab2Model. 
-- Tab 3 and 4 should have a service which their controllers can use. 
-- It is the job of the DATA layer to communicate with the external world. Hence, it is not wise to allow any controller to perform such logic. Services should handle such complex logic for reusability.
-    - The service should decide whether to write or to edit any model. 
 - Create local variables in tab 8's output screen to store the filter options. Don't create unnecessary providers. -D
-- All providers and controllers should be `AutoDispose`able.
 
 --- 
 
@@ -518,3 +511,11 @@
     - This issue does not occur when creating a new sub-entry.
     - This issue occurs only with yearly frequency.
 - Sub-entries should be in reversed order i.e. newest on top and oldest on bottom.
+- The common service should NOT extend anything. Services shouldn't extend repositories.
+- Remove FilterMixin from Tab 2. Shift the function to Tab2Model. 
+- Tab 3 and 4 should have a service which their controllers can use. 
+- It is the job of the DATA layer to communicate with the external world. Hence, it is not wise to allow any controller to perform such logic. Services should handle such complex logic for reusability.
+    - The service should decide whether to write or to edit any model. 
+- All providers and controllers should be `AutoDispose`able.
+- Tab 12
+    - Make the sub-entry molecule take in the date as a parameter. It should pass it to the sub-entry provider as a family provider. 
