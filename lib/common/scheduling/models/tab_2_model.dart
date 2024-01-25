@@ -190,8 +190,10 @@ class Tab2Model {
     DateTime nextDate = DateTime(0);
 
     // Assuming endDate is a DateTime object
-    if ((endDate ?? DateTime(double.maxFinite.toInt())).isBefore(today)) {
-      return DateTime(0);
+    if (endDate != null) {
+      if (endDate!.isBefore(today)) {
+        return DateTime(0);
+      }
     }
 
     switch (frequency) {
@@ -202,6 +204,7 @@ class Tab2Model {
           nextDate = start.copyWith(
               day: start.day +
                   (((start.day - today.day) / every).floor() + 1) * every * i);
+          print("NEXT DATE $nextDate");
           if (nextDate.isAfter(today)) {
             found = true;
           }

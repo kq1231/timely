@@ -7,6 +7,11 @@ import 'package:timely/modules/tab_6/controllers/output_controller.dart';
 import 'package:timely/modules/tab_7/controllers/output_controller.dart';
 import 'package:timely/reusables.dart';
 
+// This tab 2 input controller allows the user to create new tasks
+// It stores the information the user selects and persists it to the database
+// That is all it does
+// For storing the information, it has setters such as setName, etc.
+
 class Tab2InputNotifier extends Notifier<Tab2Model> {
   @override
   Tab2Model build() {

@@ -3,16 +3,26 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/list_struct/services/repo_service.dart';
-import 'package:timely/common/scheduling/mixins/filter_mixin.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/reusables.dart';
 
 class SchedulingRepostioryNotifier<T>
-    extends ListStructRepositoryService<Tab2Model> with FilterMixin {
+    extends ListStructRepositoryService<Tab2Model> {
   Future<List> getActivitiesForToday(Function modelizer, File file) async {
     // Get the models
     List models = await fetchModels(modelizer, file);
-    return filterCurrentActivities(models);
+
+    List filteredModels = [];
+    for (final Tab2Model model in models) {
+      DateTime nextDate = model.getNextOccurenceDateTime();
+      print(nextDate);
+      if (DateTime(nextDate.year, nextDate.month, nextDate.day) ==
+          DateTime(
+              DateTime.now().year, DateTime.now().month, DateTime.now().day)) {
+        filteredModels.add(model);
+      }
+    }
+    return filteredModels;
   }
 
   Future<void> generateActivitiesForToday(

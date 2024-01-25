@@ -6,6 +6,13 @@ import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/common/scheduling/services/repo_service.dart';
 import 'package:timely/reusables.dart';
 
+// This is the tab 2 output controller.
+// You will see this controller being used in tabs 2, 6 and 7.
+// This is because all three tabs share the same methods of fetching and deleting
+// the entries so it is useful to separate the common parts between them instead
+// of creating three controllers that do exactly the same thing.
+// Here, we only create the class. We create the providers inside the tab folders.
+
 class Tab2OutputNotifier<T> extends OutputNotifier<Tab2Model> {
   Tab2OutputNotifier({required int tabNumber})
       : super(

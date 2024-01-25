@@ -512,7 +512,7 @@
     - This issue occurs only with yearly frequency.
 - Sub-entries should be in reversed order i.e. newest on top and oldest on bottom.
 - The common service should NOT extend anything. Services shouldn't extend repositories.
-- Remove FilterMixin from Tab 2. Shift the function to Tab2Model. 
+- Remove completely unnecessary mixin FilterMixin from Tab 2. -D
 - Tab 3 and 4 should have a service which their controllers can use. 
 - It is the job of the DATA layer to communicate with the external world. Hence, it is not wise to allow any controller to perform such logic. Services should handle such complex logic for reusability.
     - The service should decide whether to write or to edit any model. 
