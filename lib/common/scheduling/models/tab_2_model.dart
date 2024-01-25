@@ -185,8 +185,7 @@ class Tab2Model {
   DateTime getNextOccurenceDateTime() {
     TimeOfDay endTime = getEndTime();
     DateTime today = DateTime.now();
-    DateTime start =
-        startDate!.copyWith(hour: startTime.hour, minute: startTime.minute);
+    DateTime start = startDate!.copyWith(hour: 23, minute: 59);
     DateTime nextDate = DateTime(0);
 
     // Assuming endDate is a DateTime object
