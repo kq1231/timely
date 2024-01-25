@@ -141,8 +141,6 @@ class Tab2Model {
         break;
       }
     }
-
-    print("FIRST OCCURRENCE: $firstOccurence for $year and $month");
     num = 0;
     while (true) {
       num++;
@@ -189,6 +187,7 @@ class Tab2Model {
     DateTime today = DateTime.now();
     DateTime start =
         startDate!.copyWith(hour: startTime.hour, minute: startTime.minute);
+    DateTime nextDate = DateTime(0);
 
     // Assuming endDate is a DateTime object
     if ((endDate ?? DateTime(double.maxFinite.toInt())).isBefore(today)) {
@@ -203,7 +202,6 @@ class Tab2Model {
 
       case "Weekly":
         List<int> weekdayIndices = repetitions["Weekdays"].cast<int>();
-        DateTime nextDate = DateTime(0);
         int i = 0;
         bool found = false;
 
@@ -239,7 +237,6 @@ class Tab2Model {
         // We can check whether any of the dates exists in a particular month or
         // not by creating a DateTime object and then equating the month of this
         // new object and the nextDate.month.
-        DateTime nextDate = DateTime(0);
         int i = 0;
         bool found = false;
 
@@ -298,41 +295,65 @@ class Tab2Model {
 
       case "Yearly":
         List<int> months = repetitions["Months"].cast<int>();
-        if (basis == Basis.date) {
-          DateTime nextDate =
-              DateTime(startDate!.year, months.first, startDate!.day);
-          while (nextDate.isBefore(today) || !months.contains(nextDate.month)) {
-            nextDate =
-                DateTime(nextDate.year + every, nextDate.month, startDate!.day);
-            if (!months.contains(nextDate.month)) {
-              nextDate = DateTime(
-                  nextDate.year,
-                  months.firstWhere((month) => month > nextDate.month,
-                      orElse: () => months[0]),
-                  nextDate.day);
+        bool found = false;
+        int i = 0;
+
+        // Sort
+        months.sort();
+
+        while (!found && months.isNotEmpty) {
+          nextDate = start.copyWith(
+            year: start.year +
+                (((today.year - start.year) / every).floor() + 1) * (every * i),
+          );
+
+          // Once we have the closest year, check for each month in $months
+          // whether the date is after today or not.
+          for (int month in months) {
+            if (basis == Basis.day) {
+              nextDate = nextDate.copyWith(month: month);
+
+              List dates = [];
+
+              try {
+                int ordinalPosition = repetitions["DoW"][0];
+                if (ordinalPosition != 5) {
+                  dates = [
+                    getOccurences(
+                        nextDate.year, nextDate.month)[ordinalPosition]
+                  ];
+                } else {
+                  dates = [
+                    getOccurences(nextDate.year, nextDate.month).last
+                  ]; // OP of 5 means the last one.
+                }
+              } catch (e) {
+                dates = [];
+              }
+
+              for (int date in dates) {
+                date++; // Since it is an index.
+                if (nextDate.copyWith(month: month, day: date).isAfter(today)) {
+                  found = true;
+                  nextDate = nextDate.copyWith(month: month, day: date);
+                  break;
+                }
+              }
+
+              if (found) break; // Break out of the outer, month loop!
+            } else if (basis == Basis.date) {
+              if (nextDate.copyWith(month: month).isAfter(today)) {
+                found = true;
+                nextDate = nextDate.copyWith(month: month);
+                break;
+              }
             }
           }
-          return nextDate;
-        } else {
-          DateTime nextDate = DateTime(startDate!.year, months.first, 1);
-          int ordinalPosition = repetitions["DoW"][0];
-          int dayOfWeek = repetitions["DoW"][1];
-          while (nextDate.isBefore(today) ||
-              !months.contains(nextDate.month) ||
-              !isNthDayOfWeek(nextDate, dayOfWeek, ordinalPosition)) {
-            nextDate = DateTime(nextDate.year + every, nextDate.month, 1);
-            if (!months.contains(nextDate.month)) {
-              nextDate = DateTime(
-                  nextDate.year,
-                  months.firstWhere((month) => month > nextDate.month,
-                      orElse: () => months[0]),
-                  1);
-            }
-            nextDate =
-                getNthDayOfWeekInMonth(nextDate, dayOfWeek, ordinalPosition);
-          }
-          return nextDate;
+
+          i++;
         }
+        return nextDate;
+
       default:
         return DateTime(0).copyWith(hour: endTime.hour, minute: endTime.minute);
     }

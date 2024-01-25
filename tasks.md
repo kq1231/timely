@@ -502,15 +502,19 @@
 
 ---
 
-**Inshaa Allah** 
+**Inshaa Allah**
 
 - Monthly, yearly and weekly grid selectors do not remember the months selected. -D
 - Fix keyboard focus issue. -D
 - Make tab 12 repeats module DRYer
-    - Do not copy and paste the same functions of tab 2 input controller to the entry input controller. 
+    - Do not copy and paste the same functions of tab 2 input controller to the entry input controller.
     - Instead, use the tab 2 controller and pass the Tab2Model when submit button is pressed. 
 - Tab 1, "Default Text 1" keeps coming back after every app launch. The text I enter goes missing. -D 
-- Redesign monthly, weekly and yearly next occurence calculation algorithms. 
+- Redesign monthly, weekly and yearly next occurence calculation algorithms.
     - Monthly -D
     - Weekly -D
     - Yearly
+- When creating a new entry, the first automatically-made sub-entry has DateTime(0) as its date.
+    - This issue does not occur when creating a new sub-entry.
+    - This issue occurs only with yearly frequency.
+- Sub-entries should be in reversed order i.e. newest on top and oldest on bottom.

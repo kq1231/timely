@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_12/atomic/pages/input/tab_12_sub_entry_input_page.dart';
 import 'package:timely/modules/tab_12/atomic/templates/output/tab_12_detail_template.dart';
+import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
@@ -40,6 +41,7 @@ class _Tab12DetailPageState extends ConsumerState<Tab12DetailPage> {
 
         return Tab12DetailTemplate(
           onTapSubEntry: (entry, subEntry) async {
+            ref.read(tab12EntryInputProvider.notifier).setEntry(entry);
             ref.read(tab12SubEntryInputProvider.notifier).setModel(subEntry);
 
             await Future.delayed(
