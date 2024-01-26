@@ -5,6 +5,14 @@ import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
 import 'package:timely/reusables.dart';
 
+// This is the repository for tab 3.
+// Repositories have one job: communicate with the external, third world.
+// In our case, this repository is supposed to perform CRUD operations
+// on tab 3 database.
+// The methods of the repository are then used by the controllers.
+// Using repositories eliminates code duplication as we do not have to copy-and-paste
+// the same CRUD logic across all our providers.
+
 class Tab3RepositoryNotifier extends Notifier<void> {
   @override
   void build() {}
