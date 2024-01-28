@@ -519,4 +519,4 @@
 - All providers and controllers should be `AutoDispose`able.
 - Tab 12
     - Make the sub-entry molecule take in the date as a parameter. It should pass it to the sub-entry provider as a family provider. 
-- No need for tab 3 service. Just move the markAsComplete function to the repo.dart file. In fact, we don't need two separate repositories for completed and pending tasks. Only one repository named "repo.dart" seems to be a better option.
+- No need for tab 3 service. Just move the markAsComplete function to the repo.dart file. In fact, we don't need two separate repositories for completed and pending tasks. Only one repository named "repo.dart" is a better option.

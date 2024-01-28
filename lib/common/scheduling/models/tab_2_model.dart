@@ -153,35 +153,6 @@ class Tab2Model {
     return [firstOccurence, ...occurences];
   }
 
-  bool isNthDayOfWeek(DateTime date, int dayOfWeek, int ordinalPosition) {
-    int count = 0;
-    for (int i = 1; i <= date.day; i++) {
-      if (DateTime(date.year, date.month, i).weekday == dayOfWeek) {
-        count++;
-      }
-    }
-    return count == ordinalPosition;
-  }
-
-  DateTime getNthDayOfWeekInMonth(
-      DateTime date, int dayOfWeek, int ordinalPosition) {
-    int count = 0;
-    for (int i = 1; i <= 31; i++) {
-      try {
-        DateTime currentDate = DateTime(date.year, date.month, i);
-        if (currentDate.weekday == dayOfWeek) {
-          count++;
-          if (count == ordinalPosition) {
-            return currentDate;
-          }
-        }
-      } catch (e) {
-        break;
-      }
-    }
-    return date;
-  }
-
   DateTime getNextOccurenceDateTime() {
     TimeOfDay endTime = getEndTime();
     DateTime today = DateTime.now();
@@ -224,13 +195,12 @@ class Tab2Model {
           for (int weekdayIndex in weekdayIndices) {
             nextDate = start.copyWith(
                 day: start.day +
-                    (((((start.day - today.day) * 7) / (every)).floor() + 1) *
+                    (((((today.day - start.day) / 7) / (every)).floor() + 1) *
                             (every * i) *
                             7 +
-                        (weekdayIndex -
-                            (today.weekday -
-                                1)) // -1 as today.weekday does not return an index.
-                    ));
+                        (weekdayIndex - (start.weekday))) +
+                    1);
+
             if (nextDate.isAfter(today)) {
               found = true;
               break;
