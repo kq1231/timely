@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
-import 'package:timely/modules/tab_1/models/fms_model.dart';
+import 'package:timely/modules/tab_1_old/models/fms_model.dart';
 import 'package:timely/reusables.dart';
 
 class Tab1PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
@@ -63,9 +63,20 @@ class Tab1PendingRepositoryNotifier extends Notifier<AsyncValue<void>> {
     }
   }
 
+  Future<FMSModel> getTodaysModel() async {
+    final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
+    final jsonContent = jsonDecode(await tab1File.readAsString());
+
+    String dateToday = DateTime.now().toString().substring(0, 10);
+    FMSModel model = FMSModel.fromJson({dateToday: jsonContent[dateToday]});
+
+    return model;
+  }
+
   Future<void> updateNextUpdateTime() async {
     await createDefaultEntry();
-    final tab1File = (await ref.read(dbFilesProvider.future))[1]![0];
+    final tab1File = (await ref.read(dbFilesProvider.future))[1]![
+        0]; // TODO Inshaa Allah :: Use getTodaysModel instead of repeating the code.
     final jsonContent = jsonDecode(await tab1File.readAsString());
     String dateToday = DateTime.now().toString().substring(0, 10);
     FMSModel model = FMSModel.fromJson({dateToday: jsonContent[dateToday]});

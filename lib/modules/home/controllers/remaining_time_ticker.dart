@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:timely/reusables.dart';
 
 final remainingTimeTickerProvider = StreamProvider<String>((ref) async* {
-  File tabOneFile = (await ref.watch(dbFilesProvider.future))[1]![0];
+  File tabOneFile = (await ref.read(dbFilesProvider.future))[1]![0];
   Map tabOneData = jsonDecode(await tabOneFile.readAsString());
 
   // First, check if today's date exists in the database

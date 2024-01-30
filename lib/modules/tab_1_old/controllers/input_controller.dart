@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
-import 'package:timely/modules/tab_1/controllers/output_controller.dart';
-import 'package:timely/modules/tab_1/models/fms_model.dart';
-import 'package:timely/modules/tab_1/repositories/pending_repo.dart';
+import 'package:timely/modules/tab_1_old/controllers/output_controller.dart';
+import 'package:timely/modules/tab_1_old/models/fms_model.dart';
+import 'package:timely/modules/tab_1_old/repositories/pending_repo.dart';
 
 class Tab1InputNotifier extends Notifier<FMSModel> {
   @override

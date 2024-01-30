@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_1/repositories/completed_repo.dart';
-import 'package:timely/modules/tab_1/repositories/pending_repo.dart';
+import 'package:timely/modules/tab_1_old/repositories/completed_repo.dart';
+import 'package:timely/modules/tab_1_old/repositories/pending_repo.dart';
 
 // Repositories are used to communicate to the external world eg. DB, REST API.
 

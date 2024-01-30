@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecule.dart';
 import 'package:timely/common/atomic/molecules/rows/text_row_molecule.dart';
-import 'package:timely/modules/tab_1/models/fms_model.dart';
+import 'package:timely/modules/tab_1_old/models/fms_model.dart';
 
 import '../../../tokens/tab_1.dart';
 

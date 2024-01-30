@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_1/models/fms_model.dart';
-import 'package:timely/modules/tab_1/repositories/pending_repo.dart';
-import 'package:timely/modules/tab_1/services/completion_service.dart';
+import 'package:timely/modules/tab_1_old/models/fms_model.dart';
+import 'package:timely/modules/tab_1_old/repositories/pending_repo.dart';
+import 'package:timely/modules/tab_1_old/services/completion_service.dart';
 
 class Tab1OutputNotifier extends AsyncNotifier<List<FMSModel>> {
   @override

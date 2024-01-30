@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_1/atomic/input/pages/tab_1_input_page.dart';
-import 'package:timely/modules/tab_1/atomic/output/templates/tab_1_output_template.dart';
-import 'package:timely/modules/tab_1/controllers/input_controller.dart';
-import 'package:timely/modules/tab_1/controllers/output_controller.dart';
+import 'package:timely/modules/tab_1_old/atomic/input/pages/tab_1_input_page.dart';
+import 'package:timely/modules/tab_1_old/atomic/output/templates/tab_1_output_template.dart';
+import 'package:timely/modules/tab_1_old/controllers/input_controller.dart';
+import 'package:timely/modules/tab_1_old/controllers/output_controller.dart';
 import 'package:timely/reusables.dart';
 
 class Tab1OutputPage extends ConsumerStatefulWidget {

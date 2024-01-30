@@ -4,6 +4,7 @@ import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/modules/home/controllers/tabs_data_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
+import 'package:timely/modules/tab_1/atomic/pages/fms_page.dart';
 
 class LaunchScreen extends ConsumerWidget {
   const LaunchScreen({super.key});
@@ -76,19 +77,9 @@ class LaunchScreen extends ConsumerWidget {
                     const Divider(
                       height: 2,
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        color: launchSectionTwoColor,
-                        child: Center(
-                          child: Text(
-                            data["tab_1Text"] != ""
-                                ? data["tab_1Text"]
-                                : "Default Text 1",
-                            style: LaunchScreenLayout.tab1TextStyle,
-                          ),
-                        ),
-                      ),
+                    const Expanded(
+                      flex: 4,
+                      child: FMSPage(),
                     ),
                     const Divider(
                       height: 0.2,

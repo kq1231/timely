@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_1/models/fms_model.dart';
+import 'package:timely/modules/tab_1_old/models/fms_model.dart';
 import 'package:timely/reusables.dart';
 
 // Repositories are used to communicate to the external world eg. DB, REST API.

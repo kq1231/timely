@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:timely/modules/tab_1/models/fms_model.dart';
+import 'package:timely/modules/tab_1_old/models/fms_model.dart';
 import 'package:timely/reusables.dart';
 
 final tab1Text1Provider = FutureProvider.autoDispose<String>((ref) async {

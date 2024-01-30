@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:timely/common/atomic/molecules/rows/navigation_row_molecule.dart';
-import 'package:timely/modules/tab_1/atomic/output/molecules/tab_1_header_row_molecule.dart';
-import 'package:timely/modules/tab_1/atomic/output/organisms/tab_1_entry_list_organism.dart';
-import 'package:timely/modules/tab_1/models/fms_model.dart';
+import 'package:timely/modules/tab_1_old/atomic/output/molecules/tab_1_header_row_molecule.dart';
+import 'package:timely/modules/tab_1_old/atomic/output/organisms/tab_1_entry_list_organism.dart';
+import 'package:timely/modules/tab_1_old/models/fms_model.dart';
 
 class Tab1OutputTemplate extends StatelessWidget {
   final List<FMSModel> models;

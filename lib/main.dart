@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
-import 'package:timely/modules/tab_1/repositories/pending_repo.dart';
+import 'package:timely/modules/tab_1/repositories/repo.dart';
 import 'package:timely/reusables.dart';
 import 'package:timely/tokens/app/themes/app_dark_theme.dart';
 import 'exports/screens.dart';
@@ -45,9 +45,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: Future.wait([
-          ref
-              .read(tab1PendingRepositoryProvider.notifier)
-              .updateNextUpdateTime(),
+          ref.read(tab1RepositoryProvider.notifier).updateNextUpdateTime(),
           // ref.read(dbFilesProvider.future),
           // ToAsk Inshaa Allah: Will this initialise and maintain the [File]s?
         ]),

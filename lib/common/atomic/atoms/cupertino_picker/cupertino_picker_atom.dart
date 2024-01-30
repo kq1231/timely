@@ -8,6 +8,7 @@ class CupertinoPickerAtom extends StatelessWidget {
   final ValueChanged<int>? onSelectedItemChanged;
   final Color? containerColor;
   final Color? selectionOverlayColor;
+  final bool? horizontal;
 
   const CupertinoPickerAtom({
     super.key,
@@ -18,6 +19,7 @@ class CupertinoPickerAtom extends StatelessWidget {
     required this.size,
     this.containerColor,
     this.selectionOverlayColor,
+    this.horizontal,
   });
 
   @override
@@ -26,19 +28,31 @@ class CupertinoPickerAtom extends StatelessWidget {
       color: containerColor,
       width: size.width,
       height: size.height,
-      child: CupertinoPicker(
-        scrollController:
-            FixedExtentScrollController(initialItem: initialItemIndex),
-        itemExtent: itemExtent,
-        onSelectedItemChanged: onSelectedItemChanged,
-        selectionOverlay: selectionOverlayColor != null
-            ? Container(
-                color: selectionOverlayColor,
+      child: RotatedBox(
+        quarterTurns: horizontal == true ? 1 : 0,
+        child: CupertinoPicker(
+          scrollController:
+              FixedExtentScrollController(initialItem: initialItemIndex),
+          itemExtent: itemExtent,
+          onSelectedItemChanged: onSelectedItemChanged,
+          selectionOverlay: selectionOverlayColor != null
+              ? Container(
+                  color: selectionOverlayColor,
+                )
+              : RotatedBox(
+                  quarterTurns: horizontal == true ? 1 : 0,
+                  child: const CupertinoPickerDefaultSelectionOverlay()),
+          children: elements
+              .map(
+                (e) => Center(
+                  child: RotatedBox(
+                    quarterTurns: horizontal == true ? 3 : 0,
+                    child: Text(e),
+                  ),
+                ),
               )
-            : const CupertinoPickerDefaultSelectionOverlay(),
-        children: elements
-            .map((e) => Center(child: Text(e)))
-            .toList(), // Pass down the color to the picker
+              .toList(), // Pass down the color to the picker
+        ),
       ),
     );
   }

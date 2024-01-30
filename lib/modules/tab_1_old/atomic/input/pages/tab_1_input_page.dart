@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_1/atomic/input/templates/tab_1_input_template.dart';
-import 'package:timely/modules/tab_1/controllers/input_controller.dart';
+import 'package:timely/modules/tab_1_old/atomic/input/templates/tab_1_input_template.dart';
+import 'package:timely/modules/tab_1_old/controllers/input_controller.dart';
 
 class Tab1InputPage extends ConsumerWidget {
   const Tab1InputPage({super.key});
