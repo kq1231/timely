@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -46,8 +48,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
     return FutureBuilder(
         future: Future.wait([
           ref.read(tab1RepositoryProvider.notifier).updateNextUpdateTime(),
-          // ref.read(dbFilesProvider.future),
-          // ToAsk Inshaa Allah: Will this initialise and maintain the [File]s?
         ]),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {

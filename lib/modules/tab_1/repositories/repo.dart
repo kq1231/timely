@@ -53,15 +53,16 @@ class Tab1RepositoryNotifier extends Notifier<AsyncValue<void>> {
         .contains(dateToday.toString().substring(0, 10)))) {
       await writeFMSModel(
         FMSModel(
-            date: dateToday,
-            fScore: const Duration(seconds: 0),
-            mScore: const Duration(seconds: 0),
-            sScore: const Duration(seconds: 0),
-            fStatus: 0,
-            mStatus: 0,
-            sStatus: 0,
-            text_1: "",
-            nextUpdateTime: nextUpdateTime),
+          date: dateToday,
+          fScore: const Duration(seconds: 0),
+          mScore: const Duration(seconds: 0),
+          sScore: const Duration(seconds: 0),
+          fStatus: 0,
+          mStatus: 0,
+          sStatus: 0,
+          text_1: "",
+          nextUpdateTime: nextUpdateTime,
+        ),
       );
     }
   }

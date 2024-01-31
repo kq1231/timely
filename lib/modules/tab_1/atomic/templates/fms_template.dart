@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:timely/common/atomic/atoms/cupertino_picker/cupertino_picker_atom.dart';
 import 'package:timely/common/atomic/molecules/molecules.dart';
@@ -7,17 +5,13 @@ import 'package:timely/modules/tab_1/models/fms_model.dart';
 import 'package:timely/tokens/app/app.dart';
 
 class FMSTemplate extends StatefulWidget {
-  final List<int> indices;
   final void Function(int index, int status) onStatusChanged;
-  final Function(Timer timer, int status, int index) timerFunction;
 
   final FMSModel model;
 
   const FMSTemplate({
     super.key,
     required this.model,
-    required this.indices,
-    required this.timerFunction,
     required this.onStatusChanged,
   });
 
@@ -26,38 +20,22 @@ class FMSTemplate extends StatefulWidget {
 }
 
 class _FMSTemplateState extends State<FMSTemplate> {
-  late final Timer timer;
-
-  @override
-  void initState() {
-    // Create three timers
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      int i = 0;
-      for (int status in widget.indices) {
-        widget.timerFunction(timer, status, i);
-        i++;
-      }
-
-      // If all three statuses are "Poor" then cancel the timer
-      if (widget.indices.toSet().length == 1 &&
-          widget.indices.toSet().first == 2) {
-        timer.cancel();
-      }
-    });
-
-    super.initState();
-  }
+  List<int> statuses = [];
 
   @override
   void dispose() {
-    timer.cancel();
-    print("TIMER CANCELLED ON DISPOSE");
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     List<String> texts = "Good,Fair,Poor".split(",");
+
+    statuses = [
+      widget.model.fStatus,
+      widget.model.mStatus,
+      widget.model.sStatus
+    ];
 
     return ListView(
       shrinkWrap: true,
@@ -73,14 +51,23 @@ class _FMSTemplateState extends State<FMSTemplate> {
                     horizontal: AppSizes.p_16,
                   ),
                   child: TitleWidgetRowMolecule(
-                    title: stringifyDuration([
+                    title: "${"FMS"[i]}      ${stringifyDuration([
                       widget.model.fScore,
                       widget.model.mScore,
                       widget.model.sScore
-                    ][i]),
+                    ][i])}",
                     widget: SizedBox(
                       child: AbsorbPointer(
-                        absorbing: widget.indices[i] != 2 ? false : true,
+                        absorbing: isLocked(
+                          status: statuses[i],
+                          time: statuses[i] == 1
+                              ? [
+                                  widget.model.fPauseTime,
+                                  widget.model.mPauseTime,
+                                  widget.model.sPauseTime
+                                ][i]
+                              : null,
+                        ),
                         child: CupertinoPickerAtom(
                           selectionOverlayColor: Colors.transparent,
                           horizontal: true,
@@ -88,14 +75,14 @@ class _FMSTemplateState extends State<FMSTemplate> {
                           onSelectedItemChanged: (status) =>
                               widget.onStatusChanged(i, status),
                           elements: texts,
-                          initialItemIndex: widget.indices[i],
+                          initialItemIndex: statuses[i],
                           size: const Size(160, 80),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Divider(),
+                const Divider(),
               ],
             );
           },
@@ -107,4 +94,21 @@ class _FMSTemplateState extends State<FMSTemplate> {
 
 String stringifyDuration(Duration duration) {
   return "${duration.inHours}:${duration.inMinutes % 60}:${duration.inSeconds % 60}";
+}
+
+bool isLocked({required int status, DateTime? time}) {
+  if (status == 2) // Yani status is "Poor"
+  {
+    return true;
+  } else if (status == 1) // Yani status is "Fair"
+  {
+    // Check if the time elapsed is half-an-hour or more
+    if ((DateTime.now().difference(time!).inSeconds / 60) >= 30) {
+      return false; // Yani it is unlocked
+    } else {
+      return true;
+    }
+  } else {
+    return false;
+  }
 }

@@ -8,6 +8,9 @@ class FMSModel {
   late int fStatus;
   late int mStatus;
   late int sStatus;
+  late DateTime? fPauseTime;
+  late DateTime? mPauseTime;
+  late DateTime? sPauseTime;
   late String text_1;
   late TimeOfDay nextUpdateTime;
 
@@ -19,6 +22,9 @@ class FMSModel {
     required this.fStatus,
     required this.mStatus,
     required this.sStatus,
+    this.fPauseTime,
+    this.mPauseTime,
+    this.sPauseTime,
     required this.text_1,
     required this.nextUpdateTime,
   });
@@ -29,12 +35,13 @@ class FMSModel {
     var content = json.values.toList().first;
     List<Duration> scores =
         List.generate(3, (index) => Duration(seconds: content.first[index]));
-    List<int> statuses = List.generate(3, (index) => content.last[index]);
+    List<int> statuses = List.generate(3, (index) => content[3][index]);
     String time = content[1];
     String text_1 = content[2];
     List timeParts = time.split(":");
     TimeOfDay nextUpdateTime = TimeOfDay(
         hour: int.parse(timeParts.first), minute: int.parse(timeParts.last));
+    List pauseTimes = content[4];
 
     this.date = date;
 
@@ -45,6 +52,10 @@ class FMSModel {
     fStatus = statuses[0];
     mStatus = statuses[1];
     sStatus = statuses[2];
+
+    fPauseTime = pauseTimes[0] != null ? DateTime.parse(pauseTimes[0]) : null;
+    mPauseTime = pauseTimes[1] != null ? DateTime.parse(pauseTimes[1]) : null;
+    sPauseTime = pauseTimes[2] != null ? DateTime.parse(pauseTimes[2]) : null;
 
     this.text_1 = text_1;
 
@@ -66,6 +77,11 @@ class FMSModel {
           mStatus,
           sStatus,
         ],
+        [
+          fPauseTime != null ? fPauseTime!.toIso8601String() : null,
+          mPauseTime != null ? mPauseTime!.toIso8601String() : null,
+          sPauseTime != null ? sPauseTime!.toIso8601String() : null,
+        ] // -> Pause Times
       ]
     };
   }
@@ -78,6 +94,9 @@ class FMSModel {
     fStatus,
     mStatus,
     sStatus,
+    fPauseTime,
+    mPauseTime,
+    sPauseTime,
     nextUpdateTime,
     text_1,
   }) {
@@ -91,6 +110,9 @@ class FMSModel {
       sStatus: sStatus ?? this.sStatus,
       nextUpdateTime: nextUpdateTime ?? this.nextUpdateTime,
       text_1: text_1 ?? this.text_1,
+      fPauseTime: fPauseTime ?? this.fPauseTime,
+      mPauseTime: mPauseTime ?? this.mPauseTime,
+      sPauseTime: sPauseTime ?? this.sPauseTime,
     );
   }
 }

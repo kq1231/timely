@@ -507,7 +507,7 @@
     - Monthly -D
     - Weekly -D
     - Yearly
-- When creating a new entry, the first automatically-made sub-entry has DateTime(0) as its date.
+- When creating a new entry, the first automatically-made sub-entry has DateTime(0) as its date. -D
     - This issue does not occur when creating a new sub-entry.
     - This issue occurs only with yearly frequency.
 - Sub-entries should be in reversed order i.e. newest on top and oldest on bottom.
@@ -519,12 +519,19 @@
 - All providers and controllers should be `AutoDispose`able.
 - Tab 12
     - Make the sub-entry molecule take in the date as a parameter. It should pass it to the sub-entry provider as a family provider. 
-- No need for tab 3 service. Just move the markAsComplete function to the repo.dart file. In fact, we don't need two separate repositories for completed and pending tasks. Only one repository named "repo.dart" is a better option.
+- No need for tab 3 service. Just move the markAsComplete function to the repo.dart file. In fact, we don't need two separate repositories for completed and pending tasks. Only one repository named "repo.dart" is a better option for every tab.
 
 ---
 
 **Bismillahir-Rahmanir-Rahim** 
 
-- The FMS controller should have methods for starting, pausing and canceling the timers. 
-- Only one setState needed.
+- Only one setState needed. -D
     - Thus, no need to watch provider InShaaAllah.
+
+---
+
+**Bismillahir-Rahmanir-Rahim** 
+
+- Remove unnecessary `indices` variable.
+- Make better vars for DRYness. 
+- With regards to the latest FMSModel being fetched, there is no need for a FutureProvider since the app is being rendered after it is fetched. We should override it with a simple provider. 
