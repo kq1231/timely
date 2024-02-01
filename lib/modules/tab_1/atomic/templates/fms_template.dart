@@ -20,17 +20,79 @@ class FMSTemplate extends StatefulWidget {
 }
 
 class _FMSTemplateState extends State<FMSTemplate> {
+  List<FixedExtentScrollController> scrollControllers = [];
   List<int> statuses = [];
+  List<String> texts = "Good,Fair,Poor".split(",");
+
+  @override
+  void initState() {
+    super.initState();
+
+    statuses = [
+      widget.model.fStatus,
+      widget.model.mStatus,
+      widget.model.sStatus
+    ];
+
+    scrollControllers = [
+      FixedExtentScrollController(initialItem: statuses[0]),
+      FixedExtentScrollController(initialItem: statuses[1]),
+      FixedExtentScrollController(initialItem: statuses[2]),
+    ];
+
+    for (var i = 0; i < scrollControllers.length; i++) {
+      scrollControllers[i].addListener(() => _onScroll(i));
+    }
+  }
 
   @override
   void dispose() {
     super.dispose();
+    for (var scrollController in scrollControllers) {
+      scrollController.removeListener(() {});
+    }
+  }
+
+  void _onScroll(int i) async {
+    await Future.delayed(const Duration(milliseconds: 10));
+
+    if (scrollControllers[i].position.isScrollingNotifier.value == false) {
+      int currentItemIndex = scrollControllers[i].selectedItem;
+      if (statuses[i] != currentItemIndex) {
+        _showDialog(currentItemIndex, currentItemIndex);
+      }
+    }
+  }
+
+  void _showDialog(int index, int status) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmation'),
+          content: Text('You have selected item ${texts[index]}. Confirm?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Confirm'),
+              onPressed: () {
+                widget.onStatusChanged(index, status);
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> texts = "Good,Fair,Poor".split(",");
-
     statuses = [
       widget.model.fStatus,
       widget.model.mStatus,
@@ -70,10 +132,10 @@ class _FMSTemplateState extends State<FMSTemplate> {
                         ),
                         child: CupertinoPickerAtom(
                           selectionOverlayColor: Colors.transparent,
+                          scrollController: scrollControllers[i],
                           horizontal: true,
                           itemExtent: 60,
-                          onSelectedItemChanged: (status) =>
-                              widget.onStatusChanged(i, status),
+                          onSelectedItemChanged: (status) {},
                           elements: texts,
                           initialItemIndex: statuses[i],
                           size: const Size(160, 80),
@@ -82,7 +144,6 @@ class _FMSTemplateState extends State<FMSTemplate> {
                     ),
                   ),
                 ),
-                const Divider(),
               ],
             );
           },

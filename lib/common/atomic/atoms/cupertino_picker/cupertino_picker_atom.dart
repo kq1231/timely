@@ -4,6 +4,7 @@ class CupertinoPickerAtom extends StatelessWidget {
   final double itemExtent;
   final List<String> elements;
   final int initialItemIndex;
+  final FixedExtentScrollController? scrollController;
   final Size size;
   final ValueChanged<int>? onSelectedItemChanged;
   final Color? containerColor;
@@ -20,6 +21,7 @@ class CupertinoPickerAtom extends StatelessWidget {
     this.containerColor,
     this.selectionOverlayColor,
     this.horizontal,
+    this.scrollController,
   });
 
   @override
@@ -29,9 +31,9 @@ class CupertinoPickerAtom extends StatelessWidget {
       width: size.width,
       height: size.height,
       child: RotatedBox(
-        quarterTurns: horizontal == true ? 1 : 0,
+        quarterTurns: horizontal == true ? 3 : 0,
         child: CupertinoPicker(
-          scrollController:
+          scrollController: scrollController ??
               FixedExtentScrollController(initialItem: initialItemIndex),
           itemExtent: itemExtent,
           onSelectedItemChanged: onSelectedItemChanged,
@@ -41,12 +43,13 @@ class CupertinoPickerAtom extends StatelessWidget {
                 )
               : RotatedBox(
                   quarterTurns: horizontal == true ? 1 : 0,
-                  child: const CupertinoPickerDefaultSelectionOverlay()),
+                  child: const CupertinoPickerDefaultSelectionOverlay(),
+                ),
           children: elements
               .map(
                 (e) => Center(
                   child: RotatedBox(
-                    quarterTurns: horizontal == true ? 3 : 0,
+                    quarterTurns: horizontal == true ? 1 : 0,
                     child: Text(e),
                   ),
                 ),
