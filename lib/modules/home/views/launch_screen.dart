@@ -77,9 +77,12 @@ class LaunchScreen extends ConsumerWidget {
                     const Divider(
                       height: 2,
                     ),
-                    const Expanded(
+                    Expanded(
                       flex: 4,
-                      child: FMSPage(),
+                      child: Container(
+                        color: Colors.indigo[900],
+                        child: const FMSPage(),
+                      ),
                     ),
                     const Divider(
                       height: 0.2,
