@@ -26,13 +26,37 @@ class _FMSPageState extends ConsumerState<FMSPage> {
         return FMSTemplate(
           model: fmsModel,
           onStatusChanged: (index, status) async {
-            [
-              fmsController.setFStatus,
-              fmsController.setMStatus,
-              fmsController.setSStatus,
-            ][index](status);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Confirmation'),
+                  content: Text(
+                      'You have selected item ${"Good,Fair,Poor".split(",")[status]}. Confirm?'),
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text('Confirm'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        [
+                          fmsController.setFStatus,
+                          fmsController.setMStatus,
+                          fmsController.setSStatus,
+                        ][index](status);
 
-            fmsController.syncToDB();
+                        setState(() {});
+
+                        fmsController.syncToDB();
+                      },
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("Cancel"),
+                    ),
+                  ],
+                );
+              },
+            );
           },
         );
       },

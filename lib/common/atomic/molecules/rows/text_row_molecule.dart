@@ -11,6 +11,7 @@ class TextRowMolecule extends StatelessWidget {
   final double? height;
   final double? minHeight;
   final EdgeInsets? padding;
+  final TextStyle? textStyle;
 
   const TextRowMolecule({
     Key? key,
@@ -23,6 +24,7 @@ class TextRowMolecule extends StatelessWidget {
     this.defaultAligned = const [],
     this.minHeight,
     this.padding,
+    this.textStyle,
   }) : super(key: key);
 
   @override
@@ -48,18 +50,20 @@ class TextRowMolecule extends StatelessWidget {
                                 children: [
                                   Text(
                                     texts[index],
-                                    style: bolded == true
-                                        ? AppTypography.boldStyle
-                                        : AppTypography.regularStyle,
+                                    style: textStyle ??
+                                        (bolded == true
+                                            ? AppTypography.boldStyle
+                                            : AppTypography.regularStyle),
                                   ),
                                 ],
                               )
                             : Center(
                                 child: Text(
                                   texts[index],
-                                  style: bolded == true
-                                      ? AppTypography.boldStyle
-                                      : AppTypography.regularStyle,
+                                  style: textStyle ??
+                                      (bolded == true
+                                          ? AppTypography.boldStyle
+                                          : AppTypography.regularStyle),
                                 ),
                               ),
                       ),
@@ -76,9 +80,10 @@ class TextRowMolecule extends StatelessWidget {
                                     Flexible(
                                       child: Text(
                                         texts[index],
-                                        style: bolded == true
-                                            ? AppTypography.boldStyle
-                                            : AppTypography.regularStyle,
+                                        style: textStyle ??
+                                            (bolded == true
+                                                ? AppTypography.boldStyle
+                                                : AppTypography.regularStyle),
                                       ),
                                     ),
                                   ],
@@ -87,9 +92,10 @@ class TextRowMolecule extends StatelessWidget {
                             : Center(
                                 child: Text(
                                   texts[index],
-                                  style: bolded == true
-                                      ? AppTypography.boldStyle
-                                      : AppTypography.regularStyle,
+                                  style: textStyle ??
+                                      (bolded == true
+                                          ? AppTypography.boldStyle
+                                          : AppTypography.regularStyle),
                                 ),
                               ),
                       ),
