@@ -78,7 +78,7 @@ class LaunchScreen extends ConsumerWidget {
                       height: 2,
                     ),
                     Expanded(
-                      flex: 4,
+                      flex: 2,
                       child: Container(
                         color: Colors.indigo[900],
                         child: const FMSPage(),

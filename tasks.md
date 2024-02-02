@@ -535,3 +535,7 @@
 - Remove unnecessary `indices` variable.
 - Make better vars for DRYness. 
 - With regards to the latest FMSModel being fetched, there is no need for a FutureProvider since the app is being rendered after it is fetched. We should override it with a simple provider. 
+
+---
+
+- "Timer" problem.
