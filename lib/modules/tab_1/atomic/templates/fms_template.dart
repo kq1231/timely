@@ -55,7 +55,6 @@ class _FMSTemplateState extends State<FMSTemplate> {
           ),
         ),
         const TextRowMolecule(
-          rowColor: Colors.black,
           texts: ["", "", "Good", "Fair", "Poor"],
           customWidths: {2: 50, 3: 50, 4: 50},
           textStyle: TextStyle(fontSize: 10),
