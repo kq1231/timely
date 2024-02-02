@@ -53,7 +53,7 @@ class _FMSTemplateState extends State<FMSTemplate> {
         const TextRowMolecule(
           texts: ["", "", "Good", "Fair", "Poor"],
           customWidths: {2: 50, 3: 50, 4: 50},
-          textStyle: TextStyle(fontSize: 12),
+          textStyle: TextStyle(fontSize: 10),
         ),
         ...List.generate(3, (index) {
           return Expanded(

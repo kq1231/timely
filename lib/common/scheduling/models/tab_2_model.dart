@@ -195,12 +195,19 @@ class Tab2Model {
           for (int weekdayIndex in weekdayIndices) {
             nextDate = start.copyWith(
                 day: start.day +
-                    (((((today.day - start.day) / 7) / (every)).floor() + 1) *
+                    (((((today.day - start.day).abs() / 7) / (every)).floor() +
+                                1) *
                             (every * i) *
                             7 +
-                        (weekdayIndex - (start.weekday))) +
+                        (weekdayIndex - start.weekday)) +
                     1);
-
+            print(nextDate);
+            print(start.day +
+                (((((today.day - start.day) / 7) / (every)).floor() + 1) *
+                        (every * i) *
+                        7 +
+                    (weekdayIndex - start.weekday)) +
+                1);
             if (nextDate.isAfter(today)) {
               found = true;
               break;
