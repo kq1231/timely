@@ -48,11 +48,14 @@ class ScoreRowMolecule extends StatelessWidget {
                   return SizedBox(
                     width: sizes[2],
                     child: Center(
-                      child: Radio(
-                        activeColor: colors[index],
-                        value: status,
-                        groupValue: index,
-                        onChanged: (_) => onStatusChanged(index),
+                      child: Transform.scale(
+                        scale: 1.2,
+                        child: Radio(
+                          activeColor: colors[index],
+                          value: status,
+                          groupValue: index,
+                          onChanged: (_) => onStatusChanged(index),
+                        ),
                       ),
                     ),
                   );
