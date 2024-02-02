@@ -39,8 +39,8 @@ class _FMSPageState extends ConsumerState<FMSPage> {
                       onPressed: () {
                         Navigator.of(context).pop();
                         [
-                          fmsController.setFStatus,
                           fmsController.setMStatus,
+                          fmsController.setFStatus,
                           fmsController.setSStatus,
                         ][index](status);
 

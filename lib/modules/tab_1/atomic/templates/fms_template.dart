@@ -27,14 +27,18 @@ class _FMSTemplateState extends State<FMSTemplate> {
   @override
   Widget build(BuildContext context) {
     statuses = [
-      widget.model.fStatus,
       widget.model.mStatus,
+      widget.model.fStatus,
       widget.model.sStatus
     ];
-    scores = [widget.model.fScore, widget.model.mScore, widget.model.sScore];
+    scores = [
+      widget.model.mScore,
+      widget.model.fScore,
+      widget.model.sScore,
+    ];
     times = [
-      widget.model.fPauseTime,
       widget.model.mPauseTime,
+      widget.model.fPauseTime,
       widget.model.sPauseTime
     ];
 
@@ -51,6 +55,7 @@ class _FMSTemplateState extends State<FMSTemplate> {
           ),
         ),
         const TextRowMolecule(
+          rowColor: Colors.black,
           texts: ["", "", "Good", "Fair", "Poor"],
           customWidths: {2: 50, 3: 50, 4: 50},
           textStyle: TextStyle(fontSize: 10),
@@ -60,7 +65,7 @@ class _FMSTemplateState extends State<FMSTemplate> {
             child: ScoreRowMolecule(
               locked: isLocked(status: statuses[index], time: times[index]),
               height: 50,
-              title: "${"FMS"[index]}-Score",
+              title: "${"MFS"[index]}-Score",
               time: stringifyDuration(
                 scores[index],
               ),

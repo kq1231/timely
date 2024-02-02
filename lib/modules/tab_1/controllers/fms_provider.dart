@@ -13,7 +13,11 @@ class FMSNotifier extends FamilyNotifier<FMSModel, FMSModel> {
         incrementScores();
         syncToDB();
 
-        List<int> statuses = [state.fStatus, state.mStatus, state.sStatus];
+        List<int> statuses = [
+          state.mStatus,
+          state.fStatus,
+          state.sStatus,
+        ];
         // If all three statuses are "Poor" then cancel the timer
         if (statuses.toSet().length == 1 && statuses.toSet().first == 2) {
           timer.cancel();
