@@ -25,19 +25,30 @@ class Tab3InputPage extends ConsumerWidget {
       onPriorityChanged: (index) => controller.setPriority(index),
       onCancelPressed: () => Navigator.pop(context),
       onSubmitPressed: () {
-        if (removeDateTime == true) {
-          controller.removeDateAndTime();
-        }
-        controller.syncToDB();
-        Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              Tab3Constants.submissionStatusMessage,
+        if (model.text_1.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                "You cannot leave the activity field blank!",
+              ),
+              duration: Duration(seconds: 1),
             ),
-            duration: const Duration(seconds: 1),
-          ),
-        );
+          );
+        } else {
+          if (removeDateTime == true) {
+            controller.removeDateAndTime();
+          }
+          controller.syncToDB();
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                Tab3Constants.submissionStatusMessage,
+              ),
+              duration: const Duration(seconds: 1),
+            ),
+          );
+        }
       },
     );
   }
