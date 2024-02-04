@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Tab5Colors {
   static final spwColors = [
     Colors.green,
-    Colors.purple,
+    Colors.yellow,
     Colors.red,
   ];
 
