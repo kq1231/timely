@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/scheduling/atomic/input/templates/repeats_template.dart';
+import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/modules/tab_12/atomic/templates/input/tab_12_input_template.dart';
 import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/input/sub_entry_input_controller.dart';
@@ -79,8 +80,15 @@ class Tab12InputPage extends ConsumerWidget {
                     onYearlySelectionsChanged: (selections) =>
                         localCont.setYearlyRepetitions(selections),
                     onBasisChanged: (basis) => localCont.setBasis(basis),
-                    onPressedCancel: () {},
-                    onPressedDone: () {},
+                    onPressedCancel: () async {
+                      Navigator.pop(context);
+                      await Future.delayed(const Duration(milliseconds: 200));
+                      localCont.setBasis(Basis.day);
+                      localCont.setFrequency("Daily");
+                    },
+                    onPressedDone: () {
+                      Navigator.pop(context);
+                    },
                   ),
                 );
               },
