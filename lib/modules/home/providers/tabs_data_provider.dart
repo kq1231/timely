@@ -7,5 +7,5 @@ final tabsDataProvider =
   var res = await Future.wait(
       [ref.read(tab3Text1Provider.future), ref.read(tab4Top5Provider.future)]);
 
-  return {"tab_1Text": "", "tab_3": res[0], "tab_4": res[1]};
+  return {"tab_3": res[0], "tab_4": res[1]};
 });
