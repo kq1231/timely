@@ -79,6 +79,8 @@ class Tab12InputPage extends ConsumerWidget {
                     onYearlySelectionsChanged: (selections) =>
                         localCont.setYearlyRepetitions(selections),
                     onBasisChanged: (basis) => localCont.setBasis(basis),
+                    onPressedCancel: () {},
+                    onPressedDone: () {},
                   ),
                 );
               },

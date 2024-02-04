@@ -20,6 +20,8 @@ class RepeatsTemplate extends StatelessWidget {
   final ValueChanged<List<int>> onWeekdaySelectionsChanged;
   final ValueChanged<List<int>> onMonthlySelectionsChanged;
   final ValueChanged<List<int>> onYearlySelectionsChanged;
+  final VoidCallback onPressedCancel;
+  final VoidCallback onPressedDone;
 
   const RepeatsTemplate({
     super.key,
@@ -33,6 +35,8 @@ class RepeatsTemplate extends StatelessWidget {
     required this.onWeekdayIndexChanged,
     required this.onYearlySelectionsChanged,
     required this.model,
+    required this.onPressedCancel,
+    required this.onPressedDone,
   });
 
   @override
@@ -126,7 +130,23 @@ class RepeatsTemplate extends StatelessWidget {
                         onWeekdayIndexChanged: onWeekdayIndexChanged,
                         model: model,
                       ),
-                    )
+                    ),
+
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton.outlined(
+            color: Colors.red,
+            onPressed: onPressedCancel,
+            icon: const Icon(Icons.cancel_outlined),
+          ),
+          IconButton.outlined(
+            color: Colors.indigo,
+            onPressed: onPressedDone,
+            icon: const Icon(Icons.done),
+          ),
+        ],
+      ),
     ];
 
     return ListView.separated(

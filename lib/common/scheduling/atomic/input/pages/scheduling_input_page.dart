@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/scheduling/atomic/input/templates/repeats_template.dart';
 import 'package:timely/common/scheduling/atomic/input/templates/scheduling_input_template.dart';
 import 'package:timely/common/scheduling/controllers/input_controller.dart';
+import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/tokens/app/app.dart';
 
 class SchedulingInputPage extends ConsumerWidget {
@@ -40,6 +41,7 @@ class SchedulingInputPage extends ConsumerWidget {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: AppSizes.p_24),
                   child: RepeatsTemplate(
+                    model: localProv,
                     onBasisChanged: (basis) => controller.setBasis(basis),
                     onFrequencyChanged: (frequency) =>
                         controller.setFrequency(frequency),
@@ -59,7 +61,15 @@ class SchedulingInputPage extends ConsumerWidget {
                     onYearlySelectionsChanged: (selections) {
                       controller.setYearlyRepetitions(selections);
                     },
-                    model: localProv,
+                    onPressedCancel: () async {
+                      Navigator.pop(context);
+                      await Future.delayed(const Duration(milliseconds: 200));
+                      controller.setBasis(Basis.day);
+                      controller.setFrequency("Daily");
+                    },
+                    onPressedDone: () {
+                      Navigator.pop(context);
+                    },
                   ),
                 );
               },
