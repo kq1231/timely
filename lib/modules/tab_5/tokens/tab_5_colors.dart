@@ -7,5 +7,7 @@ class Tab5Colors {
     Colors.red,
   ];
 
+  static final letterColorOnYellowBG = Colors.blue[900];
+
   static const rowColor = Colors.black45;
 }

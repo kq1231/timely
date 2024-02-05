@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
-import 'package:timely/modules/tab_3/repositories/repo.dart';
+import 'package:timely/modules/tab_3/repositories/tab_3_repo.dart';
 
 // Services are an extension of repositories.
 // So imagine you have 2 repositories.

@@ -38,11 +38,15 @@ class Tab3OutputTemplate extends StatelessWidget {
             return Column(
               children: [
                 TextRowMolecule(
+                  height: 30,
                   texts: [
                     DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY).format(date)
                   ],
                 ),
-                ListView.builder(
+                ListView.separated(
+                  separatorBuilder: (context, index) => const Divider(
+                    height: 0.3,
+                  ),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {

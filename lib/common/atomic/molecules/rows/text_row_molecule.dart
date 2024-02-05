@@ -38,69 +38,73 @@ class TextRowMolecule extends StatelessWidget {
         child: Padding(
           padding: padding ?? const EdgeInsets.all(0),
           child: Row(
-            children: List.generate(texts.length, (index) {
-              return customWidths.containsKey(index)
-                  ? Container(
-                      height: height,
-                      color: colors.containsKey(index) ? colors[index] : null,
-                      child: SizedBox(
-                        width: customWidths[index],
-                        child: defaultAligned.contains(index)
-                            ? Row(
-                                children: [
-                                  Text(
+            children: List.generate(
+              texts.length,
+              (index) {
+                return customWidths.containsKey(index)
+                    ? Container(
+                        height: height,
+                        color: colors.containsKey(index) ? colors[index] : null,
+                        child: SizedBox(
+                          width: customWidths[index],
+                          child: defaultAligned.contains(index)
+                              ? Row(
+                                  children: [
+                                    Text(
+                                      texts[index],
+                                      style: textStyle ??
+                                          (bolded == true
+                                              ? AppTypography.boldStyle
+                                              : AppTypography.regularStyle),
+                                    ),
+                                  ],
+                                )
+                              : Center(
+                                  child: Text(
                                     texts[index],
                                     style: textStyle ??
                                         (bolded == true
                                             ? AppTypography.boldStyle
                                             : AppTypography.regularStyle),
                                   ),
-                                ],
-                              )
-                            : Center(
-                                child: Text(
-                                  texts[index],
-                                  style: textStyle ??
-                                      (bolded == true
-                                          ? AppTypography.boldStyle
-                                          : AppTypography.regularStyle),
                                 ),
-                              ),
-                      ),
-                    )
-                  : Expanded(
-                      child: Container(
-                        height: height,
-                        color: colors.containsKey(index) ? colors[index] : null,
-                        child: defaultAligned.contains(index)
-                            ? Padding(
-                                padding: const EdgeInsets.all(AppSizes.p_8),
-                                child: Row(
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        texts[index],
-                                        style: textStyle ??
-                                            (bolded == true
-                                                ? AppTypography.boldStyle
-                                                : AppTypography.regularStyle),
+                        ),
+                      )
+                    : Expanded(
+                        child: Container(
+                          height: height,
+                          color:
+                              colors.containsKey(index) ? colors[index] : null,
+                          child: defaultAligned.contains(index)
+                              ? Padding(
+                                  padding: const EdgeInsets.all(AppSizes.p_8),
+                                  child: Row(
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          texts[index],
+                                          style: textStyle ??
+                                              (bolded == true
+                                                  ? AppTypography.boldStyle
+                                                  : AppTypography.regularStyle),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
+                                )
+                              : Center(
+                                  child: Text(
+                                    texts[index],
+                                    style: textStyle ??
+                                        (bolded == true
+                                            ? AppTypography.boldStyle
+                                            : AppTypography.regularStyle),
+                                  ),
                                 ),
-                              )
-                            : Center(
-                                child: Text(
-                                  texts[index],
-                                  style: textStyle ??
-                                      (bolded == true
-                                          ? AppTypography.boldStyle
-                                          : AppTypography.regularStyle),
-                                ),
-                              ),
-                      ),
-                    );
-            }),
+                        ),
+                      );
+              },
+            ),
           ),
         ),
       ),

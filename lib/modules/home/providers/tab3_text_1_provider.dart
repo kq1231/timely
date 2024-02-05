@@ -25,7 +25,9 @@ final tab3Text1Provider =
   String dateToday = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
   if (models.keys.contains(dateToday)) {
-    return models[dateToday]!;
+    return models[dateToday]!
+      ..sort((a, b) => DateTime(0, 0, 0, a.time!.hour, a.time!.minute)
+          .compareTo(DateTime(0, 0, 0, b.time!.hour, b.time!.minute)));
   } else {
     return [];
   }

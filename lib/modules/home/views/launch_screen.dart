@@ -5,6 +5,8 @@ import 'package:timely/app_theme.dart';
 import 'package:timely/modules/home/providers/tabs_data_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
 import 'package:timely/modules/tab_1/atomic/pages/fms_page.dart';
+import 'package:timely/modules/tab_3/atomic/pages/input/tab_3_input_page.dart';
+import 'package:timely/modules/tab_3/controllers/input_controller.dart';
 
 class LaunchScreen extends ConsumerWidget {
   const LaunchScreen({super.key});
@@ -74,8 +76,9 @@ class LaunchScreen extends ConsumerWidget {
                         ),
                       ]),
                     ),
-                    const Divider(
-                      height: 2,
+                    Container(
+                      height: 10,
+                      color: Colors.black,
                     ),
                     Expanded(
                       flex: 2,
@@ -84,11 +87,12 @@ class LaunchScreen extends ConsumerWidget {
                         child: const FMSPage(),
                       ),
                     ),
-                    const Divider(
-                      height: 0.2,
+                    Container(
+                      height: 10,
+                      color: Colors.black,
                     ),
                     Expanded(
-                      flex: 3,
+                      flex: 2,
                       child: Container(
                         color: launchSectionThreeColor,
                         child: data["tab_3"].length == 0
@@ -99,20 +103,35 @@ class LaunchScreen extends ConsumerWidget {
                                 ],
                               )
                             : ListView.builder(
+                                shrinkWrap: true,
                                 itemBuilder: (context, index) {
                                   List models = data["tab_3"];
 
-                                  return Column(
-                                    children: [
-                                      const Divider(
-                                        height: 0.2,
-                                      ),
-                                      Container(
-                                        color: LaunchScreenLayout
-                                            .colors[models[index].priority],
-                                        child: ConstrainedBox(
-                                          constraints: const BoxConstraints(
-                                              minHeight: 50),
+                                  return InkWell(
+                                    onTap: () {
+                                      ref
+                                          .read(tab3InputProvider.notifier)
+                                          .setModel(models[index]);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return Scaffold(
+                                              appBar: AppBar(),
+                                              body: const Tab3InputPage(),
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    },
+                                    child: Column(
+                                      children: [
+                                        const Divider(
+                                          height: 0.2,
+                                        ),
+                                        Container(
+                                          color: LaunchScreenLayout
+                                              .colors[models[index].priority],
                                           child: Row(
                                             children: [
                                               Expanded(
@@ -140,16 +159,17 @@ class LaunchScreen extends ConsumerWidget {
                                             ],
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   );
                                 },
                                 itemCount: data["tab_3"].length,
                               ),
                       ),
                     ),
-                    const Divider(
-                      height: 0.2,
+                    Container(
+                      height: 10,
+                      color: Colors.black,
                     ),
                     // Output4
                     Expanded(

@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:timely/common/atomic/molecules/molecules.dart';
 import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecule.dart';
 import 'package:timely/common/atomic/molecules/rows/navigation_row_molecule.dart';
+import 'package:timely/modules/tab_5/atomic/molecules/spw_text_row_molecule.dart';
 import 'package:timely/modules/tab_5/models/spw.dart';
 import 'package:timely/modules/tab_5/tokens/tab_5_colors.dart';
 
@@ -42,7 +43,7 @@ class Tab5OutputTemplate extends StatelessWidget {
                   onTap: () => onTap(index),
                   child: DismissibleEntryRowMolecule(
                     onDismissed: (direction) => onDismissed(direction, index),
-                    child: TextRowMolecule(
+                    child: SPWTextRowMolecule(
                       height: 50,
                       rowColor: Tab5Colors.rowColor,
                       texts: [

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
 import 'package:timely/reusables.dart';
+import "dart:collection";
 
 // This is the repository for tab 3.
 // Repositories have one job: communicate with the external, third world.
@@ -33,7 +34,12 @@ class Tab3RepositoryNotifier extends Notifier<void> {
         );
       }
     }
-    return tab3Models;
+
+    final sorted = SplayTreeMap<String, List<Tab3Model>>.from(
+      tab3Models,
+      (a, b) => a.compareTo(b),
+    );
+    return sorted;
   }
 
   Future<void> writeModel(Tab3Model model, file) async {
