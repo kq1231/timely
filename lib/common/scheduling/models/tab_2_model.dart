@@ -225,7 +225,13 @@ class Tab2Model {
         while (!found) {
           nextDate = start.copyWith(
             month: start.month +
-                ((today.month - start.month) / every + 1).floor() * (every * i),
+                ((today.month -
+                                    start.month +
+                                    ((today.year - start.year) * 12)) /
+                                every +
+                            1)
+                        .floor() *
+                    (every * i),
           ); // We are adding i because we want to go to the
           // 2nd next closest month if the 1st closest does not suffice.
 
