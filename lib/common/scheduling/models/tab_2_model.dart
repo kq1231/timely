@@ -201,14 +201,6 @@ class Tab2Model {
                             7 +
                         (weekdayIndex - start.weekday)) +
                     1);
-            print("_____ ${name}");
-            print(nextDate);
-            print(
-                (((((today.difference(start).inDays) / 7) / (every)).floor()) *
-                            (every * i) *
-                            7 +
-                        (weekdayIndex - start.weekday)) +
-                    1);
             if (nextDate.isAfter(today)) {
               found = true;
               break;
