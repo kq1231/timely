@@ -141,7 +141,14 @@ final externalEntriesProvider = FutureProvider<Map<String, List>>((ref) async {
     }
   }
 
-  // Tab 5
+  // Sorting
+  entries["timed"]!.sort((a, b) {
+    TimeOfDay time1 = a[2][1];
+    TimeOfDay time2 = b[2][1];
+
+    return DateTime(0, 0, 0, time1.hour, time1.minute)
+        .compareTo(DateTime(0, 0, 0, time2.hour, time2.hour));
+  });
 
   return entries;
 });

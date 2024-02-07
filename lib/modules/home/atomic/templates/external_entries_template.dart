@@ -28,7 +28,7 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 400),
       vsync: this,
     )..repeat(
         reverse: true,
