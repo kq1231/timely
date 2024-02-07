@@ -8,6 +8,7 @@ import 'package:timely/common/scheduling/models/tab_2_model.dart';
 // 2) Allow users to delete and mark tasks as complete
 
 final tab2OutputProvider =
-    AsyncNotifierProvider<Tab2OutputNotifier<Tab2Model>, List<Tab2Model>>(() {
-  return Tab2OutputNotifier(tabNumber: 2);
+    AsyncNotifierProvider<SchedulingOutputNotifier<Tab2Model>, List<Tab2Model>>(
+        () {
+  return SchedulingOutputNotifier(tabNumber: 2);
 });

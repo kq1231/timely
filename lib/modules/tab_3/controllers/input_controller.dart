@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/home/providers/tabs_data_provider.dart';
 import 'package:timely/modules/tab_3/controllers/output_controller.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_3/services/repo_service.dart';
@@ -53,7 +52,6 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
             .writeModel(state, file);
     ref.invalidate(tab3OutputProvider);
     ref.invalidate(tab4OutputProvider);
-    ref.invalidate(tabsDataProvider);
   }
 
   void setModel(Tab3Model model) async {

@@ -13,8 +13,8 @@ import 'package:timely/reusables.dart';
 // of creating three controllers that do exactly the same thing.
 // Here, we only create the class. We create the providers inside the tab folders.
 
-class Tab2OutputNotifier<T> extends OutputNotifier<Tab2Model> {
-  Tab2OutputNotifier({required int tabNumber})
+class SchedulingOutputNotifier<T> extends OutputNotifier<Tab2Model> {
+  SchedulingOutputNotifier({required int tabNumber})
       : super(
           tabNumber: tabNumber,
           modelizer: Tab2Model.fromJson,

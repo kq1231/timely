@@ -12,7 +12,7 @@ import 'package:timely/reusables.dart';
 // That is all it does
 // For storing the information, it has setters such as setName, etc.
 
-class Tab2InputNotifier extends Notifier<Tab2Model> {
+class SchedulingInputNotifier extends Notifier<Tab2Model> {
   @override
   Tab2Model build() {
     return Tab2Model(
@@ -193,5 +193,5 @@ class Tab2InputNotifier extends Notifier<Tab2Model> {
   }
 }
 
-final tab2InputProvider =
-    NotifierProvider<Tab2InputNotifier, Tab2Model>(Tab2InputNotifier.new);
+final tab2InputProvider = NotifierProvider<SchedulingInputNotifier, Tab2Model>(
+    SchedulingInputNotifier.new);

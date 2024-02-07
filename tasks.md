@@ -541,3 +541,13 @@
 **Bismillahir-Rahmanir-Rahim** 
 
 - "Timer" problem.
+
+---
+
+**Bismillahir-Rahmanir-Rahim** 
+
+- Only two sections -D
+- Entries from all tabs 
+- Blinking 
+- Internal and external -D
+- Start, Pause, Stop -D

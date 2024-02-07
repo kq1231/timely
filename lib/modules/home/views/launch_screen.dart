@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/modules/home/atomic/templates/external_entries_template.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/modules/home/providers/tabs_data_provider.dart';
+import 'package:timely/modules/home/providers/external_entries_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
 import 'package:timely/modules/tab_1/atomic/pages/fms_page.dart';
-import 'package:timely/modules/tab_3/atomic/pages/input/tab_3_input_page.dart';
-import 'package:timely/modules/tab_3/controllers/input_controller.dart';
 
 class LaunchScreen extends ConsumerWidget {
   const LaunchScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var tabsData = ref.watch(tabsDataProvider);
+    var tabsData = ref.watch(externalEntriesProvider);
     return Row(
       children: [
         const TabButtons(),
@@ -77,8 +76,12 @@ class LaunchScreen extends ConsumerWidget {
                       ]),
                     ),
                     Container(
-                      height: 10,
                       color: Colors.black,
+                      child: const Center(
+                        child: Text(
+                          "Internal",
+                        ),
+                      ),
                     ),
                     Expanded(
                       flex: 2,
@@ -88,151 +91,20 @@ class LaunchScreen extends ConsumerWidget {
                       ),
                     ),
                     Container(
-                      height: 10,
                       color: Colors.black,
+                      child: const Center(
+                        child: Text(
+                          "External",
+                        ),
+                      ),
                     ),
                     Expanded(
                       flex: 2,
-                      child: Container(
-                        color: launchSectionThreeColor,
-                        child: data["tab_3"].length == 0
-                            ? const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Flexible(child: Text("Default Text 2")),
-                                ],
-                              )
-                            : ListView.builder(
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  List models = data["tab_3"];
-
-                                  return InkWell(
-                                    onTap: () {
-                                      ref
-                                          .read(tab3InputProvider.notifier)
-                                          .setModel(models[index]);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) {
-                                            return Scaffold(
-                                              appBar: AppBar(),
-                                              body: const Tab3InputPage(),
-                                            );
-                                          },
-                                        ),
-                                      );
-                                    },
-                                    child: Column(
-                                      children: [
-                                        const Divider(
-                                          height: 0.2,
-                                        ),
-                                        Container(
-                                          color: LaunchScreenLayout
-                                              .colors[models[index].priority],
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    models[index].text_1,
-                                                    style: LaunchScreenLayout
-                                                        .tab3TextStyle,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 70,
-                                                child: Center(
-                                                  child: Text(
-                                                      models[index]
-                                                          .time
-                                                          .format(context),
-                                                      style: LaunchScreenLayout
-                                                          .tab3TextStyle),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                                itemCount: data["tab_3"].length,
-                              ),
+                      child: ExternalEntriesTemplate(
+                        color: Colors.black,
+                        data: data,
+                        onTap: () {},
                       ),
-                    ),
-                    Container(
-                      height: 10,
-                      color: Colors.black,
-                    ),
-                    // Output4
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        color: launchSectionFourColor,
-                        child: data["tab_4"].length == 0
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Flexible(child: Text("Default Text 3")),
-                                ],
-                              )
-                            : Center(
-                                child: ListView.builder(
-                                  itemBuilder: (context, index) {
-                                    return Column(
-                                      children: [
-                                        ConstrainedBox(
-                                          constraints: const BoxConstraints(
-                                              minHeight: 50),
-                                          child: Container(
-                                            color: LaunchScreenLayout.colors[
-                                                data["tab_4"][index][0]],
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 30,
-                                                  child: Center(
-                                                    child: Text(
-                                                      "${index + 1}",
-                                                      style: LaunchScreenLayout
-                                                          .tab4TextStyle,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    data["tab_4"][index][1],
-                                                    style: LaunchScreenLayout
-                                                        .tab4TextStyle,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        index != data["tab_4"].length - 1
-                                            ? Divider(
-                                                color: Colors.grey[900],
-                                                height: 1,
-                                              )
-                                            : Container(),
-                                      ],
-                                    );
-                                  },
-                                  itemCount: data["tab_4"].length,
-                                ),
-                              ),
-                      ),
-                    ),
-                    const Divider(
-                      height: 2,
                     ),
                   ],
                 );

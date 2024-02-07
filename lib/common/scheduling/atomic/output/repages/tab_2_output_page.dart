@@ -8,7 +8,7 @@ import 'package:timely/modules/tab_2/pages/tab_2_input_page.dart';
 import 'package:timely/reusables.dart';
 
 class SchedulingOutputPage extends ConsumerStatefulWidget {
-  final AsyncNotifierProvider<Tab2OutputNotifier, List<Tab2Model>>
+  final AsyncNotifierProvider<SchedulingOutputNotifier, List<Tab2Model>>
       providerOfTab2Models;
   final Widget inputPage;
 

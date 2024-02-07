@@ -163,6 +163,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
                 name: "This is a sample entry that repeats daily.",
                 startTime: TimeOfDay.now(),
                 startDate: DateTime.now(),
+                endDate: DateTime.now(),
                 dur: Duration.zero,
                 every: 1,
                 basis: Basis.day,

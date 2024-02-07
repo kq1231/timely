@@ -22,7 +22,7 @@ class _FMSTemplateState extends State<FMSTemplate> {
   List<int> statuses = [];
   List<Duration> scores = [];
   List<DateTime?> times = [];
-  List<String> texts = "Good,Fair,Poor".split(",");
+  List<String> texts = "Start,Stop,Pause".split(",");
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _FMSTemplateState extends State<FMSTemplate> {
           ),
         ),
         const TextRowMolecule(
-          texts: ["", "", "Good", "Fair", "Poor"],
+          texts: ["", "", "Start", "Stop", "Pause"],
           customWidths: {2: 50, 3: 50, 4: 50},
           textStyle: TextStyle(fontSize: 10),
         ),
@@ -90,10 +90,10 @@ String stringifyDuration(Duration duration) {
 }
 
 bool isLocked({required int status, DateTime? time}) {
-  if (status == 2) // Yani status is "Poor"
+  if (status == 2) // Yani status is "Pause"
   {
     return true;
-  } else if (status == 1) // Yani status is "Fair"
+  } else if (status == 1) // Yani status is "Stop"
   {
     // Check if the time elapsed is half-an-hour or more
     if ((DateTime.now().difference(time!).inSeconds / 60) >= 30) {
