@@ -176,6 +176,8 @@ class SchedulingInputNotifier extends Notifier<Tab2Model> {
     ]) {
       ref.invalidate(provider);
     }
+
+    ref.invalidate(externalEntriesProvider);
   }
 
   Future<void> syncEditedModel(tabNumber) async {

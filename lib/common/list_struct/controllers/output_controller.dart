@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/list_struct/services/repo_service.dart';
+import 'package:timely/modules/home/providers/external_entries_provider.dart';
 import 'package:timely/reusables.dart';
 
 class OutputNotifier<T> extends AsyncNotifier<List<T>> {
@@ -33,11 +34,13 @@ class OutputNotifier<T> extends AsyncNotifier<List<T>> {
     await ref
         .read(repositoryServiceProvider.notifier)
         .deleteModel(model, pendingFile);
+    ref.invalidate(externalEntriesProvider);
   }
 
   Future<void> markModelAsComplete(T model) async {
     await ref
         .read(repositoryServiceProvider.notifier)
         .markModelAsComplete(model, pendingFile, completedFile);
+    ref.invalidate(externalEntriesProvider);
   }
 }

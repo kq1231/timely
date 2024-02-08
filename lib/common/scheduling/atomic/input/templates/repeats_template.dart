@@ -135,15 +135,21 @@ class RepeatsTemplate extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          IconButton.outlined(
-            color: Colors.red,
-            onPressed: onPressedCancel,
-            icon: const Icon(Icons.cancel_outlined),
+          CircleAvatar(
+            backgroundColor: Colors.red,
+            child: IconButton(
+              color: Colors.black,
+              onPressed: onPressedCancel,
+              icon: const Icon(Icons.cancel_outlined),
+            ),
           ),
-          IconButton.outlined(
-            color: Colors.indigo,
-            onPressed: onPressedDone,
-            icon: const Icon(Icons.done),
+          CircleAvatar(
+            backgroundColor: Colors.indigo,
+            child: IconButton(
+              color: Colors.black,
+              onPressed: onPressedDone,
+              icon: const Icon(Icons.done),
+            ),
           ),
         ],
       ),

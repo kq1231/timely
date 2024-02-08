@@ -70,7 +70,8 @@ final externalEntriesProvider = FutureProvider<Map<String, List>>((ref) async {
     var nextDateTime = model.getNextOccurenceDateTime();
     var now = DateTime.now();
     if ("${now.year} ${now.month} ${now.day}" ==
-        "${nextDateTime.year} ${nextDateTime.month} ${nextDateTime.day}") {
+            "${nextDateTime.year} ${nextDateTime.month} ${nextDateTime.day}" &&
+        !model.name!.contains("This is a sample entry that repeats daily.")) {
       entries["timed"]!.add(
         [
           2,
@@ -88,7 +89,8 @@ final externalEntriesProvider = FutureProvider<Map<String, List>>((ref) async {
     var nextDateTime = model.getNextOccurenceDateTime();
     var now = DateTime.now();
     if ("${now.year} ${now.month} ${now.day}" ==
-        "${nextDateTime.year} ${nextDateTime.month} ${nextDateTime.day}") {
+            "${nextDateTime.year} ${nextDateTime.month} ${nextDateTime.day}" &&
+        !model.name!.contains("This is a sample entry that repeats daily.")) {
       entries["timed"]!.add(
         [
           6,
@@ -106,7 +108,8 @@ final externalEntriesProvider = FutureProvider<Map<String, List>>((ref) async {
     var nextDateTime = model.getNextOccurenceDateTime();
     var now = DateTime.now();
     if ("${now.year} ${now.month} ${now.day}" ==
-        "${nextDateTime.year} ${nextDateTime.month} ${nextDateTime.day}") {
+            "${nextDateTime.year} ${nextDateTime.month} ${nextDateTime.day}" &&
+        !model.name!.contains("This is a sample entry that repeats daily.")) {
       entries["timed"]!.add(
         [
           7,
@@ -127,16 +130,19 @@ final externalEntriesProvider = FutureProvider<Map<String, List>>((ref) async {
   for (String date in tab3Data.keys) {
     if (date == dateToday) {
       for (Tab3Model model in tab3Data[date]) {
-        entries["timed"]!.add(
-          [
-            3,
-            model, // Tab number
+        if (!model.text_1
+            .contains("This is a sample entry that repeats daily.")) {
+          entries["timed"]!.add(
             [
-              model.text_1, // Name
-              model.time, // Time
+              3,
+              model, // Tab number
+              [
+                model.text_1, // Name
+                model.time, // Time
+              ],
             ],
-          ],
-        );
+          );
+        }
       }
     }
   }

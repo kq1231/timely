@@ -21,7 +21,7 @@ class ExternalEntriesTemplate extends StatefulWidget {
 
 class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
     with SingleTickerProviderStateMixin {
-  int blinkIndex = -1;
+  List blinkIndices = [];
   late AnimationController _controller;
 
   @override
@@ -33,21 +33,20 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
     )..repeat(
         reverse: true,
       );
-    Timer.periodic(const Duration(seconds: 5), (Timer t) {
+    Timer.periodic(const Duration(seconds: 10), (Timer t) {
       var now = DateTime.now();
       var currentTime = "${now.hour}:${now.minute}";
       for (var i = 0; i < widget.data["timed"]!.length; i++) {
         TimeOfDay time = widget.data["timed"]![i].last.last;
         if ("${time.hour}:${time.minute}" == currentTime) {
           setState(() {
-            blinkIndex = i;
+            blinkIndices.add(i);
           });
           Future.delayed(const Duration(seconds: 30), () {
             setState(() {
-              blinkIndex = -1;
+              blinkIndices = [];
             });
           });
-          break;
         }
       }
     });
@@ -85,7 +84,7 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
                       Container(
                         color: Colors.indigo[700],
                         child: FadeTransition(
-                          opacity: blinkIndex == index
+                          opacity: blinkIndices.contains(index)
                               ? _controller
                               : const AlwaysStoppedAnimation(1.0),
                           child: Row(

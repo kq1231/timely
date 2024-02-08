@@ -51,7 +51,7 @@ class _Tab2OutputRepageState extends ConsumerState<SchedulingOutputPage> {
                 MaterialPageRoute(
                   builder: (context) {
                     return Scaffold(
-                      body: const Tab2InputPage(),
+                      body: widget.inputPage,
                       appBar: AppBar(),
                     );
                   },
