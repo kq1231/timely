@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/common/scheduling/services/repo_service.dart';
+import 'package:timely/modules/home/providers/external_entries_provider.dart';
 import 'package:timely/reusables.dart';
 
 // This is the tab 2 output controller.
@@ -36,8 +37,10 @@ class SchedulingOutputNotifier<T>
   }
 
   Future<void> deleteModel(Tab2Model model) async {
-    ref
+    await ref
         .read(schedulingRepositoryServiceProvider.notifier)
         .deleteModel(model, pendingFile);
+
+    ref.invalidate(externalEntriesProvider);
   }
 }

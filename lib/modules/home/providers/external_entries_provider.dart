@@ -130,8 +130,7 @@ final externalEntriesProvider = FutureProvider<Map<String, List>>((ref) async {
   for (String date in tab3Data.keys) {
     if (date == dateToday) {
       for (Tab3Model model in tab3Data[date]) {
-        if (!model.text_1
-            .contains("This is a sample entry.")) {
+        if (!model.text_1.contains("This is a sample entry.")) {
           entries["timed"]!.add(
             [
               3,
