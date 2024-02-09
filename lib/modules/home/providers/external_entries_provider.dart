@@ -9,15 +9,15 @@ import 'package:timely/modules/tab_10/services/repo_service.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_12/services/repo_service.dart';
-import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_3/services/repo_service.dart';
 import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
 import 'package:timely/modules/tab_5/repositories/tab_5_repo.dart';
-import 'package:timely/modules/tab_8/models/tab_8_model.dart';
 import 'package:timely/modules/tab_8/services/repo_service.dart';
+import 'package:timely/modules/tab_9/services/repo_service.dart';
+import 'package:timely/modules/tab_3/models/tab_3_model.dart';
+import 'package:timely/modules/tab_8/models/tab_8_model.dart';
 import 'package:timely/modules/tab_9/models/entry_model.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
-import 'package:timely/modules/tab_9/services/repo_service.dart';
 import 'package:timely/reusables.dart';
 
 // Get all entries from all tabs
