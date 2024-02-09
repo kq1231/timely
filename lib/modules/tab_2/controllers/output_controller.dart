@@ -7,7 +7,7 @@ import 'package:timely/common/scheduling/models/tab_2_model.dart';
 // 1) Fetch the scheduled tasks from the database
 // 2) Allow users to delete and mark tasks as complete
 
-final tab2OutputProvider = AsyncNotifierProvider<
+final tab2OutputProvider = AutoDisposeAsyncNotifierProvider<
     SchedulingOutputNotifier<Tab2Model>, Map<String, List<Tab2Model>>>(() {
   return SchedulingOutputNotifier(2);
 });

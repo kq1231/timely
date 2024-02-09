@@ -6,7 +6,7 @@ import 'package:timely/common/list_struct/services/repo_service.dart';
 import 'package:timely/modules/home/providers/external_entries_provider.dart';
 import 'package:timely/reusables.dart';
 
-class OutputNotifier<T> extends AsyncNotifier<List<T>> {
+class OutputNotifier<T> extends AutoDisposeAsyncNotifier<List<T>> {
   late int tabNumber;
   late File pendingFile;
   late File completedFile;

@@ -7,7 +7,7 @@ import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/reusables.dart';
 
 class SchedulingOutputPage extends ConsumerStatefulWidget {
-  final AsyncNotifierProvider<SchedulingOutputNotifier,
+  final AutoDisposeAsyncNotifierProvider<SchedulingOutputNotifier,
       Map<String, List<Tab2Model>>> providerOfTab2Models;
   final Widget inputPage;
 

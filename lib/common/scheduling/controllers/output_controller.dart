@@ -14,7 +14,7 @@ import 'package:timely/reusables.dart';
 // Here, we only create the class. We create the providers inside the tab folders.
 
 class SchedulingOutputNotifier<T>
-    extends AsyncNotifier<Map<String, List<Tab2Model>>> {
+    extends AutoDisposeAsyncNotifier<Map<String, List<Tab2Model>>> {
   SchedulingOutputNotifier(this.tabNumber);
 
   final int tabNumber;

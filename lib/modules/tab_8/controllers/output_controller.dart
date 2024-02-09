@@ -3,8 +3,8 @@ import 'package:timely/common/list_struct/controllers/output_controller.dart';
 import 'package:timely/modules/tab_8/services/repo_service.dart';
 import 'package:timely/modules/tab_8/models/tab_8_model.dart';
 
-final tab8OutputProvider =
-    AsyncNotifierProvider<OutputNotifier<Tab8Model>, List<Tab8Model>>(() {
+final tab8OutputProvider = AutoDisposeAsyncNotifierProvider<
+    OutputNotifier<Tab8Model>, List<Tab8Model>>(() {
   return OutputNotifier(
     tabNumber: 8,
     modelizer: Tab8Model.fromJson,
