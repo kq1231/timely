@@ -9,5 +9,5 @@ import 'package:timely/common/scheduling/models/tab_2_model.dart';
 
 final tab2OutputProvider = AsyncNotifierProvider<
     SchedulingOutputNotifier<Tab2Model>, Map<String, List<Tab2Model>>>(() {
-  return SchedulingOutputNotifier(tabNumber: 2);
+  return SchedulingOutputNotifier(2);
 });

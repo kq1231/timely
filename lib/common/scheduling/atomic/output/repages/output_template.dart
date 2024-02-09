@@ -50,23 +50,44 @@ class SchedulingOutputTemplate extends StatelessWidget {
                       child: Container(
                         decoration: const BoxDecoration(
                           border: Border.symmetric(
-                            horizontal: BorderSide(width: 0.5),
+                            horizontal: BorderSide(width: 1),
                           ),
                         ),
-                        child: DismissibleEntryRowMolecule(
-                          child: TextRowMolecule(
-                            customWidths: const {1: 50, 2: 50},
-                            height: 60,
-                            rowColor: AppColors.bgIndigo800,
-                            defaultAligned: const [0],
-                            texts: [
-                              model.name!,
-                              model.startTime.format(context),
-                              model.getEndTime().format(context),
-                            ],
-                          ),
-                          onDismissed: (direction) =>
-                              onDismissed(direction, model, "today"),
+                        child: Column(
+                          children: [
+                            DismissibleEntryRowMolecule(
+                              child: TextRowMolecule(
+                                customWidths: const {1: 50, 2: 50},
+                                height: 60,
+                                rowColor: AppColors.bgIndigo800,
+                                defaultAligned: const [0],
+                                texts: [
+                                  model.name!,
+                                  model.startTime.format(context),
+                                  model.getEndTime().format(context),
+                                ],
+                              ),
+                              onDismissed: (direction) =>
+                                  onDismissed(direction, model, "today"),
+                            ),
+                            Container(
+                              height: 40,
+                              color: AppColors.bgIndigo800,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      model.getRepetitionSummary(),
+                                      style: const TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     );
@@ -83,23 +104,55 @@ class SchedulingOutputTemplate extends StatelessWidget {
                   models["upcoming"]!.length,
                   (index) {
                     Tab2Model model = models["upcoming"]![index];
-                    return InkWell(
-                      onTap: () => onTap(model),
-                      child: DismissibleEntryRowMolecule(
-                        child: TextRowMolecule(
-                          customWidths: const {1: 50, 2: 50},
-                          height: 60,
-                          rowColor: AppColors.bgIndigo800,
-                          defaultAligned: const [0],
-                          texts: [
-                            model.name!,
-                            model.startTime.format(context),
-                            model.getEndTime().format(context),
-                          ],
+                    return Column(
+                      children: [
+                        InkWell(
+                          onTap: () => onTap(model),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              border: Border.symmetric(
+                                horizontal: BorderSide(width: 1),
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                DismissibleEntryRowMolecule(
+                                  child: TextRowMolecule(
+                                    customWidths: const {1: 50, 2: 50},
+                                    height: 60,
+                                    rowColor: AppColors.bgIndigo800,
+                                    defaultAligned: const [0],
+                                    texts: [
+                                      model.name!,
+                                      model.startTime.format(context),
+                                      model.getEndTime().format(context),
+                                    ],
+                                  ),
+                                  onDismissed: (direction) =>
+                                      onDismissed(direction, model, "upcoming"),
+                                ),
+                                Container(
+                                  height: 40,
+                                  color: AppColors.bgIndigo800,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          model.getRepetitionSummary(),
+                                          style: const TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        onDismissed: (direction) =>
-                            onDismissed(direction, model, "upcoming"),
-                      ),
+                      ],
                     );
                   },
                 ),

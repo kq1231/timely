@@ -15,14 +15,12 @@ import 'package:timely/reusables.dart';
 
 class SchedulingOutputNotifier<T>
     extends AsyncNotifier<Map<String, List<Tab2Model>>> {
-  late int tabNumber = 2;
+  SchedulingOutputNotifier(this.tabNumber);
+
+  final int tabNumber;
   late File pendingFile;
   late File completedFile;
   late File currentFile;
-
-  SchedulingOutputNotifier({
-    required tabNumber,
-  });
 
   @override
   FutureOr<Map<String, List<Tab2Model>>> build() async {
