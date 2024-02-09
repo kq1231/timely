@@ -23,6 +23,7 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
     with SingleTickerProviderStateMixin {
   List blinkIndices = [];
   late AnimationController _controller;
+  late Timer _timer;
 
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
         reverse: true,
       );
     Timer.periodic(const Duration(seconds: 10), (Timer t) {
+      _timer = t;
       var now = DateTime.now();
       var currentTime = "${now.hour}:${now.minute}";
       for (var i = 0; i < widget.data["timed"]!.length; i++) {
@@ -55,6 +57,7 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
   @override
   void dispose() {
     _controller.dispose();
+    _timer.cancel();
     super.dispose();
   }
 
@@ -118,21 +121,3 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
     );
   }
 }
-
-
-// if (models[index]![0] == 3) {
-//   ref.read(tab3InputProvider.notifier).setModel(
-//         models[index][1],
-//       );
-//   Navigator.push(
-//     context,
-//     MaterialPageRoute(
-//       builder: (context) {
-//         return Scaffold(
-//           appBar: AppBar(),
-//           body: const Tab3InputPage(),
-//         );
-//       },
-//     ),
-//   );
-// }
