@@ -4,12 +4,11 @@ import 'package:timely/common/scheduling/atomic/output/repages/output_template.d
 import 'package:timely/common/scheduling/controllers/input_controller.dart';
 import 'package:timely/common/scheduling/controllers/output_controller.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/modules/tab_2/pages/tab_2_input_page.dart';
 import 'package:timely/reusables.dart';
 
 class SchedulingOutputPage extends ConsumerStatefulWidget {
-  final AsyncNotifierProvider<SchedulingOutputNotifier, List<Tab2Model>>
-      providerOfTab2Models;
+  final AsyncNotifierProvider<SchedulingOutputNotifier,
+      Map<String, List<Tab2Model>>> providerOfTab2Models;
   final Widget inputPage;
 
   const SchedulingOutputPage({
@@ -32,21 +31,22 @@ class _Tab2OutputRepageState extends ConsumerState<SchedulingOutputPage> {
     return provider.when(
         data: (models) {
           return SchedulingOutputTemplate(
-            onDismissed: (DismissDirection direction, int index) {
+            onDismissed:
+                (DismissDirection direction, Tab2Model model, String type) {
               if (direction == DismissDirection.startToEnd) {
-                controller.deleteModel(models[index]);
-                models.removeWhere(
-                    (element) => element.uuid == models[index].uuid);
+                controller.deleteModel(model);
+                models[type]!
+                    .removeWhere((element) => element.uuid == model.uuid);
                 setState(() {});
               } else {
-                models.removeWhere((e) => e.uuid == models[index].uuid);
+                models[type]!.removeWhere((e) => e.uuid == model.uuid);
                 setState(() {});
 
-                controller.markModelAsComplete(models[index]);
+                // controller.markModelAsComplete(models[index]);
               }
             },
-            onTap: (index) {
-              ref.read(tab2InputProvider.notifier).setModel(models[index]);
+            onTap: (Tab2Model model) {
+              ref.read(tab2InputProvider.notifier).setModel(model);
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {

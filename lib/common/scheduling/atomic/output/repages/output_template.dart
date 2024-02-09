@@ -6,9 +6,10 @@ import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/tokens/app/app.dart';
 
 class SchedulingOutputTemplate extends StatelessWidget {
-  final List<Tab2Model> models;
-  final Function(DismissDirection direction, int index) onDismissed;
-  final Function(int index) onTap;
+  final Map<String, List<Tab2Model>> models;
+  final Function(DismissDirection direction, Tab2Model model, String type)
+      onDismissed;
+  final Function(Tab2Model model) onTap;
   final VoidCallback onPressedHome;
   final VoidCallback onPressedAdd;
 
@@ -28,38 +29,84 @@ class SchedulingOutputTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        StatefulBuilder(builder: ((context, setState) {
-          return ListView.separated(
-            shrinkWrap: true,
-            separatorBuilder: (context, index) => const Divider(
-              height: 0,
-              thickness: 3,
-              color: AppColors.bgDark,
-            ),
-            itemBuilder: (context, index) {
-              Tab2Model model = models[index];
-
-              return InkWell(
-                onTap: () => onTap(index),
-                child: DismissibleEntryRowMolecule(
-                  child: TextRowMolecule(
-                    customWidths: const {1: 50, 2: 50},
-                    height: 60,
-                    rowColor: AppColors.bgIndigo800,
-                    defaultAligned: const [0],
-                    texts: [
-                      model.name!,
-                      model.startTime.format(context),
-                      model.getEndTime().format(context),
-                    ],
+        StatefulBuilder(
+          builder: ((context, setState) {
+            return ListView(
+              shrinkWrap: true,
+              children: [
+                const SizedBox(
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Text("Today's Tasks")],
                   ),
-                  onDismissed: (direction) => onDismissed(direction, index),
                 ),
-              );
-            },
-            itemCount: models.length,
-          );
-        })),
+                ...List.generate(
+                  models["today"]!.length,
+                  (index) {
+                    Tab2Model model = models["today"]![index];
+                    return InkWell(
+                      onTap: () => onTap(model),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          border: Border.symmetric(
+                            horizontal: BorderSide(width: 0.5),
+                          ),
+                        ),
+                        child: DismissibleEntryRowMolecule(
+                          child: TextRowMolecule(
+                            customWidths: const {1: 50, 2: 50},
+                            height: 60,
+                            rowColor: AppColors.bgIndigo800,
+                            defaultAligned: const [0],
+                            texts: [
+                              model.name!,
+                              model.startTime.format(context),
+                              model.getEndTime().format(context),
+                            ],
+                          ),
+                          onDismissed: (direction) =>
+                              onDismissed(direction, model, "today"),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Text("Upcoming Tasks")],
+                  ),
+                ),
+                ...List.generate(
+                  models["upcoming"]!.length,
+                  (index) {
+                    Tab2Model model = models["upcoming"]![index];
+                    return InkWell(
+                      onTap: () => onTap(model),
+                      child: DismissibleEntryRowMolecule(
+                        child: TextRowMolecule(
+                          customWidths: const {1: 50, 2: 50},
+                          height: 60,
+                          rowColor: AppColors.bgIndigo800,
+                          defaultAligned: const [0],
+                          texts: [
+                            model.name!,
+                            model.startTime.format(context),
+                            model.getEndTime().format(context),
+                          ],
+                        ),
+                        onDismissed: (direction) =>
+                            onDismissed(direction, model, "upcoming"),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            );
+          }),
+        ),
         Column(
           children: [
             Expanded(

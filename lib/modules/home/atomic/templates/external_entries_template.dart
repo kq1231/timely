@@ -34,8 +34,7 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
     )..repeat(
         reverse: true,
       );
-    Timer.periodic(const Duration(seconds: 10), (Timer t) {
-      _timer = t;
+    _timer = Timer.periodic(const Duration(seconds: 10), (Timer t) {
       var now = DateTime.now();
       var currentTime = "${now.hour}:${now.minute}";
       for (var i = 0; i < widget.data["timed"]!.length; i++) {

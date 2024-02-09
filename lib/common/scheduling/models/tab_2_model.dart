@@ -157,8 +157,8 @@ class Tab2Model {
     TimeOfDay endTime = getEndTime();
     DateTime today = DateTime.now();
     DateTime start = startDate!.copyWith(
-      hour: startTime.hour,
-      minute: startTime.minute,
+      hour: 23,
+      minute: 59,
     );
     DateTime nextDate = DateTime(0);
 
@@ -186,7 +186,10 @@ class Tab2Model {
 
           i++;
         }
-        return nextDate;
+        return nextDate.copyWith(
+          hour: startTime.hour,
+          minute: startTime.minute,
+        );
 
       case "Weekly":
         List<int> weekdayIndices = repetitions["Weekdays"].cast<int>();
@@ -215,7 +218,10 @@ class Tab2Model {
           i++;
         }
 
-        return nextDate;
+        return nextDate.copyWith(
+          hour: startTime.hour,
+          minute: startTime.minute,
+        );
 
       case "Monthly":
         // First, calculate the closest occurring month
@@ -285,7 +291,10 @@ class Tab2Model {
           i++;
         }
 
-        return nextDate;
+        return nextDate.copyWith(
+          hour: startTime.hour,
+          minute: startTime.minute,
+        );
 
       case "Yearly":
         List<int> months = repetitions["Months"].cast<int>();
@@ -346,7 +355,10 @@ class Tab2Model {
 
           i++;
         }
-        return nextDate;
+        return nextDate.copyWith(
+          hour: startTime.hour,
+          minute: startTime.minute,
+        );
 
       default:
         return DateTime(0).copyWith(hour: endTime.hour, minute: endTime.minute);
