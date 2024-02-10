@@ -1,17 +1,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecule.dart';
 
 class ExternalEntriesTemplate extends StatefulWidget {
   final Color color;
   final Map<String, List> data;
-  final VoidCallback onTap;
+  final Function(dynamic model, int index) onTap;
+  final Function(DismissDirection direction, dynamic model) onDismissed;
 
   const ExternalEntriesTemplate({
     super.key,
     required this.color,
     required this.data,
     required this.onTap,
+    required this.onDismissed,
   });
 
   @override
@@ -77,41 +80,45 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
                 List models = widget.data["timed"]!;
 
                 return InkWell(
-                  onTap: widget.onTap,
-                  child: Column(
-                    children: [
-                      const Divider(
-                        height: 0.2,
-                      ),
-                      Container(
-                        color: Colors.indigo[700],
-                        child: FadeTransition(
-                          opacity: blinkIndices.contains(index)
-                              ? _controller
-                              : const AlwaysStoppedAnimation(1.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    models[index].last[0],
+                  onTap: () => widget.onTap(models[index], index),
+                  child: DismissibleEntryRowMolecule(
+                    onDismissed: (direction) =>
+                        widget.onDismissed(direction, models[index]),
+                    child: Column(
+                      children: [
+                        const Divider(
+                          height: 0.2,
+                        ),
+                        Container(
+                          color: Colors.indigo[700],
+                          child: FadeTransition(
+                            opacity: blinkIndices.contains(index)
+                                ? _controller
+                                : const AlwaysStoppedAnimation(1.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      models[index].last[0],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 70,
-                                child: Center(
-                                  child: Text(
-                                    models[index].last[1].format(context),
+                                SizedBox(
+                                  width: 70,
+                                  child: Center(
+                                    child: Text(
+                                      models[index].last[1].format(context),
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
