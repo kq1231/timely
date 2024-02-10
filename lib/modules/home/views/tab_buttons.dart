@@ -8,10 +8,8 @@ final List tabs = [
   const Tab1OutputPage(),
   const Tab2OutputPage(),
   const Tab3OutputPage(),
-  const Tab3OutputPage(),
-
-  // const Tab4OutputPage(),
   const Tab5OutputPage(),
+  Container(),
   const Tab6OutputPage(),
   const Tab7OutputPage(),
   const Tab8OutputPage(),
@@ -73,7 +71,7 @@ class _TabButtonsState extends ConsumerState<TabButtons> {
       width: 50,
       child: Column(
         children: [
-          for (int i in Iterable.generate(tabs.length - 1))
+          for (int i in Iterable.generate(4))
             Expanded(
               child: FloatingActionButton(
                 backgroundColor: i != selectedIndex
