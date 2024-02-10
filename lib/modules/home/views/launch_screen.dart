@@ -12,6 +12,8 @@ import 'package:timely/modules/tab_2/pages/tab_2_input_page.dart';
 import 'package:timely/modules/tab_3/atomic/pages/input/tab_3_input_page.dart';
 import 'package:timely/modules/tab_3/controllers/input_controller.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
+import 'package:timely/modules/tab_6/pages/tab_6_input_page.dart';
+import 'package:timely/modules/tab_7/pages/tab_7_input_page.dart';
 
 class LaunchScreen extends ConsumerWidget {
   const LaunchScreen({super.key});
@@ -112,7 +114,8 @@ class LaunchScreen extends ConsumerWidget {
                         onDismissed: (dir, model) {
                           // if (model is Tab3Model) {}
                         },
-                        onTap: (model, index) {
+                        onTap: (model, tabNumber) {
+                          print(model);
                           if (model is Tab3Model) {
                             ref
                                 .read(tab3InputProvider.notifier)
@@ -136,7 +139,11 @@ class LaunchScreen extends ConsumerWidget {
                               MaterialPageRoute(
                                 builder: (context) {
                                   return Scaffold(
-                                    body: const Tab2InputPage(),
+                                    body: tabNumber == 2
+                                        ? const Tab2InputPage()
+                                        : tabNumber == 6
+                                            ? const Tab6InputPage()
+                                            : const Tab7InputPage(),
                                     appBar: AppBar(),
                                   );
                                 },

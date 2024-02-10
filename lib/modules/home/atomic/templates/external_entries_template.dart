@@ -6,7 +6,7 @@ import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecu
 class ExternalEntriesTemplate extends StatefulWidget {
   final Color color;
   final Map<String, List> data;
-  final Function(dynamic model, int index) onTap;
+  final Function(dynamic model, int tabNumber) onTap;
   final Function(DismissDirection direction, dynamic model) onDismissed;
 
   const ExternalEntriesTemplate({
@@ -80,7 +80,7 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
                 List models = widget.data["timed"]!;
 
                 return InkWell(
-                  onTap: () => widget.onTap(models[index], index),
+                  onTap: () => widget.onTap(models[index][1], models[index][0]),
                   child: DismissibleEntryRowMolecule(
                     onDismissed: (direction) =>
                         widget.onDismissed(direction, models[index]),
