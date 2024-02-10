@@ -10,7 +10,6 @@ import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_12/services/repo_service.dart';
 import 'package:timely/modules/tab_3/services/repo_service.dart';
-import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
 import 'package:timely/modules/tab_5/repositories/tab_5_repo.dart';
 import 'package:timely/modules/tab_8/services/repo_service.dart';
 import 'package:timely/modules/tab_9/services/repo_service.dart';
@@ -37,10 +36,8 @@ final externalEntriesProvider = FutureProvider<Map<String, List>>((ref) async {
       ref.read(tab1RepositoryProvider.notifier).fetchFMSModels(),
       ref.read(schedulingRepositoryServiceProvider.notifier).fetchModels(
           Tab2Model.fromJson, ref.read(dbFilesProvider).requireValue[2]![0]),
-      ref
-          .read(tab3RepositoryServiceProvider.notifier)
-          .fetchModels(ref.read(dbFilesProvider).requireValue[3]![0]),
-      ref.read(tab4RepositoryProvider.notifier).fetchTab4Models(),
+      ref.read(tab3RepositoryServiceProvider.notifier).fetchModels(),
+      Future.delayed(Duration.zero),
       ref.read(tab5RepositoryProvider.notifier).fetchSPWModels(),
       ref.read(schedulingRepositoryServiceProvider.notifier).fetchModels(
           Tab2Model.fromJson, ref.read(dbFilesProvider).requireValue[6]![0]),
@@ -127,9 +124,9 @@ final externalEntriesProvider = FutureProvider<Map<String, List>>((ref) async {
   Map tab3Data = datas[3 - 1];
   String dateToday = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
-  for (String date in tab3Data.keys) {
+  for (String date in tab3Data["scheduled"].keys) {
     if (date == dateToday) {
-      for (Tab3Model model in tab3Data[date]) {
+      for (Tab3Model model in tab3Data["scheduled"][date]) {
         if (!model.text_1.contains("This is a sample entry.")) {
           entries["timed"]!.add(
             [

@@ -4,9 +4,6 @@ import 'package:timely/modules/home/providers/external_entries_provider.dart';
 import 'package:timely/modules/tab_3/controllers/output_controller.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_3/services/repo_service.dart';
-import 'package:timely/modules/tab_4/controllers/output_controller.dart';
-import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
-import 'package:timely/reusables.dart';
 
 class Tab3InputNotifier extends Notifier<Tab3Model> {
   @override
@@ -41,18 +38,14 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
   }
 
   Future<void> syncToDB() async {
-    final file = (await ref.read(dbFilesProvider.future))[3]![0];
-    state.uuid != null
-        ? (state.date == null && state.time == null)
-            ? await ref.read(tab4RepositoryProvider.notifier).editModel(state)
-            : await ref
-                .read(tab3RepositoryServiceProvider.notifier)
-                .editModel(state, file)
+    state.uuid == null
+        ? await ref
+            .read(tab3RepositoryServiceProvider.notifier)
+            .writeModel(state)
         : await ref
             .read(tab3RepositoryServiceProvider.notifier)
-            .writeModel(state, file);
+            .editModel(state);
     ref.invalidate(tab3OutputProvider);
-    ref.invalidate(tab4OutputProvider);
     ref.invalidate(externalEntriesProvider);
   }
 

@@ -35,9 +35,7 @@ class _Tab3OutputPageState extends ConsumerState<Tab3OutputPage> {
               models.removeWhere((key, value) => value.isEmpty);
               setState(() {});
             },
-            onTap: (date, index) {
-              var model = models[date.toString().substring(0, 10)]![index];
-
+            onTap: (date, model) {
               ref.read(tab3InputProvider.notifier).setModel(model);
               Navigator.push(
                 context,

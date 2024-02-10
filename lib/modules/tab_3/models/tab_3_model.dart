@@ -63,10 +63,11 @@ class Tab3Model {
       int? priority,
       TimeOfDay? time}) {
     return Tab3Model(
-        uuid: uuid ?? this.uuid,
-        date: date ?? this.date,
-        text_1: text_1 ?? this.text_1,
-        time: time ?? this.time,
-        priority: priority ?? this.priority);
+      uuid: uuid ?? this.uuid,
+      date: date ?? this.date,
+      text_1: text_1 ?? this.text_1,
+      time: time ?? this.time,
+      priority: priority ?? this.priority,
+    );
   }
 }

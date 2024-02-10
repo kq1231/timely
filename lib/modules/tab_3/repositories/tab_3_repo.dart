@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
-import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
 import 'package:timely/reusables.dart';
 import "dart:collection";
 
@@ -18,15 +17,23 @@ class Tab3RepositoryNotifier extends Notifier<void> {
   @override
   void build() {}
 
-  Future<Map<String, List<Tab3Model>>> fetchModels(file) async {
-    final tab3File = (await ref.read(dbFilesProvider.future))[3]![0];
-    final jsonContent = jsonDecode(await tab3File.readAsString());
-    final dates = jsonContent.keys.toList();
-    Map<String, List<Tab3Model>> tab3Models = {};
+  Future<Map<String, dynamic>> fetchModels() async {
+    final scheduled = (ref.read(dbFilesProvider)).requireValue[3]![0];
+    final nonScheduled = (ref.read(dbFilesProvider)).requireValue[3]![1];
+
+    final scheduledContent = jsonDecode(await scheduled.readAsString());
+    final nonScheduledContent = jsonDecode(await nonScheduled.readAsString());
+
+    final dates = scheduledContent.keys.toList();
+
+    Map<String, dynamic> tab3Models = {
+      "scheduled": {},
+      "nonScheduled": [],
+    };
     for (String date in dates) {
-      tab3Models[date] = [];
-      for (Map content in jsonContent[date]) {
-        tab3Models[date]!.add(
+      tab3Models["scheduled"]![date] = [];
+      for (Map content in scheduledContent[date]) {
+        tab3Models["scheduled"]![date]!.add(
           Tab3Model.fromJson(
             DateTime.parse(date),
             content,
@@ -35,61 +42,70 @@ class Tab3RepositoryNotifier extends Notifier<void> {
       }
     }
 
-    final sorted = SplayTreeMap<String, List<Tab3Model>>.from(
-      tab3Models,
-      (a, b) => a.compareTo(b),
-    );
-    return sorted;
-  }
-
-  Future<void> writeModel(Tab3Model model, file) async {
-    final tab3File = (await ref.read(dbFilesProvider.future))[3]![0];
-    final jsonContent = jsonDecode(await tab3File.readAsString());
-
-    if (model.date != null) {
-      String date = model.date.toString().substring(0, 10);
-      if (!jsonContent.keys.contains(date)) {
-        jsonContent[date] = [];
-      }
-
-      if (model.time != null) {
-        jsonContent[date] = [
-          ...jsonContent[date], // -> Existing data
-          // New data:
-          model.toJson(),
-        ];
-      } else {
-        ref.read(tab4RepositoryProvider.notifier).writeModel(model);
-      }
-    } else {
-      ref.read(tab4RepositoryProvider.notifier).writeModel(model);
+    for (Map modelMap in nonScheduledContent) {
+      tab3Models["nonScheduled"]!.add(Tab3Model.fromJson(null, modelMap));
     }
 
-    await tab3File.writeAsString(jsonEncode(jsonContent));
+    return tab3Models;
   }
 
-  Future<void> deleteModel(Tab3Model model, file) async {
+  Future<void> writeModel(Tab3Model model) async {
+    final scheduled = (ref.read(dbFilesProvider)).requireValue[3]![0];
+    final nonScheduled = (ref.read(dbFilesProvider)).requireValue[3]![1];
+
+    final scheduledContent = jsonDecode(await scheduled.readAsString());
+    final nonScheduledContent = jsonDecode(await nonScheduled.readAsString());
+
+    if (model.date != null && model.time != null) {
+      String date = model.date.toString().substring(0, 10);
+
+      if (!scheduledContent.keys.contains(date)) {
+        scheduledContent[date] = [];
+      }
+
+      scheduledContent[date] = [
+        ...scheduledContent[date], // -> Existing data
+        // New data:
+        model.toJson(),
+      ];
+    } else {
+      nonScheduledContent.add(
+        model.toJson(),
+      );
+      nonScheduled.writeAsString(jsonEncode(nonScheduledContent));
+    }
+
+    await scheduled.writeAsString(jsonEncode(scheduledContent));
+  }
+
+  Future<void> deleteModel(Tab3Model model) async {
     // Fetch the data
-    final tab3File = (await ref.read(dbFilesProvider.future))[3]![0];
-    Map jsonContent = jsonDecode(await tab3File.readAsString());
+    final scheduled = (ref.read(dbFilesProvider)).requireValue[3]![0];
+    final nonScheduled = (ref.read(dbFilesProvider)).requireValue[3]![1];
+
+    final scheduledContent = jsonDecode(await scheduled.readAsString());
+    final nonScheduledContent = jsonDecode(await nonScheduled.readAsString());
 
     // Loop through the dates
     // Delete the model from the data if model.uuid == $model.uuid
-    for (String date in jsonContent.keys) {
-      jsonContent[date].removeWhere((modelMap) {
+    for (String date in scheduledContent.keys) {
+      scheduledContent[date].removeWhere((modelMap) {
         return modelMap["ID"] == model.uuid;
       });
     }
 
     // Remove the date entirely if it is empty
-    jsonContent.removeWhere((key, value) => value.length == 0);
+    scheduledContent.removeWhere((key, value) => value.length == 0);
 
     // Persist the data
-    await tab3File.writeAsString(jsonEncode(jsonContent));
+    await scheduled.writeAsString(jsonEncode(scheduledContent));
+
+    nonScheduledContent.removeWhere((element) => element.uuid == model.uuid);
+    await nonScheduled.writeAsString(jsonEncode(nonScheduledContent));
   }
 
-  Future<void> editModel(Tab3Model model, file) async {
-    await deleteModel(model, file);
-    await writeModel(model, file);
+  Future<void> editModel(Tab3Model model) async {
+    await deleteModel(model);
+    await writeModel(model);
   }
 }

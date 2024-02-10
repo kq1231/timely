@@ -8,7 +8,9 @@ final List tabs = [
   const Tab1OutputPage(),
   const Tab2OutputPage(),
   const Tab3OutputPage(),
-  const Tab4OutputPage(),
+  const Tab3OutputPage(),
+
+  // const Tab4OutputPage(),
   const Tab5OutputPage(),
   const Tab6OutputPage(),
   const Tab7OutputPage(),

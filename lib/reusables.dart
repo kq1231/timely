@@ -15,7 +15,6 @@ import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_12/services/repo_service.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_3/services/repo_service.dart';
-import 'package:timely/modules/tab_4/repositories/tab_4_repo.dart';
 import 'package:timely/modules/tab_5/models/spw.dart';
 import 'package:timely/modules/tab_5/repositories/tab_5_repo.dart';
 import 'package:timely/modules/tab_8/models/tab_8_model.dart';
@@ -86,13 +85,12 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
                   time: TimeOfDay.now(),
                   date: DateTime.now(),
                 ),
-                file,
               );
 
-        case 4:
-          ref.read(tab4RepositoryProvider.notifier).writeModel(
-                Tab3Model(text_1: "This is a sample entry.", priority: 0),
-              );
+        // case 4:
+        //   // ref.read(tab4RepositoryProvider.notifier).writeModel(
+        //   //       Tab3Model(text_1: "This is a sample entry.", priority: 0),
+        //   //     );
 
         case 5:
           ref.read(tab5RepositoryProvider.notifier).writeSPWModel(
@@ -189,19 +187,21 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
 
       var temp = 0;
       for (File file in [pending, completed]) {
-        await file.create();
-        if ((await file.readAsString()).isEmpty) {
-          if (![1, 3, 5].contains(tabNumber)) {
-            await file.writeAsString("[]");
-          } else {
-            await file.writeAsString("{}");
-          }
+        if (tabNumber != 3) {
+          await file.create();
+          if ((await file.readAsString()).isEmpty) {
+            if (![1, 3, 5].contains(tabNumber)) {
+              await file.writeAsString("[]");
+            } else {
+              await file.writeAsString("{}");
+            }
 
-          if (temp == 0) {
-            createDefaultEntry(tabNumber);
+            if (temp == 0) {
+              createDefaultEntry(tabNumber);
+            }
           }
+          temp++;
         }
-        temp++;
       }
 
       if ([2, 6, 7].contains(tabNumber)) {
@@ -218,6 +218,27 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
         completed,
       ];
     }
+
+    // Tab 3 non-scheduled file
+    File scheduled = File('${docDir.path}/tab_3_scheduled.json');
+    File nonSchedulued = File('${docDir.path}/tab_3_non_scheduled.json');
+
+    // Create them
+    await scheduled.create();
+    await nonSchedulued.create();
+
+    if ((await scheduled.readAsString()).isEmpty) {
+      await scheduled.writeAsString("{}");
+    }
+
+    if ((await nonSchedulued.readAsString()).isEmpty) {
+      await nonSchedulued.writeAsString("[]");
+    }
+
+    files[3] = [
+      scheduled,
+      nonSchedulued,
+    ];
 
     for (int i in [2, 6, 7]) {
       files[i] = [

@@ -7,10 +7,10 @@ import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_3/tokens/tab_3_colors.dart';
 
 class Tab3OutputTemplate extends StatelessWidget {
-  final Map<String, List<Tab3Model>> models;
+  final Map<String, dynamic> models;
   final Function(DismissDirection direction, DateTime date, int index)
       onDismissed;
-  final Function(DateTime date, int index) onTap;
+  final Function(DateTime date, Tab3Model model) onTap;
   final VoidCallback onPressedHome;
   final VoidCallback onPressedAdd;
 
@@ -25,62 +25,123 @@ class Tab3OutputTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> dates = models.keys.toList();
-
+    List<String> dates = models["scheduled"]!.keys.toList().cast<String>();
     return Stack(
       children: [
-        ListView.builder(
-          itemBuilder: (context, index) {
-            DateTime date = DateTime.parse(dates[index]);
-            List<Tab3Model> tab3Models =
-                models[dates[index].toString().substring(0, 10)]!;
+        ListView(
+          children: [
+            SizedBox(
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Text("Scheduled")],
+              ),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                DateTime date = DateTime.parse(dates[index]);
+                List<Tab3Model> tab3Models =
+                    models["scheduled"]![dates[index]]!.cast<Tab3Model>();
 
-            return Column(
-              children: [
-                TextRowMolecule(
-                  height: 30,
-                  texts: [
-                    DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY).format(date)
-                  ],
-                ),
-                ListView.separated(
-                  separatorBuilder: (context, index) => const Divider(
-                    height: 0.3,
-                  ),
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    DateTime dateToday = DateTime.now();
-                    return InkWell(
-                      onTap: () => onTap(date, index),
-                      child: DismissibleEntryRowMolecule(
-                        onDismissed: (direction) =>
-                            onDismissed(direction, date, index),
-                        child: TextRowMolecule(
-                          minHeight: 60,
-                          rowColor: date.isBefore(
-                            DateTime(
-                                dateToday.year, dateToday.month, dateToday.day),
-                          )
-                              ? Colors.orange
-                              : Tab3OutputColors
-                                  .priorityColors[tab3Models[index].priority],
-                          customWidths: const {1: 70},
-                          texts: [
-                            tab3Models[index].text_1,
-                            tab3Models[index].time!.format(context),
-                          ],
-                          defaultAligned: const [0],
-                        ),
+                return Column(
+                  children: [
+                    TextRowMolecule(
+                      height: 30,
+                      texts: [
+                        DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY).format(date)
+                      ],
+                    ),
+                    ListView.separated(
+                      separatorBuilder: (context, index) => const Divider(
+                        height: 0.3,
                       ),
-                    );
-                  },
-                  itemCount: tab3Models.length,
-                )
-              ],
-            );
-          },
-          itemCount: dates.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        DateTime dateToday = DateTime.now();
+                        return InkWell(
+                          onTap: () => onTap(date, tab3Models[index]),
+                          child: DismissibleEntryRowMolecule(
+                            onDismissed: (direction) =>
+                                onDismissed(direction, date, index),
+                            child: TextRowMolecule(
+                              minHeight: 60,
+                              rowColor: date.isBefore(
+                                DateTime(dateToday.year, dateToday.month,
+                                    dateToday.day),
+                              )
+                                  ? Colors.orange
+                                  : Tab3OutputColors.priorityColors[
+                                      tab3Models[index].priority],
+                              customWidths: const {1: 70},
+                              texts: [
+                                tab3Models[index].text_1,
+                                tab3Models[index].time!.format(context),
+                              ],
+                              defaultAligned: const [0],
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: tab3Models.length,
+                    )
+                  ],
+                );
+              },
+              itemCount: dates.length,
+            ),
+            SizedBox(
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Non-Scheduled"),
+                ],
+              ),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                DateTime date = DateTime.parse(dates[index]);
+                List<Tab3Model> tab3Models =
+                    models["nonScheduled"].cast<Tab3Model>();
+
+                return Column(
+                  children: [
+                    ListView.separated(
+                      separatorBuilder: (context, index) => const Divider(
+                        height: 0.3,
+                      ),
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () => onTap(date, tab3Models[index]),
+                          child: DismissibleEntryRowMolecule(
+                            onDismissed: (direction) =>
+                                onDismissed(direction, date, index),
+                            child: TextRowMolecule(
+                              minHeight: 60,
+                              rowColor: Tab3OutputColors
+                                  .priorityColors[tab3Models[index].priority],
+                              customWidths: const {1: 70},
+                              texts: [
+                                tab3Models[index].text_1,
+                              ],
+                              defaultAligned: const [0],
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: tab3Models.length,
+                    )
+                  ],
+                );
+              },
+              itemCount: dates.length,
+            ),
+          ],
         ),
         Column(
           children: [

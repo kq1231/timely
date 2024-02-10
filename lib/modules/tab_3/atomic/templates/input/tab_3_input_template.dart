@@ -16,7 +16,7 @@ class Tab3InputTemplate extends StatelessWidget {
   final Function(int index) onPriorityChanged;
   final VoidCallback onSubmitPressed;
   final VoidCallback onCancelPressed;
-  final bool? removeDateTime;
+  final Function(bool value) onScheduleChanged;
 
   const Tab3InputTemplate({
     super.key,
@@ -27,11 +27,13 @@ class Tab3InputTemplate extends StatelessWidget {
     required this.onPriorityChanged,
     required this.onSubmitPressed,
     required this.onCancelPressed,
-    this.removeDateTime,
+    required this.onScheduleChanged,
   });
 
   @override
   Widget build(BuildContext context) {
+    bool scheduled = (model.date == null && model.time == null) ? false : true;
+
     List<Widget> children = [
       const SizedBox(
         height: 40,
@@ -44,8 +46,26 @@ class Tab3InputTemplate extends StatelessWidget {
         hintText: "Activity",
       ),
 
+      // "Scheduled" Switch
+      Column(
+        children: [
+          TitleWidgetRowMolecule(
+            title: "Scheduled",
+            widget: Switch(
+              value: scheduled,
+              onChanged: (value) {
+                onScheduleChanged(value);
+              },
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+
       // Date Button
-      removeDateTime != true
+      scheduled != false
           ? Column(
               children: [
                 TitleWidgetRowMolecule(

@@ -19,8 +19,8 @@ class Tab3RepositoryServiceNotifier extends Tab3RepositoryNotifier {
   Future<void> markAsComplete(
       Tab3Model model, pendingFile, completedFile) async {
     // Delete entry from pending and add it to completed.
-    await deleteModel(model, pendingFile);
-    await writeModel(model, completedFile);
+    await deleteModel(model);
+    await writeModel(model);
   }
 }
 
