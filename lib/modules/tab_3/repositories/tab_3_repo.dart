@@ -44,8 +44,17 @@ class Tab3RepositoryNotifier extends Notifier<void> {
       }
     }
 
-    tab3Models["scheduled"] = SplayTreeMap<String, dynamic>.from(
-        tab3Models["scheduled"], (a, b) => a.compareTo(b));
+    tab3Models["scheduled"] =
+        SplayTreeMap<String, List>.from(tab3Models["scheduled"], (a, b) {
+      return a.compareTo(b);
+    });
+
+    for (var date in tab3Models["scheduled"].keys) {
+      List<Tab3Model> models = tab3Models["scheduled"][date].cast<Tab3Model>();
+      models.sort((a, b) => DateTime(0, 0, 0, a.time!.hour, a.time!.minute)
+          .difference(DateTime(0, 0, 0, b.time!.hour, b.time!.minute))
+          .inSeconds);
+    }
 
     for (Map modelMap in nonScheduledContent) {
       tab3Models["nonScheduled"]!.add(Tab3Model.fromJson(null, modelMap));
