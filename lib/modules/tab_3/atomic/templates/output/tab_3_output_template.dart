@@ -38,6 +38,7 @@ class Tab3OutputTemplate extends StatelessWidget {
             ),
             ListView.builder(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 DateTime date = DateTime.parse(dates[index]);
                 List<Tab3Model> tab3Models =
