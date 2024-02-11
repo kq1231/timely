@@ -4,5 +4,6 @@
 - Notifications 
 - Messages
 - Documentation 
-- Calculation and presentation of free time 
+- Calculation and presentation of free time
+- Filtering of scheduled tasks by day, week, etc. 
 - Show time clashes 
