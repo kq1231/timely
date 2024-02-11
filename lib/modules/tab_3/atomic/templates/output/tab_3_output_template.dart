@@ -8,9 +8,8 @@ import 'package:timely/modules/tab_3/tokens/tab_3_colors.dart';
 
 class Tab3OutputTemplate extends StatelessWidget {
   final Map<String, dynamic> models;
-  final Function(DismissDirection direction, DateTime date, int index)
-      onDismissed;
-  final Function(DateTime date, Tab3Model model) onTap;
+  final Function(DismissDirection direction, Tab3Model model) onDismissed;
+  final Function(Tab3Model model) onTap;
   final VoidCallback onPressedHome;
   final VoidCallback onPressedAdd;
 
@@ -30,7 +29,7 @@ class Tab3OutputTemplate extends StatelessWidget {
       children: [
         ListView(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -61,10 +60,10 @@ class Tab3OutputTemplate extends StatelessWidget {
                       itemBuilder: (context, index) {
                         DateTime dateToday = DateTime.now();
                         return InkWell(
-                          onTap: () => onTap(date, tab3Models[index]),
+                          onTap: () => onTap(tab3Models[index]),
                           child: DismissibleEntryRowMolecule(
                             onDismissed: (direction) =>
-                                onDismissed(direction, date, index),
+                                onDismissed(direction, tab3Models[index]),
                             child: TextRowMolecule(
                               minHeight: 60,
                               rowColor: date.isBefore(
@@ -91,7 +90,7 @@ class Tab3OutputTemplate extends StatelessWidget {
               },
               itemCount: dates.length,
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -100,47 +99,36 @@ class Tab3OutputTemplate extends StatelessWidget {
                 ],
               ),
             ),
-            ListView.builder(
+            ListView.separated(
+              separatorBuilder: (context, index) => const Divider(
+                height: 0.3,
+              ),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                DateTime date = DateTime.parse(dates[index]);
                 List<Tab3Model> tab3Models =
                     models["nonScheduled"].cast<Tab3Model>();
 
-                return Column(
-                  children: [
-                    ListView.separated(
-                      separatorBuilder: (context, index) => const Divider(
-                        height: 0.3,
-                      ),
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () => onTap(date, tab3Models[index]),
-                          child: DismissibleEntryRowMolecule(
-                            onDismissed: (direction) =>
-                                onDismissed(direction, date, index),
-                            child: TextRowMolecule(
-                              minHeight: 60,
-                              rowColor: Tab3OutputColors
-                                  .priorityColors[tab3Models[index].priority],
-                              customWidths: const {1: 70},
-                              texts: [
-                                tab3Models[index].text_1,
-                              ],
-                              defaultAligned: const [0],
-                            ),
-                          ),
-                        );
-                      },
-                      itemCount: tab3Models.length,
-                    )
-                  ],
+                return InkWell(
+                  onTap: () => onTap(tab3Models[index]),
+                  child: DismissibleEntryRowMolecule(
+                    onDismissed: (direction) =>
+                        onDismissed(direction, tab3Models[index]),
+                    child: TextRowMolecule(
+                      minHeight: 60,
+                      rowColor: Tab3OutputColors
+                          .priorityColors[tab3Models[index].priority],
+                      customWidths: const {1: 70},
+                      texts: [
+                        tab3Models[index].text_1,
+                      ],
+                      defaultAligned: const [0],
+                    ),
+                  ),
                 );
               },
-              itemCount: dates.length,
-            ),
+              itemCount: models["nonScheduled"].length,
+            )
           ],
         ),
         Column(

@@ -23,7 +23,8 @@ import 'package:timely/reusables.dart';
 // Separate them into timed, untimed, and non-scheduled
 // The timed ones will be sorted
 // For [Tab2Model]s, use the getNextOccurenceDateTime function
-final externalEntriesProvider = FutureProvider<Map<String, List>>((ref) async {
+final externalEntriesProvider =
+    FutureProvider.autoDispose<Map<String, List>>((ref) async {
   Map<String, List> entries = {
     "timed": [],
     "untimed": [],

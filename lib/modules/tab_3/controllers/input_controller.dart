@@ -45,6 +45,7 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
         : await ref
             .read(tab3RepositoryServiceProvider.notifier)
             .editModel(state);
+
     ref.invalidate(tab3OutputProvider);
     ref.invalidate(externalEntriesProvider);
   }

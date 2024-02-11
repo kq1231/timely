@@ -7,7 +7,8 @@ class ExternalEntriesTemplate extends StatefulWidget {
   final Color color;
   final Map<String, List> data;
   final Function(dynamic model, int tabNumber) onTap;
-  final Function(DismissDirection direction, dynamic model) onDismissed;
+  final Function(DismissDirection direction, dynamic model, int tabNumber)
+      onDismissed;
 
   const ExternalEntriesTemplate({
     super.key,
@@ -78,12 +79,13 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 List models = widget.data["timed"]!;
-
+                var model = models[index][1];
+                var tabNumber = models[index][0];
                 return InkWell(
-                  onTap: () => widget.onTap(models[index][1], models[index][0]),
+                  onTap: () => widget.onTap(model, tabNumber),
                   child: DismissibleEntryRowMolecule(
                     onDismissed: (direction) =>
-                        widget.onDismissed(direction, models[index]),
+                        widget.onDismissed(direction, model, tabNumber),
                     child: Column(
                       children: [
                         const Divider(

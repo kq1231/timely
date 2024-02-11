@@ -4,3 +4,5 @@
 - Notifications 
 - Messages
 - Documentation 
+- Calculation and presentation of free time 
+- Show time clashes 

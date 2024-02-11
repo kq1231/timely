@@ -8,11 +8,15 @@ import 'package:timely/app_theme.dart';
 import 'package:timely/modules/home/providers/external_entries_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
 import 'package:timely/modules/tab_1/atomic/pages/fms_page.dart';
+import 'package:timely/modules/tab_2/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2/pages/tab_2_input_page.dart';
 import 'package:timely/modules/tab_3/atomic/pages/input/tab_3_input_page.dart';
 import 'package:timely/modules/tab_3/controllers/input_controller.dart';
+import 'package:timely/modules/tab_3/controllers/output_controller.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
+import 'package:timely/modules/tab_6/controllers/output_controller.dart';
 import 'package:timely/modules/tab_6/pages/tab_6_input_page.dart';
+import 'package:timely/modules/tab_7/controllers/output_controller.dart';
 import 'package:timely/modules/tab_7/pages/tab_7_input_page.dart';
 
 class LaunchScreen extends ConsumerWidget {
@@ -111,8 +115,33 @@ class LaunchScreen extends ConsumerWidget {
                       child: ExternalEntriesTemplate(
                         color: Colors.black,
                         data: data,
-                        onDismissed: (dir, model) {
-                          // if (model is Tab3Model) {}
+                        onDismissed: (dir, model, tabNumber) async {
+                          if (model is Tab3Model) {
+                            if (dir == DismissDirection.startToEnd) {
+                              await ref
+                                  .read(tab3OutputProvider.notifier)
+                                  .deleteModel(model);
+                            } else {
+                              await ref
+                                  .read(tab3OutputProvider.notifier)
+                                  .markModelAsComplete(model);
+                            }
+                          } else if (model is Tab2Model) {
+                            if (tabNumber == 2) {
+                              if (dir == DismissDirection.startToEnd) {
+                                ref
+                                    .read(tab2OutputProvider.notifier)
+                                    .deleteModel(model);
+                              }
+                            } else if (tabNumber == 6 || tabNumber == 7) {
+                              ref
+                                  .read([
+                                    tab6OutputProvider.notifier,
+                                    tab7OutputProvider.notifier
+                                  ][7 - tabNumber])
+                                  .deleteModel(model);
+                            }
+                          }
                         },
                         onTap: (model, tabNumber) {
                           print(model);

@@ -17,25 +17,20 @@ class _Tab3OutputPageState extends ConsumerState<Tab3OutputPage> {
   @override
   Widget build(BuildContext context) {
     final provider = ref.watch(tab3OutputProvider);
-    final controller = ref.watch(tab3OutputProvider.notifier);
+    final controller = ref.read(tab3OutputProvider.notifier);
 
     return provider.when(
         data: (models) {
           return Tab3OutputTemplate(
             models: models,
-            onDismissed: (direction, date, index) {
-              var model = models[date.toString().substring(0, 10)]![index];
+            onDismissed: (direction, model) {
               if (direction == DismissDirection.startToEnd) {
                 controller.deleteModel(model);
               } else {
                 controller.markModelAsComplete(model);
               }
-
-              models[models.keys.toList()[index]]!.removeAt(index);
-              models.removeWhere((key, value) => value.isEmpty);
-              setState(() {});
             },
-            onTap: (date, model) {
+            onTap: (model) {
               ref.read(tab3InputProvider.notifier).setModel(model);
               Navigator.push(
                 context,

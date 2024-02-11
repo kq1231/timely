@@ -24,6 +24,8 @@ class Tab3RepositoryNotifier extends Notifier<void> {
     final scheduledContent = jsonDecode(await scheduled.readAsString());
     final nonScheduledContent = jsonDecode(await nonScheduled.readAsString());
 
+    print(scheduledContent);
+
     final dates = scheduledContent.keys.toList();
 
     Map<String, dynamic> tab3Models = {
@@ -100,7 +102,7 @@ class Tab3RepositoryNotifier extends Notifier<void> {
     // Persist the data
     await scheduled.writeAsString(jsonEncode(scheduledContent));
 
-    nonScheduledContent.removeWhere((element) => element.uuid == model.uuid);
+    nonScheduledContent.removeWhere((element) => element["ID"] == model.uuid);
     await nonScheduled.writeAsString(jsonEncode(nonScheduledContent));
   }
 

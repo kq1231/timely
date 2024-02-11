@@ -37,6 +37,10 @@ class SchedulingOutputNotifier<T>
   }
 
   Future<void> deleteModel(Tab2Model model) async {
+    pendingFile = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
+    completedFile = (await ref.read(dbFilesProvider.future))[tabNumber]![1];
+    currentFile = (await ref.read(dbFilesProvider.future))[tabNumber]!.last;
+
     await ref
         .read(schedulingRepositoryServiceProvider.notifier)
         .deleteModel(model, pendingFile);
