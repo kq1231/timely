@@ -44,6 +44,9 @@ class Tab3RepositoryNotifier extends Notifier<void> {
       }
     }
 
+    tab3Models["scheduled"] = SplayTreeMap<String, dynamic>.from(
+        tab3Models["scheduled"], (a, b) => a.compareTo(b));
+
     for (Map modelMap in nonScheduledContent) {
       tab3Models["nonScheduled"]!.add(Tab3Model.fromJson(null, modelMap));
     }
