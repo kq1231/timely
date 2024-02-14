@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/home/providers/external_entries_provider.dart';
+import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/common/scheduling/services/repo_service.dart';
@@ -177,7 +177,7 @@ class SchedulingInputNotifier extends Notifier<Tab2Model> {
       ref.invalidate(provider);
     }
 
-    ref.invalidate(externalEntriesProvider);
+    ref.invalidate(todaysModelMapsProvider);
   }
 
   Future<void> syncEditedModel(tabNumber) async {
@@ -194,7 +194,7 @@ class SchedulingInputNotifier extends Notifier<Tab2Model> {
       ref.invalidate(provider);
     }
 
-    ref.invalidate(externalEntriesProvider);
+    ref.invalidate(todaysModelMapsProvider);
   }
 }
 

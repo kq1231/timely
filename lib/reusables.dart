@@ -247,6 +247,16 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
       ];
     }
 
+    // Today's Tasks file
+    File tasksToday = File('${docDir.path}/tasks_today.json');
+    tasksToday.create();
+
+    if ((await tasksToday.readAsString()).isEmpty) {
+      await tasksToday.writeAsString("{}");
+    }
+
+    files[0] = [tasksToday];
+
     return files;
   },
 );

@@ -5,9 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/common/scheduling/services/repo_service.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:timely/modules/home/providers/external_entries_provider.dart';
 =======
 >>>>>>> 1237990 (Added end time)
+=======
+import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
+>>>>>>> e04da1c (Repository Completed)
 import 'package:timely/reusables.dart';
 
 // This is the tab 2 output controller.
@@ -49,8 +53,12 @@ class SchedulingOutputNotifier<T>
         .deleteModel(model, pendingFile);
 <<<<<<< HEAD
 
+<<<<<<< HEAD
     ref.invalidate(externalEntriesProvider);
 =======
 >>>>>>> 1237990 (Added end time)
+=======
+    ref.invalidate(todaysModelMapsProvider);
+>>>>>>> e04da1c (Repository Completed)
   }
 }
