@@ -2,15 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecule.dart';
+import 'package:timely/modules/home/models/task_today.dart';
 
-class ExternalEntriesTemplate extends StatefulWidget {
+class TasksTodayTemplate extends StatefulWidget {
   final Color color;
-  final Map<String, List> data;
+  final List<TaskToday> data;
   final Function(dynamic model, int tabNumber) onTap;
   final Function(DismissDirection direction, dynamic model, int tabNumber)
       onDismissed;
 
-  const ExternalEntriesTemplate({
+  const TasksTodayTemplate({
     super.key,
     required this.color,
     required this.data,
@@ -19,11 +20,10 @@ class ExternalEntriesTemplate extends StatefulWidget {
   });
 
   @override
-  State<ExternalEntriesTemplate> createState() =>
-      _ExternalEntriesTemplateState();
+  State<TasksTodayTemplate> createState() => _TasksTodayTemplateState();
 }
 
-class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
+class _TasksTodayTemplateState extends State<TasksTodayTemplate>
     with SingleTickerProviderStateMixin {
   List blinkIndices = [];
   late AnimationController _controller;
@@ -41,8 +41,8 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
     _timer = Timer.periodic(const Duration(seconds: 10), (Timer t) {
       var now = DateTime.now();
       var currentTime = "${now.hour}:${now.minute}";
-      for (var i = 0; i < widget.data["timed"]!.length; i++) {
-        TimeOfDay time = widget.data["timed"]![i].last.last;
+      for (var i = 0; i < widget.data.length; i++) {
+        TimeOfDay time = widget.data[i].startTime;
         if ("${time.hour}:${time.minute}" == currentTime) {
           setState(() {
             blinkIndices.add(i);
@@ -52,6 +52,7 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
               blinkIndices = [];
             });
           });
+          break;
         }
       }
     });
@@ -68,7 +69,7 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
   Widget build(BuildContext context) {
     return Container(
       color: widget.color,
-      child: widget.data["timed"]!.isEmpty
+      child: widget.data.isEmpty
           ? const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -78,9 +79,8 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
           : ListView.builder(
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                List models = widget.data["timed"]!;
-                var model = models[index][1];
-                var tabNumber = models[index][0];
+                var model = widget.data[index].model;
+                var tabNumber = widget.data[index].tabNumber;
                 return InkWell(
                   onTap: () => widget.onTap(model, tabNumber),
                   child: DismissibleEntryRowMolecule(
@@ -103,7 +103,7 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                      models[index].last[0],
+                                      widget.data[index].name,
                                     ),
                                   ),
                                 ),
@@ -111,10 +111,20 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
                                   width: 70,
                                   child: Center(
                                     child: Text(
-                                      models[index].last[1].format(context),
+                                      widget.data[index].startTime
+                                          .format(context),
                                     ),
                                   ),
-                                )
+                                ),
+                                widget.data[index].endTime != null
+                                    ? SizedBox(
+                                        width: 50,
+                                        child: Text(
+                                          widget.data[index].endTime!
+                                              .format(context),
+                                        ),
+                                      )
+                                    : Container(),
                               ],
                             ),
                           ),
@@ -124,7 +134,7 @@ class _ExternalEntriesTemplateState extends State<ExternalEntriesTemplate>
                   ),
                 );
               },
-              itemCount: widget.data["timed"]!.length,
+              itemCount: widget.data.length,
             ),
     );
   }

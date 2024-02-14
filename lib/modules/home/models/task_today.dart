@@ -5,16 +5,16 @@ import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 class TaskToday {
   late final String name;
   late final TimeOfDay startTime;
-  late final TimeOfDay? endTime;
+  TimeOfDay? endTime;
   late final int tabNumber;
   late final dynamic model;
 
   TaskToday({
     required name,
     required startTime,
-    endTime,
     required tabNumber,
     required model,
+    endTime,
   });
 
   TaskToday.fromJson(Map json) {
