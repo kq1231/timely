@@ -17,19 +17,11 @@ class TasksTodayRepositoryNotifier extends Notifier<void> {
 
     // Get the file -1
     // If no key exists then add data for today's date -2
-<<<<<<< HEAD
     // If keys exist then check whether any model is deleted -3
     // If it isn't then add data -4
 
     // 1
     File tasksTodayFile = (await ref.read(dbFilesProvider.future))[0]![0];
-=======
-    // If keys exist then check whether the last key is today's date or not -3
-    // If it isn't then add data -4
-
-    // 1
-    File tasksTodayFile = ref.read(dbFilesProvider).requireValue[0]![0];
->>>>>>> e04da1c (Repository Completed)
     Map content = jsonDecode(await tasksTodayFile.readAsString());
 
     String dateToday = DateTime.now().toString().substring(0, 10);
@@ -44,17 +36,11 @@ class TasksTodayRepositoryNotifier extends Notifier<void> {
 
     // 3
     else {
-<<<<<<< HEAD
       // 4
       List models = (await ref.read(todaysModelMapsProvider.future));
       if (models.length !=
           content[dateToday].length) // Check if any model is deleted
       {
-=======
-      if (content.keys.last != dateToday) {
-        // 4
-        List models = (await ref.read(todaysModelMapsProvider.future));
->>>>>>> e04da1c (Repository Completed)
         content[dateToday] = models;
 
         await tasksTodayFile.writeAsString(jsonEncode(content));
@@ -62,7 +48,6 @@ class TasksTodayRepositoryNotifier extends Notifier<void> {
     }
   }
 
-<<<<<<< HEAD
   Future<void> writeModel(dynamic model, int tabNumber) async {
     File tasksTodayFile = (await ref.read(dbFilesProvider.future))[0]![0];
     Map content = jsonDecode(await tasksTodayFile.readAsString());
@@ -77,10 +62,6 @@ class TasksTodayRepositoryNotifier extends Notifier<void> {
 
   Future<List<TaskToday>> fetchTodaysTasks() async {
     File tasksTodayFile = (await ref.read(dbFilesProvider.future))[0]![0];
-=======
-  Future<List<TaskToday>> fetchTodaysTasks() async {
-    File tasksTodayFile = ref.read(dbFilesProvider).requireValue[0]![0];
->>>>>>> e04da1c (Repository Completed)
     Map content = jsonDecode(await tasksTodayFile.readAsString());
 
     String dateToday = DateTime.now().toString().substring(0, 10);
@@ -95,10 +76,6 @@ class TasksTodayRepositoryNotifier extends Notifier<void> {
   }
 }
 
-<<<<<<< HEAD
 final tasksTodayRepositoryProvider =
-=======
-final TasksTodayRepositoryProvider =
->>>>>>> e04da1c (Repository Completed)
     NotifierProvider<TasksTodayRepositoryNotifier, void>(
         TasksTodayRepositoryNotifier.new);

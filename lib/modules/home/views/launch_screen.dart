@@ -5,15 +5,9 @@ import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/modules/home/atomic/templates/tasks_today_template.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/app_theme.dart';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import 'package:timely/modules/home/providers/external_entries_provider.dart';
-=======
+
 import 'package:timely/modules/home/controllers/tasks_today_controller.dart';
->>>>>>> 1237990 (Added end time)
-=======
 import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
->>>>>>> e04da1c (Repository Completed)
 import 'package:timely/modules/home/views/tab_buttons.dart';
 import 'package:timely/modules/tab_1/atomic/pages/fms_page.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
@@ -32,15 +26,7 @@ class LaunchScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    var tabsData = ref.watch(externalEntriesProvider);
-=======
     var tabsData = ref.watch(tasksTodayOutputProvider);
->>>>>>> 1237990 (Added end time)
-=======
-    var tabsData = ref.watch(todaysModelMapsProvider);
->>>>>>> e04da1c (Repository Completed)
     return Row(
       children: [
         const TabButtons(),
