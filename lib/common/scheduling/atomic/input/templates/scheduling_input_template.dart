@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/tokens/app/app_sizes.dart';
 import 'package:timely/tokens/app/app_typography.dart';
+import 'package:timely/tokens/headings.dart';
 
 import '../../../../atomic/atoms/atoms.dart';
 import '../../../../atomic/molecules/molecules.dart';
@@ -44,7 +45,7 @@ class SchedulingInputTemplate extends StatelessWidget {
             child: TextFormFieldAtom(
               initialValue: model.name,
               onChanged: (activity) => onActivityChanged(activity),
-              hintText: "Activity",
+              hintText: Tab2Headings.activity,
             ),
           ),
         ),
@@ -55,7 +56,7 @@ class SchedulingInputTemplate extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSizes.p_24),
               child: TitleWidgetRowMolecule(
-                title: "Time",
+                title: Tab2Headings.time,
                 widget: TimeButtonAtom(
                     initialTime: model.startTime,
                     onTimeChanged: (time) => onStartTimeChanged(time)),
@@ -74,7 +75,7 @@ class SchedulingInputTemplate extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppSizes.p_24),
                         child: TitleWidgetRowMolecule(
-                          title: "Duration",
+                          title: Tab2Headings.duration,
                           widget: Expanded(
                             child: DurationSelectionMolecule(
                               onHoursChanged: (int hours) =>
@@ -96,7 +97,7 @@ class SchedulingInputTemplate extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSizes.p_24),
               child: TitleWidgetRowMolecule(
-                title: "Repeats",
+                title: Tab2Headings.repeats,
                 widget: TextButtonAtom(
                   text: model.frequency.toString(),
                   onPressed: () => onRepeatsButtonPressed(),
