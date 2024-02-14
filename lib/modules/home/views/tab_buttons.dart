@@ -9,15 +9,14 @@ final List tabs = [
   const Tab2OutputPage(),
   const Tab3OutputPage(),
   const Tab5OutputPage(),
-  Container(),
   const Tab6OutputPage(),
   Container(),
-  const Tab7OutputPage(),
-  const Tab8OutputPage(),
-  const Tab9SummaryPage(),
-  const Tab10OutputPage(),
-  const Tab11OutputPage(),
-  const Tab12SummaryPage(),
+  const Center(child: Text("Work in Progress...")),
+  const Center(child: Text("Work in Progress...")),
+  const Center(child: Text("Work in Progress...")),
+  const Center(child: Text("Work in Progress...")),
+  const Center(child: Text("Work in Progress...")),
+  const Center(child: Text("Work in Progress...")),
   const LaunchScreen(),
 ];
 
@@ -72,7 +71,7 @@ class _TabButtonsState extends ConsumerState<TabButtons> {
       width: 50,
       child: Column(
         children: [
-          for (int i in Iterable.generate(5))
+          for (int i in Iterable.generate(11))
             Expanded(
               child: FloatingActionButton(
                 backgroundColor: i != selectedIndex
