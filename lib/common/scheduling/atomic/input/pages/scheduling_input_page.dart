@@ -25,10 +25,11 @@ class SchedulingInputPage extends ConsumerWidget {
       onActivityChanged: (activity) => controller.setName(activity),
       onStartTimeChanged: (time) => controller.setStartTime(time),
       onHoursChanged: (hours) => controller.setDuration(
-        Duration(hours: hours, minutes: providerOfTab2Model.dur.inMinutes % 60),
+        Duration(
+            hours: hours, minutes: providerOfTab2Model.dur!.inMinutes % 60),
       ),
       onMinutesChanged: (minutes) => controller.setDuration(
-        Duration(hours: providerOfTab2Model.dur.inHours, minutes: minutes),
+        Duration(hours: providerOfTab2Model.dur!.inHours, minutes: minutes),
       ),
       onRepeatsButtonPressed: () {
         showModalBottomSheet(

@@ -125,7 +125,9 @@ class SchedulingOutputTemplate extends StatelessWidget {
                                     texts: [
                                       model.name!,
                                       model.startTime.format(context),
-                                      model.getEndTime().format(context),
+                                      model.dur != null
+                                          ? model.getEndTime().format(context)
+                                          : "",
                                     ],
                                   ),
                                   onDismissed: (direction) =>

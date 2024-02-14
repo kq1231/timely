@@ -6,7 +6,7 @@ class Tab2Model {
   String? uuid;
   String? name;
   TimeOfDay startTime = const TimeOfDay(hour: 0, minute: 0);
-  Duration dur = const Duration();
+  Duration? dur = const Duration();
   String? frequency = Frequency.daily;
   Basis? basis = Basis.day;
   DateTime? startDate = DateTime.now();
@@ -33,13 +33,18 @@ class Tab2Model {
       name = json["Name"];
     }
     uuid = json["ID"];
-    List times = [
-      json["Start"].split(":").map((val) => int.parse(val)).toList(),
-      json["Duration"].split(":").map((val) => int.parse(val)).toList()
-    ];
 
-    startTime = TimeOfDay(hour: times[0][0], minute: times[0][1]);
-    dur = Duration(hours: times[1][0], minutes: times[1][1]);
+    List startTimeBreakup =
+        json["Start"].split(":").map((val) => int.parse(val)).toList();
+    startTime =
+        TimeOfDay(hour: startTimeBreakup[0], minute: startTimeBreakup[1]);
+
+    if (json.keys.contains("Duration")) {
+      List durationBreakup =
+          json["Duration"].split(":").map((val) => int.parse(val)).toList();
+      dur = Duration(hours: durationBreakup[0], minutes: durationBreakup[1]);
+    }
+
     every = json["Every"];
     frequency = json["Frequency"];
     repetitions = json["Repeat"] ?? {};
@@ -63,7 +68,6 @@ class Tab2Model {
     Map json = {
       "ID": uuid ?? const Uuid().v4(),
       "Start": [startTime.hour, startTime.minute].join(":"),
-      "Duration": [dur.inHours, dur.inMinutes % 60].join(":"),
       "Frequency": frequency,
       "Basis": basis != null
           ? basis == Basis.date
@@ -84,19 +88,23 @@ class Tab2Model {
       json["Name"] = name;
     }
 
+    if (dur != null) {
+      json["Duration"] = [dur!.inHours, dur!.inMinutes % 60].join(":");
+    }
+
     return json;
   }
 
   List<int> calculateEndTime(Duration duration) {
     DateTime finalTime = DateTime(startDate!.year, startDate!.month,
             startDate!.day, startTime.hour, startTime.minute)
-        .add(dur);
+        .add(dur!);
 
     return [finalTime.hour, finalTime.minute];
   }
 
   TimeOfDay getEndTime() {
-    List finalTime = calculateEndTime(dur);
+    List finalTime = calculateEndTime(dur!);
     return TimeOfDay(hour: finalTime[0], minute: finalTime[1]);
   }
 
@@ -154,7 +162,6 @@ class Tab2Model {
   }
 
   DateTime getNextOccurenceDateTime() {
-    TimeOfDay endTime = getEndTime();
     DateTime today = DateTime.now();
     DateTime start = startDate!.copyWith(
       hour: 23,
@@ -361,7 +368,7 @@ class Tab2Model {
         );
 
       default:
-        return DateTime(0).copyWith(hour: endTime.hour, minute: endTime.minute);
+        return DateTime(0);
     }
   }
 

@@ -81,8 +81,8 @@ class SchedulingInputTemplate extends StatelessWidget {
                                   onHoursChanged(hours),
                               onMinutesChanged: (int minutes) =>
                                   onMinutesChanged(minutes),
-                              initalHourIndex: model.dur.inHours,
-                              initalMinuteIndex: model.dur.inMinutes % 60,
+                              initalHourIndex: model.dur!.inHours,
+                              initalMinuteIndex: model.dur!.inMinutes % 60,
                             ),
                           ),
                         ),

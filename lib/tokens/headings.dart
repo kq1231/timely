@@ -1,0 +1,1 @@
+class Tab1Headings {}
