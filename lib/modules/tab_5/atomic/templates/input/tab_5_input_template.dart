@@ -4,6 +4,7 @@ import 'package:timely/common/atomic/molecules/molecules.dart';
 import 'package:timely/common/atomic/organisms/organisms.dart';
 import 'package:timely/modules/tab_5/models/spw.dart';
 import 'package:timely/tokens/app/app.dart';
+import 'package:timely/tokens/headings.dart';
 
 class Tab5InputTemplate extends StatelessWidget {
   final SPWModel model;
@@ -48,11 +49,15 @@ class Tab5InputTemplate extends StatelessWidget {
 
         // Row of Cupertino Pickers
         CupertinoPickerRowOrganism(
-          headers: "S,B,W".split(",").map((e) => "$e Score").toList(),
+          headers: [
+            Tab4Headings.sScore,
+            Tab4Headings.pScore,
+            Tab4Headings.wScore,
+          ],
           labels: [
-            "Good,Fair,Poor".split(","),
-            "Good,Fair,Poor".split(","),
-            "Good,Fair,Poor".split(","),
+            Tab4Headings.sliderHeadings,
+            Tab4Headings.sliderHeadings,
+            Tab4Headings.sliderHeadings,
           ],
           onSelectedItemsChangedList: onSelectedItemsChangedList,
           pickerContainerColors: [
@@ -74,7 +79,7 @@ class Tab5InputTemplate extends StatelessWidget {
           child: TextFormFieldAtom(
             initialValue: model.weight != null ? model.weight.toString() : "",
             onChanged: onWeightChanged,
-            hintText: "Weight",
+            hintText: Tab4Headings.weight,
           ),
         ),
 

@@ -4,6 +4,7 @@ import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecu
 import 'package:timely/common/atomic/molecules/rows/navigation_row_molecule.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/tokens/app/app.dart';
+import 'package:timely/tokens/headings.dart';
 
 class SchedulingOutputTemplate extends StatelessWidget {
   final Map<String, List<Tab2Model>> models;
@@ -34,11 +35,15 @@ class SchedulingOutputTemplate extends StatelessWidget {
             return ListView(
               shrinkWrap: true,
               children: [
-                const SizedBox(
+                SizedBox(
                   height: 40,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("Today's Tasks")],
+                    children: [
+                      Text(
+                        Tab2Headings.todaysTasks,
+                      )
+                    ],
                   ),
                 ),
                 ...List.generate(
@@ -93,11 +98,15 @@ class SchedulingOutputTemplate extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 40,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("Upcoming Tasks")],
+                    children: [
+                      Text(
+                        Tab2Headings.upcomingTasks,
+                      ),
+                    ],
                   ),
                 ),
                 ...List.generate(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:timely/common/atomic/molecules/molecules.dart';
 import 'package:timely/modules/tab_1/atomic/molecules/score_row_molecule.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
+import 'package:timely/tokens/headings.dart';
 
 class FMSTemplate extends StatefulWidget {
   final void Function(int index, int status) onStatusChanged;
@@ -44,27 +45,37 @@ class _FMSTemplateState extends State<FMSTemplate> {
 
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: TextRowMolecule(
             height: 40,
-            texts: ["Items", "Time", "Status"],
+            texts: [Tab1Headings.items, Tab1Headings.time, Tab1Headings.status],
             bolded: true,
-            customWidths: {0: 80, 2: 150},
-            defaultAligned: [0],
+            customWidths: const {0: 80, 2: 150},
+            defaultAligned: const [0],
           ),
         ),
-        const TextRowMolecule(
-          texts: ["", "", "Start", "Stop", "Pause"],
-          customWidths: {2: 50, 3: 50, 4: 50},
-          textStyle: TextStyle(fontSize: 10),
+        TextRowMolecule(
+          texts: [
+            "",
+            "",
+            Tab1Headings.start,
+            Tab1Headings.pause,
+            Tab1Headings.stop
+          ],
+          customWidths: const {2: 50, 3: 50, 4: 50},
+          textStyle: const TextStyle(fontSize: 10),
         ),
         ...List.generate(3, (index) {
           return Expanded(
             child: ScoreRowMolecule(
               locked: isLocked(status: statuses[index], time: times[index]),
               height: 50,
-              title: "${"MFS"[index]}-Score",
+              title: [
+                Tab1Headings.mScore,
+                Tab1Headings.fScore,
+                Tab1Headings.sScore
+              ][index],
               time: stringifyDuration(
                 scores[index],
               ),

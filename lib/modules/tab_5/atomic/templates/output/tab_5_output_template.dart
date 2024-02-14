@@ -6,6 +6,7 @@ import 'package:timely/common/atomic/molecules/rows/navigation_row_molecule.dart
 import 'package:timely/modules/tab_5/atomic/molecules/spw_text_row_molecule.dart';
 import 'package:timely/modules/tab_5/models/spw.dart';
 import 'package:timely/modules/tab_5/tokens/tab_5_colors.dart';
+import 'package:timely/tokens/headings.dart';
 
 class Tab5OutputTemplate extends StatelessWidget {
   final List<SPWModel> models;
@@ -32,7 +33,13 @@ class Tab5OutputTemplate extends StatelessWidget {
             TextRowMolecule(
               height: 40,
               bolded: true,
-              texts: "Date,S,P,W,Weight".split(","),
+              texts: [
+                Tab4Headings.date,
+                Tab4Headings.s,
+                Tab4Headings.p,
+                Tab4Headings.w,
+                Tab4Headings.weight
+              ],
               customWidths: const {0: 120, 4: 100},
             ),
             ListView.builder(

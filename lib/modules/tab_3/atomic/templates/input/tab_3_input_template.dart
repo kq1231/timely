@@ -7,6 +7,7 @@ import 'package:timely/common/atomic/molecules/rows/cancel_submit_row_molecule.d
 import 'package:timely/common/atomic/molecules/rows/title_widget_row_molecule.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/tokens/app/app.dart';
+import 'package:timely/tokens/headings.dart';
 
 class Tab3InputTemplate extends StatelessWidget {
   final Tab3Model model;
@@ -43,14 +44,14 @@ class Tab3InputTemplate extends StatelessWidget {
       TextFormFieldAtom(
         initialValue: model.text_1,
         onChanged: onActivityChanged,
-        hintText: "Activity",
+        hintText: Tab3Headings.activity,
       ),
 
       // "Scheduled" Switch
       Column(
         children: [
           TitleWidgetRowMolecule(
-            title: "Scheduled",
+            title: Tab3Headings.scheduled,
             widget: Switch(
               value: scheduled,
               onChanged: (value) {
@@ -69,7 +70,7 @@ class Tab3InputTemplate extends StatelessWidget {
           ? Column(
               children: [
                 TitleWidgetRowMolecule(
-                  title: "Date",
+                  title: Tab3Headings.date,
                   widget: DateButtonAtom.large(
                     initialDate: model.date ?? DateTime.now(),
                     onDateChanged: onDateChanged,
@@ -82,7 +83,7 @@ class Tab3InputTemplate extends StatelessWidget {
 
                 // Time Button
                 TitleWidgetRowMolecule(
-                  title: "Time",
+                  title: Tab3Headings.time,
                   widget: TimeButtonAtom.large(
                     initialTime: model.time ?? TimeOfDay.now(),
                     onTimeChanged: onTimeChanged,
@@ -94,7 +95,7 @@ class Tab3InputTemplate extends StatelessWidget {
 
       // Priority Picker
       TitleWidgetRowMolecule(
-        title: "Priority",
+        title: Tab3Headings.priority,
         widget: CupertinoPickerAtom(
           itemExtent: 60,
           onSelectedItemChanged: onPriorityChanged,
