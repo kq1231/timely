@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/list_struct/services/repo_service.dart';
-import 'package:timely/modules/home/providers/external_entries_provider.dart';
+import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
 import 'package:timely/reusables.dart';
 
 class OutputNotifier<T> extends AutoDisposeAsyncNotifier<List<T>> {
@@ -34,13 +34,13 @@ class OutputNotifier<T> extends AutoDisposeAsyncNotifier<List<T>> {
     await ref
         .read(repositoryServiceProvider.notifier)
         .deleteModel(model, pendingFile);
-    ref.invalidate(externalEntriesProvider);
+    ref.invalidate(todaysModelMapsProvider);
   }
 
   Future<void> markModelAsComplete(T model) async {
     await ref
         .read(repositoryServiceProvider.notifier)
         .markModelAsComplete(model, pendingFile, completedFile);
-    ref.invalidate(externalEntriesProvider);
+    ref.invalidate(todaysModelMapsProvider);
   }
 }

@@ -5,7 +5,7 @@ import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/modules/home/atomic/templates/external_entries_template.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/modules/home/providers/external_entries_provider.dart';
+import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
 import 'package:timely/modules/tab_1/atomic/pages/fms_page.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
@@ -24,7 +24,7 @@ class LaunchScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var tabsData = ref.watch(externalEntriesProvider);
+    var tabsData = ref.watch(todaysModelMapsProvider);
     return Row(
       children: [
         const TabButtons(),
