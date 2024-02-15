@@ -6,6 +6,8 @@ import 'package:timely/modules/home/models/task_today.dart';
 import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
 import 'package:timely/reusables.dart';
 
+// Bismillahir Rahmanir Rahim
+
 class TasksTodayRepositoryNotifier extends Notifier<void> {
   @override
   build() {
@@ -13,52 +15,40 @@ class TasksTodayRepositoryNotifier extends Notifier<void> {
   }
 
   Future<void> generateTodaysTasks() async {
-    // Bismillahir Rahmanir Rahim
-
-    // Get the file -1
-    // If no key exists then add data for today's date -2
-    // If keys exist then check whether any model is deleted -3
-    // If it isn't then add data -4
-
-    // 1
     File tasksTodayFile = (await ref.read(dbFilesProvider.future))[0]![0];
     Map content = jsonDecode(await tasksTodayFile.readAsString());
 
     String dateToday = DateTime.now().toString().substring(0, 10);
 
-    // 2
-    if (content.keys.isEmpty) {
-      List models = (await ref.read(todaysModelMapsProvider.future));
-      content[dateToday] = models;
+    List models = (await ref.read(todaysModelMapsProvider.future));
+    content[dateToday] = models;
 
-      await tasksTodayFile.writeAsString(jsonEncode(content));
-    }
-
-    // 3
-    else {
-      // 4
-      List models = (await ref.read(todaysModelMapsProvider.future));
-      if (models.length !=
-          content[dateToday].length) // Check if any model is deleted
-      {
-        content[dateToday] = models;
-
-        await tasksTodayFile.writeAsString(jsonEncode(content));
-      }
-    }
+    await tasksTodayFile.writeAsString(jsonEncode(content));
   }
 
-  Future<void> writeModel(dynamic model, int tabNumber) async {
-    File tasksTodayFile = (await ref.read(dbFilesProvider.future))[0]![0];
-    Map content = jsonDecode(await tasksTodayFile.readAsString());
+  // Future<void> writeModel(Map json, int tabNumber) async {
+  //   File tasksTodayFile = (await ref.read(dbFilesProvider.future))[0]![0];
+  //   Map content = jsonDecode(await tasksTodayFile.readAsString());
 
-    String dateToday = DateTime.now().toString().substring(0, 10);
+  //   String dateToday = DateTime.now().toString().substring(0, 10);
 
-    content[dateToday].add({
-      "Tab Number": tabNumber,
-      "Data": model.toJson(),
-    });
-  }
+  //   if (content[dateToday].keys.contains(json["ID"])) {
+  //     for (var modelMap in content[dateToday]) {
+  //       if (modelMap["Data"]["ID"] == json["ID"]) {
+  //         modelMap["Data"] = json;
+  //         break;
+  //       }
+  //     }
+  //   } else {
+  //     content[dateToday].add({
+  //       "Tab Number": tabNumber,
+  //       "Data": json,
+  //     });
+  //   }
+
+  //   // Persist
+  //   await tasksTodayFile.writeAsString(jsonEncode(content));
+  // }
 
   Future<List<TaskToday>> fetchTodaysTasks() async {
     File tasksTodayFile = (await ref.read(dbFilesProvider.future))[0]![0];
@@ -72,8 +62,33 @@ class TasksTodayRepositoryNotifier extends Notifier<void> {
       tasksToday.add(TaskToday.fromJson(modelMap));
     }
 
+    tasksToday.sort(
+      (a, b) =>
+          DateTime(0, 0, 0, a.startTime.hour, a.startTime.minute).compareTo(
+        DateTime(
+          0,
+          0,
+          0,
+          b.startTime.hour,
+          b.startTime.minute,
+        ),
+      ),
+    );
+
     return tasksToday;
   }
+
+  // Future<void> deleteModel(String id, int tabNumber) async {
+  //   File tasksTodayFile = (await ref.read(dbFilesProvider.future))[0]![0];
+  //   Map content = jsonDecode(await tasksTodayFile.readAsString());
+
+  //   String dateToday = DateTime.now().toString().substring(0, 10);
+
+  //   content[dateToday].removeWhere((modelMap) => modelMap["Data"]["ID"] == id);
+
+  //   // Persist
+  //   await tasksTodayFile.writeAsString(jsonEncode(content));
+  // }
 }
 
 final tasksTodayRepositoryProvider =

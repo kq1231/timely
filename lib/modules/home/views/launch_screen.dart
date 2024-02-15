@@ -7,7 +7,6 @@ import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/app_theme.dart';
 
 import 'package:timely/modules/home/controllers/tasks_today_controller.dart';
-import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
 import 'package:timely/modules/tab_1/atomic/pages/fms_page.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
