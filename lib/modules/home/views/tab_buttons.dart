@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/exports/screens.dart';
+import 'package:timely/modules/home/views/work_in_progress.dart';
 import 'package:timely/reusables.dart';
 
 final List tabs = [
@@ -10,13 +11,13 @@ final List tabs = [
   const Tab3OutputPage(),
   const Tab5OutputPage(),
   const Tab6OutputPage(),
-  Container(),
-  const Center(child: Text("Work in Progress...")),
-  const Center(child: Text("Work in Progress...")),
-  const Center(child: Text("Work in Progress...")),
-  const Center(child: Text("Work in Progress...")),
-  const Center(child: Text("Work in Progress...")),
-  const Center(child: Text("Work in Progress...")),
+  const WorkInProgressPage(),
+  const WorkInProgressPage(),
+  const WorkInProgressPage(),
+  const WorkInProgressPage(),
+  const WorkInProgressPage(),
+  const WorkInProgressPage(),
+  const WorkInProgressPage(),
   const LaunchScreen(),
 ];
 
