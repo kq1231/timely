@@ -47,3 +47,10 @@ class Tab4Headings {
   static List<String> sliderHeadings = ["Good", "Fair", "Poor"];
   static String weightTextHint = "Weight";
 }
+
+class LaunchScreenHeadings {
+  static String internal = "Internal";
+  static String external = "External";
+
+  static List<String> labels = ["Start", "Pause", "Stop"];
+}

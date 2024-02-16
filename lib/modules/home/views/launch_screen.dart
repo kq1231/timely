@@ -19,6 +19,7 @@ import 'package:timely/modules/tab_6/controllers/output_controller.dart';
 import 'package:timely/modules/tab_6/pages/tab_6_input_page.dart';
 import 'package:timely/modules/tab_7/controllers/output_controller.dart';
 import 'package:timely/modules/tab_7/pages/tab_7_input_page.dart';
+import 'package:timely/tokens/headings.dart';
 
 class LaunchScreen extends ConsumerWidget {
   const LaunchScreen({super.key});
@@ -89,10 +90,10 @@ class LaunchScreen extends ConsumerWidget {
                       ]),
                     ),
                     Container(
-                      color: Colors.black,
-                      child: const Center(
+                      color: Colors.indigo[900],
+                      child: Center(
                         child: Text(
-                          "Internal",
+                          LaunchScreenHeadings.internal,
                         ),
                       ),
                     ),
@@ -103,18 +104,21 @@ class LaunchScreen extends ConsumerWidget {
                         child: const FMSPage(),
                       ),
                     ),
-                    Container(
+                    const Divider(
+                      height: 2,
                       color: Colors.black,
-                      child: const Center(
+                    ),
+                    Container(
+                      color: Colors.indigo[700],
+                      child: Center(
                         child: Text(
-                          "External",
+                          LaunchScreenHeadings.external,
                         ),
                       ),
                     ),
                     Expanded(
-                      flex: 2,
+                      flex: 4,
                       child: TasksTodayTemplate(
-                        color: Colors.black,
                         data: data,
                         onDismissed: (dir, model, tabNumber) async {
                           if (model is Tab3Model) {

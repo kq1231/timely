@@ -5,7 +5,6 @@ import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecu
 import 'package:timely/modules/home/models/task_today.dart';
 
 class TasksTodayTemplate extends StatefulWidget {
-  final Color color;
   final List<TaskToday> data;
   final Function(dynamic model, int tabNumber) onTap;
   final Function(DismissDirection direction, dynamic model, int tabNumber)
@@ -13,7 +12,6 @@ class TasksTodayTemplate extends StatefulWidget {
 
   const TasksTodayTemplate({
     super.key,
-    required this.color,
     required this.data,
     required this.onTap,
     required this.onDismissed,
@@ -68,7 +66,6 @@ class _TasksTodayTemplateState extends State<TasksTodayTemplate>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: widget.color,
       child: widget.data.isEmpty
           ? const Row(
               mainAxisAlignment: MainAxisAlignment.center,

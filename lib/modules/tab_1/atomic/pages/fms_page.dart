@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_1/atomic/templates/fms_template.dart';
 import 'package:timely/modules/tab_1/controllers/fms_provider.dart';
 import 'package:timely/modules/tab_1/providers/todays_fms_provider.dart';
+import 'package:timely/tokens/headings.dart';
 
 class FMSPage extends ConsumerStatefulWidget {
   const FMSPage({super.key});
@@ -32,7 +33,7 @@ class _FMSPageState extends ConsumerState<FMSPage> {
                 return AlertDialog(
                   title: const Text('Confirmation'),
                   content: Text(
-                      'You have selected item ${"Good,Fair,Poor".split(",")[status]}. Confirm?'),
+                      'You have selected ${LaunchScreenHeadings.labels[status]}. Confirm?'),
                   actions: <Widget>[
                     TextButton(
                       child: const Text('Confirm'),

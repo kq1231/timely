@@ -23,7 +23,7 @@ class _FMSTemplateState extends State<FMSTemplate> {
   List<int> statuses = [];
   List<Duration> scores = [];
   List<DateTime?> times = [];
-  List<String> texts = "Start,Stop,Pause".split(",");
+  List<String> labels = LaunchScreenHeadings.labels;
 
   @override
   Widget build(BuildContext context) {
