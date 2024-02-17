@@ -77,7 +77,9 @@ class Tab3OutputTemplate extends StatelessWidget {
                               customWidths: const {1: 70},
                               texts: [
                                 tab3Models[index].text_1,
-                                tab3Models[index].time!.format(context),
+                                tab3Models[index].time != null
+                                    ? tab3Models[index].time!.format(context)
+                                    : "",
                               ],
                               defaultAligned: const [0],
                             ),

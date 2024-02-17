@@ -39,15 +39,14 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
 
   Future<void> syncToDB() async {
     state.uuid == null
-        ? await ref
+        ? await (ref
             .read(tab3RepositoryServiceProvider.notifier)
-            .writeModel(state)
-        : await ref
+            .writeModel(state))
+        : await (ref
             .read(tab3RepositoryServiceProvider.notifier)
-            .editModel(state);
+            .editModel(state));
 
     ref.invalidate(tab3OutputProvider);
-    ref.invalidate(todaysModelMapsProvider);
   }
 
   void setModel(Tab3Model model) async {

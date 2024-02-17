@@ -63,6 +63,19 @@ class Tab3RepositoryNotifier extends Notifier<void> {
     return tab3Models;
   }
 
+  Future<List<Tab3Model>> fetchNonScheduledModels() async {
+    final nonScheduled = (ref.read(dbFilesProvider)).requireValue[3]![1];
+    final nonScheduledContent = jsonDecode(await nonScheduled.readAsString());
+
+    List<Tab3Model> models = [];
+
+    for (Map modelMap in nonScheduledContent) {
+      models.add(Tab3Model.fromJson(null, modelMap));
+    }
+
+    return models;
+  }
+
   Future<void> writeModel(Tab3Model model) async {
     final scheduled = (ref.read(dbFilesProvider)).requireValue[3]![0];
     final nonScheduled = (ref.read(dbFilesProvider)).requireValue[3]![1];
@@ -82,14 +95,13 @@ class Tab3RepositoryNotifier extends Notifier<void> {
         // New data:
         model.toJson(),
       ];
+      await scheduled.writeAsString(jsonEncode(scheduledContent));
     } else {
       nonScheduledContent.add(
         model.toJson(),
       );
-      nonScheduled.writeAsString(jsonEncode(nonScheduledContent));
+      await nonScheduled.writeAsString(jsonEncode(nonScheduledContent));
     }
-
-    await scheduled.writeAsString(jsonEncode(scheduledContent));
   }
 
   Future<void> deleteModel(Tab3Model model) async {
