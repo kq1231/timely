@@ -127,7 +127,7 @@ class _TasksTodayTemplateState extends State<TasksTodayTemplate>
                                                   tasksToday[index]
                                                       .startTime
                                                       .format(context),
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 12,
                                                   ),
                                                 ),
@@ -147,7 +147,8 @@ class _TasksTodayTemplateState extends State<TasksTodayTemplate>
                                                                 .endTime!
                                                                 .format(
                                                                     context),
-                                                            style: TextStyle(
+                                                            style:
+                                                                const TextStyle(
                                                               fontSize: 12,
                                                             ),
                                                           ),
