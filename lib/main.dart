@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
-import 'package:timely/modules/tab_1/repositories/repo.dart';
 import 'package:timely/reusables.dart';
 import 'package:timely/tokens/app/themes/app_dark_theme.dart';
 import 'exports/screens.dart';
@@ -46,9 +45,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Future.wait([
-          ref.read(tab1RepositoryProvider.notifier).updateNextUpdateTime(),
-        ]),
+        future: Future.wait([]),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Consumer(

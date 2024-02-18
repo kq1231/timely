@@ -5,8 +5,6 @@ import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/modules/home/atomic/templates/tasks_today_template.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/app_theme.dart';
-
-import 'package:timely/modules/home/controllers/tasks_today_controller.dart';
 import 'package:timely/modules/home/providers/external_models_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
 import 'package:timely/modules/tab_1/atomic/pages/fms_page.dart';
@@ -91,6 +89,7 @@ class LaunchScreen extends ConsumerWidget {
                       ]),
                     ),
                     Container(
+                      height: 30,
                       color: Colors.indigo[900],
                       child: Center(
                         child: Text(
@@ -106,10 +105,11 @@ class LaunchScreen extends ConsumerWidget {
                       ),
                     ),
                     const Divider(
-                      height: 2,
-                      color: Colors.black,
+                      height: 20,
+                      color: Colors.transparent,
                     ),
                     Container(
+                      height: 31,
                       color: Colors.indigo[700],
                       child: Center(
                         child: Text(
@@ -150,7 +150,6 @@ class LaunchScreen extends ConsumerWidget {
                           }
                         },
                         onTap: (model, tabNumber) {
-                          print(model);
                           if (model is Tab3Model) {
                             ref
                                 .read(tab3InputProvider.notifier)

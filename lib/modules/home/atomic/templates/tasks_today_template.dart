@@ -81,8 +81,14 @@ class _TasksTodayTemplateState extends State<TasksTodayTemplate>
               children: [
                 Expanded(
                   flex: 1,
-                  child: ListView.builder(
+                  child: ListView.separated(
                     shrinkWrap: true,
+                    separatorBuilder: (context, index) {
+                      return const Divider(
+                        height: 1,
+                        color: Colors.black,
+                      );
+                    },
                     itemBuilder: (context, index) {
                       var model = tasksToday[index].model;
                       var tabNumber = tasksToday[index].tabNumber;
@@ -93,10 +99,6 @@ class _TasksTodayTemplateState extends State<TasksTodayTemplate>
                               widget.onDismissed(direction, model, tabNumber),
                           child: Column(
                             children: [
-                              const Divider(
-                                height: 1,
-                                color: Colors.black,
-                              ),
                               Container(
                                 color: Colors.indigo[700],
                                 child: FadeTransition(
@@ -113,26 +115,50 @@ class _TasksTodayTemplateState extends State<TasksTodayTemplate>
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
-                                        width: 70,
-                                        child: Center(
-                                          child: Text(
-                                            tasksToday[index]
-                                                .startTime
-                                                .format(context),
-                                          ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 4),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              width: 70,
+                                              child: Center(
+                                                child: Text(
+                                                  tasksToday[index]
+                                                      .startTime
+                                                      .format(context),
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            tasksToday[index].endTime != null
+                                                ? Column(
+                                                    children: [
+                                                      const SizedBox(
+                                                        height: 6,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 70,
+                                                        child: Center(
+                                                          child: Text(
+                                                            tasksToday[index]
+                                                                .endTime!
+                                                                .format(
+                                                                    context),
+                                                            style: TextStyle(
+                                                              fontSize: 12,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Container(),
+                                          ],
                                         ),
                                       ),
-                                      tasksToday[index].endTime != null
-                                          ? SizedBox(
-                                              width: 50,
-                                              child: Text(
-                                                tasksToday[index]
-                                                    .endTime!
-                                                    .format(context),
-                                              ),
-                                            )
-                                          : Container(),
                                     ],
                                   ),
                                 ),
