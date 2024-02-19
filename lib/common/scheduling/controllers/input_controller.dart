@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/modules/home/controllers/tasks_today_controller.dart';
 import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
@@ -195,6 +196,7 @@ class SchedulingInputNotifier extends Notifier<Tab2Model> {
     }
 
     ref.invalidate(todaysModelMapsProvider);
+    ref.invalidate(tasksTodayOutputProvider);
   }
 }
 

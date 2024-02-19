@@ -45,7 +45,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Future.wait([]),
+        future: Future.wait([ref.read(dbFilesProvider.future)]),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Consumer(

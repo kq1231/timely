@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/modules/home/controllers/tasks_today_controller.dart';
+import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
 import 'package:timely/modules/tab_3/controllers/output_controller.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/modules/tab_3/services/repo_service.dart';
@@ -46,6 +48,9 @@ class Tab3InputNotifier extends Notifier<Tab3Model> {
             .editModel(state));
 
     ref.invalidate(tab3OutputProvider);
+
+    ref.invalidate(todaysModelMapsProvider);
+    ref.invalidate(tasksTodayOutputProvider);
   }
 
   void setModel(Tab3Model model) async {
