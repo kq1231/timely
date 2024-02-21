@@ -1,15 +1,14 @@
 import 'dart:io';
 
-import 'package:timely/common/entry_struct/services/repo_service.dart';
+import 'package:timely/common/entry_struct/repositories/pending_repo.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 
-class Tab12RepositoryServiceNotifier
-    extends EntryStructRepositoryServiceNotifier<Tab12EntryModel,
-        Tab12SubEntryModel> {
+class Tab12RepositoryNotifier extends EntryStructPendingRepositoryNotifier<
+    Tab12EntryModel, Tab12SubEntryModel> {
   // --------- --------- --------- --------- --------- --------- ---------
 
   Future<Map<Tab12EntryModel, List<Tab12SubEntryModel>>>
@@ -40,7 +39,7 @@ class Tab12RepositoryServiceNotifier
   }
 }
 
-final tab12RepositoryServiceProvider =
-    NotifierProvider<Tab12RepositoryServiceNotifier, void>(() {
-  return Tab12RepositoryServiceNotifier();
+final tab12RepositoryProvider =
+    NotifierProvider<Tab12RepositoryNotifier, void>(() {
+  return Tab12RepositoryNotifier();
 });

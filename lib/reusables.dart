@@ -3,25 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/common/scheduling/services/repo_service.dart';
+import 'package:timely/common/scheduling/repositories/scheduling_repository.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
 import 'package:timely/modules/tab_1/repositories/repo.dart';
 import 'package:timely/modules/tab_10/models/tab_10_model.dart';
-import 'package:timely/modules/tab_10/services/repo_service.dart';
+import 'package:timely/modules/tab_10/repositories/tab_10_repositories.dart';
 import 'package:timely/modules/tab_11/models/tab_11_model.dart';
-import 'package:timely/modules/tab_11/services/repo_service.dart';
+import 'package:timely/modules/tab_11/repositories/tab_11_repo.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
-import 'package:timely/modules/tab_12/services/repo_service.dart';
+import 'package:timely/modules/tab_12/repositories/tab_12_repo.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
-import 'package:timely/modules/tab_3/services/repo_service.dart';
+import 'package:timely/modules/tab_3/repositories/tab_3_repo.dart';
 import 'package:timely/modules/tab_5/models/spw.dart';
 import 'package:timely/modules/tab_5/repositories/tab_5_repo.dart';
 import 'package:timely/modules/tab_8/models/tab_8_model.dart';
-import 'package:timely/modules/tab_8/services/repo_service.dart';
+import 'package:timely/modules/tab_8/repositories/tab_8_repo.dart';
 import 'package:timely/modules/tab_9/models/entry_model.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
-import 'package:timely/modules/tab_9/services/repo_service.dart';
+import 'package:timely/modules/tab_9/repositories/tab_9_repo.dart';
 
 // Providers
 final colorProvider = Provider<List<Color>>((ref) {
@@ -78,7 +78,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
           break;
 
         case 3:
-          ref.read(tab3RepositoryServiceProvider.notifier).writeModel(
+          ref.read(tab3RepositoryProvider.notifier).writeModel(
                 Tab3Model(
                   text_1: "This is a sample entry.",
                   priority: 0,
@@ -103,7 +103,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
               );
 
         case 8:
-          ref.read(tab8RepositoryServiceProvider.notifier).writeModel(
+          ref.read(tab8RepositoryProvider.notifier).writeModel(
                 Tab8Model(
                     date: DateTime.now(),
                     title: "This is a sample entry.",
@@ -114,7 +114,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
               );
 
         case 9:
-          ref.read(tab9RepositoryServiceProvider.notifier).writeEntry(
+          ref.read(tab9RepositoryProvider.notifier).writeEntry(
             const Tab9EntryModel(
                 condition: "A sample condition.",
                 criticality: 0,
@@ -131,7 +131,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
           );
 
         case 10:
-          ref.read(tab10RepositoryServiceProvider.notifier).writeModel(
+          ref.read(tab10RepositoryProvider.notifier).writeModel(
                 Tab10Model(
                   date: DateTime.now(),
                   text_1: "Some sample text.",
@@ -143,7 +143,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
               );
 
         case 11:
-          ref.read(tab11RepositoryServiceProvider.notifier).writeModel(
+          ref.read(tab11RepositoryProvider.notifier).writeModel(
                 Tab11Model(
                   item: "A sample item that is not urgent.",
                   qty: 10,
@@ -153,7 +153,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
               );
 
         case 12:
-          ref.read(tab12RepositoryServiceProvider.notifier).writeEntry(
+          ref.read(tab12RepositoryProvider.notifier).writeEntry(
             Tab12EntryModel(
               activity: "A sample activity",
               objective: 'An objective.',

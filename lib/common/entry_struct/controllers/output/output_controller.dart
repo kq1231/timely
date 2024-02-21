@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/common/entry_struct/services/repo_service.dart';
+import 'package:timely/common/entry_struct/repositories/pending_repo.dart';
 import 'package:timely/reusables.dart';
 
 class EntryStructOutputNotifier<T, V,
-        U extends EntryStructRepositoryServiceNotifier<T, V>>
+        U extends EntryStructPendingRepositoryNotifier<T, V>>
     extends AutoDisposeAsyncNotifier<Map<T, List<V>>> {
   late File pendingFile;
   late File completedFile;
@@ -36,21 +36,7 @@ class EntryStructOutputNotifier<T, V,
       .read(repoService.notifier)
       .deleteSubEntry(entryUuid, model, pendingFile);
 
-  Future<void> markEntryAsComplete(T entry, List<V> subEntries) async {
-    await ref.read(repoService.notifier).markEntryAsComplete(
-          entry,
-          subEntries,
-          pendingFile,
-          completedFile,
-        );
-  }
+  Future<void> markEntryAsComplete(T entry, List<V> subEntries) async {}
 
-  Future<void> markSubEntryAsComplete(T entryModel, V subEntryModel) async {
-    await ref.read(repoService.notifier).markSubEntryAsComplete(
-          entryModel,
-          subEntryModel,
-          pendingFile,
-          completedFile,
-        );
-  }
+  Future<void> markSubEntryAsComplete(T entryModel, V subEntryModel) async {}
 }

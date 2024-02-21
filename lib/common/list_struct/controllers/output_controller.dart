@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/common/list_struct/services/repo_service.dart';
+import 'package:timely/common/list_struct/repositories/repo.dart';
 import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
 import 'package:timely/reusables.dart';
 
@@ -11,7 +11,7 @@ class OutputNotifier<T> extends AutoDisposeAsyncNotifier<List<T>> {
   late File pendingFile;
   late File completedFile;
   late Function modelizer;
-  late final NotifierProvider<ListStructRepositoryService<T>, void>
+  late final NotifierProvider<ListStructRepositoryNotifier<T>, void>
       repositoryServiceProvider;
 
   OutputNotifier({
@@ -34,13 +34,6 @@ class OutputNotifier<T> extends AutoDisposeAsyncNotifier<List<T>> {
     await ref
         .read(repositoryServiceProvider.notifier)
         .deleteModel(model, pendingFile);
-    ref.invalidate(todaysModelMapsProvider);
-  }
-
-  Future<void> markModelAsComplete(T model) async {
-    await ref
-        .read(repositoryServiceProvider.notifier)
-        .markModelAsComplete(model, pendingFile, completedFile);
     ref.invalidate(todaysModelMapsProvider);
   }
 }

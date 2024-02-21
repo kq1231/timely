@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/common/scheduling/services/repo_service.dart';
-import 'package:timely/modules/tab_3/services/repo_service.dart';
+import 'package:timely/common/scheduling/repositories/scheduling_repository.dart';
+import 'package:timely/modules/tab_3/repositories/tab_3_repo.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/reusables.dart';
 
@@ -18,7 +18,7 @@ final todaysModelMapsProvider = FutureProvider.autoDispose<List>((ref) async {
     [
       ref.read(schedulingRepositoryServiceProvider.notifier).fetchModels(
           Tab2Model.fromJson, ref.read(dbFilesProvider).requireValue[2]![0]),
-      ref.read(tab3RepositoryServiceProvider.notifier).fetchModels(),
+      ref.read(tab3RepositoryProvider.notifier).fetchModels(),
       ref.read(schedulingRepositoryServiceProvider.notifier).fetchModels(
           Tab2Model.fromJson, ref.read(dbFilesProvider).requireValue[6]![0]),
     ],

@@ -34,9 +34,7 @@ class _Tab10OutputPageState extends ConsumerState<Tab10OutputPage> {
               setState(() {});
             } else {
               models.removeWhere((e) => e.uuid == model.uuid);
-              setState(() {
-                controller.markModelAsComplete(model);
-              });
+              setState(() {});
             }
           },
           onTap: (index) {

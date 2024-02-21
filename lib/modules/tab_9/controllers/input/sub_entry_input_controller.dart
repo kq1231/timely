@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:timely/modules/tab_9/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_9/models/entry_model.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
-import 'package:timely/modules/tab_9/services/repo_service.dart';
+import 'package:timely/modules/tab_9/repositories/tab_9_repo.dart';
 import 'package:timely/reusables.dart';
 
 class Tab9SubEntryInputNotifier extends Notifier<Tab9SubEntryModel> {
@@ -32,10 +32,10 @@ class Tab9SubEntryInputNotifier extends Notifier<Tab9SubEntryModel> {
 
     if (state.uuid != null) {
       await ref
-          .read(tab9RepositoryServiceProvider.notifier)
+          .read(tab9RepositoryProvider.notifier)
           .updateSubEntry(entryUuid, state, file, Tab9EntryModel.fromJson);
     } else {
-      await ref.read(tab9RepositoryServiceProvider.notifier).writeSubEntry(
+      await ref.read(tab9RepositoryProvider.notifier).writeSubEntry(
           entryUuid,
           state,
           file,

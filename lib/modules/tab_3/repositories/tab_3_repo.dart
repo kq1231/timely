@@ -135,3 +135,6 @@ class Tab3RepositoryNotifier extends Notifier<void> {
     await writeModel(model);
   }
 }
+
+final tab3RepositoryProvider =
+    NotifierProvider<Tab3RepositoryNotifier, void>(Tab3RepositoryNotifier.new);

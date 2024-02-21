@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/common/list_struct/services/repo_service.dart';
+import 'package:timely/common/list_struct/repositories/repo.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/reusables.dart';
 
 class SchedulingRepostioryNotifier<T>
-    extends ListStructRepositoryService<Tab2Model> {
+    extends ListStructRepositoryNotifier<Tab2Model> {
   Future<Map<String, List<Tab2Model>>> fetchActivities(
       Function modelizer, File file) async {
     // Get the models

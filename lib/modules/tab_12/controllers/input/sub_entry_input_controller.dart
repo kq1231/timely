@@ -4,7 +4,7 @@ import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.d
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
-import 'package:timely/modules/tab_12/services/repo_service.dart';
+import 'package:timely/modules/tab_12/repositories/tab_12_repo.dart';
 import 'package:timely/reusables.dart';
 
 class Tab12SubEntryInputNotifier extends Notifier<Tab12SubEntryModel> {
@@ -38,10 +38,10 @@ class Tab12SubEntryInputNotifier extends Notifier<Tab12SubEntryModel> {
 
     if (state.uuid != null) {
       await ref
-          .read(tab12RepositoryServiceProvider.notifier)
+          .read(tab12RepositoryProvider.notifier)
           .updateSubEntry(entryUuid, state, file, Tab12EntryModel.fromJson);
     } else {
-      await ref.read(tab12RepositoryServiceProvider.notifier).writeSubEntry(
+      await ref.read(tab12RepositoryProvider.notifier).writeSubEntry(
             entryUuid,
             state,
             file,

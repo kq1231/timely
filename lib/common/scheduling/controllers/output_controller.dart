@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/common/scheduling/services/repo_service.dart';
+import 'package:timely/common/scheduling/repositories/scheduling_repository.dart';
 import 'package:timely/modules/home/controllers/tasks_today_controller.dart';
 import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
 import 'package:timely/reusables.dart';

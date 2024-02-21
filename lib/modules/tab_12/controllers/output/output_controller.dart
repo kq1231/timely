@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/entry_struct/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
-import 'package:timely/modules/tab_12/services/repo_service.dart';
+import 'package:timely/modules/tab_12/repositories/tab_12_repo.dart';
 import 'package:timely/reusables.dart';
 
 class Tab12OutputNotifier extends EntryStructOutputNotifier<Tab12EntryModel,
-    Tab12SubEntryModel, Tab12RepositoryServiceNotifier> {
+    Tab12SubEntryModel, Tab12RepositoryNotifier> {
   Tab12OutputNotifier(
       {required super.repoService,
       required super.entryModelizer,
@@ -34,7 +34,7 @@ class Tab12OutputNotifier extends EntryStructOutputNotifier<Tab12EntryModel,
 final tab12OutputProvider = AutoDisposeAsyncNotifierProvider<
     Tab12OutputNotifier, Map<Tab12EntryModel, List<Tab12SubEntryModel>>>(() {
   return Tab12OutputNotifier(
-    repoService: tab12RepositoryServiceProvider,
+    repoService: tab12RepositoryProvider,
     entryModelizer: Tab12EntryModel.fromJson,
     subEntryModelizer: Tab12SubEntryModel.fromJson,
   );

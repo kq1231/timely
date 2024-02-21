@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_9/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_9/models/entry_model.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
-import 'package:timely/modules/tab_9/services/repo_service.dart';
+import 'package:timely/modules/tab_9/repositories/tab_9_repo.dart';
 import 'package:timely/reusables.dart';
 
 class Tab9InputNotifier extends Notifier<Tab9EntryModel> {
@@ -32,11 +32,11 @@ class Tab9InputNotifier extends Notifier<Tab9EntryModel> {
 
     if (state.uuid != null) {
       await ref
-          .read(tab9RepositoryServiceProvider.notifier)
+          .read(tab9RepositoryProvider.notifier)
           .updateEntry(state, file, Tab9EntryModel.fromJson);
     } else {
       await ref
-          .read(tab9RepositoryServiceProvider.notifier)
+          .read(tab9RepositoryProvider.notifier)
           .writeEntry(state, file, [subEntry]);
     }
 

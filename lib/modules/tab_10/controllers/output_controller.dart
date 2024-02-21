@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/list_struct/controllers/output_controller.dart';
-import 'package:timely/modules/tab_10/services/repo_service.dart';
+import 'package:timely/modules/tab_10/repositories/tab_10_repositories.dart';
 import 'package:timely/modules/tab_10/models/tab_10_model.dart';
 
 final tab10OutputProvider = AutoDisposeAsyncNotifierProvider<
@@ -8,6 +8,6 @@ final tab10OutputProvider = AutoDisposeAsyncNotifierProvider<
   return OutputNotifier(
     tabNumber: 10,
     modelizer: Tab10Model.fromJson,
-    repositoryServiceProvider: tab10RepositoryServiceProvider,
+    repositoryServiceProvider: tab10RepositoryProvider,
   );
 });

@@ -4,7 +4,7 @@ import 'package:timely/modules/home/controllers/tasks_today_controller.dart';
 import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/common/scheduling/services/repo_service.dart';
+import 'package:timely/common/scheduling/repositories/scheduling_repository.dart';
 import 'package:timely/modules/tab_6/controllers/output_controller.dart';
 import 'package:timely/modules/tab_7/controllers/output_controller.dart';
 import 'package:timely/reusables.dart';

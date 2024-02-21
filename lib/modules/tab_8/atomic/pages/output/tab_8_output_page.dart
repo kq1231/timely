@@ -31,7 +31,6 @@ class _Tab8OutputPageState extends ConsumerState<Tab8OutputPage> {
             } else {
               models.removeWhere((e) => e.uuid == model.uuid);
               setState(() {});
-              controller.markModelAsComplete(model);
             }
           },
           onTap: (model) {
