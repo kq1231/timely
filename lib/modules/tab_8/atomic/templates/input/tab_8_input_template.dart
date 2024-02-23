@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:timely/app_theme.dart';
 import 'package:timely/common/atomic/atoms/atoms.dart';
 import 'package:timely/common/atomic/molecules/molecules.dart';
 import 'package:timely/common/atomic/organisms/organisms.dart';
 import 'package:timely/modules/tab_8/models/tab_8_model.dart';
-import 'package:timely/tokens/app/app.dart';
 
 class Tab8InputTemplate extends StatelessWidget {
   final Tab8Model model;

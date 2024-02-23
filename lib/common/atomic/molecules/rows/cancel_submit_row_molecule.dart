@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../tokens/app/app_colours.dart';
+import 'package:timely/app_theme.dart';
 import '../../atoms/buttons/text_button_atom.dart';
 
 class CancelSubmitRowMolecule extends StatelessWidget {

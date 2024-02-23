@@ -4,7 +4,7 @@ import 'package:timely/common/scheduling/atomic/input/templates/repeats_template
 import 'package:timely/common/scheduling/atomic/input/templates/scheduling_input_template.dart';
 import 'package:timely/common/scheduling/controllers/input_controller.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/tokens/app/app.dart';
+import 'package:timely/app_theme.dart';
 
 class SchedulingInputPage extends ConsumerWidget {
   final bool? showDurationSelector;

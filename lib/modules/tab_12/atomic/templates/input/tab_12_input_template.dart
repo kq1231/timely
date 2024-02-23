@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timely/app_theme.dart';
 import 'package:timely/common/atomic/atoms/atoms.dart';
 import 'package:timely/common/atomic/atoms/cupertino_picker/cupertino_picker_atom.dart';
 import 'package:timely/common/atomic/molecules/columns/title_widget_row_molecule.dart';
@@ -7,7 +8,6 @@ import 'package:timely/modules/tab_12/atomic/molecules/connected_widgets_row_mol
 import 'package:timely/modules/tab_12/atomic/molecules/tab_12_sub_entry_input_molecule.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
-import 'package:timely/tokens/app/app.dart';
 
 class Tab12InputTemplate extends StatelessWidget {
   final Tab12EntryModel entry;

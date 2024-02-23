@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/tokens/app/app_sizes.dart';
-import 'package:timely/tokens/app/app_typography.dart';
-import 'package:timely/tokens/headings.dart';
+import 'package:timely/app_theme.dart';
+import 'package:timely/values.dart';
 
 import '../../../../atomic/atoms/atoms.dart';
 import '../../../../atomic/molecules/molecules.dart';

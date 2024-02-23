@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:timely/app_theme.dart';
 import 'package:timely/modules/tab_5/tokens/tab_5_colors.dart';
-import 'package:timely/tokens/app/app.dart';
 
 class SPWTextRowMolecule extends StatelessWidget {
   final List<String> texts;

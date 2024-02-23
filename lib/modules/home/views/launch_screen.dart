@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/app_theme.dart';
 import 'package:timely/common/scheduling/controllers/input_controller.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/modules/home/atomic/templates/tasks_today_template.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
-import 'package:timely/app_theme.dart';
 import 'package:timely/modules/home/providers/external_models_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
 import 'package:timely/modules/tab_1/atomic/pages/fms_page.dart';
@@ -18,7 +18,7 @@ import 'package:timely/modules/tab_6/controllers/output_controller.dart';
 import 'package:timely/modules/tab_6/pages/tab_6_input_page.dart';
 import 'package:timely/modules/tab_7/controllers/output_controller.dart';
 import 'package:timely/modules/tab_7/pages/tab_7_input_page.dart';
-import 'package:timely/tokens/headings.dart';
+import 'package:timely/values.dart';
 
 class LaunchScreen extends ConsumerWidget {
   const LaunchScreen({super.key});
@@ -57,7 +57,6 @@ class LaunchScreen extends ConsumerWidget {
                                     data: (diff) {
                                       return Text(
                                         diff,
-                                        style: LaunchScreenLayout.timeStyle,
                                       );
                                     },
                                     error: (_, __) => const Text("ERROR"),
@@ -78,10 +77,9 @@ class LaunchScreen extends ConsumerWidget {
                         Expanded(
                           child: Container(
                             color: launchSectionOneAlertColor,
-                            child: Center(
+                            child: const Center(
                               child: Text(
                                 "Alert",
-                                style: LaunchScreenLayout.alertStyle,
                               ),
                             ),
                           ),

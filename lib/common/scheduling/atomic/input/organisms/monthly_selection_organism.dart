@@ -3,7 +3,7 @@ import 'package:timely/common/atomic/molecules/rows/title_widget_row_molecule.da
 import 'package:timely/common/scheduling/atomic/input/molecules/grid_selection_molecule.dart';
 import 'package:timely/common/scheduling/atomic/input/molecules/ordinal_weekday_selection_molecule.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/tokens/app/app_sizes.dart';
+import 'package:timely/app_theme.dart';
 
 class MonthlySelectionOrganism extends StatelessWidget {
   final Tab2Model model;

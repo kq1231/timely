@@ -7,7 +7,7 @@ import 'package:timely/common/scheduling/atomic/input/organisms/monthly_selectio
 import 'package:timely/common/scheduling/atomic/input/organisms/yearly_selection_organism.dart';
 import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/common/scheduling/tokens/scheduling_constants.dart';
-import 'package:timely/tokens/app/app.dart';
+import 'package:timely/app_theme.dart';
 
 class RepeatsTemplate extends StatelessWidget {
   final Tab2Model model;

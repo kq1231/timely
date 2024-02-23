@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/tab_1/atomic/templates/fms_template.dart';
 import 'package:timely/modules/tab_1/controllers/fms_provider.dart';
 import 'package:timely/modules/tab_1/providers/todays_fms_provider.dart';
-import 'package:timely/tokens/headings.dart';
+import 'package:timely/values.dart';
 
 class FMSPage extends ConsumerStatefulWidget {
   const FMSPage({super.key});

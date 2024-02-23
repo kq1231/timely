@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:timely/app_theme.dart';
 import 'package:timely/common/atomic/molecules/molecules.dart';
 import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecule.dart';
 import 'package:timely/common/atomic/molecules/rows/navigation_row_molecule.dart';
 import 'package:timely/modules/tab_11/models/tab_11_model.dart';
 import 'package:timely/modules/tab_11/tokens/tab_11_colors.dart';
-import 'package:timely/tokens/app/app_sizes.dart';
 
 class Tab11OutputTemplate extends StatelessWidget {
   final List<Tab11Model> models;

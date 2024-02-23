@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:timely/app_theme.dart';
 import 'package:timely/common/atomic/atoms/atoms.dart';
 import 'package:timely/common/atomic/molecules/molecules.dart';
 import 'package:timely/common/atomic/organisms/organisms.dart';
 import 'package:timely/modules/tab_5/models/spw.dart';
-import 'package:timely/tokens/app/app.dart';
-import 'package:timely/tokens/headings.dart';
+import 'package:timely/values.dart';
 
 class Tab5InputTemplate extends StatelessWidget {
   final SPWModel model;

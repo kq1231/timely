@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/tokens/app/app.dart';
+import 'package:timely/app_theme.dart';
 
 class TextRowMolecule extends StatelessWidget {
   final List<String> texts;
