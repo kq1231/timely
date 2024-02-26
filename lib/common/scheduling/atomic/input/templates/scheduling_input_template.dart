@@ -3,7 +3,7 @@ import 'package:timely/common/scheduling/models/tab_2_model.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/values.dart';
 
-import '../../../../atomic/atoms/atoms.dart';
+import 'package:timely/reusables.dart';
 import '../../../../atomic/molecules/molecules.dart';
 import '../molecules/duration_selection_molecule.dart';
 

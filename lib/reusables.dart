@@ -23,6 +23,9 @@ import 'package:timely/modules/tab_9/models/entry_model.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_9/repositories/tab_9_repo.dart';
 
+export 'package:timely/common/buttons.dart';
+export 'package:timely/common/inputs.dart';
+
 // Providers
 final colorProvider = Provider<List<Color>>((ref) {
   return [

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/common/atomic/atoms/text/text_form_field_atom.dart';
+import 'package:timely/reusables.dart';
 import 'package:timely/modules/tab_9/atomic/molecules/date_time_row_molecule.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
 

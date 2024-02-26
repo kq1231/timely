@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:timely/common/atomic/molecules/rows/text_row_molecule.dart';
 import 'package:timely/app_theme.dart';
 
-import '../../atoms/cupertino_picker/cupertino_picker_atom.dart';
+import 'package:timely/reusables.dart';
 
 class CupertinoPickerRowOrganism extends StatelessWidget {
   final List<String> headers;

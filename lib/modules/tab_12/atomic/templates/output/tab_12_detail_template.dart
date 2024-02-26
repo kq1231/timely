@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/atomic/atoms/buttons/text_button_atom.dart';
+import 'package:timely/reusables.dart';
 import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecule.dart';
 import 'package:timely/modules/tab_12/atomic/molecules/tab_12_entry_card_molecule.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';

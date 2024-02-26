@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/atomic/atoms/cupertino_picker/cupertino_picker_atom.dart';
+import 'package:timely/reusables.dart';
 
 class OrdinalWeekdaySelectionMolecule extends StatelessWidget {
   final Function(int index) onOrdinalPositionChanged;

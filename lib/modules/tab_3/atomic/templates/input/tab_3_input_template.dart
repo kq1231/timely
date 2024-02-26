@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/common/atomic/atoms/buttons/date_button_atom.dart';
-import 'package:timely/common/atomic/atoms/buttons/time_button_atom.dart';
-import 'package:timely/common/atomic/atoms/cupertino_picker/cupertino_picker_atom.dart';
-import 'package:timely/common/atomic/atoms/text/text_form_field_atom.dart';
+import 'package:timely/reusables.dart';
+
 import 'package:timely/common/atomic/molecules/rows/cancel_submit_row_molecule.dart';
 import 'package:timely/common/atomic/molecules/rows/title_widget_row_molecule.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';

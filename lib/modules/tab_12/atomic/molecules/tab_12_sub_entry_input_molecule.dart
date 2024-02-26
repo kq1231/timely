@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/common/atomic/atoms/text/text_form_field_atom.dart';
+import 'package:timely/reusables.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 
 class Tab12SubEntryInputMolecule extends StatelessWidget {

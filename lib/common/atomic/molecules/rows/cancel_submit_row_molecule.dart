@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:timely/app_theme.dart';
-import '../../atoms/buttons/text_button_atom.dart';
+import 'package:timely/reusables.dart';
 
 class CancelSubmitRowMolecule extends StatelessWidget {
   final VoidCallback onSubmitPressed;
