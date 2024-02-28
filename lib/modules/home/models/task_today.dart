@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/scheduling/models/tab_2_model.dart';
+import 'package:timely/common/scheduling/tab_2_model.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 
 class TaskToday {

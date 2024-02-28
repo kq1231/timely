@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/common/scheduling/controllers/input_controller.dart';
-import 'package:timely/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/modules/home/atomic/templates/tasks_today_template.dart';
+import 'package:timely/common/scheduling/input_controller.dart';
+import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/modules/home/views/tasks_today_template.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/modules/home/providers/external_models_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';

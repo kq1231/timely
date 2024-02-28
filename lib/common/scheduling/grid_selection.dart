@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/scheduling/tokens/scheduling_colors.dart';
+import 'package:timely/common/scheduling/scheduling_colors.dart';
 
 class GridSelectionMolecule extends StatefulWidget {
   final List<String> texts;

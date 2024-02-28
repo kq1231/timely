@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:timely/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/common/scheduling/repositories/scheduling_repository.dart';
+import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_repository.dart';
 import 'package:timely/modules/tab_3/repositories/tab_3_repo.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 import 'package:timely/reusables.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/common/scheduling/models/tab_2_model.dart';
+import 'package:timely/common/scheduling/tab_2_model.dart';
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';

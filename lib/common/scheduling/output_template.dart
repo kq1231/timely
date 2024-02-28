@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:timely/common/atomic/molecules/molecules.dart';
 import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecule.dart';
 import 'package:timely/common/atomic/molecules/rows/navigation_row_molecule.dart';
-import 'package:timely/common/scheduling/models/tab_2_model.dart';
+import 'package:timely/common/scheduling/tab_2_model.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/values.dart';
 

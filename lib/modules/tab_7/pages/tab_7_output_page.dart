@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/scheduling/atomic/output/repages/tab_2_output_page.dart';
+import 'package:timely/common/scheduling/tab_2_output_page.dart';
 import 'package:timely/modules/tab_7/controllers/output_controller.dart';
 import 'package:timely/modules/tab_7/pages/tab_7_input_page.dart';
 

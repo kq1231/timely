@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:timely/reusables.dart';
 import 'package:timely/common/atomic/molecules/rows/title_widget_row_molecule.dart';
-import 'package:timely/common/scheduling/atomic/input/molecules/grid_selection_molecule.dart';
-import 'package:timely/common/scheduling/atomic/input/organisms/monthly_selection_organism.dart';
-import 'package:timely/common/scheduling/atomic/input/organisms/yearly_selection_organism.dart';
-import 'package:timely/common/scheduling/models/tab_2_model.dart';
-import 'package:timely/common/scheduling/tokens/scheduling_constants.dart';
+import 'package:timely/common/scheduling/grid_selection.dart';
+import 'package:timely/common/scheduling/monthly_selection.dart';
+import 'package:timely/common/scheduling/yearly_selection.dart';
+import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_constants.dart';
 import 'package:timely/app_theme.dart';
 
 class RepeatsTemplate extends StatelessWidget {

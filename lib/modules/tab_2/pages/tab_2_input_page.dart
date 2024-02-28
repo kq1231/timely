@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/scheduling/atomic/input/pages/scheduling_input_page.dart';
+import 'package:timely/common/scheduling/scheduling_input_page.dart';
 
 // This is tab 2 Input page.
 

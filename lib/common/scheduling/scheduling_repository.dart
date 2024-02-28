@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/list_struct/repositories/repo.dart';
-import 'package:timely/common/scheduling/models/tab_2_model.dart';
+import 'package:timely/common/scheduling/tab_2_model.dart';
 import 'package:timely/reusables.dart';
 
 class SchedulingRepostioryNotifier<T>

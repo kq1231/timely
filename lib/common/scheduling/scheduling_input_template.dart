@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/scheduling/models/tab_2_model.dart';
+import 'package:timely/common/scheduling/tab_2_model.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/values.dart';
 
 import 'package:timely/reusables.dart';
-import '../../../../atomic/molecules/molecules.dart';
-import '../molecules/duration_selection_molecule.dart';
+import '../atomic/molecules/molecules.dart';
+import 'duration_selection.dart';
 
 class SchedulingInputTemplate extends StatelessWidget {
   final bool? showDurationSelector;
