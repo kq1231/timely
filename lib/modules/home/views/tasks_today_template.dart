@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecule.dart';
+import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/modules/home/models/task_today.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 

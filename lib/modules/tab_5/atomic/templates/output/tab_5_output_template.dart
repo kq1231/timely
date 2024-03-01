@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:timely/common/atomic/molecules/molecules.dart';
-import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecule.dart';
-import 'package:timely/common/atomic/molecules/rows/navigation_row_molecule.dart';
+import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/modules/tab_5/atomic/molecules/spw_text_row_molecule.dart';
 import 'package:timely/modules/tab_5/models/spw.dart';
 import 'package:timely/modules/tab_5/tokens/tab_5_colors.dart';

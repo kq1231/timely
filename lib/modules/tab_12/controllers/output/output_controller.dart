@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/common/entry_struct/controllers/output/output_controller.dart';
+import 'package:timely/common/repos_and_controllers.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 import 'package:timely/modules/tab_12/repositories/tab_12_repo.dart';

@@ -73,8 +73,6 @@ class _Tab12DetailPageState extends ConsumerState<Tab12DetailPage> {
             } else {
               subEntries.removeWhere((v) => v.uuid == subEntry.uuid);
               setState(() {});
-
-              controller.markSubEntryAsComplete(entry, subEntry);
             }
           },
           onPressedAdd: (entry) {

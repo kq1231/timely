@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:timely/common/entry_struct/repositories/pending_repo.dart';
+import 'package:timely/common/repos_and_controllers.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/scheduling/tab_2_model.dart';

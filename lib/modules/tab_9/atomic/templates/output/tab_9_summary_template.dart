@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/atomic/molecules/rows/dismissible_entry_row_molecule.dart';
-import 'package:timely/common/atomic/molecules/rows/navigation_row_molecule.dart';
+import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/modules/tab_9/atomic/molecules/tab_9_summary_molecule.dart';
 import 'package:timely/modules/tab_9/models/entry_model.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';

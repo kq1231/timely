@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/atomic/molecules/molecules.dart';
+import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/modules/tab_1/atomic/molecules/score_row_molecule.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
 import 'package:timely/values.dart';

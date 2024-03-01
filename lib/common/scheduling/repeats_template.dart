@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timely/reusables.dart';
-import 'package:timely/common/atomic/molecules/rows/title_widget_row_molecule.dart';
+import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/common/scheduling/grid_selection.dart';
 import 'package:timely/common/scheduling/monthly_selection.dart';
 import 'package:timely/common/scheduling/yearly_selection.dart';

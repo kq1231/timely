@@ -4,7 +4,7 @@ import 'package:timely/app_theme.dart';
 import 'package:timely/values.dart';
 
 import 'package:timely/reusables.dart';
-import '../atomic/molecules/molecules.dart';
+import 'package:timely/common/row_column_widgets.dart';
 import 'duration_selection.dart';
 
 class SchedulingInputTemplate extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/common/atomic/molecules/rows/navigation_row_molecule.dart';
+import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/reusables.dart';
 
 class WorkInProgressPage extends ConsumerWidget {

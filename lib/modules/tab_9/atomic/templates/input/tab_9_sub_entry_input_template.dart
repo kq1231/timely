@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/atomic/molecules/molecules.dart';
+import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/modules/tab_9/atomic/molecules/tab_9_sub_entry_input_molecule.dart';
 import 'package:timely/modules/tab_9/models/sub_entry_model.dart';
 

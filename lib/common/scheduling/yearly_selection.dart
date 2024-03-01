@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/atomic/molecules/rows/title_widget_row_molecule.dart';
+import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/common/scheduling/grid_selection.dart';
 import 'package:timely/common/scheduling/ordinal_weekday_selection.dart';
 import 'package:timely/common/scheduling/tab_2_model.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/reusables.dart';
-import 'package:timely/common/atomic/molecules/molecules.dart';
+import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/modules/tab_11/models/tab_11_model.dart';
 
 class Tab11InputTemplate extends StatelessWidget {
