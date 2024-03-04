@@ -86,7 +86,7 @@ class _TasksTodayTemplateState extends State<TasksTodayTemplate>
                     separatorBuilder: (context, index) {
                       return const Divider(
                         height: 1,
-                        color: Colors.black,
+                        color: LaunchScreenColors.bgSeparator,
                       );
                     },
                     itemBuilder: (context, index) {
@@ -100,7 +100,7 @@ class _TasksTodayTemplateState extends State<TasksTodayTemplate>
                           child: Column(
                             children: [
                               Container(
-                                color: Colors.indigo[700],
+                                color: LaunchScreenColors.bgTaskTodayTile,
                                 child: FadeTransition(
                                   opacity: blinkIndices.contains(index)
                                       ? _controller
@@ -112,6 +112,9 @@ class _TasksTodayTemplateState extends State<TasksTodayTemplate>
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
                                             tasksToday[index].name,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
                                           ),
                                         ),
                                       ),
@@ -179,7 +182,7 @@ class _TasksTodayTemplateState extends State<TasksTodayTemplate>
                     separatorBuilder: (context, index) {
                       return const Divider(
                         height: 1,
-                        color: Colors.black,
+                        color: LaunchScreenColors.bgSeparator,
                       );
                     },
                     itemBuilder: (context, index) {
@@ -188,12 +191,18 @@ class _TasksTodayTemplateState extends State<TasksTodayTemplate>
                       return ConstrainedBox(
                         constraints: const BoxConstraints(minHeight: 30),
                         child: Container(
-                          color: Colors.indigo,
+                          color: LaunchScreenColors.bgNonScheduledTile,
                           child: Padding(
                             padding: const EdgeInsets.all(AppSizes.p_8),
                             child: Row(
                               children: [
-                                Flexible(child: Text(name)),
+                                Flexible(
+                                  child: Text(
+                                    name,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                ),
                               ],
                             ),
                           ),

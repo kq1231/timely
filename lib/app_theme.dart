@@ -2,10 +2,77 @@ import 'package:flutter/material.dart';
 
 final appDarkTheme = ThemeData(
   useMaterial3: true,
-  colorScheme: const ColorScheme.dark(
-    onBackground: Color.fromARGB(255, 56, 56, 56),
+
+  // Define the default brightness and colors.
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: Colors.indigo,
+    // ···
+    brightness: Brightness.dark,
+  ),
+
+  // Define the default `TextTheme`. Use this to specify the default
+  // text styling for headlines, titles, bodies of text, and more.
+  textTheme: const TextTheme(
+    titleLarge: TextStyle(
+      fontSize: 25,
+    ),
+    bodyMedium: TextStyle(fontSize: 15),
+    bodySmall: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
+    displaySmall: TextStyle(fontSize: 8),
   ),
 );
+
+// 10 minutes
+
+class LaunchScreenColors {
+  static const Color bgTimer = Colors.green;
+  static const Color bgAlert = Colors.green;
+  static Color bgInternal = Colors.indigo[900]!;
+  static Color bgFMS = Colors.indigo[900]!;
+  static const List<Color> bgFMSRadioButtons = [
+    Colors.green,
+    Colors.yellow,
+    Colors.red
+  ];
+  static const Color bgExternalHeader = Colors.indigo;
+  static const Color bgSeparator = Colors.black;
+  static const Color bgTaskTodayTile = Colors.indigo;
+  static const Color bgNonScheduledTile = Colors.indigo;
+}
+
+class SchedulingColors {
+  static const Color? bgTodaysTasksHeader = null;
+  static const Color? bgUpcomingTasksHeader = null;
+
+  static Color bgTodaysTaskTile = Colors.indigo[800]!;
+  static Color bgUpcomingTaskTile = Colors.indigo[800]!;
+}
+
+class Tab3Colors {
+  static const Color? bgScheduledHeader = null;
+  static const Color? bgNonScheduledHeader = null;
+  static const Color? bgDateHeader = null;
+
+  static const List<Color> bgPriorities = [
+    Colors.purple,
+    Colors.green,
+    Colors.pink,
+  ];
+
+  static const Color bgDatePassed = Colors.orange;
+}
+
+class SPWPageColors {
+  static const Color? bgSPWHeaderRow = null;
+
+  static const Color bgDateCell = Colors.black;
+  static const List<Color> bgSPWCells = [
+    Colors.green,
+    Colors.yellow,
+    Colors.red
+  ]; // Color is based on the score. 0 for green, 1 for yellow and 2 for red.
+  static const Color bgWeightCell = Colors.black;
+}
 
 class AppColors {
   AppColors._();

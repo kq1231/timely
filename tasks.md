@@ -551,3 +551,16 @@
 - Blinking 
 - Internal and external -D
 - Start, Pause, Stop -D
+
+---
+
+**Bismillahir-Rahmanir-Rahim** 
+
+- App theme 
+    - Colors, font styles, font sizes, etc.
+    - Colors for every tab in the app_theme.dart file
+- Icons 
+    - Should be in the assets/icons folder
+    - Icon names should be in values.dart
+- Remove atomic folder from every tab -D
+    - Create views folder

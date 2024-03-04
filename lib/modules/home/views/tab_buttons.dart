@@ -3,12 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/modules/home/views/launch_screen.dart';
 import 'package:timely/modules/home/views/work_in_progress.dart';
-import 'package:timely/modules/tab_1/atomic/pages/tab_1_output_page.dart';
+import 'package:timely/modules/tab_1/views/tab_1_output_page.dart';
 import 'package:timely/modules/tab_2/pages/tab_2_output_page.dart';
-import 'package:timely/modules/tab_3/atomic/pages/output/tab_3_output_page.dart';
-import 'package:timely/modules/tab_5/atomic/pages/output/tab_5_output_page.dart';
+import 'package:timely/modules/tab_3/views/tab_3_output_page.dart';
+import 'package:timely/modules/tab_5/views/tab_5_output_page.dart';
 import 'package:timely/modules/tab_6/pages/tab_6_output_page.dart';
 import 'package:timely/reusables.dart';
+import 'package:timely/values.dart';
 
 final List tabs = [
   const Tab1OutputPage(),
@@ -35,24 +36,17 @@ class TabButtons extends ConsumerStatefulWidget {
 
 class _TabButtonsState extends ConsumerState<TabButtons> {
   final tabIcons = [
-    for (int i in Iterable.generate(12))
-      Container(
-        width: 30,
-        height: 30,
-        decoration: BoxDecoration(
-          color: Colors.indigo,
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Center(
-          child: Text(
-            (i + 1).toString(),
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
-            ),
-          ),
-        ),
-      ),
+    tab1Icon,
+    tab2Icon,
+    tab3Icon,
+    tab4Icon,
+    tab5Icon,
+    tab6Icon,
+    tab7Icon,
+    tab8Icon,
+    tab9Icon,
+    tab10Icon,
+    tab11Icon,
   ];
 
   final tabColors = [
@@ -91,7 +85,10 @@ class _TabButtonsState extends ConsumerState<TabButtons> {
                 onPressed: () {
                   ref.read(tabIndexProvider.notifier).setIndex(i);
                 },
-                child: tabIcons[i],
+                child: Padding(
+                  padding: const EdgeInsets.all(AppSizes.p_8),
+                  child: tabIcons[i],
+                ),
               ),
             )
         ],

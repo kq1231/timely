@@ -7,10 +7,10 @@ import 'package:timely/modules/home/views/tasks_today_template.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/modules/home/providers/external_models_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
-import 'package:timely/modules/tab_1/atomic/pages/fms_page.dart';
+import 'package:timely/modules/tab_1/views/fms_page.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2/pages/tab_2_input_page.dart';
-import 'package:timely/modules/tab_3/atomic/pages/input/tab_3_input_page.dart';
+import 'package:timely/modules/tab_3/views/tab_3_input_page.dart';
 import 'package:timely/modules/tab_3/controllers/input_controller.dart';
 import 'package:timely/modules/tab_3/controllers/output_controller.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
@@ -46,7 +46,7 @@ class LaunchScreen extends ConsumerWidget {
                       child: Row(children: [
                         Expanded(
                           child: Container(
-                            color: launchSectionOneTimerColor,
+                            color: LaunchScreenColors.bgTimer,
                             child: Center(
                               child: Consumer(
                                 builder: (context, ref, child) {
@@ -76,7 +76,7 @@ class LaunchScreen extends ConsumerWidget {
                         ),
                         Expanded(
                           child: Container(
-                            color: launchSectionOneAlertColor,
+                            color: LaunchScreenColors.bgAlert,
                             child: const Center(
                               child: Text(
                                 "Alert",
@@ -88,7 +88,7 @@ class LaunchScreen extends ConsumerWidget {
                     ),
                     Container(
                       height: 30,
-                      color: Colors.indigo[900],
+                      color: LaunchScreenColors.bgInternal,
                       child: Center(
                         child: Text(
                           LaunchScreenHeadings.internal,
@@ -98,7 +98,7 @@ class LaunchScreen extends ConsumerWidget {
                     Expanded(
                       flex: 2,
                       child: Container(
-                        color: Colors.indigo[900],
+                        color: LaunchScreenColors.bgFMS,
                         child: const FMSPage(),
                       ),
                     ),
@@ -108,7 +108,7 @@ class LaunchScreen extends ConsumerWidget {
                     ),
                     Container(
                       height: 31,
-                      color: Colors.indigo[700],
+                      color: LaunchScreenColors.bgExternalHeader,
                       child: Center(
                         child: Text(
                           LaunchScreenHeadings.external,

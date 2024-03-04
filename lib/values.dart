@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Tab1Headings {
   static String items = "Items";
   static String time = "Time";
@@ -54,3 +56,16 @@ class LaunchScreenHeadings {
 
   static List<String> labels = ["Start", "Pause", "Stop"];
 }
+
+// Icons
+final tab1Icon = Image.asset("assets/icons/tab_1_icon.png");
+final tab2Icon = Image.asset("assets/icons/tab_2_icon.png");
+final tab3Icon = Image.asset("assets/icons/tab_3_icon.png");
+final tab4Icon = Image.asset("assets/icons/tab_4_icon.png");
+final tab5Icon = Image.asset("assets/icons/tab_5_icon.png");
+final tab6Icon = Image.asset("assets/icons/tab_6_icon.png");
+final tab7Icon = Image.asset("assets/icons/tab_7_icon.png");
+final tab8Icon = Image.asset("assets/icons/tab_8_icon.png");
+final tab9Icon = Image.asset("assets/icons/tab_9_icon.png");
+final tab10Icon = Image.asset("assets/icons/tab_10_icon.png");
+final tab11Icon = Image.asset("assets/icons/tab_11_icon.png");

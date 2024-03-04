@@ -33,7 +33,8 @@ class SchedulingOutputTemplate extends StatelessWidget {
             return ListView(
               shrinkWrap: true,
               children: [
-                SizedBox(
+                Container(
+                  color: SchedulingColors.bgTodaysTasksHeader,
                   height: 40,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +63,7 @@ class SchedulingOutputTemplate extends StatelessWidget {
                               child: TextRowMolecule(
                                 customWidths: const {1: 50, 2: 50},
                                 height: 60,
-                                rowColor: AppColors.bgIndigo800,
+                                rowColor: SchedulingColors.bgTodaysTaskTile,
                                 defaultAligned: const [0],
                                 texts: [
                                   model.name!,
@@ -96,7 +97,8 @@ class SchedulingOutputTemplate extends StatelessWidget {
                     );
                   },
                 ),
-                SizedBox(
+                Container(
+                  color: SchedulingColors.bgUpcomingTasksHeader,
                   height: 40,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -127,7 +129,8 @@ class SchedulingOutputTemplate extends StatelessWidget {
                                   child: TextRowMolecule(
                                     customWidths: const {1: 50, 2: 50},
                                     height: 60,
-                                    rowColor: AppColors.bgIndigo800,
+                                    rowColor:
+                                        SchedulingColors.bgUpcomingTaskTile,
                                     defaultAligned: const [0],
                                     texts: [
                                       model.name!,
