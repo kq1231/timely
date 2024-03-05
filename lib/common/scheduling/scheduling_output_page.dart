@@ -3,18 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/scheduling/output_template.dart';
 import 'package:timely/common/scheduling/input_controller.dart';
 import 'package:timely/common/scheduling/output_controller.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/reusables.dart';
 
 class SchedulingOutputPage extends ConsumerStatefulWidget {
   final AutoDisposeAsyncNotifierProvider<SchedulingOutputNotifier,
-      Map<String, List<Tab2Model>>> providerOfTab2Models;
+      Map<String, List<SchedulingModel>>> providerOfTab2Models;
   final Widget inputPage;
+  final bool? showEndTime;
 
   const SchedulingOutputPage({
     super.key,
     required this.providerOfTab2Models,
     required this.inputPage,
+    this.showEndTime,
   });
 
   @override
@@ -31,8 +33,8 @@ class _Tab2OutputRepageState extends ConsumerState<SchedulingOutputPage> {
     return provider.when(
         data: (models) {
           return SchedulingOutputTemplate(
-            onDismissed:
-                (DismissDirection direction, Tab2Model model, String type) {
+            onDismissed: (DismissDirection direction, SchedulingModel model,
+                String type) {
               if (direction == DismissDirection.startToEnd) {
                 controller.deleteModel(model);
                 models[type]!
@@ -45,7 +47,7 @@ class _Tab2OutputRepageState extends ConsumerState<SchedulingOutputPage> {
                 // controller.markModelAsComplete(models[index]);
               }
             },
-            onTap: (Tab2Model model) {
+            onTap: (SchedulingModel model) {
               ref.read(tab2InputProvider.notifier).setModel(model);
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -78,7 +80,7 @@ class _Tab2OutputRepageState extends ConsumerState<SchedulingOutputPage> {
                 ),
               );
             },
-            showEndTime: true,
+            showEndTime: widget.showEndTime,
             models: models,
           );
         },

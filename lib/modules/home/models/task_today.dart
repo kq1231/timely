@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
 
 class TaskToday {
@@ -29,12 +29,12 @@ class TaskToday {
         TimeOfDay(hour: startTimeBreakup[0], minute: startTimeBreakup[1]);
 
     if (tabNumber == 2) {
-      endTime = Tab2Model.fromJson(json["Data"]).getEndTime();
+      endTime = SchedulingModel.fromJson(json["Data"]).getEndTime();
     }
 
     switch (tabNumber) {
       case 2 || 6 || 7:
-        model = Tab2Model.fromJson(json["Data"]);
+        model = SchedulingModel.fromJson(json["Data"]);
         break;
 
       case 3:

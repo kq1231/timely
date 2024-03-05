@@ -4,12 +4,12 @@ import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/common/scheduling/grid_selection.dart';
 import 'package:timely/common/scheduling/monthly_selection.dart';
 import 'package:timely/common/scheduling/yearly_selection.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/common/scheduling/scheduling_constants.dart';
 import 'package:timely/app_theme.dart';
 
 class RepeatsTemplate extends StatelessWidget {
-  final Tab2Model model;
+  final SchedulingModel model;
   final ValueChanged<Basis> onBasisChanged;
   final ValueChanged<String> onFrequencyChanged;
   final ValueChanged<int> onEveryChanged;

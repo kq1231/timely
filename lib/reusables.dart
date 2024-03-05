@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/common/scheduling/scheduling_repository.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
 import 'package:timely/modules/tab_1/repositories/repo.dart';
@@ -66,7 +66,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
 
         case 2 || 6 || 7:
           ref.read(schedulingRepositoryServiceProvider.notifier).writeModel(
-                Tab2Model(
+                SchedulingModel(
                   name: "This is a sample entry that repeats daily.",
                   startTime: TimeOfDay.now(),
                   startDate: DateTime.now(),
@@ -160,7 +160,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
             Tab12EntryModel(
               activity: "A sample activity",
               objective: 'An objective.',
-              tab2Model: Tab2Model(
+              tab2Model: SchedulingModel(
                 name: "This is a sample entry that repeats daily.",
                 startTime: TimeOfDay.now(),
                 startDate: DateTime.now(),

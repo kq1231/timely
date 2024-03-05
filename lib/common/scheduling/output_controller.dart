@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/common/scheduling/scheduling_repository.dart';
 import 'package:timely/modules/home/controllers/tasks_today_controller.dart';
 import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
@@ -16,7 +16,7 @@ import 'package:timely/reusables.dart';
 // Here, we only create the class. We create the providers inside the tab folders.
 
 class SchedulingOutputNotifier<T>
-    extends AutoDisposeAsyncNotifier<Map<String, List<Tab2Model>>> {
+    extends AutoDisposeAsyncNotifier<Map<String, List<SchedulingModel>>> {
   SchedulingOutputNotifier(this.tabNumber);
 
   final int tabNumber;
@@ -25,19 +25,19 @@ class SchedulingOutputNotifier<T>
   late File currentFile;
 
   @override
-  FutureOr<Map<String, List<Tab2Model>>> build() async {
+  FutureOr<Map<String, List<SchedulingModel>>> build() async {
     pendingFile = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
     completedFile = (await ref.read(dbFilesProvider.future))[tabNumber]![1];
     currentFile = (await ref.read(dbFilesProvider.future))[tabNumber]!.last;
 
     var models = await ref
         .read(schedulingRepositoryServiceProvider.notifier)
-        .fetchActivities(Tab2Model.fromJson, pendingFile);
+        .fetchActivities(SchedulingModel.fromJson, pendingFile);
 
     return models;
   }
 
-  Future<void> deleteModel(Tab2Model model) async {
+  Future<void> deleteModel(SchedulingModel model) async {
     pendingFile = (await ref.read(dbFilesProvider.future))[tabNumber]![0];
     completedFile = (await ref.read(dbFilesProvider.future))[tabNumber]![1];
     currentFile = (await ref.read(dbFilesProvider.future))[tabNumber]!.last;

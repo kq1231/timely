@@ -22,7 +22,7 @@ final appDarkTheme = ThemeData(
     bodyMedium: TextStyle(fontSize: 15),
     bodySmall: TextStyle(fontSize: 12),
     labelSmall: TextStyle(fontSize: 8),
-    labelMedium: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+    labelMedium: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
   ),
 );
 

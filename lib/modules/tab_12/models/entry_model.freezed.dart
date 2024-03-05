@@ -25,7 +25,7 @@ mixin _$Tab12EntryModel {
   String? get uuid => throw _privateConstructorUsedError;
   String get activity => throw _privateConstructorUsedError;
   String get objective => throw _privateConstructorUsedError;
-  Tab2Model get tab2Model => throw _privateConstructorUsedError;
+  SchedulingModel get tab2Model => throw _privateConstructorUsedError;
   int get importance => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,7 +44,7 @@ abstract class $Tab12EntryModelCopyWith<$Res> {
       {@JsonKey(name: "ID") String? uuid,
       String activity,
       String objective,
-      Tab2Model tab2Model,
+      SchedulingModel tab2Model,
       int importance});
 }
 
@@ -83,7 +83,7 @@ class _$Tab12EntryModelCopyWithImpl<$Res, $Val extends Tab12EntryModel>
       tab2Model: null == tab2Model
           ? _value.tab2Model
           : tab2Model // ignore: cast_nullable_to_non_nullable
-              as Tab2Model,
+              as SchedulingModel,
       importance: null == importance
           ? _value.importance
           : importance // ignore: cast_nullable_to_non_nullable
@@ -104,7 +104,7 @@ abstract class _$$Tab12EntryModelImplCopyWith<$Res>
       {@JsonKey(name: "ID") String? uuid,
       String activity,
       String objective,
-      Tab2Model tab2Model,
+      SchedulingModel tab2Model,
       int importance});
 }
 
@@ -141,7 +141,7 @@ class __$$Tab12EntryModelImplCopyWithImpl<$Res>
       tab2Model: null == tab2Model
           ? _value.tab2Model
           : tab2Model // ignore: cast_nullable_to_non_nullable
-              as Tab2Model,
+              as SchedulingModel,
       importance: null == importance
           ? _value.importance
           : importance // ignore: cast_nullable_to_non_nullable
@@ -173,7 +173,7 @@ class _$Tab12EntryModelImpl implements _Tab12EntryModel {
   @override
   final String objective;
   @override
-  final Tab2Model tab2Model;
+  final SchedulingModel tab2Model;
   @override
   final int importance;
 
@@ -223,7 +223,7 @@ abstract class _Tab12EntryModel implements Tab12EntryModel {
       {@JsonKey(name: "ID") final String? uuid,
       required final String activity,
       required final String objective,
-      required final Tab2Model tab2Model,
+      required final SchedulingModel tab2Model,
       required final int importance}) = _$Tab12EntryModelImpl;
 
   factory _Tab12EntryModel.fromJson(Map<String, dynamic> json) =
@@ -237,7 +237,7 @@ abstract class _Tab12EntryModel implements Tab12EntryModel {
   @override
   String get objective;
   @override
-  Tab2Model get tab2Model;
+  SchedulingModel get tab2Model;
   @override
   int get importance;
   @override

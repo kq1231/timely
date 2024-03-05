@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:timely/common/repos_and_controllers.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
 
@@ -25,7 +25,7 @@ class Tab12RepositoryNotifier extends EntryStructPendingRepositoryNotifier<
     Map<Tab12EntryModel, List<Tab12SubEntryModel>> filtered = {};
 
     for (Tab12EntryModel entry in entriesAndSubEntries.keys) {
-      Tab2Model model = entry.tab2Model;
+      SchedulingModel model = entry.tab2Model;
       DateTime nextDate = model.getNextOccurenceDateTime();
 
       if (DateTime(nextDate.year, nextDate.month, nextDate.day) ==

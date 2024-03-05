@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/common/scheduling/input_controller.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/modules/home/views/tasks_today_template.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/modules/home/providers/external_models_provider.dart';
@@ -134,7 +134,7 @@ class LaunchScreen extends ConsumerWidget {
                                   .read(tab3OutputProvider.notifier)
                                   .markModelAsComplete(model);
                             }
-                          } else if (model is Tab2Model) {
+                          } else if (model is SchedulingModel) {
                             if (tabNumber == 2) {
                               if (dir == DismissDirection.startToEnd) {
                                 ref
@@ -167,7 +167,7 @@ class LaunchScreen extends ConsumerWidget {
                                 },
                               ),
                             );
-                          } else if (model is Tab2Model) {
+                          } else if (model is SchedulingModel) {
                             ref
                                 .read(tab2InputProvider.notifier)
                                 .setModel(model);

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/modules/home/controllers/tasks_today_controller.dart';
 import 'package:timely/modules/home/providers/todays_model_maps_provider.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/common/scheduling/scheduling_repository.dart';
 import 'package:timely/modules/tab_6/controllers/output_controller.dart';
 import 'package:timely/modules/tab_7/controllers/output_controller.dart';
@@ -14,10 +14,10 @@ import 'package:timely/reusables.dart';
 // That is all it does
 // For storing the information, it has setters such as setName, etc.
 
-class SchedulingInputNotifier extends Notifier<Tab2Model> {
+class SchedulingInputNotifier extends Notifier<SchedulingModel> {
   @override
-  Tab2Model build() {
-    return Tab2Model(
+  SchedulingModel build() {
+    return SchedulingModel(
       basis: Basis.day,
       startDate: DateTime.now(),
       frequency: "Daily",
@@ -159,7 +159,7 @@ class SchedulingInputNotifier extends Notifier<Tab2Model> {
     state = state.copyWith(endDate: endDate);
   }
 
-  void setModel(Tab2Model model) {
+  void setModel(SchedulingModel model) {
     state = model;
   }
 
@@ -200,5 +200,6 @@ class SchedulingInputNotifier extends Notifier<Tab2Model> {
   }
 }
 
-final tab2InputProvider = NotifierProvider<SchedulingInputNotifier, Tab2Model>(
-    SchedulingInputNotifier.new);
+final tab2InputProvider =
+    NotifierProvider<SchedulingInputNotifier, SchedulingModel>(
+        SchedulingInputNotifier.new);

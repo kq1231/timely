@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
-class Tab2Model {
+class SchedulingModel {
   String? uuid;
   String? name;
   TimeOfDay startTime = const TimeOfDay(hour: 0, minute: 0);
@@ -14,7 +14,7 @@ class Tab2Model {
   Map repetitions = {};
   int every = 1;
 
-  Tab2Model({
+  SchedulingModel({
     this.uuid,
     required this.name,
     required this.startTime,
@@ -27,7 +27,7 @@ class Tab2Model {
     required this.repetitions,
   });
 
-  Tab2Model.fromJson(Map json) {
+  SchedulingModel.fromJson(Map json) {
     if (json.containsKey("Start Date") || json.containsKey("Name")) {
       startDate = DateTime.parse(json["Start Date"]);
       name = json["Name"];
@@ -100,7 +100,7 @@ class Tab2Model {
     return TimeOfDay(hour: finalTime[0], minute: finalTime[1]);
   }
 
-  Tab2Model copyWith({
+  SchedulingModel copyWith({
     String? name,
     String? uuid,
     TimeOfDay? startTime,
@@ -112,7 +112,7 @@ class Tab2Model {
     DateTime? endDate,
     DateTime? startDate,
   }) {
-    return Tab2Model(
+    return SchedulingModel(
       uuid: uuid ?? this.uuid,
       name: name ?? this.name,
       startDate: startDate ?? this.startDate,
@@ -387,7 +387,7 @@ class Tab2Model {
       case "Monthly":
         if (basis == Basis.date) {
           repetitionSummary =
-              "Repeats on ${repetitions['Dates'].map((date) => date + 1).join(', ')} every $every ${every == 1 ? "month" : "months"}";
+              "Repeats on ${repetitions['Dates'].map((date) => date + 1).join(', ')} every ${every > 1 ? every : ''}${every == 1 ? "month" : "months"}";
         } else {
           repetitionSummary =
               "Repeats on the ${sliderNames[0][repetitions["DoW"][0]].toLowerCase()} ${sliderNames[1][repetitions["DoW"][1]]} every $every months";
@@ -396,7 +396,7 @@ class Tab2Model {
       case "Yearly":
         if (basis == Basis.date || basis == null) {
           repetitionSummary =
-              "Repeats in ${repetitions["Months"].map((val) => monthNames[val - 1]).toList().join(", ")} every $every years";
+              "Repeats in ${repetitions["Months"].map((val) => monthNames[val - 1]).toList().join(", ")} every ${every > 1 ? every : ''}${every == 1 ? "year" : "years"}";
         } else {
           repetitionSummary =
               "Repeats on the ${sliderNames[0][repetitions["DoW"][0]].toLowerCase()} ${sliderNames[1][repetitions["DoW"][1]]} of ${repetitions["Months"].map((val) => monthNames[val - 1]).toList().join(", ")} every $every years";
@@ -404,7 +404,7 @@ class Tab2Model {
         break;
       case "Weekly":
         repetitionSummary =
-            "Repeats on ${repetitions["Weekdays"].map((val) => sliderNames[1][val]).toList().join(", ")} every $every weeks";
+            "Repeats on ${repetitions["Weekdays"].map((val) => sliderNames[1][val]).toList().join(", ")} every ${every > 1 ? every : ''}${every == 1 ? "week" : "weeks"}";
       case "Daily":
         repetitionSummary = "Repeats daily";
     }

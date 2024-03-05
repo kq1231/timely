@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:timely/common/row_column_widgets.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/values.dart';
 
 class SchedulingOutputTemplate extends StatelessWidget {
-  final Map<String, List<Tab2Model>> models;
-  final Function(DismissDirection direction, Tab2Model model, String type)
+  final Map<String, List<SchedulingModel>> models;
+  final Function(DismissDirection direction, SchedulingModel model, String type)
       onDismissed;
-  final Function(Tab2Model model) onTap;
+  final Function(SchedulingModel model) onTap;
   final VoidCallback onPressedHome;
   final VoidCallback onPressedAdd;
 
@@ -41,6 +41,7 @@ class SchedulingOutputTemplate extends StatelessWidget {
                     children: [
                       Text(
                         Tab2Headings.todaysTasks,
+                        style: Theme.of(context).textTheme.titleMedium,
                       )
                     ],
                   ),
@@ -48,7 +49,7 @@ class SchedulingOutputTemplate extends StatelessWidget {
                 ...List.generate(
                   models["today"]!.length,
                   (index) {
-                    Tab2Model model = models["today"]![index];
+                    SchedulingModel model = models["today"]![index];
                     return InkWell(
                       onTap: () => onTap(model),
                       child: Container(
@@ -61,30 +62,43 @@ class SchedulingOutputTemplate extends StatelessWidget {
                           children: [
                             DismissibleEntryRowMolecule(
                               child: TextRowMolecule(
-                                customWidths: const {1: 50, 2: 50},
-                                height: 60,
+                                customWidths: {
+                                  1: 50,
+                                  2: showEndTime == true ? 50 : 10
+                                },
+                                minHeight: 60,
                                 rowColor: SchedulingColors.bgTodaysTaskTile,
                                 defaultAligned: const [0],
                                 texts: [
                                   model.name!,
                                   model.startTime.format(context),
-                                  model.getEndTime().format(context),
+                                  showEndTime == true
+                                      ? model.getEndTime().format(context)
+                                      : "",
                                 ],
+                                textStyle:
+                                    Theme.of(context).textTheme.titleMedium,
                               ),
                               onDismissed: (direction) =>
                                   onDismissed(direction, model, "today"),
                             ),
                             Container(
-                              height: 40,
-                              color: AppColors.bgIndigo800,
+                              constraints: const BoxConstraints(
+                                minHeight: 40,
+                              ),
+                              color: SchedulingColors.bgTodaysTaskTile,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Flexible(
-                                    child: Text(
-                                      model.getRepetitionSummary(),
-                                      style: const TextStyle(
-                                        fontStyle: FontStyle.italic,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.all(AppSizes.p_8),
+                                      child: Text(
+                                        model.getRepetitionSummary(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelMedium,
                                       ),
                                     ),
                                   ),
@@ -105,6 +119,7 @@ class SchedulingOutputTemplate extends StatelessWidget {
                     children: [
                       Text(
                         Tab2Headings.upcomingTasks,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
                   ),
@@ -112,7 +127,7 @@ class SchedulingOutputTemplate extends StatelessWidget {
                 ...List.generate(
                   models["upcoming"]!.length,
                   (index) {
-                    Tab2Model model = models["upcoming"]![index];
+                    SchedulingModel model = models["upcoming"]![index];
                     return Column(
                       children: [
                         InkWell(
@@ -127,31 +142,44 @@ class SchedulingOutputTemplate extends StatelessWidget {
                               children: [
                                 DismissibleEntryRowMolecule(
                                   child: TextRowMolecule(
-                                    customWidths: const {1: 50, 2: 50},
-                                    height: 60,
+                                    customWidths: {
+                                      1: 50,
+                                      2: showEndTime == true ? 50 : 10
+                                    },
+                                    minHeight: 60,
                                     rowColor:
                                         SchedulingColors.bgUpcomingTaskTile,
                                     defaultAligned: const [0],
                                     texts: [
                                       model.name!,
                                       model.startTime.format(context),
-                                      model.getEndTime().format(context),
+                                      showEndTime == true
+                                          ? model.getEndTime().format(context)
+                                          : "",
                                     ],
+                                    textStyle:
+                                        Theme.of(context).textTheme.titleMedium,
                                   ),
                                   onDismissed: (direction) =>
                                       onDismissed(direction, model, "upcoming"),
                                 ),
                                 Container(
-                                  height: 40,
-                                  color: AppColors.bgIndigo800,
+                                  constraints: const BoxConstraints(
+                                    minHeight: 40,
+                                  ),
+                                  color: SchedulingColors.bgUpcomingTaskTile,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Flexible(
-                                        child: Text(
-                                          model.getRepetitionSummary(),
-                                          style: const TextStyle(
-                                            fontStyle: FontStyle.italic,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(
+                                              AppSizes.p_8),
+                                          child: Text(
+                                            model.getRepetitionSummary(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelMedium,
                                           ),
                                         ),
                                       ),

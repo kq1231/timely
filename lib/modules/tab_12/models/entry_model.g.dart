@@ -12,7 +12,7 @@ _$Tab12EntryModelImpl _$$Tab12EntryModelImplFromJson(
       uuid: json['ID'] as String?,
       activity: json['activity'] as String,
       objective: json['objective'] as String,
-      tab2Model: Tab2Model.fromJson(json),
+      tab2Model: SchedulingModel.fromJson(json),
       importance: json['importance'] as int,
     );
 

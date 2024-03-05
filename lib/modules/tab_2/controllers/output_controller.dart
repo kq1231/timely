@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/scheduling/output_controller.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 
 // This is the output controller for tab 2.
 // It's job is to simply:
@@ -8,6 +8,7 @@ import 'package:timely/common/scheduling/tab_2_model.dart';
 // 2) Allow users to delete and mark tasks as complete
 
 final tab2OutputProvider = AutoDisposeAsyncNotifierProvider<
-    SchedulingOutputNotifier<Tab2Model>, Map<String, List<Tab2Model>>>(() {
+    SchedulingOutputNotifier<SchedulingModel>,
+    Map<String, List<SchedulingModel>>>(() {
   return SchedulingOutputNotifier(2);
 });

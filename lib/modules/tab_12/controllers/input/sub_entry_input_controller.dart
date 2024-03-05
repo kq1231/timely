@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/modules/tab_12/controllers/input/entry_input_controller.dart';
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
@@ -47,7 +47,7 @@ class Tab12SubEntryInputNotifier extends Notifier<Tab12SubEntryModel> {
             file,
             null,
             Tab12EntryModel.fromJson,
-            Tab2Model.fromJson,
+            SchedulingModel.fromJson,
           );
     }
 

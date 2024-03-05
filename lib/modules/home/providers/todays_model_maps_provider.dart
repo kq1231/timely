@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/common/scheduling/scheduling_repository.dart';
 import 'package:timely/modules/tab_3/repositories/tab_3_repo.dart';
 import 'package:timely/modules/tab_3/models/tab_3_model.dart';
@@ -17,15 +17,17 @@ final todaysModelMapsProvider = FutureProvider.autoDispose<List>((ref) async {
   List datas = await Future.wait(
     [
       ref.read(schedulingRepositoryServiceProvider.notifier).fetchModels(
-          Tab2Model.fromJson, ref.read(dbFilesProvider).requireValue[2]![0]),
+          SchedulingModel.fromJson,
+          ref.read(dbFilesProvider).requireValue[2]![0]),
       ref.read(tab3RepositoryProvider.notifier).fetchModels(),
       ref.read(schedulingRepositoryServiceProvider.notifier).fetchModels(
-          Tab2Model.fromJson, ref.read(dbFilesProvider).requireValue[6]![0]),
+          SchedulingModel.fromJson,
+          ref.read(dbFilesProvider).requireValue[6]![0]),
     ],
   );
 
   // Tabs 2, 6 and 7
-  for (Tab2Model model in datas[0]) {
+  for (SchedulingModel model in datas[0]) {
     var nextDateTime = model.getNextOccurenceDateTime();
     var now = DateTime.now();
     if ("${now.year} ${now.month} ${now.day}" ==
@@ -38,7 +40,7 @@ final todaysModelMapsProvider = FutureProvider.autoDispose<List>((ref) async {
     }
   }
 
-  for (Tab2Model model in datas.last) {
+  for (SchedulingModel model in datas.last) {
     var nextDateTime = model.getNextOccurenceDateTime();
     var now = DateTime.now();
     if ("${now.year} ${now.month} ${now.day}" ==

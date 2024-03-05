@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/common/scheduling/grid_selection.dart';
 import 'package:timely/common/scheduling/ordinal_weekday_selection.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/app_theme.dart';
 
 class MonthlySelectionOrganism extends StatelessWidget {
-  final Tab2Model model;
+  final SchedulingModel model;
 
   final Function(List<int> selections) onSelectionsChanged;
   final Function(Basis basis) onBasisChanged;

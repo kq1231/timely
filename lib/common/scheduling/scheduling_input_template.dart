@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/values.dart';
 
@@ -10,7 +10,7 @@ import 'duration_selection.dart';
 class SchedulingInputTemplate extends StatelessWidget {
   final bool? showDurationSelector;
 
-  final Tab2Model model;
+  final SchedulingModel model;
   final Function(String activity) onActivityChanged;
   final Function(TimeOfDay time) onStartTimeChanged;
   final Function(int hours) onHoursChanged;

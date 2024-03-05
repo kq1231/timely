@@ -3,20 +3,20 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timely/common/repos_and_controllers.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/reusables.dart';
 
 class SchedulingRepostioryNotifier<T>
-    extends ListStructRepositoryNotifier<Tab2Model> {
-  Future<Map<String, List<Tab2Model>>> fetchActivities(
+    extends ListStructRepositoryNotifier<SchedulingModel> {
+  Future<Map<String, List<SchedulingModel>>> fetchActivities(
       Function modelizer, File file) async {
     // Get the models
     List models = await fetchModels(modelizer, file);
 
-    List<Tab2Model> activitiesForToday = [];
-    List<Tab2Model> upcomingActivities = [];
+    List<SchedulingModel> activitiesForToday = [];
+    List<SchedulingModel> upcomingActivities = [];
 
-    for (final Tab2Model model in models) {
+    for (final SchedulingModel model in models) {
       DateTime nextDate = model.getNextOccurenceDateTime();
       if (DateTime(nextDate.year, nextDate.month, nextDate.day) ==
           DateTime(
@@ -52,13 +52,13 @@ class SchedulingRepostioryNotifier<T>
     };
   }
 
-  Future<List<Tab2Model>> getActivitiesForToday(
+  Future<List<SchedulingModel>> getActivitiesForToday(
       Function modelizer, File file) async {
     // Get the models
     List models = await fetchModels(modelizer, file);
 
-    List<Tab2Model> filteredModels = [];
-    for (final Tab2Model model in models) {
+    List<SchedulingModel> filteredModels = [];
+    for (final SchedulingModel model in models) {
       DateTime nextDate = model.getNextOccurenceDateTime();
       print(nextDate);
       if (DateTime(nextDate.year, nextDate.month, nextDate.day) ==
@@ -85,5 +85,5 @@ class SchedulingRepostioryNotifier<T>
 }
 
 final schedulingRepositoryServiceProvider =
-    NotifierProvider<SchedulingRepostioryNotifier<Tab2Model>, void>(
+    NotifierProvider<SchedulingRepostioryNotifier<SchedulingModel>, void>(
         SchedulingRepostioryNotifier.new);

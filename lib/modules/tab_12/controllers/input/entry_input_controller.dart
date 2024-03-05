@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/common/scheduling/tab_2_model.dart';
+import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/modules/tab_12/controllers/output/output_controller.dart';
 import 'package:timely/modules/tab_12/models/entry_model.dart';
 import 'package:timely/modules/tab_12/models/sub_entry_model.dart';
@@ -14,7 +14,7 @@ class Tab12InputNotifier extends Notifier<Tab12EntryModel> {
       activity: "",
       objective: "",
       importance: 3,
-      tab2Model: Tab2Model(
+      tab2Model: SchedulingModel(
         name: "",
         startTime: TimeOfDay.now(),
         startDate: DateTime.now(),
@@ -39,12 +39,12 @@ class Tab12InputNotifier extends Notifier<Tab12EntryModel> {
       state = state.copyWith(importance: importance);
 
   void setStartDate(DateTime startDate) {
-    Tab2Model tab2Model = state.tab2Model.copyWith(startDate: startDate);
+    SchedulingModel tab2Model = state.tab2Model.copyWith(startDate: startDate);
     state = state.copyWith(tab2Model: tab2Model);
   }
 
   void setEndDate(DateTime endDate) {
-    Tab2Model tab2Model = state.tab2Model.copyWith(endDate: endDate);
+    SchedulingModel tab2Model = state.tab2Model.copyWith(endDate: endDate);
     state = state.copyWith(tab2Model: tab2Model);
   }
 
@@ -66,7 +66,7 @@ class Tab12InputNotifier extends Notifier<Tab12EntryModel> {
   }
 
   void resetBasis() {
-    Tab2Model tab2Model = state.tab2Model;
+    SchedulingModel tab2Model = state.tab2Model;
     tab2Model.basis = null;
 
     state = state.copyWith(tab2Model: tab2Model);
@@ -212,7 +212,7 @@ class Tab12InputNotifier extends Notifier<Tab12EntryModel> {
   }
 
   setEntry(Tab12EntryModel model) => state = model;
-  void setTab2Model(Tab2Model tab2Model) {
+  void setTab2Model(SchedulingModel tab2Model) {
     state = state.copyWith(tab2Model: tab2Model);
   }
 
