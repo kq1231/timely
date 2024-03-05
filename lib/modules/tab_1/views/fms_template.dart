@@ -64,7 +64,7 @@ class _FMSTemplateState extends State<FMSTemplate> {
             Tab1Headings.stop
           ],
           customWidths: const {2: 50, 3: 50, 4: 50},
-          textStyle: const TextStyle(fontSize: 10),
+          textStyle: Theme.of(context).textTheme.labelSmall,
         ),
         ...List.generate(3, (index) {
           return Expanded(

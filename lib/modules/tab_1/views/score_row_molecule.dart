@@ -35,11 +35,13 @@ class ScoreRowMolecule extends StatelessWidget {
             width: sizes[0],
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text(title),
+              child: Text(title, style: Theme.of(context).textTheme.bodyMedium),
             ),
           ),
           Expanded(
-            child: Center(child: Text(time)),
+            child: Center(
+                child:
+                    Text(time, style: Theme.of(context).textTheme.bodyMedium)),
           ),
           AbsorbPointer(
             absorbing: locked,

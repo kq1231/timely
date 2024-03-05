@@ -16,9 +16,13 @@ final appDarkTheme = ThemeData(
     titleLarge: TextStyle(
       fontSize: 25,
     ),
+    titleMedium: TextStyle(
+      fontSize: 16,
+    ),
     bodyMedium: TextStyle(fontSize: 15),
-    bodySmall: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
-    displaySmall: TextStyle(fontSize: 8),
+    bodySmall: TextStyle(fontSize: 12),
+    labelSmall: TextStyle(fontSize: 8),
+    labelMedium: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
   ),
 );
 

@@ -173,9 +173,11 @@ class TextRowMolecule extends StatelessWidget {
                                     Text(
                                       texts[index],
                                       style: textStyle ??
-                                          (bolded == true
-                                              ? AppTypography.boldStyle
-                                              : AppTypography.regularStyle),
+                                          Theme.of(context)
+                                              .textTheme
+                                              .titleMedium!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
                                     ),
                                   ],
                                 )
@@ -183,9 +185,11 @@ class TextRowMolecule extends StatelessWidget {
                                   child: Text(
                                     texts[index],
                                     style: textStyle ??
-                                        (bolded == true
-                                            ? AppTypography.boldStyle
-                                            : AppTypography.regularStyle),
+                                        Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold),
                                   ),
                                 ),
                         ),

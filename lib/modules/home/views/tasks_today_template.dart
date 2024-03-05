@@ -127,13 +127,12 @@ class _TasksTodayTemplateState extends State<TasksTodayTemplate>
                                               width: 70,
                                               child: Center(
                                                 child: Text(
-                                                  tasksToday[index]
-                                                      .startTime
-                                                      .format(context),
-                                                  style: const TextStyle(
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
+                                                    tasksToday[index]
+                                                        .startTime
+                                                        .format(context),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall),
                                               ),
                                             ),
                                             tasksToday[index].endTime != null

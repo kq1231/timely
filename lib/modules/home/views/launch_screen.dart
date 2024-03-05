@@ -57,6 +57,9 @@ class LaunchScreen extends ConsumerWidget {
                                     data: (diff) {
                                       return Text(
                                         diff,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
                                       );
                                     },
                                     error: (_, __) => const Text("ERROR"),
@@ -77,9 +80,10 @@ class LaunchScreen extends ConsumerWidget {
                         Expanded(
                           child: Container(
                             color: LaunchScreenColors.bgAlert,
-                            child: const Center(
+                            child: Center(
                               child: Text(
                                 "Alert",
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ),
                           ),
@@ -92,6 +96,7 @@ class LaunchScreen extends ConsumerWidget {
                       child: Center(
                         child: Text(
                           LaunchScreenHeadings.internal,
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ),
                     ),
@@ -110,9 +115,8 @@ class LaunchScreen extends ConsumerWidget {
                       height: 31,
                       color: LaunchScreenColors.bgExternalHeader,
                       child: Center(
-                        child: Text(
-                          LaunchScreenHeadings.external,
-                        ),
+                        child: Text(LaunchScreenHeadings.external,
+                            style: Theme.of(context).textTheme.titleMedium),
                       ),
                     ),
                     Expanded(
