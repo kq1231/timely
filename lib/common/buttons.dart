@@ -55,6 +55,7 @@ class DateButtonAtom extends StatelessWidget {
           initialDate != null
               ? DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY).format(initialDate!)
               : defaultText ?? "",
+          style: Theme.of(context).textTheme.titleSmall,
         ),
       ),
     );
@@ -82,24 +83,34 @@ class DropdownButtonAtom extends StatelessWidget {
   }
 }
 
-class TextButtonAtom extends ElevatedButton {
-  TextButtonAtom({
+class TextButtonAtom extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String text;
+  final Color? color;
+
+  const TextButtonAtom({
     super.key,
-    required super.onPressed,
-    required String text,
-    Color? color,
-  }) : super(
-          child: Text(
-            text,
-            style: AppTypography.regularStyle,
-          ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: color,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(AppSizes.r_8),
-            ),
-          ),
-        );
+    required this.onPressed,
+    required this.text,
+    this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSizes.r_8),
+        ),
+      ),
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.titleSmall,
+      ),
+    );
+  }
 }
 
 class TimeButtonAtom extends StatelessWidget {
@@ -146,6 +157,7 @@ class TimeButtonAtom extends StatelessWidget {
         ),
         child: Text(
           initialTime.format(context),
+          style: Theme.of(context).textTheme.titleSmall,
         ),
       ),
     );

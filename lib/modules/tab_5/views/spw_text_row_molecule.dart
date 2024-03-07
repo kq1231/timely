@@ -75,22 +75,31 @@ class SPWTextRowMolecule extends StatelessWidget {
                                   child: Text(
                                     texts[index],
                                     style: (bolded == true
-                                        ? AppTypography.boldStyle.copyWith(
-                                            color: (colors.containsKey(index)
-                                                        ? colors[index]
-                                                        : null) ==
-                                                    Colors.yellow
-                                                ? Tab5Colors
-                                                    .letterColorOnYellowBG
-                                                : null)
-                                        : AppTypography.regularStyle.copyWith(
-                                            color: (colors.containsKey(index)
-                                                        ? colors[index]
-                                                        : null) ==
-                                                    Colors.yellow
-                                                ? Tab5Colors
-                                                    .letterColorOnYellowBG
-                                                : null)),
+                                        ? Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                color: (colors.containsKey(
+                                                                index)
+                                                            ? colors[index]
+                                                            : null) ==
+                                                        Colors.yellow
+                                                    ? Tab5Colors
+                                                        .letterColorOnYellowBG
+                                                    : null)
+                                        : Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                                color: (colors.containsKey(
+                                                                index)
+                                                            ? colors[index]
+                                                            : null) ==
+                                                        Colors.yellow
+                                                    ? Tab5Colors
+                                                        .letterColorOnYellowBG
+                                                    : null)),
                                   ),
                                 ),
                         ),
@@ -109,18 +118,26 @@ class SPWTextRowMolecule extends StatelessWidget {
                                         child: Text(
                                           texts[index],
                                           style: (bolded == true
-                                              ? AppTypography.boldStyle.copyWith(
-                                                  color: (colors.containsKey(
-                                                                  index)
-                                                              ? colors[index]
-                                                              : null) ==
-                                                          Colors.yellow
-                                                      ? Tab5Colors
-                                                          .letterColorOnYellowBG
-                                                      : null)
-                                              : AppTypography.regularStyle.copyWith(
-                                                  color: (colors.containsKey(
-                                                                  index)
+                                              ? Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: (colors.containsKey(
+                                                                      index)
+                                                                  ? colors[
+                                                                      index]
+                                                                  : null) ==
+                                                              Colors.yellow
+                                                          ? Tab5Colors
+                                                              .letterColorOnYellowBG
+                                                          : null)
+                                              : Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .copyWith(
+                                                  color: (colors.containsKey(index)
                                                               ? colors[index]
                                                               : null) ==
                                                           Colors.yellow

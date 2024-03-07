@@ -31,10 +31,13 @@ class Tab3OutputTemplate extends StatelessWidget {
             Container(
               color: Tab3Colors.bgScheduledHeader,
               height: 40,
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Scheduled"),
+                  Text(
+                    "Scheduled",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ],
               ),
             ),
@@ -99,10 +102,13 @@ class Tab3OutputTemplate extends StatelessWidget {
             Container(
               height: 40,
               color: Tab3Colors.bgNonScheduledHeader,
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Non-Scheduled"),
+                  Text(
+                    "Non-Scheduled",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ],
               ),
             ),

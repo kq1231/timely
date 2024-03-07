@@ -564,3 +564,11 @@
     - Icon names should be in values.dart
 - Remove atomic folder from every tab -D
     - Create views folder
+
+---
+
+**Bismillahir-Rahmanir-Rahim** 
+
+- Application of TextTheme to the remaining parts of the app 
+- Docs
+- Today's Tasks should be saved to a file

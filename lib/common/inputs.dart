@@ -52,7 +52,10 @@ class CupertinoPickerAtom extends StatelessWidget {
                 (e) => Center(
                   child: RotatedBox(
                     quarterTurns: horizontal == true ? 1 : 0,
-                    child: Text(e),
+                    child: Text(
+                      e,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ),
                 ),
               )
@@ -63,26 +66,38 @@ class CupertinoPickerAtom extends StatelessWidget {
   }
 }
 
-class TextFormFieldAtom extends TextFormField {
-  TextFormFieldAtom(
-      {super.key,
-      required super.initialValue,
-      required super.onChanged,
-      required hintText,
-      super.textCapitalization = TextCapitalization.sentences,
-      bool? isTextArea})
-      : super(
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.all(
-                Radius.circular(AppSizes.r_8),
-              ),
-            ),
-            filled: true,
-            fillColor: AppColors.scale_06,
-            hintText: hintText,
+class TextFormFieldAtom extends StatelessWidget {
+  final String? initialValue;
+  final Function(String value) onChanged;
+  final String hintText;
+  final TextCapitalization? textCapitalization;
+  final bool? isTextArea;
+
+  const TextFormFieldAtom({
+    super.key,
+    required this.initialValue,
+    required this.onChanged,
+    required this.hintText,
+    this.textCapitalization = TextCapitalization.sentences,
+    this.isTextArea,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      decoration: InputDecoration(
+        hintStyle: Theme.of(context).textTheme.titleSmall,
+        border: const OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.all(
+            Radius.circular(AppSizes.r_8),
           ),
-          maxLines: isTextArea == true ? 5 : 1,
-        );
+        ),
+        filled: true,
+        fillColor: AppColors.scale_06,
+        hintText: hintText,
+      ),
+      maxLines: isTextArea == true ? 5 : 1,
+    );
+  }
 }

@@ -208,9 +208,9 @@ class TextRowMolecule extends StatelessWidget {
                                         child: Text(
                                           texts[index],
                                           style: textStyle ??
-                                              (bolded == true
-                                                  ? AppTypography.boldStyle
-                                                  : AppTypography.regularStyle),
+                                              Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium!,
                                         ),
                                       ),
                                     ],
@@ -220,9 +220,9 @@ class TextRowMolecule extends StatelessWidget {
                                   child: Text(
                                     texts[index],
                                     style: textStyle ??
-                                        (bolded == true
-                                            ? AppTypography.boldStyle
-                                            : AppTypography.regularStyle),
+                                        Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!,
                                   ),
                                 ),
                         ),
@@ -255,9 +255,9 @@ class TitleWidgetRowMolecule extends StatelessWidget {
     List<Widget> children = [
       Text(
         title,
-        style: bolded == true
-            ? AppTypography.boldStyle
-            : AppTypography.regularStyle,
+        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              fontWeight: bolded == true ? FontWeight.bold : null,
+            ),
       ),
       const SizedBox(
         width: 20,

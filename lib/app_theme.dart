@@ -19,14 +19,21 @@ final appDarkTheme = ThemeData(
     titleMedium: TextStyle(
       fontSize: 16,
     ),
-    bodyMedium: TextStyle(fontSize: 15),
-    bodySmall: TextStyle(fontSize: 12),
-    labelSmall: TextStyle(fontSize: 8),
-    labelMedium: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
+    bodyMedium: TextStyle(
+      fontSize: 15,
+    ),
+    bodySmall: TextStyle(
+      fontSize: 12,
+    ),
+    labelSmall: TextStyle(
+      fontSize: 8,
+    ),
+    labelMedium: TextStyle(
+      fontSize: 15,
+      fontStyle: FontStyle.italic,
+    ),
   ),
 );
-
-// 10 minutes
 
 class LaunchScreenColors {
   static const Color bgTimer = Colors.green;

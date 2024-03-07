@@ -113,7 +113,7 @@ class SchedulingInputTemplate extends StatelessWidget {
                 padding: const EdgeInsets.all(AppSizes.p_8),
                 child: Text(
                   model.getRepetitionSummary(),
-                  style: AppTypography.italicStyle,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
             ),
