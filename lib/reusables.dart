@@ -191,7 +191,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
       var temp = 0;
       for (File file in [pending, completed]) {
         if (tabNumber != 3) {
-          await file.create();
+          await await file.create();
           if ((await file.readAsString()).isEmpty) {
             if (![1, 3, 5].contains(tabNumber)) {
               await file.writeAsString("[]");
@@ -210,7 +210,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
       if ([2, 6, 7].contains(tabNumber)) {
         File current =
             File('${docDir.path}/tab_${tabNumber}_current_activities.json');
-        await current.create();
+        await await current.create();
         if ((await current.readAsString()).isEmpty) {
           await current.writeAsString("[]");
         }
@@ -227,8 +227,8 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
     File nonSchedulued = File('${docDir.path}/tab_3_non_scheduled.json');
 
     // Create them
-    await scheduled.create();
-    await nonSchedulued.create();
+    await await scheduled.create();
+    await await nonSchedulued.create();
 
     if ((await scheduled.readAsString()).isEmpty) {
       await scheduled.writeAsString("{}");
@@ -252,7 +252,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
 
     // Today's Tasks file
     File tasksToday = File('${docDir.path}/tasks_today.json');
-    tasksToday.create();
+    await tasksToday.create();
 
     if ((await tasksToday.readAsString()).isEmpty) {
       await tasksToday.writeAsString("{}");

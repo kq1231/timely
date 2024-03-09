@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/app_theme.dart';
+import 'package:timely/modules/home/repositories/tasks_today_repo.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
 import 'package:timely/common/splash.dart';
 import 'package:timely/modules/tab_1/repositories/repo.dart';
@@ -47,8 +48,13 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: Future.wait([
-          ref.read(dbFilesProvider.future),
           ref.read(tab1RepositoryProvider.notifier).createDefaultEntry(),
+          Future.delayed(Duration.zero, () async {
+            await ref.read(dbFilesProvider.future);
+            await ref
+                .read(tasksTodayRepositoryProvider.notifier)
+                .generateTodaysTasks();
+          }),
         ]),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {

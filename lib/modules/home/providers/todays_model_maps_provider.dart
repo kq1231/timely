@@ -65,7 +65,10 @@ final todaysModelMapsProvider = FutureProvider.autoDispose<List>((ref) async {
         if (!model.text_1.contains("This is a sample entry.")) {
           modelMaps.add({
             "Tab Number": 3,
-            "Data": model.toJson(),
+            "Data": {
+              ...model.toJson(),
+              "Start Date": date,
+            },
           });
         }
       }

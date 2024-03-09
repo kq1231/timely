@@ -85,6 +85,7 @@ class TextFormFieldAtom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       decoration: InputDecoration(
         hintStyle: Theme.of(context).textTheme.titleSmall,
         border: const OutlineInputBorder(
@@ -98,6 +99,9 @@ class TextFormFieldAtom extends StatelessWidget {
         hintText: hintText,
       ),
       maxLines: isTextArea == true ? 5 : 1,
+      onChanged: (value) {
+        onChanged(value);
+      },
     );
   }
 }

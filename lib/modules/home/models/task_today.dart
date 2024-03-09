@@ -38,7 +38,8 @@ class TaskToday {
         break;
 
       case 3:
-        model = Tab3Model.fromJson(null, json["Data"]);
+        print("CASE 3 Activated");
+        model = Tab3Model.fromJson(DateTime.now(), json["Data"]);
     }
   }
 
