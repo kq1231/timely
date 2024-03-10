@@ -68,7 +68,7 @@ class _TabButtonsState extends ConsumerState<TabButtons> {
   Widget build(BuildContext context) {
     int selectedIndex = ref.watch(tabIndexProvider);
     return SizedBox(
-      width: 100,
+      width: 50,
       child: Column(
         children: [
           for (int i in Iterable.generate(11))
