@@ -68,28 +68,32 @@ class _TabButtonsState extends ConsumerState<TabButtons> {
   Widget build(BuildContext context) {
     int selectedIndex = ref.watch(tabIndexProvider);
     return SizedBox(
-      width: 50,
+      width: 100,
       child: Column(
         children: [
           for (int i in Iterable.generate(11))
-            Expanded(
-              child: FloatingActionButton(
-                backgroundColor: i != selectedIndex
-                    ? tabColors[i]
-                    : Colors.indigo, // Add color for selected Tab
-                shape: const BeveledRectangleBorder(
-                  borderRadius: BorderRadius.zero,
-                  side: BorderSide(color: Colors.black38, width: 0.1),
+            Row(
+              children: [
+                Expanded(
+                  child: FloatingActionButton(
+                    backgroundColor: i != selectedIndex
+                        ? tabColors[i]
+                        : Colors.indigo, // Add color for selected Tab
+                    shape: const BeveledRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                      side: BorderSide(color: Colors.black38, width: 0.1),
+                    ),
+                    heroTag: null,
+                    onPressed: () {
+                      ref.read(tabIndexProvider.notifier).setIndex(i);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppSizes.p_8 / 2),
+                      child: tabIcons[i],
+                    ),
+                  ),
                 ),
-                heroTag: null,
-                onPressed: () {
-                  ref.read(tabIndexProvider.notifier).setIndex(i);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(AppSizes.p_8),
-                  child: tabIcons[i],
-                ),
-              ),
+              ],
             )
         ],
       ),
