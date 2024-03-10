@@ -184,16 +184,16 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
       }
     }
 
-    for (int tabNumber in List.generate(12, (index) => index + 1)) {
+    for (int tabNumber in List.generate(7, (index) => index + 1)) {
       File pending = File('${docDir.path}/tab_${tabNumber}_pending.json');
       File completed = File('${docDir.path}/tab_${tabNumber}_completed.json');
 
       var temp = 0;
       for (File file in [pending, completed]) {
-        if (tabNumber != 3) {
-          await await file.create();
+        if (![3, 4].contains(tabNumber)) {
+          await file.create();
           if ((await file.readAsString()).isEmpty) {
-            if (![1, 3, 5].contains(tabNumber)) {
+            if (![1, 5].contains(tabNumber)) {
               await file.writeAsString("[]");
             } else {
               await file.writeAsString("{}");
