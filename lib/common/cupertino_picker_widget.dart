@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:timely/app_theme.dart';
 import 'package:timely/common/row_column_widgets.dart';
 
 import 'package:timely/reusables.dart';
@@ -39,7 +38,7 @@ class CupertinoPickerRowOrganism extends StatelessWidget {
               initialItemIndex: initialItemIndices[index],
               size: Size(0, pickerHeight),
               containerColor: pickerContainerColors[index],
-              selectionOverlayColor: AppColors.bgBlueTranslucent,
+              selectionOverlayColor: const Color.fromARGB(129, 33, 149, 243),
             ),
           );
         }),

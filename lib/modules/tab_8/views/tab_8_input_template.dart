@@ -65,8 +65,8 @@ class Tab8InputTemplate extends StatelessWidget {
                 (index) => onPriorityChanged(index),
               ],
               pickerContainerColors: [
-                AppColors.bgIndigo600,
-                AppColors.bgIndigo800,
+                Colors.indigo[600],
+                Colors.indigo[800],
               ],
               pickerHeight: 140,
               initialItemIndices: [model.lsj, model.hml],

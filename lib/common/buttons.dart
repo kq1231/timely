@@ -41,8 +41,8 @@ class DateButtonAtom extends StatelessWidget {
           }
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.bgBlue600,
-          foregroundColor: AppColors.bgWhite,
+          backgroundColor: Colors.blue[600],
+          foregroundColor: Colors.white,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(
@@ -145,8 +145,8 @@ class TimeButtonAtom extends StatelessWidget {
           }
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.bgIndigo700,
-          foregroundColor: AppColors.bgWhite,
+          backgroundColor: Colors.indigo[700],
+          foregroundColor: Colors.white,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(

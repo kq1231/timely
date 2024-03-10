@@ -95,7 +95,7 @@ class TextFormFieldAtom extends StatelessWidget {
           ),
         ),
         filled: true,
-        fillColor: AppColors.scale_06,
+        fillColor: Colors.grey[800],
         hintText: hintText,
       ),
       maxLines: isTextArea == true ? 5 : 1,

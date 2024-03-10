@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:timely/app_theme.dart';
 import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/modules/tab_11/models/tab_11_model.dart';
-import 'package:timely/modules/tab_11/tokens/tab_11_colors.dart';
 
 class Tab11OutputTemplate extends StatelessWidget {
   final List<Tab11Model> models;

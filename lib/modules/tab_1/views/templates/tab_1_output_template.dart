@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:timely/app_theme.dart';
 import 'package:timely/common/row_column_widgets.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
 
@@ -22,7 +23,9 @@ class Tab1OutputTemplate extends StatelessWidget {
 
             return TextRowMolecule(
               height: 40,
-              rowColor: index % 2 == 0 ? Colors.indigo : Colors.indigoAccent,
+              rowColor: index % 2 == 0
+                  ? Tab1Colors.alternateTileColors[0]
+                  : Tab1Colors.alternateTileColors[0],
               texts: [
                 DateFormat(DateFormat.ABBR_MONTH_DAY).format(model.date),
                 ...List.generate(

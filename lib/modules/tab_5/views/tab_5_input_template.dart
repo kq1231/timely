@@ -62,9 +62,9 @@ class Tab5InputTemplate extends StatelessWidget {
           ],
           onSelectedItemsChangedList: onSelectedItemsChangedList,
           pickerContainerColors: [
-            AppColors.bgIndigo800,
-            AppColors.bgIndigo700,
-            AppColors.bgIndigo800
+            SPWPageColors.pickerColumnColors[0],
+            SPWPageColors.pickerColumnColors[1],
+            SPWPageColors.pickerColumnColors[2]
           ],
           pickerHeight: 120,
           initialItemIndices: [model.sScore, model.pScore, model.wScore],
