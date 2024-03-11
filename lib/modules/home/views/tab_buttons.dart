@@ -49,21 +49,6 @@ class _TabButtonsState extends ConsumerState<TabButtons> {
     tab11Icon,
   ];
 
-  final tabColors = [
-    tabOneColor,
-    tabTwoColor,
-    tabThreeColor,
-    tabFourColor,
-    tabFiveColor,
-    tabSixColor,
-    tabSevenColor,
-    tabEightColor,
-    tabNineColor,
-    tabTenColor,
-    tabElevenColor,
-    tabTwelveColor,
-  ];
-
   @override
   Widget build(BuildContext context) {
     int selectedIndex = ref.watch(tabIndexProvider);
@@ -73,28 +58,25 @@ class _TabButtonsState extends ConsumerState<TabButtons> {
         children: [
           for (int i in Iterable.generate(11))
             Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: FloatingActionButton(
-                      backgroundColor: i != selectedIndex
-                          ? tabColors[i]
-                          : Colors.indigo, // Add color for selected Tab
-                      shape: const BeveledRectangleBorder(
-                        borderRadius: BorderRadius.zero,
-                        side: BorderSide(color: Colors.black38, width: 0.1),
-                      ),
-                      heroTag: null,
-                      onPressed: () {
-                        ref.read(tabIndexProvider.notifier).setIndex(i);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(AppSizes.p_8 / 2),
-                        child: tabIcons[i],
-                      ),
-                    ),
+              child: SizedBox(
+                width: double.infinity,
+                child: FloatingActionButton(
+                  backgroundColor: i != selectedIndex
+                      ? bgTabButtonColor
+                      : Colors.indigo, // Add color for selected Tab
+                  shape: const BeveledRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                    side: BorderSide(color: Colors.black38, width: 0.1),
                   ),
-                ],
+                  heroTag: null,
+                  onPressed: () {
+                    ref.read(tabIndexProvider.notifier).setIndex(i);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppSizes.p_8 / 2),
+                    child: tabIcons[i],
+                  ),
+                ),
               ),
             )
         ],

@@ -572,3 +572,9 @@
 - Application of TextTheme to the remaining parts of the app 
 - Docs
 - Today's Tasks should be saved to a file
+
+---
+
+**Bismillahir-Rahmanir-Rahim** 
+
+- Icon problem
