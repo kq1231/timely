@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timely/modules/tab_1/views/templates/tab_1_output_template.dart';
+import 'package:timely/modules/tab_1/views/tab_1_output_template.dart';
 import 'package:timely/modules/tab_1/providers/fms_models_provider.dart';
 import 'package:timely/reusables.dart';
 
