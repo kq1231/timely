@@ -28,9 +28,15 @@ class _FMSPageState extends ConsumerState<FMSPage> {
           model: fmsModel,
           onTap: (index) async {
             List statuses = [
-              ref.read(fmsProvider(model)).mStatus,
-              ref.read(fmsProvider(model)).fStatus,
-              ref.read(fmsProvider(model)).sStatus
+              fmsModel.mStatus,
+              fmsModel.fStatus,
+              fmsModel.sStatus
+            ];
+
+            List times = [
+              ref.read(fmsProvider(model)).mPauseTime,
+              ref.read(fmsProvider(model)).fPauseTime,
+              ref.read(fmsProvider(model)).sPauseTime,
             ];
 
             showDialog(
@@ -39,8 +45,8 @@ class _FMSPageState extends ConsumerState<FMSPage> {
                 return AlertDialog(
                   title: const Text('Confirmation'),
                   content: SizedBox(
-                    height: 120,
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         const Text('Select an Option'),
                         const SizedBox(
@@ -51,13 +57,20 @@ class _FMSPageState extends ConsumerState<FMSPage> {
                           children: [
                             StatefulBuilder(builder: (ctx, setState) {
                               return StatusRowMolecule(
-                                  status: statuses[index],
-                                  onStatusChanged: (st) {
-                                    setState(() {
-                                      statuses[index] = st;
-                                    });
-                                  },
-                                  locked: false);
+                                status: statuses[index],
+                                onStatusChanged: (st) {
+                                  setState(() {
+                                    statuses[index] = st;
+                                  });
+                                },
+                                locked: isLocked(
+                                    status: [
+                                      ref.read(fmsProvider(model)).mStatus,
+                                      ref.read(fmsProvider(model)).fStatus,
+                                      ref.read(fmsProvider(model)).sStatus
+                                    ][index],
+                                    time: times[index]),
+                              );
                             }),
                           ],
                         )
@@ -74,6 +87,12 @@ class _FMSPageState extends ConsumerState<FMSPage> {
                           fmsController.setFStatus,
                           fmsController.setSStatus,
                         ][index](statuses[index]);
+
+                        [
+                          fmsController.setMPauseTime,
+                          fmsController.setFPauseTime,
+                          fmsController.setSPauseTime,
+                        ][index](DateTime.now());
 
                         await fmsController.syncToDB();
                       },
@@ -98,10 +117,10 @@ class _FMSPageState extends ConsumerState<FMSPage> {
 }
 
 bool isLocked({required int status, DateTime? time}) {
-  if (status == 2) // Yani status is "Pause"
+  if (status == 2) // Yani status is "Stop"
   {
     return true;
-  } else if (status == 1) // Yani status is "Stop"
+  } else if (status == 1) // Yani status is "Pause"
   {
     // Check if the time elapsed is half-an-hour or more
     if ((DateTime.now().difference(time!).inSeconds / 60) >= 30) {

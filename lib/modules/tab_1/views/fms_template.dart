@@ -54,6 +54,7 @@ class _FMSTemplateState extends State<FMSTemplate> {
             child: ScoreRowMolecule(
               onTap: () => widget.onTap(index),
               height: 50,
+              status: statuses[index],
               title: [
                 Tab1Headings.mScore,
                 Tab1Headings.fScore,
