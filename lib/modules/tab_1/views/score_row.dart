@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ScoreRowMolecule extends StatefulWidget {
+class ScoreRow extends StatefulWidget {
   final String title;
   final String time;
   final int status;
@@ -8,7 +8,7 @@ class ScoreRowMolecule extends StatefulWidget {
   final List<double> sizes;
   final VoidCallback onTap;
 
-  const ScoreRowMolecule({
+  const ScoreRow({
     super.key,
     required this.title,
     required this.time,
@@ -19,10 +19,10 @@ class ScoreRowMolecule extends StatefulWidget {
   });
 
   @override
-  State<ScoreRowMolecule> createState() => _ScoreRowMoleculeState();
+  State<ScoreRow> createState() => _ScoreRowState();
 }
 
-class _ScoreRowMoleculeState extends State<ScoreRowMolecule>
+class _ScoreRowState extends State<ScoreRow>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -59,16 +59,19 @@ class _ScoreRowMoleculeState extends State<ScoreRowMolecule>
             Expanded(child: Container()),
             Text(widget.time, style: Theme.of(context).textTheme.bodyMedium),
             widget.status == 0
-                ? AnimatedBuilder(
-                    animation: _controller,
-                    builder: (context, child) {
-                      // Calculate the current milliseconds value based on the animation
-                      double milliseconds = _controller.value * 1000;
-                      return Text(
-                        ":${milliseconds.toStringAsFixed(0)}", // Display as integer
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      );
-                    },
+                ? SizedBox(
+                    width: 45,
+                    child: AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) {
+                        // Calculate the current milliseconds value based on the animation
+                        double milliseconds = _controller.value * 1000;
+                        return Text(
+                          ":${milliseconds.toStringAsFixed(0)}", // Display as integer
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        );
+                      },
+                    ),
                   )
                 : Container(),
             const SizedBox(

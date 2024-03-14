@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timely/modules/tab_1/views/score_row_molecule.dart';
+import 'package:timely/modules/tab_1/views/score_row.dart';
 import 'package:timely/modules/tab_1/models/fms_model.dart';
 import 'package:timely/values.dart';
 
@@ -51,9 +51,9 @@ class _FMSTemplateState extends State<FMSTemplate> {
         ),
         ...List.generate(3, (index) {
           return Expanded(
-            child: ScoreRowMolecule(
+            child: ScoreRow(
               onTap: () => widget.onTap(index),
-              height: 50,
+              height: 40,
               status: statuses[index],
               title: [
                 Tab1Headings.mScore,
