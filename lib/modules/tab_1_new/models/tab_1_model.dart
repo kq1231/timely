@@ -1,7 +1,7 @@
 class Tab1Model {
-  late final int totalPoints;
-  late final int subtractions;
-  late final int level;
+  final int totalPoints = 0;
+  final int subtractions = 0;
+  final int level = 0;
 
   Tab1Model({
     required int totalPoints,
@@ -11,7 +11,7 @@ class Tab1Model {
 
   factory Tab1Model.fromJson(json) {
     return Tab1Model(
-      totalPoints: json["Total Points"],
+      totalPoints: json["Total Points"] as int,
       subtractions: json["Subtractions"],
       level: json["Level"],
     );

@@ -7,7 +7,8 @@ import 'package:timely/modules/home/views/tasks_today_template.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/modules/home/providers/external_models_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
-import 'package:timely/modules/tab_1/views/fms_page.dart';
+import 'package:timely/modules/tab_1_new/providers_and_controllers/tab_1_model_provider.dart';
+import 'package:timely/modules/tab_1_new/views/tab_1_view.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2/pages/tab_2_input_page.dart';
 import 'package:timely/modules/tab_3/views/tab_3_input_page.dart';
@@ -50,23 +51,15 @@ class LaunchScreen extends ConsumerWidget {
                             child: Center(
                               child: Consumer(
                                 builder: (context, ref, child) {
-                                  var remTime =
-                                      ref.watch(remainingTimeTickerProvider);
+                                  final pointsProvider =
+                                      ref.watch(tab1ModelProvider);
 
-                                  return remTime.when(
-                                    data: (diff) {
-                                      return Text(
-                                        diff,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium,
-                                      );
+                                  return pointsProvider.when(
+                                    data: (model) {
+                                      return Text(model.totalPoints.toString());
                                     },
-                                    error: (_, __) => const Text("ERROR"),
-                                    loading: () =>
-                                        const CircularProgressIndicator(
-                                      color: Colors.black,
-                                    ),
+                                    error: (__, _) => const Text(""),
+                                    loading: () => const Text("LOADING"),
                                   );
                                 },
                               ),
@@ -82,7 +75,7 @@ class LaunchScreen extends ConsumerWidget {
                             color: LaunchScreenColors.bgAlert,
                             child: Center(
                               child: Text(
-                                "Alert",
+                                "Level",
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ),
@@ -102,10 +95,7 @@ class LaunchScreen extends ConsumerWidget {
                     ),
                     Expanded(
                       flex: 2,
-                      child: Container(
-                        color: LaunchScreenColors.bgFMS,
-                        child: const FMSPage(),
-                      ),
+                      child: Tab1View(),
                     ),
                     const Divider(
                       height: 20,

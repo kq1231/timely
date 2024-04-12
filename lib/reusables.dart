@@ -48,22 +48,6 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
       File file = File('${docDir.path}/tab_${tabNumber}_pending.json');
 
       switch (tabNumber) {
-        case 1:
-          ref.read(tab1RepositoryProvider.notifier).writeFMSModel(
-                FMSModel(
-                  date: DateTime.now(),
-                  fScore: Duration.zero,
-                  mScore: Duration.zero,
-                  sScore: Duration.zero,
-                  fStatus: 0,
-                  mStatus: 0,
-                  sStatus: 0,
-                  text_1: "",
-                  nextUpdateTime: TimeOfDay.now(),
-                ),
-              );
-          break;
-
         case 2 || 6 || 7:
           ref.read(schedulingRepositoryServiceProvider.notifier).writeModel(
                 SchedulingModel(
@@ -210,7 +194,7 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
       if ([2, 6, 7].contains(tabNumber)) {
         File current =
             File('${docDir.path}/tab_${tabNumber}_current_activities.json');
-        await await current.create();
+        await current.create();
         if ((await current.readAsString()).isEmpty) {
           await current.writeAsString("[]");
         }
@@ -227,8 +211,8 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
     File nonSchedulued = File('${docDir.path}/tab_3_non_scheduled.json');
 
     // Create them
-    await await scheduled.create();
-    await await nonSchedulued.create();
+    await scheduled.create();
+    await nonSchedulued.create();
 
     if ((await scheduled.readAsString()).isEmpty) {
       await scheduled.writeAsString("{}");
