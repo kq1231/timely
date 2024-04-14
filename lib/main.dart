@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:timely/app_theme.dart';
-import 'package:timely/modules/home/repositories/tasks_today_repo.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
 import 'package:timely/common/splash.dart';
 import 'package:timely/modules/tab_1_new/models/tab_1_model.dart';
@@ -51,16 +50,16 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         future: Future.wait([
           Future.delayed(Duration.zero, () async {
             await ref.read(dbFilesProvider.future);
-            ref
+            await ref
                 .read(tab1RepositoryProviderNew.notifier)
                 .writeTab1Model(Tab1Model(
                   totalPoints: 3,
                   subtractions: 0,
                   level: 1,
                 ));
-            await ref
-                .read(tab1RepositoryProviderNew.notifier)
-                .incrementPointsByTimeCheck();
+            // await ref
+            //     .read(tab1RepositoryProviderNew.notifier)
+            //     .incrementPointsByTimeCheck();
           }),
         ]),
         builder: (context, snapshot) {

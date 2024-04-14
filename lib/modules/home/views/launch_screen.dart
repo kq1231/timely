@@ -111,73 +111,74 @@ class LaunchScreen extends ConsumerWidget {
                     ),
                     Expanded(
                       flex: 4,
-                      child: TasksTodayTemplate(
-                        data: data,
-                        onDismissed: (dir, model, tabNumber) async {
-                          if (model is Tab3Model) {
-                            if (dir == DismissDirection.startToEnd) {
-                              await ref
-                                  .read(tab3OutputProvider.notifier)
-                                  .deleteModel(model);
-                            } else {
-                              await ref
-                                  .read(tab3OutputProvider.notifier)
-                                  .markModelAsComplete(model);
-                            }
-                          } else if (model is SchedulingModel) {
-                            if (tabNumber == 2) {
-                              if (dir == DismissDirection.startToEnd) {
-                                ref
-                                    .read(tab2OutputProvider.notifier)
-                                    .deleteModel(model);
-                              }
-                            } else if (tabNumber == 6 || tabNumber == 7) {
-                              ref
-                                  .read([
-                                    tab6OutputProvider.notifier,
-                                    tab7OutputProvider.notifier
-                                  ][7 - tabNumber])
-                                  .deleteModel(model);
-                            }
-                          }
-                        },
-                        onTap: (model, tabNumber) {
-                          if (model is Tab3Model) {
-                            ref
-                                .read(tab3InputProvider.notifier)
-                                .setModel(model);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Scaffold(
-                                    appBar: AppBar(),
-                                    body: const Tab3InputPage(),
-                                  );
-                                },
-                              ),
-                            );
-                          } else if (model is SchedulingModel) {
-                            ref
-                                .read(tab2InputProvider.notifier)
-                                .setModel(model);
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Scaffold(
-                                    body: tabNumber == 2
-                                        ? const Tab2InputPage()
-                                        : tabNumber == 6
-                                            ? const Tab6InputPage()
-                                            : const Tab7InputPage(),
-                                    appBar: AppBar(),
-                                  );
-                                },
-                              ),
-                            );
-                          }
-                        },
-                      ),
+                      child: Container(),
+                      // child: TasksTodayTemplate(
+                      //   data: data,
+                      //   onDismissed: (dir, model, tabNumber) async {
+                      //     if (model is Tab3Model) {
+                      //       if (dir == DismissDirection.startToEnd) {
+                      //         await ref
+                      //             .read(tab3OutputProvider.notifier)
+                      //             .deleteModel(model);
+                      //       } else {
+                      //         await ref
+                      //             .read(tab3OutputProvider.notifier)
+                      //             .markModelAsComplete(model);
+                      //       }
+                      //     } else if (model is SchedulingModel) {
+                      //       if (tabNumber == 2) {
+                      //         if (dir == DismissDirection.startToEnd) {
+                      //           ref
+                      //               .read(tab2OutputProvider.notifier)
+                      //               .deleteModel(model);
+                      //         }
+                      //       } else if (tabNumber == 6 || tabNumber == 7) {
+                      //         ref
+                      //             .read([
+                      //               tab6OutputProvider.notifier,
+                      //               tab7OutputProvider.notifier
+                      //             ][7 - tabNumber])
+                      //             .deleteModel(model);
+                      //       }
+                      //     }
+                      //   },
+                      //   onTap: (model, tabNumber) {
+                      //     if (model is Tab3Model) {
+                      //       ref
+                      //           .read(tab3InputProvider.notifier)
+                      //           .setModel(model);
+                      //       Navigator.push(
+                      //         context,
+                      //         MaterialPageRoute(
+                      //           builder: (context) {
+                      //             return Scaffold(
+                      //               appBar: AppBar(),
+                      //               body: const Tab3InputPage(),
+                      //             );
+                      //           },
+                      //         ),
+                      //       );
+                      //     } else if (model is SchedulingModel) {
+                      //       ref
+                      //           .read(tab2InputProvider.notifier)
+                      //           .setModel(model);
+                      //       Navigator.of(context).push(
+                      //         MaterialPageRoute(
+                      //           builder: (context) {
+                      //             return Scaffold(
+                      //               body: tabNumber == 2
+                      //                   ? const Tab2InputPage()
+                      //                   : tabNumber == 6
+                      //                       ? const Tab6InputPage()
+                      //                       : const Tab7InputPage(),
+                      //               appBar: AppBar(),
+                      //             );
+                      //           },
+                      //         ),
+                      //       );
+                      //     }
+                      //   },
+                      // ),
                     ),
                   ],
                 );
