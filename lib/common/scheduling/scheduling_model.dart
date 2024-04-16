@@ -179,7 +179,6 @@ class SchedulingModel {
                   (((today.difference(start).inDays) / every).floor() + 1) *
                       every *
                       i);
-          print("NEXT DATE $nextDate");
           if (nextDate.isAfter(today)) {
             found = true;
           }
@@ -209,7 +208,6 @@ class SchedulingModel {
                             7 +
                         (weekdayIndex - start.weekday)) +
                     1);
-            print(" NEXT DATE $nextDate");
             if (nextDate.isAfter(today)) {
               found = true;
               break;

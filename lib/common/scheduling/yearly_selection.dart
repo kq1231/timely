@@ -35,7 +35,6 @@ class YearlySelectionOrganism extends StatelessWidget {
               .cast<int>(),
           texts: months,
           onTapTile: (index) {
-            print(index);
             model.repetitions["Months"].contains(index + 1)
                 ? model.repetitions["Months"].remove(index + 1)
                 : model.repetitions["Months"].add(index + 1);

@@ -227,8 +227,8 @@ final dbFilesProvider = FutureProvider<Map<int, List<File>>>(
     File nonSchedulued = File('${docDir.path}/tab_3_non_scheduled.json');
 
     // Create them
-    await await scheduled.create();
-    await await nonSchedulued.create();
+    await scheduled.create();
+    await nonSchedulued.create();
 
     if ((await scheduled.readAsString()).isEmpty) {
       await scheduled.writeAsString("{}");

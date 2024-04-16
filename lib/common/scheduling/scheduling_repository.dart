@@ -60,7 +60,6 @@ class SchedulingRepostioryNotifier<T>
     List<SchedulingModel> filteredModels = [];
     for (final SchedulingModel model in models) {
       DateTime nextDate = model.getNextOccurenceDateTime();
-      print(nextDate);
       if (DateTime(nextDate.year, nextDate.month, nextDate.day) ==
           DateTime(
               DateTime.now().year, DateTime.now().month, DateTime.now().day)) {
