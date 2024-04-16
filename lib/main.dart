@@ -7,7 +7,8 @@ import 'package:timely/app_theme.dart';
 import 'package:timely/modules/home/repositories/tasks_today_repo.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
 import 'package:timely/common/splash.dart';
-import 'package:timely/modules/tab_1/repositories/repo.dart';
+import 'package:timely/modules/tab_1_new/incrementor.dart';
+import 'package:timely/modules/tab_1_new/repository.dart';
 import 'package:timely/reusables.dart';
 
 void main() {
@@ -48,9 +49,19 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: Future.wait([
-          ref.read(tab1RepositoryProvider.notifier).createDefaultEntry(),
           Future.delayed(Duration.zero, () async {
+            // Initialize the files provider
             await ref.read(dbFilesProvider.future);
+
+            // First, generate [Progress] model for today if it does not exist
+            await ref
+                .read(progressRepositoryProvider.notifier)
+                .generateTodaysProgressData();
+
+            // Once generated, start the incrementor timer
+            ref.read(incrementorProvider.future);
+
+            // Generate all tasks due today
             await ref
                 .read(tasksTodayRepositoryProvider.notifier)
                 .generateTodaysTasks();

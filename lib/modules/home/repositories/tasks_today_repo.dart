@@ -34,7 +34,6 @@ class TasksTodayRepositoryNotifier extends Notifier<void> {
     List<TaskToday> tasksToday = [];
 
     for (Map modelMap in modelMaps) {
-      print(modelMap);
       tasksToday.add(TaskToday.fromJson(modelMap));
     }
 

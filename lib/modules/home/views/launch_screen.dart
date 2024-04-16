@@ -7,7 +7,7 @@ import 'package:timely/modules/home/views/tasks_today_template.dart';
 import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/modules/home/providers/external_models_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
-import 'package:timely/modules/tab_1/views/fms_page.dart';
+import 'package:timely/modules/tab_1_new/view.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2/pages/tab_2_input_page.dart';
 import 'package:timely/modules/tab_3/views/tab_3_input_page.dart';
@@ -104,7 +104,7 @@ class LaunchScreen extends ConsumerWidget {
                       flex: 2,
                       child: Container(
                         color: LaunchScreenColors.bgFMS,
-                        child: const FMSPage(),
+                        child: ProgressView(),
                       ),
                     ),
                     const Divider(
