@@ -4,9 +4,9 @@ import 'package:timely/app_theme.dart';
 import 'package:timely/common/scheduling/input_controller.dart';
 import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/modules/home/views/tasks_today_template.dart';
-import 'package:timely/modules/home/controllers/remaining_time_ticker.dart';
 import 'package:timely/modules/home/providers/external_models_provider.dart';
 import 'package:timely/modules/home/views/tab_buttons.dart';
+import 'package:timely/modules/tab_1_new/model_provider.dart';
 import 'package:timely/modules/tab_1_new/view.dart';
 import 'package:timely/modules/tab_2/controllers/output_controller.dart';
 import 'package:timely/modules/tab_2/pages/tab_2_input_page.dart';
@@ -51,12 +51,12 @@ class LaunchScreen extends ConsumerWidget {
                               child: Consumer(
                                 builder: (context, ref, child) {
                                   var remTime =
-                                      ref.watch(remainingTimeTickerProvider);
+                                      ref.watch(progressModelController);
 
                                   return remTime.when(
-                                    data: (diff) {
+                                    data: (model) {
                                       return Text(
-                                        diff,
+                                        model.points.toString(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium,
@@ -81,9 +81,27 @@ class LaunchScreen extends ConsumerWidget {
                           child: Container(
                             color: LaunchScreenColors.bgAlert,
                             child: Center(
-                              child: Text(
-                                "Alert",
-                                style: Theme.of(context).textTheme.bodyMedium,
+                              child: Consumer(
+                                builder: (context, ref, child) {
+                                  var remTime =
+                                      ref.watch(progressModelController);
+
+                                  return remTime.when(
+                                    data: (model) {
+                                      return Text(
+                                        model.level.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                      );
+                                    },
+                                    error: (_, __) => const Text("ERROR"),
+                                    loading: () =>
+                                        const CircularProgressIndicator(
+                                      color: Colors.black,
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ),
@@ -100,12 +118,16 @@ class LaunchScreen extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        color: LaunchScreenColors.bgFMS,
-                        child: ProgressView(),
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            color: LaunchScreenColors.bgFMS,
+                            child: ProgressView(),
+                          ),
+                        ),
+                      ],
                     ),
                     const Divider(
                       height: 20,

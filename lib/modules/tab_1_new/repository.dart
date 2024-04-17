@@ -68,15 +68,20 @@ class ProgressRepositoryNotifier extends Notifier<void> {
 
     bool incremented = false;
 
+    print(content[dateToday]);
+
     // Check whether the current time is within the range 6am-10pm
     if (now.isAfter(now.copyWith(hour: 6, minute: 0, second: 0)) &&
-        now.isBefore(now.copyWith(hour: 10, minute: 0, second: 0))) {
+        now.isBefore(now.copyWith(hour: 22, minute: 0, second: 0))) {
       // Check whether <hours> contains the current hour
       if (model.hours.contains(now.hour)) {
         // Skip
       }
       // Else, if it does not contain the current hour
       else {
+        // Add the hour to the database
+        model = model.copyWith(hours: [...model.hours, now.hour]);
+
         // If the time is 6 am
         if (now.hour == 6) {
           model = model.copyWith(points: 2);
@@ -86,18 +91,20 @@ class ProgressRepositoryNotifier extends Notifier<void> {
           // If the letter is in paused or stopped
           if (model.paused.keys.contains(letter) ||
               model.stopped.contains(letter)) {
+            // If the letter is stopped
+            if (model.stopped.contains(letter)) {
+              // Do nothing.
+              continue;
+            }
+
             // If the letter is paused
-            if (model.paused.keys.contains(letter)) {
+            else if (model.paused.keys.contains(letter)) {
               // Check whether the current time minus the pause time is more than an hour
               if (now.difference(model.paused[letter]!).inMinutes > 60) {
                 // If so, increment the score for this letter
                 model = model.copyWith(points: model.points + 1);
                 incremented = true;
               }
-            }
-            // If the letter is stopped
-            else {
-              // Do nothing.
             }
           }
           // If the letter is neither paused nor stopped
@@ -119,6 +126,10 @@ class ProgressRepositoryNotifier extends Notifier<void> {
     else {
       // Do nothing.
     }
+
+    content[dateToday] = model.toJson();
+
+    await file.writeAsString(jsonEncode(content));
 
     return incremented;
   }

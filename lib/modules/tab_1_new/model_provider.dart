@@ -11,15 +11,35 @@ class ProgressModelNotifier extends AsyncNotifier<Progress> {
   }
 
   // Methods
-  void pause(String letter) {
-    Map<String, DateTime> paused = state.requireValue.paused;
-    paused.addAll({letter: DateTime.now()});
-    ref
-        .read(progressRepositoryProvider.notifier)
-        .updateProgress(state.requireValue.copyWith(paused: paused));
+  Future<void> pause(String letter, String? action) async {
+    if (action != null) {
+      if (action == "Pause") {
+        Map<String, DateTime> paused = state.requireValue.paused;
+        paused.addAll({letter: DateTime.now()});
+        await ref.read(progressRepositoryProvider.notifier).updateProgress(
+              state.requireValue.copyWith(paused: paused),
+            );
+      }
+      // Action is "Stop"
+      else {
+        List<String> stopped = state.requireValue.stopped;
+        stopped.add(letter);
+        await ref.read(progressRepositoryProvider.notifier).updateProgress(
+              state.requireValue.copyWith(stopped: stopped),
+            );
+      }
+      ref.invalidateSelf();
+    }
+  }
+
+  Future<void> setLevel(int level) async {
+    await ref.read(progressRepositoryProvider.notifier).updateProgress(
+          state.requireValue.copyWith(level: level),
+        );
+    ref.invalidateSelf();
   }
 }
 
-final progressModelProvider =
+final progressModelController =
     AsyncNotifierProvider<ProgressModelNotifier, Progress>(
         ProgressModelNotifier.new);

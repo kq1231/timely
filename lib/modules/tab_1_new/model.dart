@@ -29,20 +29,34 @@ class Progress {
     );
   }
 
-  toJson() => {
-        'hours': hours,
-        'points': points,
-        'level': level,
-        'paused': paused,
-        'stopped': stopped,
-      };
+  toJson() {
+    Map<String, String> _paused = {};
+
+    for (String letter in paused.keys) {
+      _paused.addAll({letter: paused[letter].toString().substring(0, 10)});
+    }
+
+    return {
+      'hours': hours,
+      'points': points,
+      'level': level,
+      'paused': _paused,
+      'stopped': stopped,
+    };
+  }
 
   Progress.fromJson(json) {
+    Map<String, DateTime> _paused = {};
+
+    for (String letter in json['paused'].keys) {
+      _paused.addAll({letter: DateTime.parse(json['paused'][letter])});
+    }
+
     hours = json['hours'].cast<int>();
     points = json['points'];
     level = json['level'];
-    paused = json['paused'] as Map<String, DateTime>;
-    stopped = json['stopped'].cast<int>();
+    paused = _paused;
+    stopped = json['stopped'].cast<String>();
   }
 
   @override

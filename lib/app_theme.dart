@@ -42,7 +42,7 @@ class Tab1Colors {
 class LaunchScreenColors {
   static const Color bgTimer = Colors.green;
   static const Color bgAlert = Colors.green;
-  static Color bgInternal = Colors.indigo[900]!;
+  static Color bgInternal = Colors.indigo[700]!;
   static Color bgFMS = Colors.indigo[900]!;
   static const List<Color> bgFMSRadioButtons = [
     Colors.green,

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-class ProgressView extends StatefulWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timely/modules/tab_1_new/model_provider.dart';
+
+class ProgressView extends ConsumerStatefulWidget {
+  const ProgressView({super.key});
+
   @override
-  _ProgressViewState createState() => _ProgressViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProgressViewState();
 }
 
-class _ProgressViewState extends State<ProgressView> {
+class _ProgressViewState extends ConsumerState<ProgressView> {
   Duration _remainingTime = Duration.zero;
   Duration _elapsedTime = Duration.zero;
   Timer? _timer;
@@ -53,14 +58,121 @@ class _ProgressViewState extends State<ProgressView> {
     }
   }
 
+  String? action;
+  String _letter = '';
+  int _level = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _buildTab1View(label: 'Remaining', time: _remainingTime),
-        _buildTab1View(label: 'Elapsed', time: _elapsedTime),
-      ],
+    return InkWell(
+      onTap: () {
+        action = null;
+        _letter = '';
+        _level = 0;
+        showDialog(
+          context: context,
+          builder: (context) {
+            return StatefulBuilder(
+              builder: (context, setDialogState) {
+                return AlertDialog(
+                    content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ChoiceChip(
+                          label: const Text("Pause"),
+                          selected: action == "Pause",
+                          onSelected: (selected) {
+                            setDialogState(() {});
+
+                            action = "Pause";
+                          },
+                        ),
+                        ChoiceChip(
+                          label: const Text("Stop"),
+                          selected: action == "Stop",
+                          onSelected: (selected) {
+                            setDialogState(() {});
+                            action = "Stop";
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for (String letter in ["m", "f", "s"])
+                          ChoiceChip(
+                            label: Text(letter),
+                            selected: letter == _letter,
+                            onSelected: (bool selected) {
+                              setDialogState(() {
+                                _letter = letter;
+                              });
+                            },
+                          ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Wrap(
+                      runSpacing: 10,
+                      children: [
+                        const Text("Level"),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        for (int i in List.generate(5, (index) => index + 1))
+                          ChoiceChip(
+                            label: Text(i.toString()),
+                            selected: i == _level,
+                            onSelected: (bool selected) {
+                              setDialogState(() {
+                                _level = i;
+                              });
+                            },
+                          ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    IconButton.filledTonal(
+                      onPressed: () {
+                        ref
+                            .read(progressModelController.notifier)
+                            .pause(_letter, action);
+                        ref
+                            .read(progressModelController.notifier)
+                            .setLevel(_level);
+
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.done),
+                    ),
+                  ],
+                ));
+              },
+            );
+          },
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildTab1View(label: 'Remaining', time: _remainingTime),
+            const SizedBox(
+              height: 20,
+            ),
+            _buildTab1View(label: 'Elapsed', time: _elapsedTime),
+          ],
+        ),
+      ),
     );
   }
 
@@ -69,12 +181,15 @@ class _ProgressViewState extends State<ProgressView> {
     final minutes = time.inMinutes % 60;
     final seconds = time.inSeconds % 60;
 
-    return Column(
+    return Row(
       children: [
         Text(label),
+        Expanded(
+          child: Container(),
+        ),
         Text(
             '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}',
-            style: TextStyle(fontSize: 18)),
+            style: const TextStyle(fontSize: 18, letterSpacing: 6)),
       ],
     );
   }

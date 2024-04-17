@@ -10,7 +10,7 @@ final incrementorProvider = FutureProvider<void>((ref) async {
         .read(progressRepositoryProvider.notifier)
         .incrementPointsByCheckingTime();
     if (incremented) {
-      ref.invalidate(progressModelProvider);
+      ref.invalidate(progressModelController);
     }
   });
 });

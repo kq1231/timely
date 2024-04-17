@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:timely/common/scheduling/scheduling_model.dart';
 import 'package:timely/common/scheduling/scheduling_repository.dart';
-import 'package:timely/modules/tab_1/models/fms_model.dart';
-import 'package:timely/modules/tab_1/repositories/repo.dart';
 import 'package:timely/modules/tab_10/models/tab_10_model.dart';
 import 'package:timely/modules/tab_10/repositories/tab_10_repositories.dart';
 import 'package:timely/modules/tab_11/models/tab_11_model.dart';
