@@ -108,16 +108,6 @@ class LaunchScreen extends ConsumerWidget {
                         ),
                       ]),
                     ),
-                    Container(
-                      height: 30,
-                      color: LaunchScreenColors.bgInternal,
-                      child: Center(
-                        child: Text(
-                          LaunchScreenHeadings.internal,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ),
-                    ),
                     Row(
                       children: [
                         Expanded(
@@ -132,14 +122,6 @@ class LaunchScreen extends ConsumerWidget {
                     const Divider(
                       height: 20,
                       color: Colors.transparent,
-                    ),
-                    Container(
-                      height: 31,
-                      color: LaunchScreenColors.bgExternalHeader,
-                      child: Center(
-                        child: Text(LaunchScreenHeadings.external,
-                            style: Theme.of(context).textTheme.titleMedium),
-                      ),
                     ),
                     Expanded(
                       flex: 4,

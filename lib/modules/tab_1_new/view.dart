@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -58,17 +59,25 @@ class _ProgressViewState extends ConsumerState<ProgressView> {
     }
   }
 
-  String? action;
-  String _letter = '';
-  int _level = 0;
+  Map actions = {
+    "m": null,
+    "f": null,
+    "s": null,
+  };
+  int level = 0;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        action = null;
-        _letter = '';
-        _level = 0;
+        // Reset the state
+        actions = {
+          "m": null,
+          "f": null,
+          "s": null,
+        };
+        level = 0;
+
         showDialog(
           context: context,
           builder: (context) {
@@ -79,62 +88,117 @@ class _ProgressViewState extends ConsumerState<ProgressView> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        const Text("M"),
+                        Expanded(
+                          child: Container(),
+                        ),
                         ChoiceChip(
                           label: const Text("Pause"),
-                          selected: action == "Pause",
+                          selected: actions["m"] == 0,
                           onSelected: (selected) {
+                            actions["m"] = 0;
                             setDialogState(() {});
-
-                            action = "Pause";
                           },
+                        ),
+                        const SizedBox(
+                          width: 5,
                         ),
                         ChoiceChip(
                           label: const Text("Stop"),
-                          selected: action == "Stop",
+                          selected: actions["m"] == 1,
                           onSelected: (selected) {
+                            actions["m"] = 1;
                             setDialogState(() {});
-                            action = "Stop";
                           },
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        for (String letter in ["m", "f", "s"])
-                          ChoiceChip(
-                            label: Text(letter),
-                            selected: letter == _letter,
-                            onSelected: (bool selected) {
-                              setDialogState(() {
-                                _letter = letter;
-                              });
-                            },
-                          ),
+                        )
                       ],
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    Wrap(
-                      runSpacing: 10,
+                    Row(
+                      children: [
+                        const Text("F"),
+                        Expanded(
+                          child: Container(),
+                        ),
+                        ChoiceChip(
+                          label: const Text("Pause"),
+                          selected: actions["f"] == 0,
+                          onSelected: (selected) {
+                            actions["f"] = 0;
+                            setDialogState(() {});
+                          },
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        ChoiceChip(
+                          label: const Text("Stop"),
+                          selected: actions["f"] == 1,
+                          onSelected: (selected) {
+                            actions["f"] = 1;
+                            setDialogState(() {});
+                          },
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        const Text("S"),
+                        Expanded(
+                          child: Container(),
+                        ),
+                        ChoiceChip(
+                          label: const Text("Pause"),
+                          selected: actions["s"] == 0,
+                          onSelected: (selected) {
+                            actions["s"] = 0;
+                            setDialogState(() {});
+                          },
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        ChoiceChip(
+                          label: const Text("Stop"),
+                          selected: actions["s"] == 1,
+                          onSelected: (selected) {
+                            actions["s"] = 1;
+                            setDialogState(() {});
+                          },
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
                       children: [
                         const Text("Level"),
                         const SizedBox(
                           width: 10,
                         ),
-                        for (int i in List.generate(5, (index) => index + 1))
-                          ChoiceChip(
-                            label: Text(i.toString()),
-                            selected: i == _level,
-                            onSelected: (bool selected) {
-                              setDialogState(() {
-                                _level = i;
-                              });
-                            },
-                          ),
+                        Expanded(
+                          child: Container(),
+                        ),
+                        SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: CupertinoPicker(
+                              itemExtent: 40,
+                              onSelectedItemChanged: (index) {
+                                level = index + 1;
+                              },
+                              children: List.generate(
+                                  5,
+                                  (index) => Center(
+                                      child: Text((++index).toString())))),
+                        )
                       ],
                     ),
                     const SizedBox(
@@ -142,12 +206,14 @@ class _ProgressViewState extends ConsumerState<ProgressView> {
                     ),
                     IconButton.filledTonal(
                       onPressed: () {
+                        for (String letter in actions.keys) {
+                          ref
+                              .read(progressModelController.notifier)
+                              .pause(letter, actions[letter]);
+                        }
                         ref
                             .read(progressModelController.notifier)
-                            .pause(_letter, action);
-                        ref
-                            .read(progressModelController.notifier)
-                            .setLevel(_level);
+                            .setLevel(level);
 
                         Navigator.of(context).pop();
                       },
@@ -165,6 +231,39 @@ class _ProgressViewState extends ConsumerState<ProgressView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Consumer(
+              builder: (context, ref, child) {
+                final provider = ref.watch(progressModelController);
+
+                return provider.when(
+                    data: (model) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          for (String letter in "m.f.s".split("."))
+                            CircleAvatar(
+                              backgroundColor: model.stopped.contains(letter)
+                                  ? Colors.red
+                                  : model.paused.containsKey(letter)
+                                      ? Colors.yellow[800]
+                                      : Colors.green,
+                              child: Text(letter.toUpperCase()),
+                            )
+                        ],
+                      );
+                    },
+                    error: (_, __) => const Text("Error"),
+                    loading: () {
+                      return const Text("Loading...");
+                    });
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             _buildTab1View(
                 label: 'Remaining',
                 time: Duration(seconds: _remainingTime.inSeconds + 1)),

@@ -11,9 +11,9 @@ class ProgressModelNotifier extends AsyncNotifier<Progress> {
   }
 
   // Methods
-  Future<void> pause(String letter, String? action) async {
+  Future<void> pause(String letter, int? action) async {
     if (action != null) {
-      if (action == "Pause") {
+      if (action == 0) {
         Map<String, DateTime> paused = state.requireValue.paused;
         paused.addAll({letter: DateTime.now()});
         await ref.read(progressRepositoryProvider.notifier).updateProgress(
