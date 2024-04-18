@@ -187,7 +187,7 @@ Icon tabElevenIcon = const Icon(Icons.pentagon);
 Icon tabTwelveIcon = const Icon(Icons.pentagon);
 
 // Tab Colors
-Color bgTabButtonColor = Colors.yellowAccent;
+Color bgTabButtonColor = Colors.indigoAccent;
 
 // LaunchScreen Section Colors
 Color launchSectionOneTimerColor = Colors.green;

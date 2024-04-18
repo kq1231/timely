@@ -165,7 +165,9 @@ class _ProgressViewState extends ConsumerState<ProgressView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildTab1View(label: 'Remaining', time: _remainingTime),
+            _buildTab1View(
+                label: 'Remaining',
+                time: Duration(seconds: _remainingTime.inSeconds + 1)),
             const SizedBox(
               height: 20,
             ),
