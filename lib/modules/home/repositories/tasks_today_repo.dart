@@ -50,7 +50,6 @@ class TasksTodayRepositoryNotifier extends Notifier<void> {
       ),
     );
 
-    print(tasksToday.map((e) => e.toJson()));
     content[dateToday] = tasksToday.map((e) => e.toJson()).toList();
 
     file.writeAsString(jsonEncode(content));

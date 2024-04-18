@@ -124,7 +124,7 @@ class LaunchScreen extends ConsumerWidget {
                           flex: 2,
                           child: Container(
                             color: LaunchScreenColors.bgFMS,
-                            child: ProgressView(),
+                            child: const ProgressView(),
                           ),
                         ),
                       ],

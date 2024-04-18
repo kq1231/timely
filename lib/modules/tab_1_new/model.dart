@@ -30,6 +30,7 @@ class Progress {
   }
 
   toJson() {
+    // ignore: no_leading_underscores_for_local_identifiers
     Map<String, String> _paused = {};
 
     for (String letter in paused.keys) {
@@ -46,6 +47,7 @@ class Progress {
   }
 
   Progress.fromJson(json) {
+    // ignore: no_leading_underscores_for_local_identifiers
     Map<String, DateTime> _paused = {};
 
     for (String letter in json['paused'].keys) {
