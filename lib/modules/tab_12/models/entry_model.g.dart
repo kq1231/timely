@@ -12,7 +12,8 @@ _$Tab12EntryModelImpl _$$Tab12EntryModelImplFromJson(
       uuid: json['ID'] as String?,
       activity: json['activity'] as String,
       objective: json['objective'] as String,
-      tab2Model: SchedulingModel.fromJson(json),
+      tab2Model:
+          SchedulingModel.fromJson(json['tab2Model'] as Map<String, dynamic>),
       importance: json['importance'] as int,
     );
 
@@ -22,6 +23,6 @@ Map<String, dynamic> _$$Tab12EntryModelImplToJson(
       'ID': instance.uuid,
       'activity': instance.activity,
       'objective': instance.objective,
-      ...instance.tab2Model.toJson(),
+      'tab2Model': instance.tab2Model,
       'importance': instance.importance,
     };
