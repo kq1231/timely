@@ -34,7 +34,7 @@ class Progress {
     Map<String, String> _paused = {};
 
     for (String letter in paused.keys) {
-      _paused.addAll({letter: paused[letter].toString().substring(0, 10)});
+      _paused.addAll({letter: paused[letter]!.toIso8601String()});
     }
 
     return {

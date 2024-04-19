@@ -87,96 +87,52 @@ class _ProgressViewState extends ConsumerState<ProgressView> {
                     content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      children: [
-                        const Text("M"),
-                        Expanded(
-                          child: Container(),
-                        ),
-                        ChoiceChip(
-                          label: const Text("Pause"),
-                          selected: actions["m"] == 0,
-                          onSelected: (selected) {
-                            actions["m"] = 0;
-                            setDialogState(() {});
-                          },
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        ChoiceChip(
-                          label: const Text("Stop"),
-                          selected: actions["m"] == 1,
-                          onSelected: (selected) {
-                            actions["m"] = 1;
-                            setDialogState(() {});
-                          },
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        const Text("F"),
-                        Expanded(
-                          child: Container(),
-                        ),
-                        ChoiceChip(
-                          label: const Text("Pause"),
-                          selected: actions["f"] == 0,
-                          onSelected: (selected) {
-                            actions["f"] = 0;
-                            setDialogState(() {});
-                          },
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        ChoiceChip(
-                          label: const Text("Stop"),
-                          selected: actions["f"] == 1,
-                          onSelected: (selected) {
-                            actions["f"] = 1;
-                            setDialogState(() {});
-                          },
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        const Text("S"),
-                        Expanded(
-                          child: Container(),
-                        ),
-                        ChoiceChip(
-                          label: const Text("Pause"),
-                          selected: actions["s"] == 0,
-                          onSelected: (selected) {
-                            actions["s"] = 0;
-                            setDialogState(() {});
-                          },
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        ChoiceChip(
-                          label: const Text("Stop"),
-                          selected: actions["s"] == 1,
-                          onSelected: (selected) {
-                            actions["s"] = 1;
-                            setDialogState(() {});
-                          },
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    for (String letter in 'm.f.s'.split(".")) ...[
+                      Row(
+                        children: [
+                          ...[
+                            Text(letter.toUpperCase()),
+                            Expanded(
+                              child: Container(),
+                            ),
+                            ChoiceChip(
+                              checkmarkColor: Colors.black,
+                              color:
+                                  const MaterialStatePropertyAll(Colors.yellow),
+                              label: const SizedBox(
+                                  width: 40,
+                                  child: Center(
+                                      child: Text(
+                                    "Pause",
+                                    style: TextStyle(color: Colors.black),
+                                  ))),
+                              selected: actions[letter] == 0,
+                              onSelected: (selected) {
+                                actions[letter] = 0;
+                                setDialogState(() {});
+                              },
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            ChoiceChip(
+                              color: const MaterialStatePropertyAll(Colors.red),
+                              label: const SizedBox(
+                                  width: 40,
+                                  child: Center(child: Text("Stop"))),
+                              selected: actions[letter] == 1,
+                              onSelected: (selected) {
+                                actions[letter] = 1;
+                                setDialogState(() {});
+                              },
+                            ),
+                          ]
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
                     Row(
                       children: [
                         const Text("Level"),

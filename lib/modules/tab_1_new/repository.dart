@@ -71,6 +71,14 @@ class ProgressRepositoryNotifier extends Notifier<void> {
     // Check whether the current time is within the range 6am-10pm
     if (now.isAfter(now.copyWith(hour: 6, minute: 0, second: 0)) &&
         now.isBefore(now.copyWith(hour: 22, minute: 0, second: 0))) {
+      // Remove any letters needing removal from [paused]
+      for (String letter in model.paused.keys) {
+        if (now.difference(model.paused[letter]!).inMinutes > 60) {
+          Map<String, DateTime> _ = Map.from(model.paused);
+          _.remove(letter);
+          model = model.copyWith(points: model.points + 1, paused: _);
+        }
+      }
       // Check whether <hours> contains the current hour
       if (model.hours.contains(now.hour)) {
         // Skip
@@ -88,6 +96,7 @@ class ProgressRepositoryNotifier extends Notifier<void> {
             model = model.copyWith(points: 2);
             incremented = true;
           }
+
           for (String letter in "m,f,s".split(",")) {
             // If the letter is in paused or stopped
             if (model.paused.keys.contains(letter) ||
@@ -103,7 +112,9 @@ class ProgressRepositoryNotifier extends Notifier<void> {
                 // Check whether the current time minus the pause time is more than an hour
                 if (now.difference(model.paused[letter]!).inMinutes > 60) {
                   // If so, increment the score for this letter
-                  model = model.copyWith(points: model.points + 1);
+                  model = model.copyWith(
+                    points: model.points + 1,
+                  );
                   incremented = true;
                 }
               }

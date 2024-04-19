@@ -18,7 +18,6 @@ import 'package:timely/modules/tab_6/controllers/output_controller.dart';
 import 'package:timely/modules/tab_6/pages/tab_6_input_page.dart';
 import 'package:timely/modules/tab_7/controllers/output_controller.dart';
 import 'package:timely/modules/tab_7/pages/tab_7_input_page.dart';
-import 'package:timely/values.dart';
 
 class LaunchScreen extends ConsumerWidget {
   const LaunchScreen({super.key});
